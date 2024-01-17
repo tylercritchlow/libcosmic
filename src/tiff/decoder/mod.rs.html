@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tiff-0.9.0/src/decoder/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="tiff" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tiff-0.9.1/src/decoder/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="tiff" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1174,6 +1174,12 @@
 <a href="#1174" id="1174">1174</a>
 <a href="#1175" id="1175">1175</a>
 <a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{HashMap, HashSet};
 <span class="kw">use </span>std::convert::TryFrom;
 <span class="kw">use </span>std::io::{<span class="self">self</span>, Read, Seek};
@@ -1186,7 +1192,8 @@
 <span class="kw">use </span><span class="self">self</span>::ifd::Directory;
 <span class="kw">use </span><span class="self">self</span>::image::Image;
 <span class="kw">use </span><span class="kw">crate</span>::tags::{
-    CompressionMethod, PhotometricInterpretation, Predictor, SampleFormat, Tag, Type,
+    CompressionMethod, PhotometricInterpretation, PlanarConfiguration, Predictor, SampleFormat,
+    Tag, Type,
 };
 
 <span class="kw">use </span><span class="self">self</span>::stream::{ByteOrder, EndianReader, SmartReader};
@@ -1396,7 +1403,7 @@
 
     <span class="kw">fn </span>as_bytes_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u8] {
         <span class="kw">match </span><span class="self">self </span>{
-            DecodingBuffer::U8(buf) =&gt; <span class="kw-2">&amp;mut *</span>buf,
+            DecodingBuffer::U8(<span class="kw-2">ref mut </span>buf) =&gt; buf,
             DecodingBuffer::I8(buf) =&gt; bytecast::i8_as_ne_mut_bytes(buf),
             DecodingBuffer::U16(buf) =&gt; bytecast::u16_as_ne_mut_bytes(buf),
             DecodingBuffer::I16(buf) =&gt; bytecast::i16_as_ne_mut_bytes(buf),
@@ -1546,8 +1553,8 @@
     <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..output.len() {
         <span class="comment">// TODO: use f32::from_be_bytes() when we can (version 1.40)
         </span>output[i] = f32::from_bits(u32::from_be_bytes([
-            input[input.len() / <span class="number">4 </span>* <span class="number">0 </span>+ i],
-            input[input.len() / <span class="number">4 </span>* <span class="number">1 </span>+ i],
+            input[i],
+            input[input.len() / <span class="number">4 </span>+ i],
             input[input.len() / <span class="number">4 </span>* <span class="number">2 </span>+ i],
             input[input.len() / <span class="number">4 </span>* <span class="number">3 </span>+ i],
         ]));
@@ -1559,8 +1566,8 @@
     <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..output.len() {
         <span class="comment">// TODO: use f64::from_be_bytes() when we can (version 1.40)
         </span>output[i] = f64::from_bits(u64::from_be_bytes([
-            input[input.len() / <span class="number">8 </span>* <span class="number">0 </span>+ i],
-            input[input.len() / <span class="number">8 </span>* <span class="number">1 </span>+ i],
+            input[i],
+            input[input.len() / <span class="number">8 </span>+ i],
             input[input.len() / <span class="number">8 </span>* <span class="number">2 </span>+ i],
             input[input.len() / <span class="number">8 </span>* <span class="number">3 </span>+ i],
             input[input.len() / <span class="number">8 </span>* <span class="number">4 </span>+ i],
@@ -1747,7 +1754,7 @@
                 ifd: <span class="prelude-val">None</span>,
                 width: <span class="number">0</span>,
                 height: <span class="number">0</span>,
-                bits_per_sample: <span class="macro">vec!</span>[<span class="number">1</span>],
+                bits_per_sample: <span class="number">1</span>,
                 samples: <span class="number">1</span>,
                 sample_format: <span class="macro">vec!</span>[SampleFormat::Uint],
                 photometric_interpretation: PhotometricInterpretation::BlackIsZero,
@@ -1755,6 +1762,7 @@
                 jpeg_tables: <span class="prelude-val">None</span>,
                 predictor: Predictor::None,
                 chunk_type: ChunkType::Strip,
+                planar_config: PlanarConfiguration::Chunky,
                 strip_decoder: <span class="prelude-val">None</span>,
                 tile_attributes: <span class="prelude-val">None</span>,
                 chunk_offsets: Vec::new(),
@@ -2192,7 +2200,12 @@
             <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(TiffError::IntSizeError),
         };
 
-        <span class="prelude-val">Ok</span>(height / rows_per_strip)
+        <span class="kw">let </span>strips = <span class="kw">match </span><span class="self">self</span>.image().planar_config {
+            PlanarConfiguration::Chunky =&gt; height / rows_per_strip,
+            PlanarConfiguration::Planar =&gt; height / rows_per_strip * <span class="self">self</span>.image().samples <span class="kw">as </span>u32,
+        };
+
+        <span class="prelude-val">Ok</span>(strips)
     }
 
     <span class="doccomment">/// Number of tiles in image
@@ -2218,6 +2231,7 @@
             output_width,
             byte_order,
             chunk_index,
+            <span class="kw-2">&amp;</span><span class="self">self</span>.limits,
         )<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
@@ -2226,19 +2240,13 @@
     <span class="kw">fn </span>result_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, width: usize, height: usize) -&gt; TiffResult&lt;DecodingResult&gt; {
         <span class="kw">let </span>buffer_size = <span class="kw">match </span>width
             .checked_mul(height)
-            .and_then(|x| x.checked_mul(<span class="self">self</span>.image().bits_per_sample.len()))
+            .and_then(|x| x.checked_mul(<span class="self">self</span>.image().samples_per_pixel()))
         {
             <span class="prelude-val">Some</span>(s) =&gt; s,
             <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(TiffError::LimitsExceeded),
         };
 
-        <span class="kw">let </span>max_sample_bits = <span class="self">self
-            </span>.image()
-            .bits_per_sample
-            .iter()
-            .cloned()
-            .max()
-            .unwrap_or(<span class="number">8</span>);
+        <span class="kw">let </span>max_sample_bits = <span class="self">self</span>.image().bits_per_sample;
         <span class="kw">match </span><span class="self">self
             </span>.image()
             .sample_format
@@ -2270,9 +2278,7 @@
                     TiffUnsupportedError::UnsupportedBitsPerChannel(n),
                 )),
             },
-            format =&gt; {
-                <span class="prelude-val">Err</span>(TiffUnsupportedError::UnsupportedSampleFormat(<span class="macro">vec!</span>[format.clone()]).into())
-            }
+            format =&gt; <span class="prelude-val">Err</span>(TiffUnsupportedError::UnsupportedSampleFormat(<span class="macro">vec!</span>[<span class="kw-2">*</span>format]).into()),
         }
     }
 
@@ -2321,7 +2327,7 @@
             ));
         }
 
-        <span class="kw">let </span>samples = <span class="self">self</span>.image().bits_per_sample.len();
+        <span class="kw">let </span>samples = <span class="self">self</span>.image().samples_per_pixel();
         <span class="kw">if </span>samples == <span class="number">0 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(TiffError::FormatError(
                 TiffFormatError::InconsistentSizesEncountered,
@@ -2331,7 +2337,12 @@
         <span class="kw">let </span>chunks_across = ((width - <span class="number">1</span>) / chunk_dimensions.<span class="number">0 </span>+ <span class="number">1</span>) <span class="kw">as </span>usize;
         <span class="kw">let </span>strip_samples = width <span class="kw">as </span>usize * chunk_dimensions.<span class="number">1 </span><span class="kw">as </span>usize * samples;
 
-        <span class="kw">for </span>chunk <span class="kw">in </span><span class="number">0</span>..<span class="self">self</span>.image().chunk_offsets.len() {
+        <span class="kw">let </span>image_chunks = <span class="self">self</span>.image().chunk_offsets.len() / <span class="self">self</span>.image().strips_per_pixel();
+        <span class="comment">// For multi-band images, only the first band is read.
+        // Possible improvements:
+        // * pass requested band as parameter
+        // * collect bands to a RGB encoding result in case of RGB bands
+        </span><span class="kw">for </span>chunk <span class="kw">in </span><span class="number">0</span>..image_chunks {
             <span class="self">self</span>.goto_offset_u64(<span class="self">self</span>.image().chunk_offsets[chunk])<span class="question-mark">?</span>;
 
             <span class="kw">let </span>x = chunk % chunks_across;
@@ -2344,6 +2355,7 @@
                 width <span class="kw">as </span>usize,
                 byte_order,
                 chunk <span class="kw">as </span>u32,
+                <span class="kw-2">&amp;</span><span class="self">self</span>.limits,
             )<span class="question-mark">?</span>;
         }
 

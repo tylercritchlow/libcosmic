@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.7/./src/codecs/openexr.rs`."><title>openexr.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.8/src/codecs/openexr.rs`."><title>openexr.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -589,7 +589,6 @@
 <a href="#589" id="589">589</a>
 <a href="#590" id="590">590</a>
 <a href="#591" id="591">591</a>
-<a href="#592" id="592">592</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Decoding of OpenEXR (.exr) Images
 //!
 //! OpenEXR is an image format that is widely used, especially in VFX,
@@ -620,7 +619,6 @@
     ColorType, ExtendedColorType, ImageDecoder, ImageEncoder, ImageError, ImageFormat, ImageResult,
     Progress,
 };
-<span class="kw">use </span>std::convert::TryInto;
 <span class="kw">use </span>std::io::{Cursor, Read, Seek, Write};
 
 <span class="doccomment">/// An OpenEXR decoder. Immediately reads the meta data from the file.
@@ -864,14 +862,7 @@
         }
     }
 
-    <span class="comment">// bytes might be unaligned so we cannot cast the whole thing, instead lookup each f32 individually
-    </span><span class="kw">let </span>lookup_f32 = <span class="kw">move </span>|f32_index: usize| {
-        <span class="kw">let </span>unaligned_f32_bytes_slice = <span class="kw-2">&amp;</span>unaligned_bytes[f32_index * <span class="number">4</span>..(f32_index + <span class="number">1</span>) * <span class="number">4</span>];
-        <span class="kw">let </span>f32_bytes_array = unaligned_f32_bytes_slice
-            .try_into()
-            .expect(<span class="string">&quot;indexing error&quot;</span>);
-        f32::from_ne_bytes(f32_bytes_array)
-    };
+    <span class="kw">let </span>bytes_per_pixel = color_type.bytes_per_pixel() <span class="kw">as </span>usize;
 
     <span class="kw">match </span>color_type {
         ColorType::Rgb32F =&gt; {
@@ -879,12 +870,14 @@
                 </span>::from_channels(
                 (width, height),
                 SpecificChannels::rgb(|pixel: Vec2&lt;usize&gt;| {
-                    <span class="kw">let </span>pixel_index = <span class="number">3 </span>* pixel.flat_index_for_size(Vec2(width, height));
-                    (
-                        lookup_f32(pixel_index),
-                        lookup_f32(pixel_index + <span class="number">1</span>),
-                        lookup_f32(pixel_index + <span class="number">2</span>),
-                    )
+                    <span class="kw">let </span>pixel_index = pixel.flat_index_for_size(Vec2(width, height));
+                    <span class="kw">let </span>start_byte = pixel_index * bytes_per_pixel;
+
+                    <span class="kw">let </span>[r, g, b]: [f32; <span class="number">3</span>] = bytemuck::pod_read_unaligned(
+                        <span class="kw-2">&amp;</span>unaligned_bytes[start_byte..start_byte + bytes_per_pixel],
+                    );
+
+                    (r, g, b)
                 }),
             )
             .write()
@@ -898,13 +891,14 @@
                 </span>::from_channels(
                 (width, height),
                 SpecificChannels::rgba(|pixel: Vec2&lt;usize&gt;| {
-                    <span class="kw">let </span>pixel_index = <span class="number">4 </span>* pixel.flat_index_for_size(Vec2(width, height));
-                    (
-                        lookup_f32(pixel_index),
-                        lookup_f32(pixel_index + <span class="number">1</span>),
-                        lookup_f32(pixel_index + <span class="number">2</span>),
-                        lookup_f32(pixel_index + <span class="number">3</span>),
-                    )
+                    <span class="kw">let </span>pixel_index = pixel.flat_index_for_size(Vec2(width, height));
+                    <span class="kw">let </span>start_byte = pixel_index * bytes_per_pixel;
+
+                    <span class="kw">let </span>[r, g, b, a]: [f32; <span class="number">4</span>] = bytemuck::pod_read_unaligned(
+                        <span class="kw-2">&amp;</span>unaligned_bytes[start_byte..start_byte + bytes_per_pixel],
+                    );
+
+                    (r, g, b, a)
                 }),
             )
             .write()
@@ -947,9 +941,8 @@
 {
     <span class="doccomment">/// Writes the complete image.
     ///
-    /// Returns an Error if it has an invalid length.
-    /// Assumes the writer is buffered. In most cases,
-    /// you should wrap your writer in a `BufWriter` for best performance.
+    /// Assumes the writer is buffered. In most cases, you should wrap your writer in a `BufWriter`
+    /// for best performance.
     </span><span class="kw">fn </span>write_image(
         <span class="self">self</span>,
         buf: <span class="kw-2">&amp;</span>[u8],
@@ -957,6 +950,11 @@
         height: u32,
         color_type: ColorType,
     ) -&gt; ImageResult&lt;()&gt; {
+        <span class="macro">assert_eq!</span>(
+            (width <span class="kw">as </span>u64 * height <span class="kw">as </span>u64).saturating_mul(color_type.bytes_per_pixel() <span class="kw">as </span>u64),
+            buf.len() <span class="kw">as </span>u64
+        );
+
         write_buffer(<span class="self">self</span>.<span class="number">0</span>, buf, width, height, color_type)
     }
 }
@@ -1060,7 +1058,7 @@
                 .join(<span class="string">&quot;overexposed gradient - data window equals display window.exr&quot;</span>);
 
             <span class="kw">let </span>hdr: Vec&lt;Rgb&lt;f32&gt;&gt; = <span class="kw">crate</span>::codecs::hdr::HdrDecoder::new(std::io::BufReader::new(
-                std::fs::File::open(<span class="kw-2">&amp;</span>reference_path).unwrap(),
+                std::fs::File::open(reference_path).unwrap(),
             ))
             .unwrap()
             .read_image_hdr()
@@ -1089,7 +1087,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip_rgba() {
-        <span class="kw">let </span><span class="kw-2">mut </span>next_random = <span class="macro">vec!</span>[<span class="number">1.0</span>, <span class="number">0.0</span>, -<span class="number">1.0</span>, -<span class="number">3.14</span>, <span class="number">27.0</span>, <span class="number">11.0</span>, <span class="number">31.0</span>]
+        <span class="kw">let </span><span class="kw-2">mut </span>next_random = <span class="macro">vec!</span>[<span class="number">1.0</span>, <span class="number">0.0</span>, -<span class="number">1.0</span>, -<span class="number">3.15</span>, <span class="number">27.0</span>, <span class="number">11.0</span>, <span class="number">31.0</span>]
             .into_iter()
             .cycle();
         <span class="kw">let </span><span class="kw-2">mut </span>next_random = <span class="kw">move </span>|| next_random.next().unwrap();
@@ -1107,7 +1105,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>roundtrip_rgb() {
-        <span class="kw">let </span><span class="kw-2">mut </span>next_random = <span class="macro">vec!</span>[<span class="number">1.0</span>, <span class="number">0.0</span>, -<span class="number">1.0</span>, -<span class="number">3.14</span>, <span class="number">27.0</span>, <span class="number">11.0</span>, <span class="number">31.0</span>]
+        <span class="kw">let </span><span class="kw-2">mut </span>next_random = <span class="macro">vec!</span>[<span class="number">1.0</span>, <span class="number">0.0</span>, -<span class="number">1.0</span>, -<span class="number">3.15</span>, <span class="number">27.0</span>, <span class="number">11.0</span>, <span class="number">31.0</span>]
             .into_iter()
             .cycle();
         <span class="kw">let </span><span class="kw-2">mut </span>next_random = <span class="kw">move </span>|| next_random.next().unwrap();

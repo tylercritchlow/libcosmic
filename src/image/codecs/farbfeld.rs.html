@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.7/./src/codecs/farbfeld.rs`."><title>farbfeld.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.8/src/codecs/farbfeld.rs`."><title>farbfeld.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -398,6 +398,8 @@
 <a href="#398" id="398">398</a>
 <a href="#399" id="399">399</a>
 <a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Decoding of farbfeld images
 //!
 //! farbfeld is a lossless image format which is easy to parse, pipe and compress.
@@ -416,11 +418,9 @@
 //! # Related Links
 //! * &lt;https://tools.suckless.org/farbfeld/&gt; - the farbfeld specification
 
-</span><span class="kw">use </span>std::convert::TryFrom;
+</span><span class="kw">use </span>std::convert::{TryFrom, TryInto};
 <span class="kw">use </span>std::i64;
 <span class="kw">use </span>std::io::{<span class="self">self</span>, Read, Seek, SeekFrom, Write};
-
-<span class="kw">use </span>byteorder::{BigEndian, ByteOrder, NativeEndian};
 
 <span class="kw">use </span><span class="kw">crate</span>::color::ColorType;
 <span class="kw">use </span><span class="kw">crate</span>::error::{
@@ -445,7 +445,7 @@
             from.read_exact(<span class="kw-2">&amp;mut </span>buf).map_err(|err| {
                 ImageError::Decoding(DecodingError::new(ImageFormat::Farbfeld.into(), err))
             })<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(BigEndian::read_u32(<span class="kw-2">&amp;</span>buf))
+            <span class="prelude-val">Ok</span>(u32::from_be_bytes(buf))
         }
 
         <span class="kw">let </span><span class="kw-2">mut </span>magic = [<span class="number">0u8</span>; <span class="number">8</span>];
@@ -569,10 +569,11 @@
     }
 }
 
-<span class="kw">fn </span>consume_channel&lt;R: Read&gt;(from: <span class="kw-2">&amp;mut </span>R, to: <span class="kw-2">&amp;mut </span>[u8]) -&gt; io::Result&lt;()&gt; {
+<span class="kw">fn </span>consume_channel&lt;R: Read&gt;(from: <span class="kw-2">&amp;mut </span>R, <span class="kw-2">mut </span>to: <span class="kw-2">&amp;mut </span>[u8]) -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>ibuf = [<span class="number">0u8</span>; <span class="number">2</span>];
     from.read_exact(<span class="kw-2">&amp;mut </span>ibuf)<span class="question-mark">?</span>;
-    NativeEndian::write_u16(to, BigEndian::read_u16(<span class="kw-2">&amp;</span>ibuf));
+    to.write_all(<span class="kw-2">&amp;</span>u16::from_be_bytes(ibuf).to_ne_bytes())<span class="question-mark">?</span>;
+
     <span class="prelude-val">Ok</span>(())
 }
 
@@ -657,9 +658,16 @@
         FarbfeldEncoder { w: buffered_writer }
     }
 
-    <span class="doccomment">/// Encodes the image ```data``` (native endian)
-    /// that has dimensions ```width``` and ```height```
+    <span class="doccomment">/// Encodes the image `data` (native endian) that has dimensions `width` and `height`.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `width * height * 8 != data.len()`.
     </span><span class="kw">pub fn </span>encode(<span class="self">self</span>, data: <span class="kw-2">&amp;</span>[u8], width: u32, height: u32) -&gt; ImageResult&lt;()&gt; {
+        <span class="macro">assert_eq!</span>(
+            (width <span class="kw">as </span>u64 * height <span class="kw">as </span>u64).saturating_mul(<span class="number">8</span>),
+            data.len() <span class="kw">as </span>u64
+        );
         <span class="self">self</span>.encode_impl(data, width, height)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
@@ -667,16 +675,12 @@
     <span class="kw">fn </span>encode_impl(<span class="kw-2">mut </span><span class="self">self</span>, data: <span class="kw-2">&amp;</span>[u8], width: u32, height: u32) -&gt; io::Result&lt;()&gt; {
         <span class="self">self</span>.w.write_all(<span class="string">b&quot;farbfeld&quot;</span>)<span class="question-mark">?</span>;
 
-        <span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0u8</span>; <span class="number">4</span>];
-        BigEndian::write_u32(<span class="kw-2">&amp;mut </span>buf, width);
-        <span class="self">self</span>.w.write_all(<span class="kw-2">&amp;</span>buf)<span class="question-mark">?</span>;
-
-        BigEndian::write_u32(<span class="kw-2">&amp;mut </span>buf, height);
-        <span class="self">self</span>.w.write_all(<span class="kw-2">&amp;</span>buf)<span class="question-mark">?</span>;
+        <span class="self">self</span>.w.write_all(<span class="kw-2">&amp;</span>width.to_be_bytes())<span class="question-mark">?</span>;
+        <span class="self">self</span>.w.write_all(<span class="kw-2">&amp;</span>height.to_be_bytes())<span class="question-mark">?</span>;
 
         <span class="kw">for </span>channel <span class="kw">in </span>data.chunks_exact(<span class="number">2</span>) {
-            BigEndian::write_u16(<span class="kw-2">&amp;mut </span>buf, NativeEndian::read_u16(channel));
-            <span class="self">self</span>.w.write_all(<span class="kw-2">&amp;</span>buf[..<span class="number">2</span>])<span class="question-mark">?</span>;
+            <span class="self">self</span>.w
+                .write_all(<span class="kw-2">&amp;</span>u16::from_ne_bytes(channel.try_into().unwrap()).to_be_bytes())<span class="question-mark">?</span>;
         }
 
         <span class="prelude-val">Ok</span>(())

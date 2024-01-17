@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.7/./src/codecs/pnm/decoder.rs`."><title>decoder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.8/src/codecs/pnm/decoder.rs`."><title>decoder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1270,6 +1270,58 @@
 <a href="#1270" id="1270">1270</a>
 <a href="#1271" id="1271">1271</a>
 <a href="#1272" id="1272">1272</a>
+<a href="#1273" id="1273">1273</a>
+<a href="#1274" id="1274">1274</a>
+<a href="#1275" id="1275">1275</a>
+<a href="#1276" id="1276">1276</a>
+<a href="#1277" id="1277">1277</a>
+<a href="#1278" id="1278">1278</a>
+<a href="#1279" id="1279">1279</a>
+<a href="#1280" id="1280">1280</a>
+<a href="#1281" id="1281">1281</a>
+<a href="#1282" id="1282">1282</a>
+<a href="#1283" id="1283">1283</a>
+<a href="#1284" id="1284">1284</a>
+<a href="#1285" id="1285">1285</a>
+<a href="#1286" id="1286">1286</a>
+<a href="#1287" id="1287">1287</a>
+<a href="#1288" id="1288">1288</a>
+<a href="#1289" id="1289">1289</a>
+<a href="#1290" id="1290">1290</a>
+<a href="#1291" id="1291">1291</a>
+<a href="#1292" id="1292">1292</a>
+<a href="#1293" id="1293">1293</a>
+<a href="#1294" id="1294">1294</a>
+<a href="#1295" id="1295">1295</a>
+<a href="#1296" id="1296">1296</a>
+<a href="#1297" id="1297">1297</a>
+<a href="#1298" id="1298">1298</a>
+<a href="#1299" id="1299">1299</a>
+<a href="#1300" id="1300">1300</a>
+<a href="#1301" id="1301">1301</a>
+<a href="#1302" id="1302">1302</a>
+<a href="#1303" id="1303">1303</a>
+<a href="#1304" id="1304">1304</a>
+<a href="#1305" id="1305">1305</a>
+<a href="#1306" id="1306">1306</a>
+<a href="#1307" id="1307">1307</a>
+<a href="#1308" id="1308">1308</a>
+<a href="#1309" id="1309">1309</a>
+<a href="#1310" id="1310">1310</a>
+<a href="#1311" id="1311">1311</a>
+<a href="#1312" id="1312">1312</a>
+<a href="#1313" id="1313">1313</a>
+<a href="#1314" id="1314">1314</a>
+<a href="#1315" id="1315">1315</a>
+<a href="#1316" id="1316">1316</a>
+<a href="#1317" id="1317">1317</a>
+<a href="#1318" id="1318">1318</a>
+<a href="#1319" id="1319">1319</a>
+<a href="#1320" id="1320">1320</a>
+<a href="#1321" id="1321">1321</a>
+<a href="#1322" id="1322">1322</a>
+<a href="#1323" id="1323">1323</a>
+<a href="#1324" id="1324">1324</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::convert::TryFrom;
 <span class="kw">use </span>std::convert::TryInto;
 <span class="kw">use </span>std::error;
@@ -1332,6 +1384,8 @@
     </span>UnexpectedByteInRaster(u8),
     <span class="doccomment">/// Specified sample was out of bounds (e.g. &gt;1 in B&amp;W)
     </span>SampleOutOfBounds(u8),
+    <span class="doccomment">/// The image&#39;s maxval is zero
+    </span>MaxvalZero,
     <span class="doccomment">/// The image&#39;s maxval exceeds 0xFFFF
     </span>MaxvalTooBig(u32),
 
@@ -1405,6 +1459,7 @@
             DecoderError::SampleOutOfBounds(val) =&gt; {
                 f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;Sample value {} outside of bounds&quot;</span>, val))
             }
+            DecoderError::MaxvalZero =&gt; f.write_str(<span class="string">&quot;Image MAXVAL is zero&quot;</span>),
             DecoderError::MaxvalTooBig(maxval) =&gt; {
                 f.write_fmt(<span class="macro">format_args!</span>(<span class="string">&quot;Image MAXVAL exceeds {}: {}&quot;</span>, <span class="number">0xFFFF</span>, maxval))
             }
@@ -1504,7 +1559,15 @@
 }
 
 <span class="kw">trait </span>Sample {
-    <span class="kw">fn </span>bytelen(width: u32, height: u32, samples: u32) -&gt; ImageResult&lt;usize&gt;;
+    <span class="kw">type </span>Representation;
+
+    <span class="doccomment">/// Representation size in bytes
+    </span><span class="kw">fn </span>sample_size() -&gt; u32 {
+        std::mem::size_of::&lt;<span class="self">Self</span>::Representation&gt;() <span class="kw">as </span>u32
+    }
+    <span class="kw">fn </span>bytelen(width: u32, height: u32, samples: u32) -&gt; ImageResult&lt;usize&gt; {
+        <span class="prelude-val">Ok</span>((width * height * samples * <span class="self">Self</span>::sample_size()) <span class="kw">as </span>usize)
+    }
     <span class="kw">fn </span>from_bytes(bytes: <span class="kw-2">&amp;</span>[u8], row_size: usize, output_buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; ImageResult&lt;()&gt;;
     <span class="kw">fn </span>from_ascii(reader: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Read, output_buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; ImageResult&lt;()&gt;;
 }
@@ -1931,10 +1994,33 @@
                     .checked_mul(components)
                     .ok_or(DecoderError::Overflow)<span class="question-mark">?</span>;
 
-                S::from_bytes(<span class="kw-2">&amp;</span>bytes, row_size, buf)
+                S::from_bytes(<span class="kw-2">&amp;</span>bytes, row_size, buf)<span class="question-mark">?</span>;
             }
-            SampleEncoding::Ascii =&gt; <span class="self">self</span>.read_ascii::&lt;S&gt;(buf),
+            SampleEncoding::Ascii =&gt; {
+                <span class="self">self</span>.read_ascii::&lt;S&gt;(buf)<span class="question-mark">?</span>;
+            }
+        };
+
+        <span class="comment">// Scale samples if 8bit or 16bit is not saturated
+        </span><span class="kw">let </span>current_sample_max = <span class="self">self</span>.header.maximal_sample();
+        <span class="kw">let </span>target_sample_max = <span class="number">256_u32</span>.pow(S::sample_size()) - <span class="number">1</span>;
+
+        <span class="kw">if </span>current_sample_max != target_sample_max {
+            <span class="kw">let </span>factor = target_sample_max <span class="kw">as </span>f32 / current_sample_max <span class="kw">as </span>f32;
+
+            <span class="kw">if </span>S::sample_size() == <span class="number">1 </span>{
+                buf.iter_mut().for_each(|v| {
+                    <span class="kw-2">*</span>v = (<span class="kw-2">*</span>v <span class="kw">as </span>f32 * factor).round() <span class="kw">as </span>u8;
+                })
+            } <span class="kw">else if </span>S::sample_size() == <span class="number">2 </span>{
+                <span class="kw">for </span>chunk <span class="kw">in </span>buf.chunks_exact_mut(<span class="number">2</span>) {
+                    <span class="kw">let </span>v = NativeEndian::read_u16(chunk);
+                    NativeEndian::write_u16(chunk, (v <span class="kw">as </span>f32 * factor).round() <span class="kw">as </span>u16);
+                }
+            }
         }
+
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">fn </span>read_ascii&lt;Basic: Sample&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, output_buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; ImageResult&lt;()&gt; {
@@ -1973,9 +2059,7 @@
 }
 
 <span class="kw">impl </span>Sample <span class="kw">for </span>U8 {
-    <span class="kw">fn </span>bytelen(width: u32, height: u32, samples: u32) -&gt; ImageResult&lt;usize&gt; {
-        <span class="prelude-val">Ok</span>((width * height * samples) <span class="kw">as </span>usize)
-    }
+    <span class="kw">type </span>Representation = u8;
 
     <span class="kw">fn </span>from_bytes(bytes: <span class="kw-2">&amp;</span>[u8], _row_size: usize, output_buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; ImageResult&lt;()&gt; {
         output_buf.copy_from_slice(bytes);
@@ -1991,9 +2075,7 @@
 }
 
 <span class="kw">impl </span>Sample <span class="kw">for </span>U16 {
-    <span class="kw">fn </span>bytelen(width: u32, height: u32, samples: u32) -&gt; ImageResult&lt;usize&gt; {
-        <span class="prelude-val">Ok</span>((width * height * samples * <span class="number">2</span>) <span class="kw">as </span>usize)
-    }
+    <span class="kw">type </span>Representation = u16;
 
     <span class="kw">fn </span>from_bytes(bytes: <span class="kw-2">&amp;</span>[u8], _row_size: usize, output_buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; ImageResult&lt;()&gt; {
         output_buf.copy_from_slice(bytes);
@@ -2017,6 +2099,8 @@
 // be ignored. Also, contrary to rgb, black pixels are encoded as a 1 while white is 0. This will
 // need to be reversed for the grayscale output.
 </span><span class="kw">impl </span>Sample <span class="kw">for </span>PbmBit {
+    <span class="kw">type </span>Representation = u8;
+
     <span class="kw">fn </span>bytelen(width: u32, height: u32, samples: u32) -&gt; ImageResult&lt;usize&gt; {
         <span class="kw">let </span>count = width * samples;
         <span class="kw">let </span>linelen = (count / <span class="number">8</span>) + ((count % <span class="number">8</span>) != <span class="number">0</span>) <span class="kw">as </span>u32;
@@ -2055,9 +2139,7 @@
 
 <span class="comment">// Encoded just like a normal U8 but we check the values.
 </span><span class="kw">impl </span>Sample <span class="kw">for </span>BWBit {
-    <span class="kw">fn </span>bytelen(width: u32, height: u32, samples: u32) -&gt; ImageResult&lt;usize&gt; {
-        U8::bytelen(width, height, samples)
-    }
+    <span class="kw">type </span>Representation = u8;
 
     <span class="kw">fn </span>from_bytes(bytes: <span class="kw-2">&amp;</span>[u8], row_size: usize, output_buf: <span class="kw-2">&amp;mut </span>[u8]) -&gt; ImageResult&lt;()&gt; {
         U8::from_bytes(bytes, row_size, output_buf)<span class="question-mark">?</span>;
@@ -2081,6 +2163,7 @@
 <span class="kw">impl </span>DecodableImageHeader <span class="kw">for </span>GraymapHeader {
     <span class="kw">fn </span>tuple_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageResult&lt;TupleType&gt; {
         <span class="kw">match </span><span class="self">self</span>.maxwhite {
+            <span class="number">0 </span>=&gt; <span class="prelude-val">Err</span>(DecoderError::MaxvalZero.into()),
             v <span class="kw">if </span>v &lt;= <span class="number">0xFF </span>=&gt; <span class="prelude-val">Ok</span>(TupleType::GrayU8),
             v <span class="kw">if </span>v &lt;= <span class="number">0xFFFF </span>=&gt; <span class="prelude-val">Ok</span>(TupleType::GrayU16),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(DecoderError::MaxvalTooBig(<span class="self">self</span>.maxwhite).into()),
@@ -2091,6 +2174,7 @@
 <span class="kw">impl </span>DecodableImageHeader <span class="kw">for </span>PixmapHeader {
     <span class="kw">fn </span>tuple_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageResult&lt;TupleType&gt; {
         <span class="kw">match </span><span class="self">self</span>.maxval {
+            <span class="number">0 </span>=&gt; <span class="prelude-val">Err</span>(DecoderError::MaxvalZero.into()),
             v <span class="kw">if </span>v &lt;= <span class="number">0xFF </span>=&gt; <span class="prelude-val">Ok</span>(TupleType::RGBU8),
             v <span class="kw">if </span>v &lt;= <span class="number">0xFFFF </span>=&gt; <span class="prelude-val">Ok</span>(TupleType::RGBU16),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(DecoderError::MaxvalTooBig(<span class="self">self</span>.maxval).into()),
@@ -2101,6 +2185,7 @@
 <span class="kw">impl </span>DecodableImageHeader <span class="kw">for </span>ArbitraryHeader {
     <span class="kw">fn </span>tuple_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageResult&lt;TupleType&gt; {
         <span class="kw">match </span><span class="self">self</span>.tupltype {
+            <span class="kw">_ if </span><span class="self">self</span>.maxval == <span class="number">0 </span>=&gt; <span class="prelude-val">Err</span>(DecoderError::MaxvalZero.into()),
             <span class="prelude-val">None </span><span class="kw">if </span><span class="self">self</span>.depth == <span class="number">1 </span>=&gt; <span class="prelude-val">Ok</span>(TupleType::GrayU8),
             <span class="prelude-val">None </span><span class="kw">if </span><span class="self">self</span>.depth == <span class="number">2 </span>=&gt; <span class="prelude-val">Err</span>(ImageError::Unsupported(
                 UnsupportedError::from_format_and_kind(
@@ -2209,8 +2294,8 @@ ENDHDR
         <span class="macro">assert_eq!</span>(
             image,
             <span class="macro">vec!</span>[
-                <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x01</span>, <span class="number">0x00</span>,
-                <span class="number">0x00</span>, <span class="number">0x01
+                <span class="number">0xFF</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xFF</span>, <span class="number">0xFF</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xFF</span>, <span class="number">0xFF</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xFF</span>, <span class="number">0xFF</span>, <span class="number">0x00</span>,
+                <span class="number">0x00</span>, <span class="number">0xFF
             </span>]
         );
         <span class="kw">match </span>PnmDecoder::new(<span class="kw-2">&amp;</span>pamdata[..]).unwrap().into_inner() {
@@ -2323,7 +2408,7 @@ ENDHDR
     </span><span class="kw">fn </span>pbm_binary() {
         <span class="comment">// The data contains two rows of the image (each line is padded to the full byte). For
         // comments on its format, see documentation of `impl SampleType for PbmBit`.
-        </span><span class="kw">let </span>pbmbinary = [<span class="kw-2">&amp;</span><span class="string">b&quot;P4 6 2\n&quot;</span>[..], <span class="kw-2">&amp;</span>[<span class="number">0b01101100 </span><span class="kw">as </span>u8, <span class="number">0b10110111</span>]].concat();
+        </span><span class="kw">let </span>pbmbinary = [<span class="kw-2">&amp;</span><span class="string">b&quot;P4 6 2\n&quot;</span>[..], <span class="kw-2">&amp;</span>[<span class="number">0b01101100_u8</span>, <span class="number">0b10110111</span>]].concat();
         <span class="kw">let </span>decoder = PnmDecoder::new(<span class="kw-2">&amp;</span>pbmbinary[..]).unwrap();
         <span class="macro">assert_eq!</span>(decoder.color_type(), ColorType::L8);
         <span class="macro">assert_eq!</span>(decoder.original_color_type(), ExtendedColorType::L1);
@@ -2511,6 +2596,25 @@ ENDHDR
     }
 
     <span class="attr">#[test]
+    </span><span class="kw">fn </span>ppm_ascii() {
+        <span class="kw">let </span>ascii = <span class="string">b&quot;P3 1 1 2000\n0 1000 2000&quot;</span>;
+        <span class="kw">let </span>decoder = PnmDecoder::new(<span class="kw-2">&amp;</span>ascii[..]).unwrap();
+        <span class="kw">let </span><span class="kw-2">mut </span>image = <span class="macro">vec!</span>[<span class="number">0</span>; decoder.total_bytes() <span class="kw">as </span>usize];
+        decoder.read_image(<span class="kw-2">&amp;mut </span>image).unwrap();
+        <span class="macro">assert_eq!</span>(
+            image,
+            [
+                <span class="number">0_u16</span>.to_ne_bytes(),
+                (u16::MAX / <span class="number">2 </span>+ <span class="number">1</span>).to_ne_bytes(),
+                u16::MAX.to_ne_bytes()
+            ]
+            .into_iter()
+            .flatten()
+            .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+        );
+    }
+
+    <span class="attr">#[test]
     </span><span class="kw">fn </span>dimension_overflow() {
         <span class="kw">let </span>pamdata = <span class="string">b&quot;P7
 # Comment line
@@ -2532,7 +2636,7 @@ ENDHDR
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>issue_1616_overflow() {
-        <span class="kw">let </span>data = <span class="macro">vec!</span>[
+        <span class="kw">let </span>data = [
             <span class="number">80</span>, <span class="number">54</span>, <span class="number">10</span>, <span class="number">52</span>, <span class="number">50</span>, <span class="number">57</span>, <span class="number">52</span>, <span class="number">56</span>, <span class="number">50</span>, <span class="number">57</span>, <span class="number">52</span>, <span class="number">56</span>, <span class="number">35</span>, <span class="number">56</span>, <span class="number">10</span>, <span class="number">52</span>, <span class="number">10</span>, <span class="number">48</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">12</span>, <span class="number">56</span>,
         ];
         <span class="comment">// Validate: we have a header. Note: we might already calculate that this will fail but
