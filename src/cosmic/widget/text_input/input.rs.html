@@ -2399,6 +2399,53 @@
 <a href="#2399" id="2399">2399</a>
 <a href="#2400" id="2400">2400</a>
 <a href="#2401" id="2401">2401</a>
+<a href="#2402" id="2402">2402</a>
+<a href="#2403" id="2403">2403</a>
+<a href="#2404" id="2404">2404</a>
+<a href="#2405" id="2405">2405</a>
+<a href="#2406" id="2406">2406</a>
+<a href="#2407" id="2407">2407</a>
+<a href="#2408" id="2408">2408</a>
+<a href="#2409" id="2409">2409</a>
+<a href="#2410" id="2410">2410</a>
+<a href="#2411" id="2411">2411</a>
+<a href="#2412" id="2412">2412</a>
+<a href="#2413" id="2413">2413</a>
+<a href="#2414" id="2414">2414</a>
+<a href="#2415" id="2415">2415</a>
+<a href="#2416" id="2416">2416</a>
+<a href="#2417" id="2417">2417</a>
+<a href="#2418" id="2418">2418</a>
+<a href="#2419" id="2419">2419</a>
+<a href="#2420" id="2420">2420</a>
+<a href="#2421" id="2421">2421</a>
+<a href="#2422" id="2422">2422</a>
+<a href="#2423" id="2423">2423</a>
+<a href="#2424" id="2424">2424</a>
+<a href="#2425" id="2425">2425</a>
+<a href="#2426" id="2426">2426</a>
+<a href="#2427" id="2427">2427</a>
+<a href="#2428" id="2428">2428</a>
+<a href="#2429" id="2429">2429</a>
+<a href="#2430" id="2430">2430</a>
+<a href="#2431" id="2431">2431</a>
+<a href="#2432" id="2432">2432</a>
+<a href="#2433" id="2433">2433</a>
+<a href="#2434" id="2434">2434</a>
+<a href="#2435" id="2435">2435</a>
+<a href="#2436" id="2436">2436</a>
+<a href="#2437" id="2437">2437</a>
+<a href="#2438" id="2438">2438</a>
+<a href="#2439" id="2439">2439</a>
+<a href="#2440" id="2440">2440</a>
+<a href="#2441" id="2441">2441</a>
+<a href="#2442" id="2442">2442</a>
+<a href="#2443" id="2443">2443</a>
+<a href="#2444" id="2444">2444</a>
+<a href="#2445" id="2445">2445</a>
+<a href="#2446" id="2446">2446</a>
+<a href="#2447" id="2447">2447</a>
+<a href="#2448" id="2448">2448</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2019 H�ctor Ram�n, Iced contributors
 // Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MIT
@@ -2877,7 +2924,7 @@
     }
 
     <span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::State {
-        tree::State::new(State::new())
+        tree::State::new(State::new(<span class="self">self</span>.is_secure))
     }
 
     <span class="kw">fn </span>diff(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tree: <span class="kw-2">&amp;mut </span>Tree) {
@@ -2890,6 +2937,12 @@
             state.is_pasting = <span class="prelude-val">None</span>;
             state.dragging_state = <span class="prelude-val">None</span>;
         }
+
+        <span class="kw">if </span>state.is_secure != <span class="self">self</span>.is_secure {
+            state.is_secure = <span class="self">self</span>.is_secure;
+            state.dirty = <span class="bool-val">true</span>;
+        }
+
         <span class="kw">let </span><span class="kw-2">mut </span>children: Vec&lt;<span class="kw">_</span>&gt; = <span class="self">self
             </span>.leading_icon
             .iter_mut()
@@ -2923,13 +2976,13 @@
     ) -&gt; layout::Node {
         <span class="kw">let </span>font = <span class="self">self</span>.font.unwrap_or_else(|| renderer.default_font());
         <span class="kw">if </span><span class="self">self</span>.dnd_icon {
+            <span class="kw">let </span>state = tree.state.downcast_mut::&lt;State&gt;();
             <span class="kw">let </span>limits = limits.width(Length::Shrink).height(Length::Shrink);
 
             <span class="kw">let </span>size = <span class="self">self</span>.size.unwrap_or_else(|| renderer.default_size().<span class="number">0</span>);
 
             <span class="kw">let </span>bounds = limits.max();
 
-            <span class="kw">let </span>state = tree.state.downcast_mut::&lt;State&gt;();
             <span class="kw">let </span>value_paragraph = <span class="kw-2">&amp;mut </span>state.value;
             <span class="kw">let </span>v = <span class="self">self</span>.value.to_string();
             value_paragraph.update(Text {
@@ -2952,7 +3005,7 @@
             <span class="kw">let </span>size = limits.resolve(Size::new(width, height));
             layout::Node::with_children(size, <span class="macro">vec!</span>[layout::Node::new(size)])
         } <span class="kw">else </span>{
-            layout(
+            <span class="kw">let </span>res = layout(
                 renderer,
                 limits,
                 <span class="self">self</span>.width,
@@ -2967,7 +3020,29 @@
                 <span class="self">self</span>.helper_line_height,
                 font,
                 tree,
-            )
+            );
+
+            <span class="comment">// XXX not ideal, but we need to update the cache when is_secure changes
+            </span><span class="kw">let </span>size = <span class="self">self</span>.size.unwrap_or_else(|| renderer.default_size().<span class="number">0</span>);
+            <span class="kw">let </span>line_height = <span class="self">self</span>.line_height;
+            <span class="kw">let </span>state = tree.state.downcast_mut::&lt;State&gt;();
+            <span class="kw">if </span>state.dirty {
+                state.dirty = <span class="bool-val">false</span>;
+                <span class="kw">let </span>value = <span class="kw">if </span><span class="self">self</span>.is_secure {
+                    <span class="self">self</span>.value.secure()
+                } <span class="kw">else </span>{
+                    <span class="self">self</span>.value.clone()
+                };
+                replace_paragraph(
+                    state,
+                    Layout::new(<span class="kw-2">&amp;</span>res),
+                    <span class="kw-2">&amp;</span>value,
+                    font,
+                    iced::Pixels(size),
+                    line_height,
+                );
+            }
+            res
         }
     }
 
@@ -3031,6 +3106,10 @@
     ) -&gt; event::Status {
         <span class="kw">let </span>text_layout = <span class="self">self</span>.text_layout(layout);
         <span class="kw">let </span><span class="kw-2">mut </span>index = <span class="number">0</span>;
+        <span class="kw">let </span>font = <span class="self">self</span>.font.unwrap_or_else(|| renderer.default_font());
+        <span class="kw">let </span>size = <span class="self">self</span>.size.unwrap_or_else(|| renderer.default_size().<span class="number">0</span>);
+        <span class="kw">let </span>line_height = <span class="self">self</span>.line_height;
+
         <span class="kw">if let </span>(<span class="prelude-val">Some</span>(leading_icon), <span class="prelude-val">Some</span>(tree)) =
             (<span class="self">self</span>.leading_icon.as_mut(), tree.children.get_mut(index))
         {
@@ -3038,8 +3117,13 @@
             children.next();
             <span class="kw">let </span>leading_icon_layout = children.next().unwrap();
 
-            <span class="kw">if </span>cursor_position.is_over(leading_icon_layout.bounds()) {
-                <span class="kw">return </span>leading_icon.as_widget_mut().on_event(
+            <span class="kw">if </span>cursor_position.is_over(leading_icon_layout.bounds())
+                || <span class="macro">matches!</span>(
+                    event,
+                    Event::Mouse(mouse::Event::CursorMoved { .. } | mouse::Event::CursorLeft)
+                )
+            {
+                <span class="kw">let </span>res = leading_icon.as_widget_mut().on_event(
                     tree,
                     event.clone(),
                     leading_icon_layout,
@@ -3049,20 +3133,9 @@
                     shell,
                     viewport,
                 );
-            } <span class="kw">else if </span><span class="macro">matches!</span>(
-                event,
-                Event::Mouse(mouse::Event::CursorMoved { .. } | mouse::Event::CursorLeft)
-            ) {
-                leading_icon.as_widget_mut().on_event(
-                    tree,
-                    event.clone(),
-                    leading_icon_layout,
-                    cursor_position,
-                    renderer,
-                    clipboard,
-                    shell,
-                    viewport,
-                );
+                <span class="kw">if </span>res == event::Status::Captured {
+                    <span class="kw">return </span>res;
+                }
             }
             index += <span class="number">1</span>;
         }
@@ -3076,8 +3149,13 @@
             }
             <span class="kw">let </span>trailing_icon_layout = children.next().unwrap();
 
-            <span class="kw">if </span>cursor_position.is_over(trailing_icon_layout.bounds()) {
-                <span class="kw">return </span>trailing_icon.as_widget_mut().on_event(
+            <span class="kw">if </span>cursor_position.is_over(trailing_icon_layout.bounds())
+                | <span class="macro">matches!</span>(
+                    event,
+                    Event::Mouse(mouse::Event::CursorMoved { .. } | mouse::Event::CursorLeft)
+                )
+            {
+                <span class="kw">let </span>res = trailing_icon.as_widget_mut().on_event(
                     tree,
                     event.clone(),
                     trailing_icon_layout,
@@ -3087,20 +3165,9 @@
                     shell,
                     viewport,
                 );
-            } <span class="kw">else if </span><span class="macro">matches!</span>(
-                event,
-                Event::Mouse(mouse::Event::CursorMoved { .. } | mouse::Event::CursorLeft)
-            ) {
-                trailing_icon.as_widget_mut().on_event(
-                    tree,
-                    event.clone(),
-                    trailing_icon_layout,
-                    cursor_position,
-                    renderer,
-                    clipboard,
-                    shell,
-                    viewport,
-                );
+                <span class="kw">if </span>res == event::Status::Captured {
+                    <span class="kw">return </span>res;
+                }
             }
         }
 
@@ -3108,12 +3175,11 @@
             event,
             text_layout.children().next().unwrap(),
             cursor_position,
-            renderer,
             clipboard,
             shell,
             <span class="kw-2">&amp;mut </span><span class="self">self</span>.value,
-            <span class="self">self</span>.size,
-            <span class="self">self</span>.font,
+            size,
+            font,
             <span class="self">self</span>.is_secure,
             <span class="self">self</span>.on_input.as_deref(),
             <span class="self">self</span>.on_paste.as_deref(),
@@ -3123,7 +3189,7 @@
             <span class="self">self</span>.dnd_icon,
             <span class="self">self</span>.on_dnd_command_produced.as_deref(),
             <span class="self">self</span>.surface_ids,
-            <span class="self">self</span>.line_height,
+            line_height,
             layout,
         )
     }
@@ -3463,12 +3529,11 @@
     event: Event,
     text_layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
     cursor_position: mouse::Cursor,
-    renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
     clipboard: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Clipboard,
     shell: <span class="kw-2">&amp;mut </span>Shell&lt;<span class="lifetime">&#39;_</span>, Message&gt;,
     value: <span class="kw-2">&amp;mut </span>Value,
-    size: <span class="prelude-ty">Option</span>&lt;f32&gt;,
-    font: <span class="prelude-ty">Option</span>&lt;&lt;<span class="kw">crate</span>::Renderer <span class="kw">as </span>iced_core::text::Renderer&gt;::Font&gt;,
+    size: f32,
+    font: &lt;<span class="kw">crate</span>::Renderer <span class="kw">as </span>iced_core::text::Renderer&gt;::Font,
     is_secure: bool,
     on_input: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>Fn(String) -&gt; Message&gt;,
     on_paste: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>Fn(String) -&gt; Message&gt;,
@@ -3484,11 +3549,17 @@
 <span class="kw">where
     </span>Message: Clone,
 {
-    <span class="kw">let </span>font = font.unwrap_or_else(|| renderer.default_font());
-    <span class="kw">let </span>size = size.unwrap_or_else(|| renderer.default_size().<span class="number">0</span>);
     <span class="kw">let </span>update_cache = |state, value| {
         replace_paragraph(state, layout, value, font, iced::Pixels(size), line_height);
     };
+
+    <span class="kw">let </span><span class="kw-2">mut </span>secured_value = <span class="kw">if </span>is_secure {
+        value.secure()
+    } <span class="kw">else </span>{
+        value.clone()
+    };
+    <span class="kw">let </span>unsecured_value = value;
+    <span class="kw">let </span>value = <span class="kw-2">&amp;mut </span>secured_value;
 
     <span class="kw">match </span>event {
         Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
@@ -3526,11 +3597,8 @@
                         <span class="comment">// if something is already selected, we can start a drag and drop for a
                         // single click that is on top of the selected text
                         // is the click on selected text?
-                        </span><span class="kw">if </span>is_secure {
-                            <span class="kw">return </span>event::Status::Ignored;
-                        }
 
-                        <span class="kw">if let </span>(
+                        </span><span class="kw">if let </span>(
                             <span class="prelude-val">Some</span>(on_start_dnd),
                             <span class="prelude-val">Some</span>(on_dnd_command_produced),
                             <span class="prelude-val">Some</span>((window_id, icon_id)),
@@ -3565,17 +3633,23 @@
                             };
 
                             <span class="kw">if </span>cursor_position.is_over(selection_bounds) {
+                                <span class="comment">// XXX never start a dnd if the input is secure
+                                </span><span class="kw">if </span>is_secure {
+                                    <span class="kw">return </span>event::Status::Ignored;
+                                }
                                 <span class="kw">let </span>text =
                                     state.selected_text(<span class="kw-2">&amp;</span>value.to_string()).unwrap_or_default();
                                 state.dragging_state =
                                     <span class="prelude-val">Some</span>(DraggingState::Dnd(DndAction::empty(), text.clone()));
-                                <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                                <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
                                 editor.delete();
 
-                                <span class="kw">let </span>message = (on_input)(editor.contents());
+                                <span class="kw">let </span>contents = editor.contents();
+                                <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
+                                <span class="kw">let </span>message = (on_input)(contents);
                                 shell.publish(message);
                                 shell.publish(on_start_dnd(state.clone()));
-                                <span class="kw">let </span>state = state.clone();
+                                <span class="kw">let </span>state_clone = state.clone();
                                 shell.publish(on_dnd_command_produced(Box::new(<span class="kw">move </span>|| {
                                     platform_specific::wayland::data_device::ActionInner::StartDnd {
                                         mime_types: SUPPORTED_TEXT_MIME_TYPES
@@ -3586,26 +3660,18 @@
                                         origin_id: window_id,
                                         icon_id: <span class="prelude-val">Some</span>(DndIcon::Widget(
                                             icon_id,
-                                            Box::new(state.clone()),
+                                            Box::new(state_clone.clone()),
                                         )),
                                         data: Box::new(TextInputString(text.clone())),
                                     }
                                 })));
+
+                                update_cache(state, <span class="kw-2">&amp;</span>unsecured_value);
                             } <span class="kw">else </span>{
+                                update_cache(state, value);
                                 <span class="comment">// existing logic for setting the selection
                                 </span><span class="kw">let </span>position = <span class="kw">if </span>target &gt; <span class="number">0.0 </span>{
-                                    <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
-                                        value.secure()
-                                    } <span class="kw">else </span>{
-                                        value.clone()
-                                    };
-
-                                    find_cursor_position(
-                                        text_layout.bounds(),
-                                        <span class="kw-2">&amp;</span>value,
-                                        state,
-                                        target,
-                                    )
+                                    find_cursor_position(text_layout.bounds(), value, state, target)
                                 } <span class="kw">else </span>{
                                     <span class="prelude-val">None
                                 </span>};
@@ -3620,13 +3686,8 @@
                     (<span class="prelude-val">None</span>, click::Kind::Single, <span class="kw">_</span>) =&gt; {
                         <span class="comment">// existing logic for setting the selection
                         </span><span class="kw">let </span>position = <span class="kw">if </span>target &gt; <span class="number">0.0 </span>{
-                            <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
-                                value.secure()
-                            } <span class="kw">else </span>{
-                                value.clone()
-                            };
-
-                            find_cursor_position(text_layout.bounds(), <span class="kw-2">&amp;</span>value, state, target)
+                            update_cache(state, value);
+                            find_cursor_position(text_layout.bounds(), value, state, target)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">None
                         </span>};
@@ -3635,6 +3696,8 @@
                         state.dragging_state = <span class="prelude-val">Some</span>(DraggingState::Selection);
                     }
                     (<span class="prelude-val">None </span>| <span class="prelude-val">Some</span>(DraggingState::Selection), click::Kind::Double, <span class="kw">_</span>) =&gt; {
+                        update_cache(state, value);
+
                         <span class="kw">if </span>is_secure {
                             state.cursor.select_all(value);
                         } <span class="kw">else </span>{
@@ -3650,6 +3713,7 @@
                         state.dragging_state = <span class="prelude-val">Some</span>(DraggingState::Selection);
                     }
                     (<span class="prelude-val">None </span>| <span class="prelude-val">Some</span>(DraggingState::Selection), click::Kind::Triple, <span class="kw">_</span>) =&gt; {
+                        update_cache(state, value);
                         state.cursor.select_all(value);
                         state.dragging_state = <span class="prelude-val">Some</span>(DraggingState::Selection);
                     }
@@ -3675,17 +3739,13 @@
             <span class="kw">if </span><span class="macro">matches!</span>(state.dragging_state, <span class="prelude-val">Some</span>(DraggingState::Selection)) {
                 <span class="kw">let </span>target = position.x - text_layout.bounds().x;
 
-                <span class="kw">let </span>value: Value = <span class="kw">if </span>is_secure {
-                    value.secure()
-                } <span class="kw">else </span>{
-                    value.clone()
-                };
+                update_cache(state, value);
                 <span class="kw">let </span>position =
-                    find_cursor_position(text_layout.bounds(), <span class="kw-2">&amp;</span>value, state, target).unwrap_or(<span class="number">0</span>);
+                    find_cursor_position(text_layout.bounds(), value, state, target).unwrap_or(<span class="number">0</span>);
 
                 state
                     .cursor
-                    .select_range(state.cursor.start(<span class="kw-2">&amp;</span>value), position);
+                    .select_range(state.cursor.start(value), position);
 
                 <span class="kw">return </span>event::Status::Captured;
             }
@@ -3702,16 +3762,22 @@
                     &amp;&amp; !state.keyboard_modifiers.command()
                     &amp;&amp; !c.is_control()
                 {
-                    <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                    <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
 
                     editor.insert(c);
-
-                    <span class="kw">let </span>message = (on_input)(editor.contents());
+                    <span class="kw">let </span>contents = editor.contents();
+                    <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
+                    <span class="kw">let </span>message = (on_input)(contents);
                     shell.publish(message);
 
                     focus.updated_at = Instant::now();
 
-                    update_cache(state, value);
+                    <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
+                        unsecured_value.secure()
+                    } <span class="kw">else </span>{
+                        unsecured_value
+                    };
+                    update_cache(state, <span class="kw-2">&amp;</span>value);
 
                     <span class="kw">return </span>event::Status::Captured;
                 }
@@ -3746,33 +3812,46 @@
                             }
                         }
 
-                        <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                        <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
                         editor.backspace();
 
+                        <span class="kw">let </span>contents = editor.contents();
+                        <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
                         <span class="kw">let </span>message = (on_input)(editor.contents());
                         shell.publish(message);
 
-                        update_cache(state, value);
+                        <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
+                            unsecured_value.secure()
+                        } <span class="kw">else </span>{
+                            unsecured_value
+                        };
+                        update_cache(state, <span class="kw-2">&amp;</span>value);
                     }
                     keyboard::KeyCode::Delete =&gt; {
                         <span class="kw">if </span>platform::is_jump_modifier_pressed(modifiers)
                             &amp;&amp; state.cursor.selection(value).is_none()
                         {
                             <span class="kw">if </span>is_secure {
-                                <span class="kw">let </span>cursor_pos = state.cursor.end(value);
-                                state.cursor.select_range(cursor_pos, value.len());
+                                <span class="kw">let </span>cursor_pos = state.cursor.end(unsecured_value);
+                                state.cursor.select_range(cursor_pos, unsecured_value.len());
                             } <span class="kw">else </span>{
-                                state.cursor.select_right_by_words(value);
+                                state.cursor.select_right_by_words(unsecured_value);
                             }
                         }
 
-                        <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                        <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
                         editor.delete();
-
-                        <span class="kw">let </span>message = (on_input)(editor.contents());
+                        <span class="kw">let </span>contents = editor.contents();
+                        <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
+                        <span class="kw">let </span>message = (on_input)(contents);
                         shell.publish(message);
+                        <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
+                            unsecured_value.secure()
+                        } <span class="kw">else </span>{
+                            unsecured_value
+                        };
 
-                        update_cache(state, value);
+                        update_cache(state, <span class="kw-2">&amp;</span>value);
                     }
                     keyboard::KeyCode::Left =&gt; {
                         <span class="kw">if </span>platform::is_jump_modifier_pressed(modifiers) &amp;&amp; !is_secure {
@@ -3817,22 +3896,27 @@
                         }
                     }
                     keyboard::KeyCode::C <span class="kw">if </span>state.keyboard_modifiers.command() =&gt; {
-                        <span class="kw">if let </span><span class="prelude-val">Some</span>((start, end)) = state.cursor.selection(value) {
-                            clipboard.write(value.select(start, end).to_string());
+                        <span class="kw">if </span>!is_secure {
+                            <span class="kw">if let </span><span class="prelude-val">Some</span>((start, end)) = state.cursor.selection(value) {
+                                clipboard.write(value.select(start, end).to_string());
+                            }
                         }
                     }
-                    keyboard::KeyCode::X <span class="kw">if </span>state.keyboard_modifiers.command() =&gt; {
-                        <span class="kw">if let </span><span class="prelude-val">Some</span>((start, end)) = state.cursor.selection(value) {
-                            clipboard.write(value.select(start, end).to_string());
+                    <span class="comment">// XXX if we want to allow cutting of secure text, we need to
+                    // update the cache and decide which value to cut
+                    </span>keyboard::KeyCode::X <span class="kw">if </span>state.keyboard_modifiers.command() =&gt; {
+                        <span class="kw">if </span>!is_secure {
+                            <span class="kw">if let </span><span class="prelude-val">Some</span>((start, end)) = state.cursor.selection(value) {
+                                clipboard.write(value.select(start, end).to_string());
+                            }
+
+                            <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                            editor.delete();
+
+                            <span class="kw">let </span>message = (on_input)(editor.contents());
+
+                            shell.publish(message);
                         }
-
-                        <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
-                        editor.delete();
-
-                        <span class="kw">let </span>message = (on_input)(editor.contents());
-                        shell.publish(message);
-
-                        update_cache(state, value);
                     }
                     keyboard::KeyCode::V =&gt; {
                         <span class="kw">if </span>state.keyboard_modifiers.command() {
@@ -3849,20 +3933,28 @@
                                 Value::new(<span class="kw-2">&amp;</span>content)
                             };
 
-                            <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                            <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
 
                             editor.paste(content.clone());
 
+                            <span class="kw">let </span>contents = editor.contents();
+                            <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
                             <span class="kw">let </span>message = <span class="kw">if let </span><span class="prelude-val">Some</span>(paste) = <span class="kw-2">&amp;</span>on_paste {
-                                (paste)(editor.contents())
+                                (paste)(contents)
                             } <span class="kw">else </span>{
-                                (on_input)(editor.contents())
+                                (on_input)(contents)
                             };
                             shell.publish(message);
 
                             state.is_pasting = <span class="prelude-val">Some</span>(content);
 
-                            update_cache(state, value);
+                            <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
+                                unsecured_value.secure()
+                            } <span class="kw">else </span>{
+                                unsecured_value
+                            };
+
+                            update_cache(state, <span class="kw-2">&amp;</span>value);
                         } <span class="kw">else </span>{
                             state.is_pasting = <span class="prelude-val">None</span>;
                         }
@@ -3983,13 +4075,8 @@
                 state.dnd_offer = DndOfferState::HandlingOffer(mime_types.clone(), DndAction::None);
                 <span class="comment">// existing logic for setting the selection
                 </span><span class="kw">let </span>position = <span class="kw">if </span>target &gt; <span class="number">0.0 </span>{
-                    <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
-                        value.secure()
-                    } <span class="kw">else </span>{
-                        value.clone()
-                    };
-
-                    find_cursor_position(text_layout.bounds(), <span class="kw-2">&amp;</span>value, state, target)
+                    update_cache(state, value);
+                    find_cursor_position(text_layout.bounds(), value, state, target)
                 } <span class="kw">else </span>{
                     <span class="prelude-val">None
                 </span>};
@@ -4053,13 +4140,8 @@
             <span class="kw">let </span>target = x <span class="kw">as </span>f32 - text_layout.bounds().x;
             <span class="comment">// existing logic for setting the selection
             </span><span class="kw">let </span>position = <span class="kw">if </span>target &gt; <span class="number">0.0 </span>{
-                <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
-                    value.secure()
-                } <span class="kw">else </span>{
-                    value.clone()
-                };
-
-                find_cursor_position(text_layout.bounds(), <span class="kw-2">&amp;</span>value, state, target)
+                update_cache(state, value);
+                find_cursor_position(text_layout.bounds(), value, state, target)
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
             </span>};
@@ -4129,21 +4211,26 @@
                     <span class="kw">return </span>event::Status::Captured;
                 };
 
-                <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(value, <span class="kw-2">&amp;mut </span>state.cursor);
+                <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
 
                 editor.paste(Value::new(content.as_str()));
+                <span class="kw">let </span>contents = editor.contents();
+                <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
+
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(on_paste) = on_paste.as_ref() {
-                    <span class="kw">let </span>message = (on_paste)(editor.contents());
-                    shell.publish(message);
-                }
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(on_paste) = on_paste {
-                    <span class="kw">let </span>message = (on_paste)(editor.contents());
+                    <span class="kw">let </span>message = (on_paste)(contents);
                     shell.publish(message);
                 }
 
                 shell.publish(on_dnd_command_produced(Box::new(<span class="kw">move </span>|| {
                     platform_specific::wayland::data_device::ActionInner::DndFinished
                 })));
+                <span class="kw">let </span>value = <span class="kw">if </span>is_secure {
+                    unsecured_value.secure()
+                } <span class="kw">else </span>{
+                    unsecured_value
+                };
+                update_cache(state, <span class="kw-2">&amp;</span>value);
                 <span class="kw">return </span>event::Status::Captured;
             }
             <span class="kw">return </span>event::Status::Ignored;
@@ -4560,6 +4647,8 @@
     <span class="kw">pub </span>value: <span class="kw">crate</span>::Paragraph,
     <span class="kw">pub </span>placeholder: <span class="kw">crate</span>::Paragraph,
     <span class="kw">pub </span>label: <span class="kw">crate</span>::Paragraph,
+    <span class="kw">pub </span>dirty: bool,
+    <span class="kw">pub </span>is_secure: bool,
     is_focused: <span class="prelude-ty">Option</span>&lt;Focus&gt;,
     dragging_state: <span class="prelude-ty">Option</span>&lt;DraggingState&gt;,
     <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
@@ -4579,8 +4668,11 @@
 
 <span class="kw">impl </span>State {
     <span class="doccomment">/// Creates a new [`State`], representing an unfocused [`TextInput`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    </span><span class="kw">pub fn </span>new(is_secure: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            is_secure,
+            ..<span class="self">Self</span>::default()
+        }
     }
 
     <span class="doccomment">/// Returns the current value of the selected text in the [`TextInput`].
@@ -4608,8 +4700,9 @@
     }
 
     <span class="doccomment">/// Creates a new [`State`], representing a focused [`TextInput`].
-    </span><span class="kw">pub fn </span>focused() -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>focused(is_secure: bool) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
+            is_secure,
             value: <span class="kw">crate</span>::Paragraph::new(),
             placeholder: <span class="kw">crate</span>::Paragraph::new(),
             label: <span class="kw">crate</span>::Paragraph::new(),
@@ -4622,6 +4715,7 @@
             last_click: <span class="prelude-val">None</span>,
             cursor: Cursor::default(),
             keyboard_modifiers: keyboard::Modifiers::default(),
+            dirty: <span class="bool-val">false</span>,
         }
     }
 

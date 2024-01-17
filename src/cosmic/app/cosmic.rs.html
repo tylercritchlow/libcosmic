@@ -672,7 +672,7 @@
                 .core()
                 .single_instance
                 .then(|| <span class="kw">super</span>::single_instance_subscription::&lt;T&gt;())
-                .unwrap_or_else(|| Subscription::none()),
+                .unwrap_or_else(Subscription::none),
         ])
     }
 
