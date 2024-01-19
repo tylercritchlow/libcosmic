@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["ConnectError","ParseError"]};
+window.SIDEBAR_ITEMS = {"enum":["ConnectError","DisplayParsingError","ParseError"]};

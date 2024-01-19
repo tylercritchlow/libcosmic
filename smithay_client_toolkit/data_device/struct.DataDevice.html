@@ -7,7 +7,7 @@ with a seat upon creation.</p>
     seat: &amp;<a class="struct" href="../../wayland_client/protocol/wl_seat/struct.WlSeat.html" title="struct wayland_client::protocol::wl_seat::WlSeat">WlSeat</a>,
     callback: F
 ) -&gt; <a class="struct" href="struct.DataDevice.html" title="struct smithay_client_toolkit::data_device::DataDevice">DataDevice</a><span class="where fmt-newline">where
-    for&lt;'a&gt; F: <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="enum" href="enum.DndEvent.html" title="enum smithay_client_toolkit::data_device::DndEvent">DndEvent</a>&lt;'a&gt;, <a class="struct" href="../../wayland_commons/filter/struct.DispatchData.html" title="struct wayland_commons::filter::DispatchData">DispatchData</a>&lt;'_&gt;) + 'static,</span></h4></section></summary><div class="docblock"><p>Create the DataDevice helper for this seat.</p>
+    for&lt;'a&gt; F: <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="enum" href="enum.DndEvent.html" title="enum smithay_client_toolkit::data_device::DndEvent">DndEvent</a>&lt;'a&gt;, DispatchData&lt;'_&gt;) + 'static,</span></h4></section></summary><div class="docblock"><p>Create the DataDevice helper for this seat.</p>
 <p>You need to provide an implementation that will handle drag’n’drop
 events.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.start_drag" class="method"><a class="src rightside" href="../../src/smithay_client_toolkit/data_device/device.rs.html#180-194">source</a><h4 class="code-header">pub fn <a href="#method.start_drag" class="fn">start_drag</a>(

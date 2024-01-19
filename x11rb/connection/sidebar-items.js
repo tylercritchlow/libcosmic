@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["DiscardMode","ReplyOrError","RequestKind"],"fn":["compute_length_field"],"trait":["Connection","RequestConnection"],"type":["BufWithFds","EventAndSeqNumber","PiecewiseBuf","RawEventAndSeqNumber","SequenceNumber"]};
+window.SIDEBAR_ITEMS = {"enum":["DiscardMode","ReplyOrError","RequestKind"],"fn":["compute_length_field"],"trait":["Connection","RequestConnection"],"type":["BufWithFds","EventAndSeqNumber","RawEventAndSeqNumber","SequenceNumber"]};

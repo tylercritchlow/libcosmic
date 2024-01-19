@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["misc","presentation_time","staging","unstable","viewporter","wlr","xdg_shell"]};
+window.SIDEBAR_ITEMS = {"mod":["ext","wp","xdg","xwayland"]};

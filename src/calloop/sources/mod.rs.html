@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/calloop-0.10.6/src/sources/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="calloop" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/calloop-0.12.4/src/sources/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="calloop" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -712,13 +712,92 @@
 <a href="#712" id="712">712</a>
 <a href="#713" id="713">713</a>
 <a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
+<a href="#740" id="740">740</a>
+<a href="#741" id="741">741</a>
+<a href="#742" id="742">742</a>
+<a href="#743" id="743">743</a>
+<a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a>
+<a href="#746" id="746">746</a>
+<a href="#747" id="747">747</a>
+<a href="#748" id="748">748</a>
+<a href="#749" id="749">749</a>
+<a href="#750" id="750">750</a>
+<a href="#751" id="751">751</a>
+<a href="#752" id="752">752</a>
+<a href="#753" id="753">753</a>
+<a href="#754" id="754">754</a>
+<a href="#755" id="755">755</a>
+<a href="#756" id="756">756</a>
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+<a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     cell::{Ref, RefCell, RefMut},
     ops::{BitOr, BitOrAssign},
     rc::Rc,
 };
 
-<span class="kw">use crate</span>::{sys::TokenFactory, Poll, Readiness, Token};
+<span class="kw">use </span>log::trace;
+
+<span class="kw">pub use </span><span class="kw">crate</span>::loop_logic::EventIterator;
+<span class="kw">use crate</span>::{sys::TokenFactory, Poll, Readiness, RegistrationToken, Token};
 
 <span class="kw">pub mod </span>channel;
 <span class="attr">#[cfg(feature = <span class="string">&quot;executor&quot;</span>)]
@@ -726,7 +805,7 @@
 </span><span class="kw">pub mod </span>futures;
 <span class="kw">pub mod </span>generic;
 <span class="kw">pub mod </span>ping;
-<span class="attr">#[cfg(target_os = <span class="string">&quot;linux&quot;</span>)]
+<span class="attr">#[cfg(all(target_os = <span class="string">&quot;linux&quot;</span>, feature = <span class="string">&quot;signals&quot;</span>))]
 #[cfg_attr(docsrs, doc(cfg(target_os = <span class="string">&quot;linux&quot;</span>)))]
 </span><span class="kw">pub mod </span>signals;
 <span class="kw">pub mod </span>timer;
@@ -745,7 +824,7 @@
 /// sources. For example, if every child source returns `Continue`, the result
 /// will be `Continue`, but the parent source might still need to return
 /// `Reregister` or something else depending on any additional logic it uses.
-</span><span class="attr">#[derive(Debug, PartialEq, Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>PostAction {
     <span class="doccomment">/// Continue listening for events on this source as before
     </span>Continue,
@@ -799,10 +878,17 @@
 ///
 /// In case your event source needs to do some special processing before or after a
 /// polling session occurs (to prepare the underlying source for polling, and cleanup
-/// after that), you can override the `pre_run` and `post_run`, that do nothing by
-/// default. Depending on the underlying events, `process_events` may be invoked once,
-/// several times, or none at all between `pre_run` and `post_run` are called, but when
-/// it is invoked, it&#39;ll always be between those two.
+/// after that), you can override [`NEEDS_EXTRA_LIFECYCLE_EVENTS`] to `true`.
+/// For all sources for which that constant is `true`, the methods [`before_sleep`] and
+/// [`before_handle_events`] will be called.
+/// [`before_sleep`] is called before the polling system performs a poll operation.
+/// [`before_handle_events`] is called before any process_events methods have been called.
+/// This means that during `process_events` you can assume that all cleanup has occured on
+/// all sources.
+///
+/// [`NEEDS_EXTRA_LIFECYCLE_EVENTS`]: EventSource::NEEDS_EXTRA_LIFECYCLE_EVENTS
+/// [`before_sleep`]: EventSource::before_sleep
+/// [`before_handle_events`]: EventSource::before_handle_events
 </span><span class="kw">pub trait </span>EventSource {
     <span class="doccomment">/// The type of events generated by your source.
     </span><span class="kw">type </span>Event;
@@ -871,25 +957,38 @@
     /// [`Poll::unregister`](crate::Poll#method.unregister) method.
     </span><span class="kw">fn </span>unregister(<span class="kw-2">&amp;mut </span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;;
 
-    <span class="doccomment">/// Notification that a polling session is going to start
+    <span class="doccomment">/// Whether this source needs to be sent the [`EventSource::before_sleep`]
+    /// and [`EventSource::before_handle_events`] notifications. These are opt-in because
+    /// they require more expensive checks, and almost all sources will not need these notifications
+    </span><span class="kw">const </span>NEEDS_EXTRA_LIFECYCLE_EVENTS: bool = <span class="bool-val">false</span>;
+    <span class="doccomment">/// Notification that a single `poll` is about to begin
     ///
-    /// You can generate events from this method as you would from `process_events`.
-    </span><span class="kw">fn </span>pre_run&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _callback: F) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;
-    <span class="kw">where
-        </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
-    {
-        <span class="prelude-val">Ok</span>(())
-    }
-
-    <span class="doccomment">/// Notification that the current polling session ended
+    /// Use this to perform operations which must be done before polling,
+    /// but which may conflict with other event handlers. For example,
+    /// if polling requires a lock to be taken
     ///
-    /// You can generate events from this method as you would from `process_events`.
-    </span><span class="kw">fn </span>post_run&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _callback: F) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;
-    <span class="kw">where
-        </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
-    {
-        <span class="prelude-val">Ok</span>(())
+    /// If this returns Ok(Some), this will be treated as an event arriving in polling, and
+    /// your event handler will be called with the returned `Token` and `Readiness`.
+    /// Polling will however still occur, but with a timeout of 0, so additional events
+    /// from this or other sources may also be handled in the same iterations.
+    /// The returned `Token` must belong to this source
+    </span><span class="comment">// If you need to return multiple synthetic events from this notification, please
+    // open an issue
+    </span><span class="kw">fn </span>before_sleep(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Result&lt;<span class="prelude-ty">Option</span>&lt;(Readiness, Token)&gt;&gt; {
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
     }
+    <span class="doccomment">/// Notification that polling is complete, and [`EventSource::process_events`] will
+    /// be called with the given events for this source. The iterator may be empty,
+    /// which indicates that no events were generated for this source
+    ///
+    /// Please note, the iterator excludes any synthetic events returned from
+    /// [`EventSource::before_sleep`]
+    ///
+    /// Use this to perform a cleanup before event handlers with arbitrary
+    /// code may run. This could be used to drop a lock obtained in
+    /// [`EventSource::before_sleep`]
+    </span><span class="attr">#[allow(unused_variables)]
+    </span><span class="kw">fn </span>before_handle_events(<span class="kw-2">&amp;mut </span><span class="self">self</span>, events: EventIterator&lt;<span class="lifetime">&#39;_</span>&gt;) {}
 }
 
 <span class="doccomment">/// Blanket implementation for boxed event sources. [`EventSource`] is not an
@@ -928,18 +1027,14 @@
         T::unregister(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, poll)
     }
 
-    <span class="kw">fn </span>pre_run&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, callback: F) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;
-    <span class="kw">where
-        </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
-    {
-        T::pre_run(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, callback)
+    <span class="kw">const </span>NEEDS_EXTRA_LIFECYCLE_EVENTS: bool = T::NEEDS_EXTRA_LIFECYCLE_EVENTS;
+
+    <span class="kw">fn </span>before_sleep(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Result&lt;<span class="prelude-ty">Option</span>&lt;(Readiness, Token)&gt;&gt; {
+        T::before_sleep(<span class="kw-2">&amp;mut **</span><span class="self">self</span>)
     }
 
-    <span class="kw">fn </span>post_run&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, callback: F) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;
-    <span class="kw">where
-        </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
-    {
-        T::post_run(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, callback)
+    <span class="kw">fn </span>before_handle_events(<span class="kw-2">&amp;mut </span><span class="self">self</span>, events: EventIterator) {
+        T::before_handle_events(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, events)
     }
 }
 
@@ -980,24 +1075,21 @@
         T::unregister(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, poll)
     }
 
-    <span class="kw">fn </span>pre_run&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, callback: F) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;
-    <span class="kw">where
-        </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
-    {
-        T::pre_run(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, callback)
+    <span class="kw">const </span>NEEDS_EXTRA_LIFECYCLE_EVENTS: bool = T::NEEDS_EXTRA_LIFECYCLE_EVENTS;
+
+    <span class="kw">fn </span>before_sleep(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Result&lt;<span class="prelude-ty">Option</span>&lt;(Readiness, Token)&gt;&gt; {
+        T::before_sleep(<span class="kw-2">&amp;mut **</span><span class="self">self</span>)
     }
 
-    <span class="kw">fn </span>post_run&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, callback: F) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;
-    <span class="kw">where
-        </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
-    {
-        T::post_run(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, callback)
+    <span class="kw">fn </span>before_handle_events(<span class="kw-2">&amp;mut </span><span class="self">self</span>, events: EventIterator) {
+        T::before_handle_events(<span class="kw-2">&amp;mut **</span><span class="self">self</span>, events)
     }
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DispatcherInner&lt;S, F&gt; {
     source: S,
     callback: F,
+    needs_additional_lifecycle_events: bool,
 }
 
 <span class="kw">impl</span>&lt;Data, S, F&gt; EventDispatcher&lt;Data&gt; <span class="kw">for </span>RefCell&lt;DispatcherInner&lt;S, F&gt;&gt;
@@ -1015,50 +1107,75 @@
         <span class="kw">let </span>DispatcherInner {
             <span class="kw-2">ref mut </span>source,
             <span class="kw-2">ref mut </span>callback,
+            ..
         } = <span class="kw-2">*</span>disp;
+        <span class="macro">trace!</span>(
+            <span class="string">&quot;[calloop] Processing events for source type {}&quot;</span>,
+            std::any::type_name::&lt;S&gt;()
+        );
         source
             .process_events(readiness, token, |event, meta| callback(event, meta, data))
             .map_err(|e| <span class="kw">crate</span>::Error::OtherError(e.into()))
     }
 
-    <span class="kw">fn </span>register(<span class="kw-2">&amp;</span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll, token_factory: <span class="kw-2">&amp;mut </span>TokenFactory) -&gt; <span class="kw">crate</span>::Result&lt;()&gt; {
-        <span class="self">self</span>.borrow_mut().source.register(poll, token_factory)
+    <span class="kw">fn </span>register(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        poll: <span class="kw-2">&amp;mut </span>Poll,
+        additional_lifecycle_register: <span class="kw-2">&amp;mut </span>AdditionalLifecycleEventsSet,
+        token_factory: <span class="kw-2">&amp;mut </span>TokenFactory,
+    ) -&gt; <span class="kw">crate</span>::Result&lt;()&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>this = <span class="self">self</span>.borrow_mut();
+
+        <span class="kw">if </span>this.needs_additional_lifecycle_events {
+            additional_lifecycle_register.register(token_factory.registration_token());
+        }
+        this.source.register(poll, token_factory)
     }
 
-    <span class="kw">fn </span>reregister(<span class="kw-2">&amp;</span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll, token_factory: <span class="kw-2">&amp;mut </span>TokenFactory) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt; {
+    <span class="kw">fn </span>reregister(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        poll: <span class="kw-2">&amp;mut </span>Poll,
+        additional_lifecycle_register: <span class="kw-2">&amp;mut </span>AdditionalLifecycleEventsSet,
+        token_factory: <span class="kw-2">&amp;mut </span>TokenFactory,
+    ) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt; {
         <span class="kw">if let </span><span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>me) = <span class="self">self</span>.try_borrow_mut() {
             me.source.reregister(poll, token_factory)<span class="question-mark">?</span>;
+            <span class="kw">if </span>me.needs_additional_lifecycle_events {
+                additional_lifecycle_register.register(token_factory.registration_token());
+            }
             <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>)
         }
     }
 
-    <span class="kw">fn </span>unregister(<span class="kw-2">&amp;</span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt; {
+    <span class="kw">fn </span>unregister(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        poll: <span class="kw-2">&amp;mut </span>Poll,
+        additional_lifecycle_register: <span class="kw-2">&amp;mut </span>AdditionalLifecycleEventsSet,
+        registration_token: RegistrationToken,
+    ) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt; {
         <span class="kw">if let </span><span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>me) = <span class="self">self</span>.try_borrow_mut() {
             me.source.unregister(poll)<span class="question-mark">?</span>;
+            <span class="kw">if </span>me.needs_additional_lifecycle_events {
+                additional_lifecycle_register.unregister(registration_token);
+            }
             <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>)
         }
     }
 
-    <span class="kw">fn </span>pre_run(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;mut </span>Data) -&gt; <span class="kw">crate</span>::Result&lt;()&gt; {
+    <span class="kw">fn </span>before_sleep(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Result&lt;<span class="prelude-ty">Option</span>&lt;(Readiness, Token)&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>disp = <span class="self">self</span>.borrow_mut();
-        <span class="kw">let </span>DispatcherInner {
-            <span class="kw-2">ref mut </span>source,
-            <span class="kw-2">ref mut </span>callback,
-        } = <span class="kw-2">*</span>disp;
-        source.pre_run(|event, meta| callback(event, meta, data))
+        <span class="kw">let </span>DispatcherInner { <span class="kw-2">ref mut </span>source, .. } = <span class="kw-2">*</span>disp;
+        source.before_sleep()
     }
 
-    <span class="kw">fn </span>post_run(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;mut </span>Data) -&gt; <span class="kw">crate</span>::Result&lt;()&gt; {
+    <span class="kw">fn </span>before_handle_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: EventIterator&lt;<span class="lifetime">&#39;_</span>&gt;) {
         <span class="kw">let </span><span class="kw-2">mut </span>disp = <span class="self">self</span>.borrow_mut();
-        <span class="kw">let </span>DispatcherInner {
-            <span class="kw-2">ref mut </span>source,
-            <span class="kw-2">ref mut </span>callback,
-        } = <span class="kw-2">*</span>disp;
-        source.post_run(|event, meta| callback(event, meta, data))
+        <span class="kw">let </span>DispatcherInner { <span class="kw-2">ref mut </span>source, .. } = <span class="kw-2">*</span>disp;
+        source.before_handle_events(events);
     }
 }
 
@@ -1070,15 +1187,46 @@
         data: <span class="kw-2">&amp;mut </span>Data,
     ) -&gt; <span class="kw">crate</span>::Result&lt;PostAction&gt;;
 
-    <span class="kw">fn </span>register(<span class="kw-2">&amp;</span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll, token_factory: <span class="kw-2">&amp;mut </span>TokenFactory) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;;
+    <span class="kw">fn </span>register(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        poll: <span class="kw-2">&amp;mut </span>Poll,
+        additional_lifecycle_register: <span class="kw-2">&amp;mut </span>AdditionalLifecycleEventsSet,
+        token_factory: <span class="kw-2">&amp;mut </span>TokenFactory,
+    ) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;;
 
-    <span class="kw">fn </span>reregister(<span class="kw-2">&amp;</span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll, token_factory: <span class="kw-2">&amp;mut </span>TokenFactory) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt;;
+    <span class="kw">fn </span>reregister(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        poll: <span class="kw-2">&amp;mut </span>Poll,
+        additional_lifecycle_register: <span class="kw-2">&amp;mut </span>AdditionalLifecycleEventsSet,
+        token_factory: <span class="kw-2">&amp;mut </span>TokenFactory,
+    ) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt;;
 
-    <span class="kw">fn </span>unregister(<span class="kw-2">&amp;</span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt;;
+    <span class="kw">fn </span>unregister(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        poll: <span class="kw-2">&amp;mut </span>Poll,
+        additional_lifecycle_register: <span class="kw-2">&amp;mut </span>AdditionalLifecycleEventsSet,
+        registration_token: RegistrationToken,
+    ) -&gt; <span class="kw">crate</span>::Result&lt;bool&gt;;
 
-    <span class="kw">fn </span>pre_run(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;mut </span>Data) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;;
+    <span class="kw">fn </span>before_sleep(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">crate</span>::Result&lt;<span class="prelude-ty">Option</span>&lt;(Readiness, Token)&gt;&gt;;
+    <span class="kw">fn </span>before_handle_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: EventIterator&lt;<span class="lifetime">&#39;_</span>&gt;);
+}
 
-    <span class="kw">fn </span>post_run(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;mut </span>Data) -&gt; <span class="kw">crate</span>::Result&lt;()&gt;;
+<span class="attr">#[derive(Default)]
+</span><span class="doccomment">/// The list of events
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>AdditionalLifecycleEventsSet {
+    <span class="doccomment">/// The list of sources
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) values: Vec&lt;RegistrationToken&gt;,
+}
+
+<span class="kw">impl </span>AdditionalLifecycleEventsSet {
+    <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, token: RegistrationToken) {
+        <span class="self">self</span>.values.push(token)
+    }
+
+    <span class="kw">fn </span>unregister(<span class="kw-2">&amp;mut </span><span class="self">self</span>, token: RegistrationToken) {
+        <span class="self">self</span>.values.retain(|it| it != <span class="kw-2">&amp;</span>token)
+    }
 }
 
 <span class="comment">// An internal trait to erase the `F` type parameter of `DispatcherInner`
@@ -1126,7 +1274,7 @@
 </span><span class="kw">pub struct </span>Dispatcher&lt;<span class="lifetime">&#39;a</span>, S, Data&gt;(Rc&lt;<span class="kw">dyn </span>ErasedDispatcher&lt;<span class="lifetime">&#39;a</span>, S, Data&gt; + <span class="lifetime">&#39;a</span>&gt;);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S, Data&gt; std::fmt::Debug <span class="kw">for </span>Dispatcher&lt;<span class="lifetime">&#39;a</span>, S, Data&gt; {
-    <span class="attr">#[cfg_attr(coverage, no_coverage)]
+    <span class="attr">#[cfg_attr(feature = <span class="string">&quot;nightly_coverage&quot;</span>, coverage(off))]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
         f.write_str(<span class="string">&quot;Dispatcher { ... }&quot;</span>)
     }
@@ -1143,7 +1291,11 @@
     </span><span class="kw">where
         </span>F: FnMut(S::Event, <span class="kw-2">&amp;mut </span>S::Metadata, <span class="kw-2">&amp;mut </span>Data) -&gt; S::Ret + <span class="lifetime">&#39;a</span>,
     {
-        Dispatcher(Rc::new(RefCell::new(DispatcherInner { source, callback })))
+        Dispatcher(Rc::new(RefCell::new(DispatcherInner {
+            source,
+            callback,
+            needs_additional_lifecycle_events: S::NEEDS_EXTRA_LIFECYCLE_EVENTS,
+        })))
     }
 
     <span class="doccomment">/// Returns an immutable reference to the event source.
@@ -1199,7 +1351,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;i</span>&gt; std::fmt::Debug <span class="kw">for </span>Idle&lt;<span class="lifetime">&#39;i</span>&gt; {
-    <span class="attr">#[cfg_attr(coverage, no_coverage)]
+    <span class="attr">#[cfg_attr(feature = <span class="string">&quot;nightly_coverage&quot;</span>, coverage(off))]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
         f.write_str(<span class="string">&quot;Idle { ... }&quot;</span>)
     }

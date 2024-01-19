@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-protocol-0.12.0/src/protocol/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb_protocol" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-protocol-0.13.0/src/protocol/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb_protocol" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -9248,6 +9248,32 @@
 <a href="#9248" id="9248">9248</a>
 <a href="#9249" id="9249">9249</a>
 <a href="#9250" id="9250">9250</a>
+<a href="#9251" id="9251">9251</a>
+<a href="#9252" id="9252">9252</a>
+<a href="#9253" id="9253">9253</a>
+<a href="#9254" id="9254">9254</a>
+<a href="#9255" id="9255">9255</a>
+<a href="#9256" id="9256">9256</a>
+<a href="#9257" id="9257">9257</a>
+<a href="#9258" id="9258">9258</a>
+<a href="#9259" id="9259">9259</a>
+<a href="#9260" id="9260">9260</a>
+<a href="#9261" id="9261">9261</a>
+<a href="#9262" id="9262">9262</a>
+<a href="#9263" id="9263">9263</a>
+<a href="#9264" id="9264">9264</a>
+<a href="#9265" id="9265">9265</a>
+<a href="#9266" id="9266">9266</a>
+<a href="#9267" id="9267">9267</a>
+<a href="#9268" id="9268">9268</a>
+<a href="#9269" id="9269">9269</a>
+<a href="#9270" id="9270">9270</a>
+<a href="#9271" id="9271">9271</a>
+<a href="#9272" id="9272">9272</a>
+<a href="#9273" id="9273">9273</a>
+<a href="#9274" id="9274">9274</a>
+<a href="#9275" id="9275">9275</a>
+<a href="#9276" id="9276">9276</a>
 </pre></div><pre class="rust"><code><span class="comment">// This file contains generated code. Do not edit directly.
 // To regenerate this, run &#39;make&#39;.
 
@@ -9260,6 +9286,10 @@
 </span><span class="attr">#![allow(clippy::upper_case_acronyms)]
 </span><span class="comment">// This is not easy to fix, so ignore it.
 </span><span class="attr">#![allow(clippy::needless_borrow, clippy::needless_lifetimes)]
+</span><span class="comment">// clippy::unnecessary_fallible_conversions is new in 1.75. TODO: Remove once our MSRV is high enough.
+</span><span class="attr">#![allow(unknown_lints)]
+</span><span class="comment">// We use TryFrom in places where From could be used, but fixing this would make the code generator more complicated
+</span><span class="attr">#![allow(clippy::unnecessary_fallible_conversions)]
 
 </span><span class="kw">use </span>alloc::borrow::Cow;
 <span class="kw">use </span>alloc::string::String;
@@ -9555,6 +9585,7 @@
                     dpms::DISABLE_REQUEST =&gt; RequestInfo::KnownExt(<span class="string">&quot;DPMS::Disable&quot;</span>),
                     dpms::FORCE_LEVEL_REQUEST =&gt; RequestInfo::KnownExt(<span class="string">&quot;DPMS::ForceLevel&quot;</span>),
                     dpms::INFO_REQUEST =&gt; RequestInfo::KnownExt(<span class="string">&quot;DPMS::Info&quot;</span>),
+                    dpms::SELECT_INPUT_REQUEST =&gt; RequestInfo::KnownExt(<span class="string">&quot;DPMS::SelectInput&quot;</span>),
                     <span class="kw">_ </span>=&gt; RequestInfo::UnknownRequest(<span class="prelude-val">Some</span>(<span class="string">&quot;DPMS&quot;</span>), minor_opcode),
                 }
             }
@@ -10439,6 +10470,8 @@
     </span>DpmsForceLevel(dpms::ForceLevelRequest),
     <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
     </span>DpmsInfo(dpms::InfoRequest),
+    <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+    </span>DpmsSelectInput(dpms::SelectInputRequest),
     <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
     </span>Dri2QueryVersion(dri2::QueryVersionRequest),
     <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
@@ -11464,6 +11497,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;input</span>&gt; Request&lt;<span class="lifetime">&#39;input</span>&gt; {
     <span class="comment">// Parse a X11 request into a concrete type
     </span><span class="attr">#[allow(clippy::cognitive_complexity, clippy::single_match)]
+    #[cfg(feature = <span class="string">&quot;request-parsing&quot;</span>)]
     </span><span class="kw">pub fn </span>parse(
         header: RequestHeader,
         body: <span class="kw-2">&amp;</span><span class="lifetime">&#39;input </span>[u8],
@@ -11657,6 +11691,7 @@
                     dpms::DISABLE_REQUEST =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Request::DpmsDisable(dpms::DisableRequest::try_parse_request(header, remaining)<span class="question-mark">?</span>)),
                     dpms::FORCE_LEVEL_REQUEST =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Request::DpmsForceLevel(dpms::ForceLevelRequest::try_parse_request(header, remaining)<span class="question-mark">?</span>)),
                     dpms::INFO_REQUEST =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Request::DpmsInfo(dpms::InfoRequest::try_parse_request(header, remaining)<span class="question-mark">?</span>)),
+                    dpms::SELECT_INPUT_REQUEST =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(Request::DpmsSelectInput(dpms::SelectInputRequest::try_parse_request(header, remaining)<span class="question-mark">?</span>)),
                     <span class="kw">_ </span>=&gt; (),
                 }
             }
@@ -12516,6 +12551,8 @@
             </span>Request::DpmsForceLevel(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
             <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
             </span>Request::DpmsInfo(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(parse_reply::&lt;dpms::InfoRequest&gt;),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+            </span>Request::DpmsSelectInput(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
             </span>Request::Dri2QueryVersion(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(parse_reply::&lt;dri2::QueryVersionRequest&gt;),
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
@@ -13723,6 +13760,8 @@
             </span>Request::DpmsForceLevel(req) =&gt; Request::DpmsForceLevel(req),
             <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
             </span>Request::DpmsInfo(req) =&gt; Request::DpmsInfo(req),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+            </span>Request::DpmsSelectInput(req) =&gt; Request::DpmsSelectInput(req),
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
             </span>Request::Dri2QueryVersion(req) =&gt; Request::Dri2QueryVersion(req),
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
@@ -17617,6 +17656,8 @@
     VisibilityNotify(xproto::VisibilityNotifyEvent),
     <span class="attr">#[cfg(feature = <span class="string">&quot;damage&quot;</span>)]
     </span>DamageNotify(damage::NotifyEvent),
+    <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+    </span>DpmsInfoNotify(dpms::InfoNotifyEvent),
     <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
     </span>Dri2BufferSwapComplete(dri2::BufferSwapCompleteEvent),
     <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
@@ -17985,6 +18026,13 @@
             .get_from_major_opcode(ge_event.extension)
             .map(|(name, <span class="kw">_</span>)| name);
         <span class="kw">match </span>ext_name {
+            <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+            </span><span class="prelude-val">Some</span>(dpms::X11_EXTENSION_NAME) =&gt; {
+                <span class="kw">match </span>ge_event.event_type {
+                    dpms::INFO_NOTIFY_EVENT =&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::DpmsInfoNotify(TryParse::try_parse(event)<span class="question-mark">?</span>.<span class="number">0</span>)),
+                    <span class="kw">_ </span>=&gt; <span class="prelude-val">Ok</span>(<span class="self">Self</span>::Unknown(event.to_vec())),
+                }
+            }
             <span class="attr">#[cfg(feature = <span class="string">&quot;present&quot;</span>)]
             </span><span class="prelude-val">Some</span>(present::X11_EXTENSION_NAME) =&gt; {
                 <span class="kw">match </span>ge_event.event_type {
@@ -18078,6 +18126,8 @@
             Event::VisibilityNotify(value) =&gt; <span class="prelude-val">Some</span>(value.sequence),
             <span class="attr">#[cfg(feature = <span class="string">&quot;damage&quot;</span>)]
             </span>Event::DamageNotify(value) =&gt; <span class="prelude-val">Some</span>(value.sequence),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+            </span>Event::DpmsInfoNotify(value) =&gt; <span class="prelude-val">Some</span>(value.sequence),
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
             </span>Event::Dri2BufferSwapComplete(value) =&gt; <span class="prelude-val">Some</span>(value.sequence),
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
@@ -18294,6 +18344,8 @@
             Event::VisibilityNotify(value) =&gt; value.response_type,
             <span class="attr">#[cfg(feature = <span class="string">&quot;damage&quot;</span>)]
             </span>Event::DamageNotify(value) =&gt; value.response_type,
+            <span class="attr">#[cfg(feature = <span class="string">&quot;dpms&quot;</span>)]
+            </span>Event::DpmsInfoNotify(value) =&gt; value.response_type,
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]
             </span>Event::Dri2BufferSwapComplete(value) =&gt; value.response_type,
             <span class="attr">#[cfg(feature = <span class="string">&quot;dri2&quot;</span>)]

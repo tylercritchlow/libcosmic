@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-0.12.0/src/properties.rs`."><title>properties.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="x11rb" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-0.13.0/src/properties.rs`."><title>properties.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="x11rb" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -794,6 +794,37 @@
 <a href="#794" id="794">794</a>
 <a href="#795" id="795">795</a>
 <a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
+<a href="#798" id="798">798</a>
+<a href="#799" id="799">799</a>
+<a href="#800" id="800">800</a>
+<a href="#801" id="801">801</a>
+<a href="#802" id="802">802</a>
+<a href="#803" id="803">803</a>
+<a href="#804" id="804">804</a>
+<a href="#805" id="805">805</a>
+<a href="#806" id="806">806</a>
+<a href="#807" id="807">807</a>
+<a href="#808" id="808">808</a>
+<a href="#809" id="809">809</a>
+<a href="#810" id="810">810</a>
+<a href="#811" id="811">811</a>
+<a href="#812" id="812">812</a>
+<a href="#813" id="813">813</a>
+<a href="#814" id="814">814</a>
+<a href="#815" id="815">815</a>
+<a href="#816" id="816">816</a>
+<a href="#817" id="817">817</a>
+<a href="#818" id="818">818</a>
+<a href="#819" id="819">819</a>
+<a href="#820" id="820">820</a>
+<a href="#821" id="821">821</a>
+<a href="#822" id="822">822</a>
+<a href="#823" id="823">823</a>
+<a href="#824" id="824">824</a>
+<a href="#825" id="825">825</a>
+<a href="#826" id="826">826</a>
+<a href="#827" id="827">827</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Utility functions for working with X11 properties
 
 </span><span class="kw">use </span>std::convert::TryInto;
@@ -819,8 +850,9 @@
             </span>Conn: RequestConnection + <span class="question-mark">?</span>Sized,
         {
             <span class="doccomment">/// Get the reply that the server sent.
-            </span><span class="kw">pub fn </span>reply(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="macro-nonterminal">$struct_name</span>, ReplyError&gt; {
-                <span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$from_reply</span>(<span class="self">self</span>.<span class="number">0</span>.reply()<span class="question-mark">?</span>)<span class="question-mark">?</span>)
+            </span><span class="kw">pub fn </span>reply(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<span class="macro-nonterminal">$struct_name</span>&gt;, ReplyError&gt; {
+                <span class="attr">#[allow(clippy::redundant_closure_call)]
+                </span><span class="prelude-val">Ok</span>(<span class="macro-nonterminal">$from_reply</span>(<span class="self">self</span>.<span class="number">0</span>.reply()<span class="question-mark">?</span>)<span class="question-mark">?</span>)
             }
 
             <span class="doccomment">/// Get the reply that the server sent, but have errors handled as events.
@@ -829,6 +861,7 @@
                     </span>.reply_unchecked()<span class="question-mark">?
                     </span>.map(<span class="macro-nonterminal">$from_reply</span>)
                     .transpose()
+                    .map(|e| e.flatten())
                     .map_err(Into::into)
             }
         }
@@ -907,7 +940,10 @@
     ///
     /// The original `GetProperty` request must have been for a `WM_CLASS` property for this
     /// function to return sensible results.
-    </span><span class="kw">pub fn </span>from_reply(reply: GetPropertyReply) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseError&gt; {
+    </span><span class="kw">pub fn </span>from_reply(reply: GetPropertyReply) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;, ParseError&gt; {
+        <span class="kw">if </span>reply.type_ == AtomEnum::NONE.into() {
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
+        }
         <span class="kw">if </span>reply.type_ != AtomEnum::STRING.into() || reply.format != <span class="number">8 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(ParseError::InvalidValue);
         }
@@ -917,7 +953,7 @@
             .iter()
             .position(|<span class="kw-2">&amp;</span>v| v == <span class="number">0</span>)
             .unwrap_or(reply.value.len());
-        <span class="prelude-val">Ok</span>(WmClass(reply, offset))
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(WmClass(reply, offset)))
     }
 
     <span class="doccomment">/// Get the instance contained in this `WM_CLASS` property
@@ -957,7 +993,7 @@
     |reply| WmSizeHints::from_reply(<span class="kw-2">&amp;</span>reply),
 }
 
-<span class="kw">const </span>NUM_WM_SIZE_HINTS_ELEMENTS: u32 = <span class="number">18</span>;
+<span class="kw">const </span>NUM_WM_SIZE_HINTS_ELEMENTS: u16 = <span class="number">18</span>;
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Conn&gt; WmSizeHintsCookie&lt;<span class="lifetime">&#39;a</span>, Conn&gt;
 <span class="kw">where
@@ -976,7 +1012,7 @@
             property,
             AtomEnum::WM_SIZE_HINTS,
             <span class="number">0</span>,
-            NUM_WM_SIZE_HINTS_ELEMENTS,
+            NUM_WM_SIZE_HINTS_ELEMENTS.into(),
         )<span class="question-mark">?</span>))
     }
 }
@@ -1089,11 +1125,14 @@
     ///
     /// The original `WmSizeHints` request must have been for a `WM_SIZE_HINTS` property for this
     /// function to return sensible results.
-    </span><span class="kw">pub fn </span>from_reply(reply: <span class="kw-2">&amp;</span>GetPropertyReply) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseError&gt; {
+    </span><span class="kw">pub fn </span>from_reply(reply: <span class="kw-2">&amp;</span>GetPropertyReply) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;, ParseError&gt; {
+        <span class="kw">if </span>reply.type_ == AtomEnum::NONE.into() {
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
+        }
         <span class="kw">if </span>reply.type_ != AtomEnum::WM_SIZE_HINTS.into() || reply.format != <span class="number">32 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(ParseError::InvalidValue);
         }
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::try_parse(<span class="kw-2">&amp;</span>reply.value)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="self">Self</span>::try_parse(<span class="kw-2">&amp;</span>reply.value)<span class="question-mark">?</span>.<span class="number">0</span>))
     }
 
     <span class="doccomment">/// Set these `WM_SIZE_HINTS` on some window as the `WM_NORMAL_HINTS` property.
@@ -1120,7 +1159,7 @@
             property.into(),
             AtomEnum::WM_SIZE_HINTS,
             <span class="number">32</span>,
-            NUM_WM_SIZE_HINTS_ELEMENTS,
+            NUM_WM_SIZE_HINTS_ELEMENTS.into(),
             <span class="kw-2">&amp;</span>data,
         )
     }
@@ -1185,8 +1224,7 @@
 <span class="kw">impl </span>Serialize <span class="kw">for </span>WmSizeHints {
     <span class="kw">type </span>Bytes = Vec&lt;u8&gt;;
     <span class="kw">fn </span>serialize(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Bytes {
-        <span class="comment">// 18*4 surely fits into an usize, so this unwrap() cannot trigger
-        </span><span class="kw">let </span><span class="kw-2">mut </span>result = Vec::with_capacity((NUM_WM_SIZE_HINTS_ELEMENTS * <span class="number">4</span>).try_into().unwrap());
+        <span class="kw">let </span><span class="kw-2">mut </span>result = Vec::with_capacity((NUM_WM_SIZE_HINTS_ELEMENTS * <span class="number">4</span>).into());
         <span class="self">self</span>.serialize_into(<span class="kw-2">&amp;mut </span>result);
         result
     }
@@ -1340,12 +1378,14 @@
     ///
     /// The original `WmHints` request must have been for a `WM_HINTS` property for this
     /// function to return sensible results.
-    </span><span class="kw">pub fn </span>from_reply(reply: <span class="kw-2">&amp;</span>GetPropertyReply) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseError&gt; {
+    </span><span class="kw">pub fn </span>from_reply(reply: <span class="kw-2">&amp;</span>GetPropertyReply) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt;, ParseError&gt; {
+        <span class="kw">if </span>reply.type_ == AtomEnum::NONE.into() {
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
+        }
         <span class="kw">if </span>reply.type_ != AtomEnum::WM_HINTS.into() || reply.format != <span class="number">32 </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(ParseError::InvalidValue);
         }
-
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::try_parse(<span class="kw-2">&amp;</span>reply.value)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="self">Self</span>::try_parse(<span class="kw-2">&amp;</span>reply.value)<span class="question-mark">?</span>.<span class="number">0</span>))
     }
 
     <span class="doccomment">/// Set these `WM_HINTS` on some window.
@@ -1499,10 +1539,17 @@
             (<span class="string">b&quot;Hello\0World&quot;</span>, <span class="string">b&quot;Hello&quot;</span>, <span class="string">b&quot;World&quot;</span>),
             (<span class="string">b&quot;Hello\0World\0Good\0Day&quot;</span>, <span class="string">b&quot;Hello&quot;</span>, <span class="string">b&quot;World\0Good\0Day&quot;</span>),
         ] {
-            <span class="kw">let </span>wm_class =
-                WmClass::from_reply(get_property_reply(input, <span class="number">8</span>, AtomEnum::STRING)).unwrap();
+            <span class="kw">let </span>wm_class = WmClass::from_reply(get_property_reply(input, <span class="number">8</span>, AtomEnum::STRING))
+                .unwrap()
+                .unwrap();
             <span class="macro">assert_eq!</span>((wm_class.instance(), wm_class.class()), (<span class="kw-2">*</span>instance, <span class="kw-2">*</span>class));
         }
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_wm_class_missing() {
+        <span class="kw">let </span>wm_class = WmClass::from_reply(get_property_reply(<span class="kw-2">&amp;</span>[], <span class="number">0</span>, AtomEnum::NONE)).unwrap();
+        <span class="macro">assert!</span>(wm_class.is_none());
     }
 
     <span class="attr">#[test]
@@ -1535,6 +1582,7 @@
             .collect::&lt;Vec&lt;u8&gt;&gt;();
         <span class="kw">let </span>wm_size_hints =
             WmSizeHints::from_reply(<span class="kw-2">&amp;</span>get_property_reply(<span class="kw-2">&amp;</span>input, <span class="number">32</span>, AtomEnum::WM_SIZE_HINTS))
+                .unwrap()
                 .unwrap();
 
         <span class="macro">assert!</span>(
@@ -1551,6 +1599,13 @@
         <span class="macro">assert_eq!</span>(wm_size_hints.win_gravity, <span class="prelude-val">Some</span>(Gravity::NORTH_WEST));
 
         <span class="macro">assert_eq!</span>(input, wm_size_hints.serialize());
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_wm_normal_hints_missing() {
+        <span class="kw">let </span>wm_size_hints =
+            WmSizeHints::from_reply(<span class="kw-2">&amp;</span>get_property_reply(<span class="kw-2">&amp;</span>[], <span class="number">0</span>, AtomEnum::NONE)).unwrap();
+        <span class="macro">assert!</span>(wm_size_hints.is_none());
     }
 
     <span class="attr">#[test]
@@ -1572,8 +1627,9 @@
             .iter()
             .flat_map(|v| u32::serialize(v).to_vec())
             .collect::&lt;Vec&lt;u8&gt;&gt;();
-        <span class="kw">let </span>wm_hints =
-            WmHints::from_reply(<span class="kw-2">&amp;</span>get_property_reply(<span class="kw-2">&amp;</span>input, <span class="number">32</span>, AtomEnum::WM_HINTS)).unwrap();
+        <span class="kw">let </span>wm_hints = WmHints::from_reply(<span class="kw-2">&amp;</span>get_property_reply(<span class="kw-2">&amp;</span>input, <span class="number">32</span>, AtomEnum::WM_HINTS))
+            .unwrap()
+            .unwrap();
 
         <span class="macro">assert_eq!</span>(wm_hints.input, <span class="prelude-val">Some</span>(<span class="bool-val">true</span>));
         <span class="kw">match </span>wm_hints.initial_state {
@@ -1588,6 +1644,12 @@
         <span class="macro">assert!</span>(!wm_hints.urgent);
 
         <span class="macro">assert_eq!</span>(input, wm_hints.serialize());
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_wm_hints_missing() {
+        <span class="kw">let </span>wm_hints = WmHints::from_reply(<span class="kw-2">&amp;</span>get_property_reply(<span class="kw-2">&amp;</span>[], <span class="number">0</span>, AtomEnum::NONE)).unwrap();
+        <span class="macro">assert!</span>(wm_hints.is_none());
     }
 }
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-0.12.0/src/protocol/xproto.rs`."><title>xproto.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-0.13.0/src/protocol/xproto.rs`."><title>xproto.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -5833,6 +5833,151 @@
 <a href="#5833" id="5833">5833</a>
 <a href="#5834" id="5834">5834</a>
 <a href="#5835" id="5835">5835</a>
+<a href="#5836" id="5836">5836</a>
+<a href="#5837" id="5837">5837</a>
+<a href="#5838" id="5838">5838</a>
+<a href="#5839" id="5839">5839</a>
+<a href="#5840" id="5840">5840</a>
+<a href="#5841" id="5841">5841</a>
+<a href="#5842" id="5842">5842</a>
+<a href="#5843" id="5843">5843</a>
+<a href="#5844" id="5844">5844</a>
+<a href="#5845" id="5845">5845</a>
+<a href="#5846" id="5846">5846</a>
+<a href="#5847" id="5847">5847</a>
+<a href="#5848" id="5848">5848</a>
+<a href="#5849" id="5849">5849</a>
+<a href="#5850" id="5850">5850</a>
+<a href="#5851" id="5851">5851</a>
+<a href="#5852" id="5852">5852</a>
+<a href="#5853" id="5853">5853</a>
+<a href="#5854" id="5854">5854</a>
+<a href="#5855" id="5855">5855</a>
+<a href="#5856" id="5856">5856</a>
+<a href="#5857" id="5857">5857</a>
+<a href="#5858" id="5858">5858</a>
+<a href="#5859" id="5859">5859</a>
+<a href="#5860" id="5860">5860</a>
+<a href="#5861" id="5861">5861</a>
+<a href="#5862" id="5862">5862</a>
+<a href="#5863" id="5863">5863</a>
+<a href="#5864" id="5864">5864</a>
+<a href="#5865" id="5865">5865</a>
+<a href="#5866" id="5866">5866</a>
+<a href="#5867" id="5867">5867</a>
+<a href="#5868" id="5868">5868</a>
+<a href="#5869" id="5869">5869</a>
+<a href="#5870" id="5870">5870</a>
+<a href="#5871" id="5871">5871</a>
+<a href="#5872" id="5872">5872</a>
+<a href="#5873" id="5873">5873</a>
+<a href="#5874" id="5874">5874</a>
+<a href="#5875" id="5875">5875</a>
+<a href="#5876" id="5876">5876</a>
+<a href="#5877" id="5877">5877</a>
+<a href="#5878" id="5878">5878</a>
+<a href="#5879" id="5879">5879</a>
+<a href="#5880" id="5880">5880</a>
+<a href="#5881" id="5881">5881</a>
+<a href="#5882" id="5882">5882</a>
+<a href="#5883" id="5883">5883</a>
+<a href="#5884" id="5884">5884</a>
+<a href="#5885" id="5885">5885</a>
+<a href="#5886" id="5886">5886</a>
+<a href="#5887" id="5887">5887</a>
+<a href="#5888" id="5888">5888</a>
+<a href="#5889" id="5889">5889</a>
+<a href="#5890" id="5890">5890</a>
+<a href="#5891" id="5891">5891</a>
+<a href="#5892" id="5892">5892</a>
+<a href="#5893" id="5893">5893</a>
+<a href="#5894" id="5894">5894</a>
+<a href="#5895" id="5895">5895</a>
+<a href="#5896" id="5896">5896</a>
+<a href="#5897" id="5897">5897</a>
+<a href="#5898" id="5898">5898</a>
+<a href="#5899" id="5899">5899</a>
+<a href="#5900" id="5900">5900</a>
+<a href="#5901" id="5901">5901</a>
+<a href="#5902" id="5902">5902</a>
+<a href="#5903" id="5903">5903</a>
+<a href="#5904" id="5904">5904</a>
+<a href="#5905" id="5905">5905</a>
+<a href="#5906" id="5906">5906</a>
+<a href="#5907" id="5907">5907</a>
+<a href="#5908" id="5908">5908</a>
+<a href="#5909" id="5909">5909</a>
+<a href="#5910" id="5910">5910</a>
+<a href="#5911" id="5911">5911</a>
+<a href="#5912" id="5912">5912</a>
+<a href="#5913" id="5913">5913</a>
+<a href="#5914" id="5914">5914</a>
+<a href="#5915" id="5915">5915</a>
+<a href="#5916" id="5916">5916</a>
+<a href="#5917" id="5917">5917</a>
+<a href="#5918" id="5918">5918</a>
+<a href="#5919" id="5919">5919</a>
+<a href="#5920" id="5920">5920</a>
+<a href="#5921" id="5921">5921</a>
+<a href="#5922" id="5922">5922</a>
+<a href="#5923" id="5923">5923</a>
+<a href="#5924" id="5924">5924</a>
+<a href="#5925" id="5925">5925</a>
+<a href="#5926" id="5926">5926</a>
+<a href="#5927" id="5927">5927</a>
+<a href="#5928" id="5928">5928</a>
+<a href="#5929" id="5929">5929</a>
+<a href="#5930" id="5930">5930</a>
+<a href="#5931" id="5931">5931</a>
+<a href="#5932" id="5932">5932</a>
+<a href="#5933" id="5933">5933</a>
+<a href="#5934" id="5934">5934</a>
+<a href="#5935" id="5935">5935</a>
+<a href="#5936" id="5936">5936</a>
+<a href="#5937" id="5937">5937</a>
+<a href="#5938" id="5938">5938</a>
+<a href="#5939" id="5939">5939</a>
+<a href="#5940" id="5940">5940</a>
+<a href="#5941" id="5941">5941</a>
+<a href="#5942" id="5942">5942</a>
+<a href="#5943" id="5943">5943</a>
+<a href="#5944" id="5944">5944</a>
+<a href="#5945" id="5945">5945</a>
+<a href="#5946" id="5946">5946</a>
+<a href="#5947" id="5947">5947</a>
+<a href="#5948" id="5948">5948</a>
+<a href="#5949" id="5949">5949</a>
+<a href="#5950" id="5950">5950</a>
+<a href="#5951" id="5951">5951</a>
+<a href="#5952" id="5952">5952</a>
+<a href="#5953" id="5953">5953</a>
+<a href="#5954" id="5954">5954</a>
+<a href="#5955" id="5955">5955</a>
+<a href="#5956" id="5956">5956</a>
+<a href="#5957" id="5957">5957</a>
+<a href="#5958" id="5958">5958</a>
+<a href="#5959" id="5959">5959</a>
+<a href="#5960" id="5960">5960</a>
+<a href="#5961" id="5961">5961</a>
+<a href="#5962" id="5962">5962</a>
+<a href="#5963" id="5963">5963</a>
+<a href="#5964" id="5964">5964</a>
+<a href="#5965" id="5965">5965</a>
+<a href="#5966" id="5966">5966</a>
+<a href="#5967" id="5967">5967</a>
+<a href="#5968" id="5968">5968</a>
+<a href="#5969" id="5969">5969</a>
+<a href="#5970" id="5970">5970</a>
+<a href="#5971" id="5971">5971</a>
+<a href="#5972" id="5972">5972</a>
+<a href="#5973" id="5973">5973</a>
+<a href="#5974" id="5974">5974</a>
+<a href="#5975" id="5975">5975</a>
+<a href="#5976" id="5976">5976</a>
+<a href="#5977" id="5977">5977</a>
+<a href="#5978" id="5978">5978</a>
+<a href="#5979" id="5979">5979</a>
+<a href="#5980" id="5980">5980</a>
 </pre></div><pre class="rust"><code><span class="comment">// This file contains generated code. Do not edit directly.
 // To regenerate this, run &#39;make&#39;.
 
@@ -5938,7 +6083,8 @@
         value_list: Cow::Borrowed(value_list),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -5972,7 +6118,8 @@
         value_list: Cow::Borrowed(value_list),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -5996,7 +6143,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6030,7 +6178,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6042,7 +6191,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6077,7 +6227,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6124,7 +6275,8 @@
         y,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6171,7 +6323,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6183,7 +6336,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6216,7 +6370,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6228,7 +6383,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6291,7 +6447,8 @@
         value_list: Cow::Borrowed(value_list),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6321,7 +6478,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6369,7 +6527,8 @@
         drawable,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6418,7 +6577,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6476,7 +6636,8 @@
         name: Cow::Borrowed(name),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6488,7 +6649,8 @@
         atom,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6561,7 +6723,8 @@
         data: Cow::Borrowed(data),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6574,7 +6737,8 @@
         property,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6663,7 +6827,8 @@
         long_length,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6675,7 +6840,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6722,7 +6888,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6751,7 +6918,8 @@
         selection,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6771,7 +6939,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6863,7 +7032,8 @@
         event,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6959,7 +7129,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -6996,7 +7167,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7087,7 +7259,8 @@
         modifiers,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7101,7 +7274,8 @@
         modifiers,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7119,7 +7293,8 @@
         event_mask,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7199,7 +7374,8 @@
         keyboard_mode,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7213,7 +7389,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7291,7 +7468,8 @@
         keyboard_mode,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7332,7 +7510,8 @@
         modifiers,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7365,7 +7544,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7375,7 +7555,8 @@
 {
     <span class="kw">let </span>request0 = GrabServerRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7385,7 +7566,8 @@
 {
     <span class="kw">let </span>request0 = UngrabServerRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7410,7 +7592,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7428,7 +7611,8 @@
         stop,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7443,7 +7627,8 @@
         src_y,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7498,7 +7683,8 @@
         dst_y,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7551,7 +7737,8 @@
         time,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7561,7 +7748,8 @@
 {
     <span class="kw">let </span>request0 = GetInputFocusRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7571,7 +7759,8 @@
 {
     <span class="kw">let </span>request0 = QueryKeymapRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7604,7 +7793,8 @@
         name: Cow::Borrowed(name),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7616,7 +7806,8 @@
         font,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7635,7 +7826,8 @@
         font,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7682,7 +7874,8 @@
         string: Cow::Borrowed(string),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7708,7 +7901,8 @@
         pattern: Cow::Borrowed(pattern),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7734,7 +7928,8 @@
         pattern: Cow::Borrowed(pattern),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     <span class="prelude-val">Ok</span>(ListFontsWithInfoCookie::new(conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)<span class="question-mark">?</span>))
 }
 
@@ -7746,7 +7941,8 @@
         font: Cow::Borrowed(font),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7756,7 +7952,8 @@
 {
     <span class="kw">let </span>request0 = GetFontPathRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7795,7 +7992,8 @@
         height,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7819,7 +8017,8 @@
         pixmap,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7856,7 +8055,8 @@
         value_list: Cow::Borrowed(value_list),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7914,7 +8114,8 @@
         value_list: Cow::Borrowed(value_list),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7928,7 +8129,8 @@
         value_mask,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7942,7 +8144,8 @@
         dashes: Cow::Borrowed(dashes),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7958,7 +8161,8 @@
         rectangles: Cow::Borrowed(rectangles),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7981,7 +8185,8 @@
         gc,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -7998,7 +8203,8 @@
         height,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8039,7 +8245,8 @@
         height,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8060,7 +8267,8 @@
         bit_plane,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8075,7 +8283,8 @@
         points: Cow::Borrowed(points),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8129,7 +8338,8 @@
         points: Cow::Borrowed(points),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8169,7 +8379,8 @@
         segments: Cow::Borrowed(segments),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8183,7 +8394,8 @@
         rectangles: Cow::Borrowed(rectangles),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8197,7 +8409,8 @@
         arcs: Cow::Borrowed(arcs),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8213,7 +8426,8 @@
         points: Cow::Borrowed(points),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8252,7 +8466,8 @@
         rectangles: Cow::Borrowed(rectangles),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8266,7 +8481,8 @@
         arcs: Cow::Borrowed(arcs),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8287,7 +8503,8 @@
         data: Cow::Borrowed(data),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8305,7 +8522,8 @@
         plane_mask,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8321,7 +8539,8 @@
         items: Cow::Borrowed(items),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8337,7 +8556,8 @@
         items: Cow::Borrowed(items),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8387,7 +8607,8 @@
         string: Cow::Borrowed(string),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8438,7 +8659,8 @@
         string: Cow::Borrowed(string),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8453,7 +8675,8 @@
         visual,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8465,7 +8688,8 @@
         cmap,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8478,7 +8702,8 @@
         src_cmap,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8490,7 +8715,8 @@
         cmap,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8502,7 +8728,8 @@
         cmap,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8514,7 +8741,8 @@
         window,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8547,7 +8775,8 @@
         blue,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8560,7 +8789,8 @@
         name: Cow::Borrowed(name),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8575,7 +8805,8 @@
         planes,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8592,7 +8823,8 @@
         blues,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8606,7 +8838,8 @@
         pixels: Cow::Borrowed(pixels),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8619,7 +8852,8 @@
         items: Cow::Borrowed(items),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8634,7 +8868,8 @@
         name: Cow::Borrowed(name),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8647,7 +8882,8 @@
         pixels: Cow::Borrowed(pixels),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8660,7 +8896,8 @@
         name: Cow::Borrowed(name),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8684,7 +8921,8 @@
         y,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8741,7 +8979,8 @@
         back_blue,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8765,7 +9004,8 @@
         cursor,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8783,7 +9023,8 @@
         back_blue,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8798,7 +9039,8 @@
         height,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8832,7 +9074,8 @@
         name: Cow::Borrowed(name),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8842,7 +9085,8 @@
 {
     <span class="kw">let </span>request0 = ListExtensionsRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8857,7 +9101,8 @@
         keysyms: Cow::Borrowed(keysyms),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8870,7 +9115,8 @@
         count,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8882,7 +9128,8 @@
         value_list: Cow::Borrowed(value_list),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8892,7 +9139,8 @@
 {
     <span class="kw">let </span>request0 = GetKeyboardControlRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8904,7 +9152,8 @@
         percent,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8920,7 +9169,8 @@
         do_threshold,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8930,7 +9180,8 @@
 {
     <span class="kw">let </span>request0 = GetPointerControlRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8945,7 +9196,8 @@
         allow_exposures,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8955,7 +9207,8 @@
 {
     <span class="kw">let </span>request0 = GetScreenSaverRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8969,7 +9222,8 @@
         address: Cow::Borrowed(address),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8979,7 +9233,8 @@
 {
     <span class="kw">let </span>request0 = ListHostsRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -8991,7 +9246,8 @@
         mode,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9003,7 +9259,8 @@
         mode,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9036,7 +9293,8 @@
         resource,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9050,7 +9308,8 @@
         atoms: Cow::Borrowed(atoms),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9062,7 +9321,8 @@
         mode,
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9074,7 +9334,8 @@
         map: Cow::Borrowed(map),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9084,7 +9345,8 @@
 {
     <span class="kw">let </span>request0 = GetPointerMappingRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9096,7 +9358,8 @@
         keycodes: Cow::Borrowed(keycodes),
     };
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">1</span>]), IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">2</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9106,7 +9369,8 @@
 {
     <span class="kw">let </span>request0 = GetModifierMappingRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_with_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -9116,7 +9380,8 @@
 {
     <span class="kw">let </span>request0 = NoOperationRequest;
     <span class="kw">let </span>(bytes, fds) = request0.serialize();
-    <span class="kw">let </span>slices = bytes.iter().map(|b| IoSlice::new(b)).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+    <span class="kw">let </span>slices = [IoSlice::new(<span class="kw-2">&amp;</span>bytes[<span class="number">0</span>])];
+    <span class="macro">assert_eq!</span>(slices.len(), bytes.len());
     conn.send_request_without_reply(<span class="kw-2">&amp;</span>slices, fds)
 }
 
@@ -11197,12 +11462,12 @@
 /// Any errors during `Drop` are silently ignored. Most likely an error here means that your
 /// X11 connection is broken and later requests will also fail.
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>PixmapWrapper&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, Pixmap);
+</span><span class="kw">pub struct </span>PixmapWrapper&lt;C: RequestConnection&gt;(C, Pixmap);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt; PixmapWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; PixmapWrapper&lt;C&gt;
 {
     <span class="doccomment">/// Assume ownership of the given resource and destroy it in `Drop`.
-    </span><span class="kw">pub fn </span>for_pixmap(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, id: Pixmap) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>for_pixmap(conn: C, id: Pixmap) -&gt; <span class="self">Self </span>{
         PixmapWrapper(conn, id)
     }
 
@@ -11221,9 +11486,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; PixmapWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; PixmapWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
 {
-
     <span class="doccomment">/// Create a new Pixmap and return a Pixmap wrapper and a cookie.
     ///
     /// This is a thin wrapper around [create_pixmap] that allocates an id for the Pixmap.
@@ -11238,7 +11502,9 @@
         <span class="kw">let </span>cookie = create_pixmap(conn, depth, pid, drawable, width, height)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_pixmap(conn, pid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; PixmapWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Pixmap and return a Pixmap wrapper
     ///
     /// This is a thin wrapper around [create_pixmap] that allocates an id for the Pixmap.
@@ -11246,21 +11512,23 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [create_pixmap].
-    </span><span class="kw">pub fn </span>create_pixmap(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, depth: u8, drawable: Drawable, width: u16, height: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>create_pixmap(conn: C, depth: u8, drawable: Drawable, width: u16, height: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::create_pixmap_and_get_cookie(conn, depth, drawable, width, height)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>pid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= create_pixmap(<span class="kw-2">&amp;</span>conn, depth, pid, drawable, width, height)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_pixmap(conn, pid))
     }
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>PixmapWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;&gt; <span class="kw">for </span>Pixmap {
-    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>PixmapWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>PixmapWrapper&lt;C&gt;&gt; <span class="kw">for </span>Pixmap {
+    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>PixmapWrapper&lt;C&gt;) -&gt; <span class="self">Self </span>{
         from.<span class="number">1
     </span>}
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>PixmapWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt; {
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>PixmapWrapper&lt;C&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let _ </span>= free_pixmap(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
+        <span class="kw">let _ </span>= free_pixmap(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
     }
 }
 
@@ -11271,12 +11539,12 @@
 /// Any errors during `Drop` are silently ignored. Most likely an error here means that your
 /// X11 connection is broken and later requests will also fail.
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>WindowWrapper&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, Window);
+</span><span class="kw">pub struct </span>WindowWrapper&lt;C: RequestConnection&gt;(C, Window);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt; WindowWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; WindowWrapper&lt;C&gt;
 {
     <span class="doccomment">/// Assume ownership of the given resource and destroy it in `Drop`.
-    </span><span class="kw">pub fn </span>for_window(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, id: Window) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>for_window(conn: C, id: Window) -&gt; <span class="self">Self </span>{
         WindowWrapper(conn, id)
     }
 
@@ -11295,9 +11563,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; WindowWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; WindowWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
 {
-
     <span class="doccomment">/// Create a new Window and return a Window wrapper and a cookie.
     ///
     /// This is a thin wrapper around [create_window] that allocates an id for the Window.
@@ -11312,7 +11579,9 @@
         <span class="kw">let </span>cookie = create_window(conn, depth, wid, parent, x, y, width, height, border_width, class, visual, value_list)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_window(conn, wid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; WindowWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Window and return a Window wrapper
     ///
     /// This is a thin wrapper around [create_window] that allocates an id for the Window.
@@ -11320,21 +11589,23 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [create_window].
-    </span><span class="kw">pub fn </span>create_window(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, depth: u8, parent: Window, x: i16, y: i16, width: u16, height: u16, border_width: u16, class: WindowClass, visual: Visualid, value_list: <span class="kw-2">&amp;</span>CreateWindowAux) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>create_window(conn: C, depth: u8, parent: Window, x: i16, y: i16, width: u16, height: u16, border_width: u16, class: WindowClass, visual: Visualid, value_list: <span class="kw-2">&amp;</span>CreateWindowAux) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::create_window_and_get_cookie(conn, depth, parent, x, y, width, height, border_width, class, visual, value_list)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>wid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= create_window(<span class="kw-2">&amp;</span>conn, depth, wid, parent, x, y, width, height, border_width, class, visual, value_list)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_window(conn, wid))
     }
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>WindowWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;&gt; <span class="kw">for </span>Window {
-    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>WindowWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>WindowWrapper&lt;C&gt;&gt; <span class="kw">for </span>Window {
+    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>WindowWrapper&lt;C&gt;) -&gt; <span class="self">Self </span>{
         from.<span class="number">1
     </span>}
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>WindowWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt; {
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>WindowWrapper&lt;C&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let _ </span>= destroy_window(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
+        <span class="kw">let _ </span>= destroy_window(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
     }
 }
 
@@ -11345,12 +11616,12 @@
 /// Any errors during `Drop` are silently ignored. Most likely an error here means that your
 /// X11 connection is broken and later requests will also fail.
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>FontWrapper&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, Font);
+</span><span class="kw">pub struct </span>FontWrapper&lt;C: RequestConnection&gt;(C, Font);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt; FontWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; FontWrapper&lt;C&gt;
 {
     <span class="doccomment">/// Assume ownership of the given resource and destroy it in `Drop`.
-    </span><span class="kw">pub fn </span>for_font(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, id: Font) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>for_font(conn: C, id: Font) -&gt; <span class="self">Self </span>{
         FontWrapper(conn, id)
     }
 
@@ -11369,9 +11640,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; FontWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; FontWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
 {
-
     <span class="doccomment">/// Create a new Font and return a Font wrapper and a cookie.
     ///
     /// This is a thin wrapper around [open_font] that allocates an id for the Font.
@@ -11386,7 +11656,9 @@
         <span class="kw">let </span>cookie = open_font(conn, fid, name)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_font(conn, fid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; FontWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Font and return a Font wrapper
     ///
     /// This is a thin wrapper around [open_font] that allocates an id for the Font.
@@ -11394,21 +11666,23 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [open_font].
-    </span><span class="kw">pub fn </span>open_font(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, name: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>open_font(conn: C, name: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::open_font_and_get_cookie(conn, name)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>fid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= open_font(<span class="kw-2">&amp;</span>conn, fid, name)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_font(conn, fid))
     }
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>FontWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;&gt; <span class="kw">for </span>Font {
-    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>FontWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>FontWrapper&lt;C&gt;&gt; <span class="kw">for </span>Font {
+    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>FontWrapper&lt;C&gt;) -&gt; <span class="self">Self </span>{
         from.<span class="number">1
     </span>}
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>FontWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt; {
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>FontWrapper&lt;C&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let _ </span>= close_font(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
+        <span class="kw">let _ </span>= close_font(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
     }
 }
 
@@ -11419,12 +11693,12 @@
 /// Any errors during `Drop` are silently ignored. Most likely an error here means that your
 /// X11 connection is broken and later requests will also fail.
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>GcontextWrapper&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, Gcontext);
+</span><span class="kw">pub struct </span>GcontextWrapper&lt;C: RequestConnection&gt;(C, Gcontext);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt; GcontextWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; GcontextWrapper&lt;C&gt;
 {
     <span class="doccomment">/// Assume ownership of the given resource and destroy it in `Drop`.
-    </span><span class="kw">pub fn </span>for_gcontext(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, id: Gcontext) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>for_gcontext(conn: C, id: Gcontext) -&gt; <span class="self">Self </span>{
         GcontextWrapper(conn, id)
     }
 
@@ -11443,9 +11717,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; GcontextWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; GcontextWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
 {
-
     <span class="doccomment">/// Create a new Gcontext and return a Gcontext wrapper and a cookie.
     ///
     /// This is a thin wrapper around [create_gc] that allocates an id for the Gcontext.
@@ -11460,7 +11733,9 @@
         <span class="kw">let </span>cookie = create_gc(conn, cid, drawable, value_list)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_gcontext(conn, cid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; GcontextWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Gcontext and return a Gcontext wrapper
     ///
     /// This is a thin wrapper around [create_gc] that allocates an id for the Gcontext.
@@ -11468,21 +11743,23 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [create_gc].
-    </span><span class="kw">pub fn </span>create_gc(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, drawable: Drawable, value_list: <span class="kw-2">&amp;</span>CreateGCAux) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>create_gc(conn: C, drawable: Drawable, value_list: <span class="kw-2">&amp;</span>CreateGCAux) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::create_gc_and_get_cookie(conn, drawable, value_list)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>cid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= create_gc(<span class="kw-2">&amp;</span>conn, cid, drawable, value_list)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_gcontext(conn, cid))
     }
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>GcontextWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;&gt; <span class="kw">for </span>Gcontext {
-    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>GcontextWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>GcontextWrapper&lt;C&gt;&gt; <span class="kw">for </span>Gcontext {
+    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>GcontextWrapper&lt;C&gt;) -&gt; <span class="self">Self </span>{
         from.<span class="number">1
     </span>}
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>GcontextWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt; {
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>GcontextWrapper&lt;C&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let _ </span>= free_gc(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
+        <span class="kw">let _ </span>= free_gc(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
     }
 }
 
@@ -11493,12 +11770,12 @@
 /// Any errors during `Drop` are silently ignored. Most likely an error here means that your
 /// X11 connection is broken and later requests will also fail.
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>ColormapWrapper&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, Colormap);
+</span><span class="kw">pub struct </span>ColormapWrapper&lt;C: RequestConnection&gt;(C, Colormap);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt; ColormapWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; ColormapWrapper&lt;C&gt;
 {
     <span class="doccomment">/// Assume ownership of the given resource and destroy it in `Drop`.
-    </span><span class="kw">pub fn </span>for_colormap(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, id: Colormap) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>for_colormap(conn: C, id: Colormap) -&gt; <span class="self">Self </span>{
         ColormapWrapper(conn, id)
     }
 
@@ -11517,9 +11794,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; ColormapWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; ColormapWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
 {
-
     <span class="doccomment">/// Create a new Colormap and return a Colormap wrapper and a cookie.
     ///
     /// This is a thin wrapper around [create_colormap] that allocates an id for the Colormap.
@@ -11534,7 +11810,9 @@
         <span class="kw">let </span>cookie = create_colormap(conn, alloc, mid, window, visual)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_colormap(conn, mid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; ColormapWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Colormap and return a Colormap wrapper
     ///
     /// This is a thin wrapper around [create_colormap] that allocates an id for the Colormap.
@@ -11542,21 +11820,23 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [create_colormap].
-    </span><span class="kw">pub fn </span>create_colormap(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, alloc: ColormapAlloc, window: Window, visual: Visualid) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>create_colormap(conn: C, alloc: ColormapAlloc, window: Window, visual: Visualid) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::create_colormap_and_get_cookie(conn, alloc, window, visual)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>mid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= create_colormap(<span class="kw-2">&amp;</span>conn, alloc, mid, window, visual)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_colormap(conn, mid))
     }
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>ColormapWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;&gt; <span class="kw">for </span>Colormap {
-    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>ColormapWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>ColormapWrapper&lt;C&gt;&gt; <span class="kw">for </span>Colormap {
+    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>ColormapWrapper&lt;C&gt;) -&gt; <span class="self">Self </span>{
         from.<span class="number">1
     </span>}
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>ColormapWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt; {
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>ColormapWrapper&lt;C&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let _ </span>= free_colormap(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
+        <span class="kw">let _ </span>= free_colormap(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
     }
 }
 
@@ -11567,12 +11847,12 @@
 /// Any errors during `Drop` are silently ignored. Most likely an error here means that your
 /// X11 connection is broken and later requests will also fail.
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>CursorWrapper&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, Cursor);
+</span><span class="kw">pub struct </span>CursorWrapper&lt;C: RequestConnection&gt;(C, Cursor);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: RequestConnection&gt; CursorWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; CursorWrapper&lt;C&gt;
 {
     <span class="doccomment">/// Assume ownership of the given resource and destroy it in `Drop`.
-    </span><span class="kw">pub fn </span>for_cursor(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, id: Cursor) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>for_cursor(conn: C, id: Cursor) -&gt; <span class="self">Self </span>{
         CursorWrapper(conn, id)
     }
 
@@ -11591,9 +11871,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; CursorWrapper&lt;<span class="lifetime">&#39;c</span>, C&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; CursorWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
 {
-
     <span class="doccomment">/// Create a new Cursor and return a Cursor wrapper and a cookie.
     ///
     /// This is a thin wrapper around [create_cursor] that allocates an id for the Cursor.
@@ -11610,7 +11889,9 @@
         <span class="kw">let </span>cookie = create_cursor(conn, cid, source, mask, fore_red, fore_green, fore_blue, back_red, back_green, back_blue, x, y)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_cursor(conn, cid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; CursorWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Cursor and return a Cursor wrapper
     ///
     /// This is a thin wrapper around [create_cursor] that allocates an id for the Cursor.
@@ -11618,13 +11899,18 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [create_cursor].
-    </span><span class="kw">pub fn </span>create_cursor&lt;A&gt;(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, source: Pixmap, mask: A, fore_red: u16, fore_green: u16, fore_blue: u16, back_red: u16, back_green: u16, back_blue: u16, x: u16, y: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>create_cursor&lt;A&gt;(conn: C, source: Pixmap, mask: A, fore_red: u16, fore_green: u16, fore_blue: u16, back_red: u16, back_green: u16, back_blue: u16, x: u16, y: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     <span class="kw">where
         </span>A: Into&lt;Pixmap&gt;,
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::create_cursor_and_get_cookie(conn, source, mask, fore_red, fore_green, fore_blue, back_red, back_green, back_blue, x, y)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>cid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= create_cursor(<span class="kw-2">&amp;</span>conn, cid, source, mask, fore_red, fore_green, fore_blue, back_red, back_green, back_blue, x, y)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_cursor(conn, cid))
     }
+}
 
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;c</span>, C: X11Connection&gt; CursorWrapper&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C&gt;
+{
     <span class="doccomment">/// Create a new Cursor and return a Cursor wrapper and a cookie.
     ///
     /// This is a thin wrapper around [create_glyph_cursor] that allocates an id for the Cursor.
@@ -11641,7 +11927,9 @@
         <span class="kw">let </span>cookie = create_glyph_cursor(conn, cid, source_font, mask_font, source_char, mask_char, fore_red, fore_green, fore_blue, back_red, back_green, back_blue)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((<span class="self">Self</span>::for_cursor(conn, cid), cookie))
     }
-
+}
+<span class="kw">impl</span>&lt;C: X11Connection&gt; CursorWrapper&lt;C&gt;
+{
     <span class="doccomment">/// Create a new Cursor and return a Cursor wrapper
     ///
     /// This is a thin wrapper around [create_glyph_cursor] that allocates an id for the Cursor.
@@ -11649,23 +11937,25 @@
     /// it in `Drop`.
     ///
     /// Errors can come from the call to [X11Connection::generate_id] or [create_glyph_cursor].
-    </span><span class="kw">pub fn </span>create_glyph_cursor&lt;A&gt;(conn: <span class="kw-2">&amp;</span><span class="lifetime">&#39;c </span>C, source_font: Font, mask_font: A, source_char: u16, mask_char: u16, fore_red: u16, fore_green: u16, fore_blue: u16, back_red: u16, back_green: u16, back_blue: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
+    </span><span class="kw">pub fn </span>create_glyph_cursor&lt;A&gt;(conn: C, source_font: Font, mask_font: A, source_char: u16, mask_char: u16, fore_red: u16, fore_green: u16, fore_blue: u16, back_red: u16, back_green: u16, back_blue: u16) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ReplyOrIdError&gt;
     <span class="kw">where
         </span>A: Into&lt;Font&gt;,
     {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::create_glyph_cursor_and_get_cookie(conn, source_font, mask_font, source_char, mask_char, fore_red, fore_green, fore_blue, back_red, back_green, back_blue)<span class="question-mark">?</span>.<span class="number">0</span>)
+        <span class="kw">let </span>cid = conn.generate_id()<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= create_glyph_cursor(<span class="kw-2">&amp;</span>conn, cid, source_font, mask_font, source_char, mask_char, fore_red, fore_green, fore_blue, back_red, back_green, back_blue)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::for_cursor(conn, cid))
     }
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>CursorWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;&gt; <span class="kw">for </span>Cursor {
-    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>CursorWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; From&lt;<span class="kw-2">&amp;</span>CursorWrapper&lt;C&gt;&gt; <span class="kw">for </span>Cursor {
+    <span class="kw">fn </span>from(from: <span class="kw-2">&amp;</span>CursorWrapper&lt;C&gt;) -&gt; <span class="self">Self </span>{
         from.<span class="number">1
     </span>}
 }
 
-<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>CursorWrapper&lt;<span class="lifetime">&#39;_</span>, C&gt; {
+<span class="kw">impl</span>&lt;C: RequestConnection&gt; Drop <span class="kw">for </span>CursorWrapper&lt;C&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">let _ </span>= free_cursor(<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
+        <span class="kw">let _ </span>= free_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>.<span class="number">1</span>);
     }
 }
 </code></pre></div></section></main></body></html>

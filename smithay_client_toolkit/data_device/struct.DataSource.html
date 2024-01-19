@@ -5,7 +5,7 @@ drag and drop</p>
     mime_types: It,
     callback: F
 ) -&gt; <a class="struct" href="struct.DataSource.html" title="struct smithay_client_toolkit::data_device::DataSource">DataSource</a><span class="where fmt-newline">where
-    F: <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="enum" href="enum.DataSourceEvent.html" title="enum smithay_client_toolkit::data_device::DataSourceEvent">DataSourceEvent</a>, <a class="struct" href="../../wayland_commons/filter/struct.DispatchData.html" title="struct wayland_commons::filter::DispatchData">DispatchData</a>&lt;'_&gt;) + 'static,
+    F: <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="enum" href="enum.DataSourceEvent.html" title="enum smithay_client_toolkit::data_device::DataSourceEvent">DataSourceEvent</a>, DispatchData&lt;'_&gt;) + 'static,
     S: <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.75.0/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     It: <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/iter/traits/collect/trait.IntoIterator.html" title="trait core::iter::traits::collect::IntoIterator">IntoIterator</a>&lt;Item = S&gt;,</span></h4></section></summary><div class="docblock"><p>Create a new data source</p>
 <p>You’ll then need to provide it to a data device to send it

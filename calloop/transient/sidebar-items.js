@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["TransientSource"]};
+window.SIDEBAR_ITEMS = {"struct":["TransientSource"]};

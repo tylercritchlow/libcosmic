@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/calloop-0.10.6/src/sources/timer.rs`."><title>timer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="calloop" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/calloop-0.12.4/src/sources/timer.rs`."><title>timer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="calloop" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -569,18 +569,93 @@
 <a href="#569" id="569">569</a>
 <a href="#570" id="570">570</a>
 <a href="#571" id="571">571</a>
+<a href="#572" id="572">572</a>
+<a href="#573" id="573">573</a>
+<a href="#574" id="574">574</a>
+<a href="#575" id="575">575</a>
+<a href="#576" id="576">576</a>
+<a href="#577" id="577">577</a>
+<a href="#578" id="578">578</a>
+<a href="#579" id="579">579</a>
+<a href="#580" id="580">580</a>
+<a href="#581" id="581">581</a>
+<a href="#582" id="582">582</a>
+<a href="#583" id="583">583</a>
+<a href="#584" id="584">584</a>
+<a href="#585" id="585">585</a>
+<a href="#586" id="586">586</a>
+<a href="#587" id="587">587</a>
+<a href="#588" id="588">588</a>
+<a href="#589" id="589">589</a>
+<a href="#590" id="590">590</a>
+<a href="#591" id="591">591</a>
+<a href="#592" id="592">592</a>
+<a href="#593" id="593">593</a>
+<a href="#594" id="594">594</a>
+<a href="#595" id="595">595</a>
+<a href="#596" id="596">596</a>
+<a href="#597" id="597">597</a>
+<a href="#598" id="598">598</a>
+<a href="#599" id="599">599</a>
+<a href="#600" id="600">600</a>
+<a href="#601" id="601">601</a>
+<a href="#602" id="602">602</a>
+<a href="#603" id="603">603</a>
+<a href="#604" id="604">604</a>
+<a href="#605" id="605">605</a>
+<a href="#606" id="606">606</a>
+<a href="#607" id="607">607</a>
+<a href="#608" id="608">608</a>
+<a href="#609" id="609">609</a>
+<a href="#610" id="610">610</a>
+<a href="#611" id="611">611</a>
+<a href="#612" id="612">612</a>
+<a href="#613" id="613">613</a>
+<a href="#614" id="614">614</a>
+<a href="#615" id="615">615</a>
+<a href="#616" id="616">616</a>
+<a href="#617" id="617">617</a>
+<a href="#618" id="618">618</a>
+<a href="#619" id="619">619</a>
+<a href="#620" id="620">620</a>
+<a href="#621" id="621">621</a>
+<a href="#622" id="622">622</a>
+<a href="#623" id="623">623</a>
+<a href="#624" id="624">624</a>
+<a href="#625" id="625">625</a>
+<a href="#626" id="626">626</a>
+<a href="#627" id="627">627</a>
+<a href="#628" id="628">628</a>
+<a href="#629" id="629">629</a>
+<a href="#630" id="630">630</a>
+<a href="#631" id="631">631</a>
+<a href="#632" id="632">632</a>
+<a href="#633" id="633">633</a>
+<a href="#634" id="634">634</a>
+<a href="#635" id="635">635</a>
+<a href="#636" id="636">636</a>
+<a href="#637" id="637">637</a>
+<a href="#638" id="638">638</a>
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
+<a href="#642" id="642">642</a>
+<a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Timer event source
 //!
 //! The [`Timer`] is an event source that will fire its event after a certain amount of time
 //! specified at creation. Its timing is tracked directly by the event loop core logic, and it does
 //! not consume any system resource.
 //!
-//! The timer precision depends on whether the loop was initialized in high-precision mode. If not,
-//! you can expect precision of order of 1 millisecond, if you need sub-millisecond precision,
-//! make sure you initialize the [`EventLoop`](crate::EventLoop) using
-//! [`EventLoop::try_new_high_precision()`](crate::EventLoop::try_new_high_precision). Note also
-//! that if you need to rely on good precision timers in general, you may need to enable realtime
-//! features of your OS to ensure your thread is quickly woken up by the system scheduler.
+//! As of calloop v0.11.0, the event loop always uses high-precision timers. However, the timer
+//! precision varies between operating systems; for instance, the scheduler granularity on Windows
+//! is about 16 milliseconds. If you need to rely on good precision timers in general, you may need
+//! to enable realtime features of your OS to ensure your thread is quickly woken up by the system
+//! scheduler.
 //!
 //! The provided event is an [`Instant`] representing the deadline for which this timer has fired
 //! (which can be earlier than the current time depending on the event loop congestion).
@@ -622,7 +697,7 @@
 </span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Timer {
     registration: <span class="prelude-ty">Option</span>&lt;Registration&gt;,
-    deadline: Instant,
+    deadline: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
 }
 
 <span class="kw">impl </span>Timer {
@@ -633,11 +708,15 @@
 
     <span class="doccomment">/// Create a timer that will fire after a given duration from now
     </span><span class="kw">pub fn </span>from_duration(duration: Duration) -&gt; Timer {
-        <span class="self">Self</span>::from_deadline(Instant::now() + duration)
+        <span class="self">Self</span>::from_deadline_inner(Instant::now().checked_add(duration))
     }
 
     <span class="doccomment">/// Create a timer that will fire at a given instant
     </span><span class="kw">pub fn </span>from_deadline(deadline: Instant) -&gt; Timer {
+        <span class="self">Self</span>::from_deadline_inner(<span class="prelude-val">Some</span>(deadline))
+    }
+
+    <span class="kw">fn </span>from_deadline_inner(deadline: <span class="prelude-ty">Option</span>&lt;Instant&gt;) -&gt; Timer {
         Timer {
             registration: <span class="prelude-val">None</span>,
             deadline,
@@ -649,7 +728,7 @@
     /// If the `Timer` is currently registered in the event loop, it needs to be
     /// re-registered for this change to take effect.
     </span><span class="kw">pub fn </span>set_deadline(<span class="kw-2">&amp;mut </span><span class="self">self</span>, deadline: Instant) {
-        <span class="self">self</span>.deadline = deadline;
+        <span class="self">self</span>.deadline = <span class="prelude-val">Some</span>(deadline);
     }
 
     <span class="doccomment">/// Changes the deadline of this timer to a [`Duration`] from now
@@ -657,11 +736,13 @@
     /// If the `Timer` is currently registered in the event loop, it needs to be
     /// re-registered for this change to take effect.
     </span><span class="kw">pub fn </span>set_duration(<span class="kw-2">&amp;mut </span><span class="self">self</span>, duration: Duration) {
-        <span class="self">self</span>.set_deadline(Instant::now() + duration)
+        <span class="self">self</span>.deadline = Instant::now().checked_add(duration);
     }
 
     <span class="doccomment">/// Get the current deadline of this `Timer`
-    </span><span class="kw">pub fn </span>current_deadline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Instant {
+    ///
+    /// Returns `None` if the timer has overflowed.
+    </span><span class="kw">pub fn </span>current_deadline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Instant&gt; {
         <span class="self">self</span>.deadline
     }
 }
@@ -681,14 +762,21 @@
     <span class="kw">where
         </span>F: FnMut(<span class="self">Self</span>::Event, <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Metadata) -&gt; <span class="self">Self</span>::Ret,
     {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>registration) = <span class="self">self</span>.registration {
+        <span class="kw">if let </span>(<span class="prelude-val">Some</span>(<span class="kw-2">ref </span>registration), <span class="prelude-val">Some</span>(<span class="kw-2">ref </span>deadline)) = (<span class="kw-2">&amp;</span><span class="self">self</span>.registration, <span class="kw-2">&amp;</span><span class="self">self</span>.deadline) {
             <span class="kw">if </span>registration.token != token {
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(PostAction::Continue);
             }
-            <span class="kw">let </span>new_deadline = <span class="kw">match </span>callback(<span class="self">self</span>.deadline, <span class="kw-2">&amp;mut </span>()) {
+            <span class="kw">let </span>new_deadline = <span class="kw">match </span>callback(<span class="kw-2">*</span>deadline, <span class="kw-2">&amp;mut </span>()) {
                 TimeoutAction::Drop =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(PostAction::Remove),
                 TimeoutAction::ToInstant(instant) =&gt; instant,
-                TimeoutAction::ToDuration(duration) =&gt; Instant::now() + duration,
+                TimeoutAction::ToDuration(duration) =&gt; <span class="kw">match </span>Instant::now().checked_add(duration) {
+                    <span class="prelude-val">Some</span>(new_deadline) =&gt; new_deadline,
+                    <span class="prelude-val">None </span>=&gt; {
+                        <span class="comment">// The timer has overflowed, meaning we have no choice but to drop it.
+                        </span><span class="self">self</span>.deadline = <span class="prelude-val">None</span>;
+                        <span class="kw">return </span><span class="prelude-val">Ok</span>(PostAction::Remove);
+                    }
+                },
             };
             <span class="comment">// If we received an event, we MUST have a valid counter value
             </span>registration.wheel.borrow_mut().insert_reuse(
@@ -696,20 +784,24 @@
                 new_deadline,
                 registration.token,
             );
-            <span class="self">self</span>.deadline = new_deadline;
+            <span class="self">self</span>.deadline = <span class="prelude-val">Some</span>(new_deadline);
         }
         <span class="prelude-val">Ok</span>(PostAction::Continue)
     }
 
     <span class="kw">fn </span>register(<span class="kw-2">&amp;mut </span><span class="self">self</span>, poll: <span class="kw-2">&amp;mut </span>Poll, token_factory: <span class="kw-2">&amp;mut </span>TokenFactory) -&gt; <span class="kw">crate</span>::Result&lt;()&gt; {
-        <span class="kw">let </span>wheel = poll.timers.clone();
-        <span class="kw">let </span>token = token_factory.token();
-        <span class="kw">let </span>counter = wheel.borrow_mut().insert(<span class="self">self</span>.deadline, token);
-        <span class="self">self</span>.registration = <span class="prelude-val">Some</span>(Registration {
-            token,
-            wheel,
-            counter,
-        });
+        <span class="comment">// Only register a deadline if we haven&#39;t overflowed.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(deadline) = <span class="self">self</span>.deadline {
+            <span class="kw">let </span>wheel = poll.timers.clone();
+            <span class="kw">let </span>token = token_factory.token();
+            <span class="kw">let </span>counter = wheel.borrow_mut().insert(deadline, token);
+            <span class="self">self</span>.registration = <span class="prelude-val">Some</span>(Registration {
+                token,
+                wheel,
+                counter,
+            });
+        }
+
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -835,7 +927,7 @@
 <span class="comment">// This impl is required for PartialOrd but actually never used
 // and the type is private, so ignore its coverage
 </span><span class="kw">impl </span>std::cmp::PartialEq <span class="kw">for </span>TimeoutData {
-    <span class="attr">#[cfg_attr(coverage, no_coverage)]
+    <span class="attr">#[cfg_attr(feature = <span class="string">&quot;nightly_coverage&quot;</span>, coverage(off))]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="self">self</span>.deadline == other.deadline
     }
@@ -847,12 +939,12 @@
 
 </span><span class="doccomment">/// A future that resolves once a certain timeout is expired
 </span><span class="kw">pub struct </span>TimeoutFuture {
-    deadline: Instant,
+    deadline: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
     waker: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Waker&gt;&gt;&gt;,
 }
 
 <span class="kw">impl </span>std::fmt::Debug <span class="kw">for </span>TimeoutFuture {
-    <span class="attr">#[cfg_attr(coverage, no_coverage)]
+    <span class="attr">#[cfg_attr(feature = <span class="string">&quot;nightly_coverage&quot;</span>, coverage(off))]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; std::fmt::Result {
         f.debug_struct(<span class="string">&quot;TimeoutFuture&quot;</span>)
             .field(<span class="string">&quot;deadline&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.deadline)
@@ -863,20 +955,30 @@
 <span class="kw">impl </span>TimeoutFuture {
     <span class="doccomment">/// Create a future that resolves after a given duration
     </span><span class="kw">pub fn </span>from_duration&lt;Data&gt;(handle: <span class="kw-2">&amp;</span>LoopHandle&lt;<span class="lifetime">&#39;_</span>, Data&gt;, duration: Duration) -&gt; TimeoutFuture {
-        <span class="self">Self</span>::from_deadline(handle, Instant::now() + duration)
+        <span class="self">Self</span>::from_deadline_inner(handle, Instant::now().checked_add(duration))
     }
 
     <span class="doccomment">/// Create a future that resolves at a given instant
     </span><span class="kw">pub fn </span>from_deadline&lt;Data&gt;(handle: <span class="kw-2">&amp;</span>LoopHandle&lt;<span class="lifetime">&#39;_</span>, Data&gt;, deadline: Instant) -&gt; TimeoutFuture {
-        <span class="kw">let </span>timer = Timer::from_deadline(deadline);
+        <span class="self">Self</span>::from_deadline_inner(handle, <span class="prelude-val">Some</span>(deadline))
+    }
+
+    <span class="doccomment">/// Create a future that resolves at a given instant
+    </span><span class="kw">fn </span>from_deadline_inner&lt;Data&gt;(
+        handle: <span class="kw-2">&amp;</span>LoopHandle&lt;<span class="lifetime">&#39;_</span>, Data&gt;,
+        deadline: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
+    ) -&gt; TimeoutFuture {
+        <span class="kw">let </span>timer = Timer::from_deadline_inner(deadline);
         <span class="kw">let </span>waker = Rc::new(RefCell::new(<span class="prelude-val">None</span>::&lt;Waker&gt;));
-        <span class="kw">let </span>waker2 = waker.clone();
         handle
-            .insert_source(timer, <span class="kw">move </span>|<span class="kw">_</span>, <span class="kw-2">&amp;mut </span>(), <span class="kw">_</span>| {
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(waker) = waker2.borrow_mut().clone() {
-                    waker.wake()
+            .insert_source(timer, {
+                <span class="kw">let </span>waker = waker.clone();
+                <span class="kw">move </span>|<span class="kw">_</span>, <span class="kw-2">&amp;mut </span>(), <span class="kw">_</span>| {
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(waker) = waker.borrow_mut().clone() {
+                        waker.wake()
+                    }
+                    TimeoutAction::Drop
                 }
-                TimeoutAction::Drop
             })
             .unwrap();
 
@@ -891,9 +993,16 @@
         <span class="self">self</span>: std::pin::Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
         cx: <span class="kw-2">&amp;mut </span>std::task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
     ) -&gt; std::task::Poll&lt;<span class="self">Self</span>::Output&gt; {
-        <span class="kw">if </span>std::time::Instant::now() &gt;= <span class="self">self</span>.deadline {
-            <span class="kw">return </span>std::task::Poll::Ready(());
+        <span class="kw">match </span><span class="self">self</span>.deadline {
+            <span class="prelude-val">None </span>=&gt; <span class="kw">return </span>std::task::Poll::Pending,
+
+            <span class="prelude-val">Some</span>(deadline) =&gt; {
+                <span class="kw">if </span>Instant::now() &gt;= deadline {
+                    <span class="kw">return </span>std::task::Poll::Ready(());
+                }
+            }
         }
+
         <span class="kw-2">*</span><span class="self">self</span>.waker.borrow_mut() = <span class="prelude-val">Some</span>(cx.waker().clone());
         std::task::Poll::Pending
     }
@@ -985,7 +1094,7 @@
     // even if we cannot test if they are actually high precision
     </span><span class="attr">#[test]
     </span><span class="kw">fn </span>high_precision_timer() {
-        <span class="kw">let </span><span class="kw-2">mut </span>event_loop = EventLoop::try_new_high_precision().unwrap();
+        <span class="kw">let </span><span class="kw-2">mut </span>event_loop = EventLoop::try_new().unwrap();
 
         <span class="kw">let </span><span class="kw-2">mut </span>dispatched = <span class="bool-val">false</span>;
 
@@ -1100,6 +1209,8 @@
             TimeoutFuture::from_duration(<span class="kw-2">&amp;</span>event_loop.handle(), Duration::from_millis(<span class="number">500</span>));
         <span class="kw">let </span>timeout_2 =
             TimeoutFuture::from_duration(<span class="kw-2">&amp;</span>event_loop.handle(), Duration::from_millis(<span class="number">1500</span>));
+        <span class="comment">// This one should never go off.
+        </span><span class="kw">let </span>timeout_3 = TimeoutFuture::from_duration(<span class="kw-2">&amp;</span>event_loop.handle(), Duration::MAX);
 
         <span class="kw">let </span>(exec, sched) = <span class="kw">crate</span>::sources::futures::executor().unwrap();
         event_loop
@@ -1111,6 +1222,7 @@
 
         sched.schedule(timeout_1).unwrap();
         sched.schedule(timeout_2).unwrap();
+        sched.schedule(timeout_3).unwrap();
 
         <span class="comment">// We do a 0-timeout dispatch after every regular dispatch to let the timeout triggers
         // flow back to the executor
@@ -1138,6 +1250,46 @@
             .dispatch(<span class="prelude-val">Some</span>(Duration::ZERO), <span class="kw-2">&amp;mut </span>dispatched)
             .unwrap();
         <span class="macro">assert_eq!</span>(dispatched, <span class="number">2</span>);
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>no_overflow() {
+        <span class="kw">let </span><span class="kw-2">mut </span>event_loop = EventLoop::try_new().unwrap();
+
+        <span class="kw">let </span><span class="kw-2">mut </span>dispatched = <span class="number">0</span>;
+
+        event_loop
+            .handle()
+            .insert_source(
+                Timer::from_duration(Duration::from_millis(<span class="number">500</span>)),
+                |<span class="kw">_</span>, <span class="kw-2">&amp;mut </span>(), dispatched| {
+                    <span class="kw-2">*</span>dispatched += <span class="number">1</span>;
+                    TimeoutAction::Drop
+                },
+            )
+            .unwrap();
+
+        event_loop
+            .handle()
+            .insert_source(Timer::from_duration(Duration::MAX), |<span class="kw">_</span>, <span class="kw-2">&amp;mut </span>(), <span class="kw">_</span>| {
+                <span class="macro">panic!</span>(<span class="string">&quot;This timer should never go off&quot;</span>)
+            })
+            .unwrap();
+
+        event_loop
+            .dispatch(<span class="prelude-val">Some</span>(Duration::from_millis(<span class="number">250</span>)), <span class="kw-2">&amp;mut </span>dispatched)
+            .unwrap();
+        <span class="macro">assert_eq!</span>(dispatched, <span class="number">0</span>);
+
+        event_loop
+            .dispatch(<span class="prelude-val">Some</span>(Duration::from_millis(<span class="number">510</span>)), <span class="kw-2">&amp;mut </span>dispatched)
+            .unwrap();
+        <span class="macro">assert_eq!</span>(dispatched, <span class="number">1</span>);
+
+        event_loop
+            .dispatch(<span class="prelude-val">Some</span>(Duration::from_millis(<span class="number">510</span>)), <span class="kw-2">&amp;mut </span>dispatched)
+            .unwrap();
+        <span class="macro">assert_eq!</span>(dispatched, <span class="number">1</span>);
     }
 }
 </code></pre></div></section></main></body></html>

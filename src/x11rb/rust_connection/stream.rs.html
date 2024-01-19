@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-0.12.0/src/rust_connection/stream.rs`."><title>stream.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-0.13.0/src/rust_connection/stream.rs`."><title>stream.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -583,68 +583,17 @@
 <a href="#583" id="583">583</a>
 <a href="#584" id="584">584</a>
 <a href="#585" id="585">585</a>
-<a href="#586" id="586">586</a>
-<a href="#587" id="587">587</a>
-<a href="#588" id="588">588</a>
-<a href="#589" id="589">589</a>
-<a href="#590" id="590">590</a>
-<a href="#591" id="591">591</a>
-<a href="#592" id="592">592</a>
-<a href="#593" id="593">593</a>
-<a href="#594" id="594">594</a>
-<a href="#595" id="595">595</a>
-<a href="#596" id="596">596</a>
-<a href="#597" id="597">597</a>
-<a href="#598" id="598">598</a>
-<a href="#599" id="599">599</a>
-<a href="#600" id="600">600</a>
-<a href="#601" id="601">601</a>
-<a href="#602" id="602">602</a>
-<a href="#603" id="603">603</a>
-<a href="#604" id="604">604</a>
-<a href="#605" id="605">605</a>
-<a href="#606" id="606">606</a>
-<a href="#607" id="607">607</a>
-<a href="#608" id="608">608</a>
-<a href="#609" id="609">609</a>
-<a href="#610" id="610">610</a>
-<a href="#611" id="611">611</a>
-<a href="#612" id="612">612</a>
-<a href="#613" id="613">613</a>
-<a href="#614" id="614">614</a>
-<a href="#615" id="615">615</a>
-<a href="#616" id="616">616</a>
-<a href="#617" id="617">617</a>
-<a href="#618" id="618">618</a>
-<a href="#619" id="619">619</a>
-<a href="#620" id="620">620</a>
-<a href="#621" id="621">621</a>
-<a href="#622" id="622">622</a>
-<a href="#623" id="623">623</a>
-<a href="#624" id="624">624</a>
-<a href="#625" id="625">625</a>
-<a href="#626" id="626">626</a>
-<a href="#627" id="627">627</a>
-<a href="#628" id="628">628</a>
-<a href="#629" id="629">629</a>
-<a href="#630" id="630">630</a>
-<a href="#631" id="631">631</a>
-<a href="#632" id="632">632</a>
-<a href="#633" id="633">633</a>
-<a href="#634" id="634">634</a>
-<a href="#635" id="635">635</a>
-<a href="#636" id="636">636</a>
-<a href="#637" id="637">637</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::io::{IoSlice, <span class="prelude-ty">Result</span>};
-<span class="kw">use </span>std::net::{Ipv4Addr, SocketAddr, TcpStream};
-<span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-</span><span class="kw">use </span>std::os::unix::ffi::OsStrExt <span class="kw">as _</span>;
+</pre></div><pre class="rust"><code><span class="kw">use </span>rustix::fd::{AsFd, BorrowedFd};
+<span class="kw">use </span>std::io::{IoSlice, <span class="prelude-ty">Result</span>};
+<span class="kw">use </span>std::net::TcpStream;
 <span class="attr">#[cfg(unix)]
-</span><span class="kw">use </span>std::os::unix::io::{AsRawFd, IntoRawFd, RawFd};
+</span><span class="kw">use </span>std::os::unix::io::{AsRawFd, IntoRawFd, OwnedFd, RawFd};
 <span class="attr">#[cfg(unix)]
 </span><span class="kw">use </span>std::os::unix::net::UnixStream;
 <span class="attr">#[cfg(windows)]
-</span><span class="kw">use </span>std::os::windows::io::{AsRawSocket, IntoRawSocket, RawSocket};
+</span><span class="kw">use </span>std::os::windows::io::{
+    AsRawSocket, AsSocket, BorrowedSocket, IntoRawSocket, OwnedSocket, RawSocket,
+};
 
 <span class="kw">use </span><span class="kw">crate</span>::utils::RawFdContainer;
 <span class="kw">use </span>x11rb_protocol::parse_display::ConnectAddress;
@@ -726,42 +675,6 @@
     /// * The returned value shall always be the actual number of bytes read into `buf`.
     </span><span class="kw">fn </span>read(<span class="kw-2">&amp;</span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>[u8], fd_storage: <span class="kw-2">&amp;mut </span>Vec&lt;RawFdContainer&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;usize&gt;;
 
-    <span class="doccomment">/// Read the exact number of bytes required to fill `buf` and also some amount of FDs.
-    ///
-    /// Unlike `read`, this method always blocks until `buf` has been filled or there is an
-    /// error.
-    ///
-    /// This function works like [`std::io::Read::read`], but also supports the reception of file
-    /// descriptors. Any received file descriptors are appended to the given `fd_storage`.
-    ///
-    /// This function does not guarantee that all file descriptors were sent together with the data
-    /// with which they are received. However, file descriptors may not be received later than the
-    /// data that was sent at the same time. Instead, file descriptors may only be received
-    /// earlier.
-    ///
-    /// # Multithreading
-    ///
-    /// Same as `read`. In any case, if this function returns without error, `buf.len()` bytes
-    /// should have been read into `buf`.
-    </span><span class="kw">fn </span>read_exact(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>buf: <span class="kw-2">&amp;mut </span>[u8], fd_storage: <span class="kw-2">&amp;mut </span>Vec&lt;RawFdContainer&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">while </span>!buf.is_empty() {
-            <span class="self">self</span>.poll(PollMode::Readable)<span class="question-mark">?</span>;
-            <span class="kw">match </span><span class="self">self</span>.read(buf, fd_storage) {
-                <span class="prelude-val">Ok</span>(<span class="number">0</span>) =&gt; {
-                    <span class="kw">return </span><span class="prelude-val">Err</span>(std::io::Error::new(
-                        std::io::ErrorKind::UnexpectedEof,
-                        <span class="string">&quot;failed to fill the whole buffer&quot;</span>,
-                    ))
-                }
-                <span class="prelude-val">Ok</span>(n) =&gt; buf = <span class="kw-2">&amp;mut </span>buf[n..],
-                <span class="comment">// Spurious wakeup from poll
-                </span><span class="prelude-val">Err</span>(<span class="kw-2">ref </span>e) <span class="kw">if </span>e.kind() == std::io::ErrorKind::WouldBlock =&gt; {}
-                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e),
-            }
-        }
-        <span class="prelude-val">Ok</span>(())
-    }
-
     <span class="doccomment">/// Write a buffer and some FDs into this writer without blocking, returning how many
     /// bytes were written.
     ///
@@ -817,18 +730,20 @@
     inner: DefaultStreamInner,
 }
 
-<span class="attr">#[derive(Debug)]
-</span><span class="kw">enum </span>DefaultStreamInner {
-    TcpStream(TcpStream),
-    <span class="attr">#[cfg(unix)]
-    </span>UnixStream(UnixStream),
-    <span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-    </span>AbstractUnix(RawFdContainer),
-}
+<span class="attr">#[cfg(unix)]
+</span><span class="kw">type </span>DefaultStreamInner = RawFdContainer;
+
+<span class="attr">#[cfg(not(unix))]
+</span><span class="kw">type </span>DefaultStreamInner = TcpStream;
+
+<span class="doccomment">/// The address of a peer in a format suitable for xauth.
+///
+/// These values can be directly given to [`x11rb_protocol::xauth::get_auth`].
+</span><span class="kw">type </span>PeerAddr = (Family, Vec&lt;u8&gt;);
 
 <span class="kw">impl </span>DefaultStream {
     <span class="doccomment">/// Try to connect to the X11 server described by the given arguments.
-    </span><span class="kw">pub fn </span>connect(addr: <span class="kw-2">&amp;</span>ConnectAddress&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+    </span><span class="kw">pub fn </span>connect(addr: <span class="kw-2">&amp;</span>ConnectAddress&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, PeerAddr)&gt; {
         <span class="kw">match </span>addr {
             ConnectAddress::Hostname(host, port) =&gt; {
                 <span class="comment">// connect over TCP
@@ -839,13 +754,12 @@
             </span>ConnectAddress::Socket(path) =&gt; {
                 <span class="comment">// Try abstract unix socket first. If that fails, fall back to normal unix socket
                 </span><span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-                </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(stream) = connect_abstract_unix_stream(path.as_os_str().as_bytes()) {
+                </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(stream) = connect_abstract_unix_stream(path.as_bytes()) {
                     <span class="comment">// TODO: Does it make sense to add a constructor similar to from_unix_stream()?
                     // If this is done: Move the set_nonblocking() from
                     // connect_abstract_unix_stream() to that new function.
-                    </span><span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-                        inner: DefaultStreamInner::AbstractUnix(stream),
-                    });
+                    </span><span class="kw">let </span>stream = DefaultStream { inner: stream };
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>((stream, peer_addr::local()));
                 }
 
                 <span class="comment">// connect over Unix domain socket
@@ -870,115 +784,89 @@
     <span class="doccomment">/// Creates a new `Stream` from an already connected `TcpStream`.
     ///
     /// The stream will be set in non-blocking mode.
-    </span><span class="kw">pub fn </span>from_tcp_stream(stream: TcpStream) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+    ///
+    /// This returns the peer address in a format suitable for [`x11rb_protocol::xauth::get_auth`].
+    </span><span class="kw">pub fn </span>from_tcp_stream(stream: TcpStream) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, PeerAddr)&gt; {
+        <span class="kw">let </span>peer_addr = peer_addr::tcp(<span class="kw-2">&amp;</span>stream.peer_addr()<span class="question-mark">?</span>);
         stream.set_nonblocking(<span class="bool-val">true</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-            inner: DefaultStreamInner::TcpStream(stream),
-        })
+        <span class="kw">let </span>result = <span class="self">Self </span>{
+            inner: stream.into(),
+        };
+        <span class="prelude-val">Ok</span>((result, peer_addr))
     }
 
     <span class="doccomment">/// Creates a new `Stream` from an already connected `UnixStream`.
     ///
     /// The stream will be set in non-blocking mode.
+    ///
+    /// This returns the peer address in a format suitable for [`x11rb_protocol::xauth::get_auth`].
     </span><span class="attr">#[cfg(unix)]
-    </span><span class="kw">pub fn </span>from_unix_stream(stream: UnixStream) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+    </span><span class="kw">pub fn </span>from_unix_stream(stream: UnixStream) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, PeerAddr)&gt; {
         stream.set_nonblocking(<span class="bool-val">true</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-            inner: DefaultStreamInner::UnixStream(stream),
-        })
+        <span class="kw">let </span>result = <span class="self">Self </span>{
+            inner: stream.into(),
+        };
+        <span class="prelude-val">Ok</span>((result, peer_addr::local()))
     }
 
-    <span class="doccomment">/// Get the peer&#39;s address in a format suitable for xauth.
-    ///
-    /// The returned values can be directly given to `super::xauth::get_auth` as `family` and
-    /// `address`.
-    </span><span class="kw">pub fn </span>peer_addr(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(Family, Vec&lt;u8&gt;)&gt; {
-        <span class="kw">match </span><span class="self">self</span>.inner {
-            DefaultStreamInner::TcpStream(<span class="kw-2">ref </span>stream) =&gt; {
-                <span class="comment">// Get the v4 address of the other end (if there is one)
-                </span><span class="kw">let </span>ip = <span class="kw">match </span>stream.peer_addr()<span class="question-mark">? </span>{
-                    SocketAddr::V4(addr) =&gt; <span class="kw-2">*</span>addr.ip(),
-                    SocketAddr::V6(addr) =&gt; {
-                        <span class="kw">let </span>ip = addr.ip();
-                        <span class="kw">if </span>ip.is_loopback() {
-                            <span class="comment">// This is a local connection.
-                            // Use LOCALHOST to cause a fall-through in the code below.
-                            </span>Ipv4Addr::LOCALHOST
-                        } <span class="kw">else if let </span><span class="prelude-val">Some</span>(ip) = ip.to_ipv4() {
-                            <span class="comment">// Let the ipv4 code below handle this
-                            </span>ip
-                        } <span class="kw">else </span>{
-                            <span class="comment">// Okay, this is really a v6 address
-                            </span><span class="kw">return </span><span class="prelude-val">Ok</span>((Family::INTERNET6, ip.octets().to_vec()));
-                        }
-                    }
-                };
-
-                <span class="comment">// Handle the v4 address
-                </span><span class="kw">if </span>!ip.is_loopback() {
-                    <span class="kw">return </span><span class="prelude-val">Ok</span>((Family::INTERNET, ip.octets().to_vec()));
-                } <span class="kw">else </span>{
-                    <span class="comment">// This is only reached for loopback addresses. The code below handles this.
-                </span>}
-            }
-            <span class="attr">#[cfg(unix)]
-            </span>DefaultStreamInner::UnixStream(<span class="kw">_</span>) =&gt; {
-                <span class="comment">// Fall through to the code below.
-            </span>}
-            <span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-            </span>DefaultStreamInner::AbstractUnix(<span class="kw">_</span>) =&gt; {
-                <span class="comment">// Fall through to the code below.
-            </span>}
-        };
-
-        <span class="comment">// If we get to here: This is a local connection. Use the host name as address.
-        </span><span class="kw">let </span>hostname = gethostname::gethostname()
-            .to_str()
-            .map(|name| name.as_bytes().to_vec())
-            .unwrap_or_else(Vec::new);
-        <span class="prelude-val">Ok</span>((Family::LOCAL, hostname))
+    <span class="kw">fn </span>as_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt; {
+        <span class="self">self</span>.inner.as_fd()
     }
 }
 
 <span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>AsRawFd <span class="kw">for </span>DefaultStream {
     <span class="kw">fn </span>as_raw_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawFd {
-        <span class="kw">match </span><span class="self">self</span>.inner {
-            DefaultStreamInner::TcpStream(<span class="kw-2">ref </span>stream) =&gt; stream.as_raw_fd(),
-            DefaultStreamInner::UnixStream(<span class="kw-2">ref </span>stream) =&gt; stream.as_raw_fd(),
-            <span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-            </span>DefaultStreamInner::AbstractUnix(<span class="kw-2">ref </span>stream) =&gt; stream.as_raw_fd(),
-        }
+        <span class="self">self</span>.inner.as_raw_fd()
+    }
+}
+
+<span class="attr">#[cfg(unix)]
+</span><span class="kw">impl </span>AsFd <span class="kw">for </span>DefaultStream {
+    <span class="kw">fn </span>as_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt; {
+        <span class="self">self</span>.inner.as_fd()
     }
 }
 
 <span class="attr">#[cfg(unix)]
 </span><span class="kw">impl </span>IntoRawFd <span class="kw">for </span>DefaultStream {
     <span class="kw">fn </span>into_raw_fd(<span class="self">self</span>) -&gt; RawFd {
-        <span class="kw">match </span><span class="self">self</span>.inner {
-            DefaultStreamInner::TcpStream(stream) =&gt; stream.into_raw_fd(),
-            DefaultStreamInner::UnixStream(stream) =&gt; stream.into_raw_fd(),
-            <span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-            </span>DefaultStreamInner::AbstractUnix(stream) =&gt; stream.into_raw_fd(),
-        }
+        <span class="self">self</span>.inner.into_raw_fd()
+    }
+}
+
+<span class="attr">#[cfg(unix)]
+</span><span class="kw">impl </span>From&lt;DefaultStream&gt; <span class="kw">for </span>OwnedFd {
+    <span class="kw">fn </span>from(stream: DefaultStream) -&gt; <span class="self">Self </span>{
+        stream.inner
     }
 }
 
 <span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>AsRawSocket <span class="kw">for </span>DefaultStream {
     <span class="kw">fn </span>as_raw_socket(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawSocket {
-        <span class="kw">match </span><span class="self">self</span>.inner {
-            DefaultStreamInner::TcpStream(<span class="kw-2">ref </span>stream) =&gt; stream.as_raw_socket(),
-        }
+        <span class="self">self</span>.inner.as_raw_socket()
+    }
+}
+
+<span class="attr">#[cfg(windows)]
+</span><span class="kw">impl </span>AsSocket <span class="kw">for </span>DefaultStream {
+    <span class="kw">fn </span>as_socket(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BorrowedSocket&lt;<span class="lifetime">&#39;_</span>&gt; {
+        <span class="self">self</span>.inner.as_socket()
     }
 }
 
 <span class="attr">#[cfg(windows)]
 </span><span class="kw">impl </span>IntoRawSocket <span class="kw">for </span>DefaultStream {
     <span class="kw">fn </span>into_raw_socket(<span class="self">self</span>) -&gt; RawSocket {
-        <span class="kw">match </span><span class="self">self</span>.inner {
-            DefaultStreamInner::TcpStream(stream) =&gt; stream.into_raw_socket(),
-        }
+        <span class="self">self</span>.inner.into_raw_socket()
+    }
+}
+
+<span class="attr">#[cfg(windows)]
+</span><span class="kw">impl </span>From&lt;DefaultStream&gt; <span class="kw">for </span>OwnedSocket {
+    <span class="kw">fn </span>from(stream: DefaultStream) -&gt; <span class="self">Self </span>{
+        stream.inner.into()
     }
 }
 
@@ -988,33 +876,38 @@
     bufs: <span class="kw-2">&amp;</span>[IoSlice&lt;<span class="lifetime">&#39;_</span>&gt;],
     fds: <span class="kw-2">&amp;mut </span>Vec&lt;RawFdContainer&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;usize&gt; {
-    <span class="kw">use </span>nix::sys::socket::{sendmsg, ControlMessage, MsgFlags, SockaddrLike};
+    <span class="kw">use </span>rustix::io::Errno;
+    <span class="kw">use </span>rustix::net::{sendmsg, SendAncillaryBuffer, SendAncillaryMessage, SendFlags};
 
-    <span class="kw">fn </span>sendmsg_wrapper&lt;S: SockaddrLike&gt;(
-        fd: RawFd,
+    <span class="kw">fn </span>sendmsg_wrapper(
+        fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
         iov: <span class="kw-2">&amp;</span>[IoSlice&lt;<span class="lifetime">&#39;_</span>&gt;],
-        cmsgs: <span class="kw-2">&amp;</span>[ControlMessage&lt;<span class="lifetime">&#39;_</span>&gt;],
-        flags: MsgFlags,
-        addr: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>S&gt;,
+        cmsgs: <span class="kw-2">&amp;mut </span>SendAncillaryBuffer&lt;<span class="lifetime">&#39;_</span>, <span class="lifetime">&#39;_</span>, <span class="lifetime">&#39;_</span>&gt;,
+        flags: SendFlags,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;usize&gt; {
         <span class="kw">loop </span>{
-            <span class="kw">match </span>sendmsg(fd, iov, cmsgs, flags, addr) {
+            <span class="kw">match </span>sendmsg(fd, iov, cmsgs, flags) {
                 <span class="prelude-val">Ok</span>(n) =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(n),
                 <span class="comment">// try again
-                </span><span class="prelude-val">Err</span>(nix::Error::EINTR) =&gt; {}
+                </span><span class="prelude-val">Err</span>(Errno::INTR) =&gt; {}
                 <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e.into()),
             }
         }
     }
 
-    <span class="kw">let </span>fd = stream.as_raw_fd();
+    <span class="kw">let </span>fd = stream.as_fd();
 
     <span class="kw">let </span>res = <span class="kw">if </span>!fds.is_empty() {
-        <span class="kw">let </span>fds = fds.iter().map(|fd| fd.as_raw_fd()).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
-        <span class="kw">let </span>cmsgs = [ControlMessage::ScmRights(<span class="kw-2">&amp;</span>fds[..])];
-        sendmsg_wrapper::&lt;()&gt;(fd, bufs, <span class="kw-2">&amp;</span>cmsgs, MsgFlags::empty(), <span class="prelude-val">None</span>)<span class="question-mark">?
+        <span class="kw">let </span>fds = fds.iter().map(|fd| fd.as_fd()).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+        <span class="kw">let </span>rights = SendAncillaryMessage::ScmRights(<span class="kw-2">&amp;</span>fds);
+
+        <span class="kw">let </span><span class="kw-2">mut </span>cmsg_space = <span class="macro">vec!</span>[<span class="number">0u8</span>; rights.size()];
+        <span class="kw">let </span><span class="kw-2">mut </span>cmsg_buffer = SendAncillaryBuffer::new(<span class="kw-2">&amp;mut </span>cmsg_space);
+        <span class="macro">assert!</span>(cmsg_buffer.push(rights));
+
+        sendmsg_wrapper(fd, bufs, <span class="kw-2">&amp;mut </span>cmsg_buffer, SendFlags::empty())<span class="question-mark">?
     </span>} <span class="kw">else </span>{
-        sendmsg_wrapper::&lt;()&gt;(fd, bufs, <span class="kw-2">&amp;</span>[], MsgFlags::empty(), <span class="prelude-val">None</span>)<span class="question-mark">?
+        sendmsg_wrapper(fd, bufs, <span class="kw-2">&amp;mut </span>Default::default(), SendFlags::empty())<span class="question-mark">?
     </span>};
 
     <span class="comment">// We successfully sent all FDs
@@ -1025,81 +918,60 @@
 
 <span class="kw">impl </span>Stream <span class="kw">for </span>DefaultStream {
     <span class="kw">fn </span>poll(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: PollMode) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="attr">#[cfg(unix)]
-        </span>{
-            <span class="kw">use </span>nix::poll::{poll, PollFd, PollFlags};
+        <span class="kw">use </span>rustix::event::{poll, PollFd, PollFlags};
+        <span class="kw">use </span>rustix::io::Errno;
 
-            <span class="kw">let </span><span class="kw-2">mut </span>poll_flags = PollFlags::empty();
-            <span class="kw">if </span>mode.readable() {
-                poll_flags |= PollFlags::POLLIN;
-            }
-            <span class="kw">if </span>mode.writable() {
-                poll_flags |= PollFlags::POLLOUT;
-            }
-            <span class="kw">let </span>fd = <span class="self">self</span>.as_raw_fd();
-            <span class="kw">let </span><span class="kw-2">mut </span>poll_fds = [PollFd::new(fd, poll_flags)];
-            <span class="kw">loop </span>{
-                <span class="kw">match </span>poll(<span class="kw-2">&amp;mut </span>poll_fds, -<span class="number">1</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="kw">break</span>,
-                    <span class="prelude-val">Err</span>(nix::Error::EINTR) =&gt; {}
-                    <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e.into()),
-                }
-            }
-            <span class="comment">// Let the errors (POLLERR) be handled when trying to read or write.
-            </span><span class="prelude-val">Ok</span>(())
+        <span class="kw">let </span><span class="kw-2">mut </span>poll_flags = PollFlags::empty();
+        <span class="kw">if </span>mode.readable() {
+            poll_flags |= PollFlags::IN;
         }
-        <span class="attr">#[cfg(windows)]
-        </span>{
-            <span class="kw">use </span>winapi::um::winsock2::{POLLRDNORM, POLLWRNORM, SOCKET, WSAPOLLFD};
-            <span class="kw">use </span>winapi_wsapoll::wsa_poll;
-
-            <span class="kw">let </span>raw_socket = <span class="self">self</span>.as_raw_socket();
-            <span class="kw">let </span><span class="kw-2">mut </span>events = <span class="number">0</span>;
-            <span class="kw">if </span>mode.readable() {
-                events |= POLLRDNORM;
-            }
-            <span class="kw">if </span>mode.writable() {
-                events |= POLLWRNORM;
-            }
-            <span class="kw">let </span><span class="kw-2">mut </span>poll_fds = [WSAPOLLFD {
-                fd: raw_socket <span class="kw">as </span>SOCKET,
-                events,
-                revents: <span class="number">0</span>,
-            }];
-            <span class="kw">let _ </span>= wsa_poll(<span class="kw-2">&amp;mut </span>poll_fds, -<span class="number">1</span>)<span class="question-mark">?</span>;
-            <span class="comment">// Let the errors (POLLERR) be handled when trying to read or write.
-            </span><span class="prelude-val">Ok</span>(())
+        <span class="kw">if </span>mode.writable() {
+            poll_flags |= PollFlags::OUT;
         }
+        <span class="kw">let </span>fd = <span class="self">self</span>.as_fd();
+        <span class="kw">let </span><span class="kw-2">mut </span>poll_fds = [PollFd::from_borrowed_fd(fd, poll_flags)];
+        <span class="kw">loop </span>{
+            <span class="kw">match </span>poll(<span class="kw-2">&amp;mut </span>poll_fds, -<span class="number">1</span>) {
+                <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="kw">break</span>,
+                <span class="prelude-val">Err</span>(Errno::INTR) =&gt; {}
+                <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e.into()),
+            }
+        }
+        <span class="comment">// Let the errors (POLLERR) be handled when trying to read or write.
+        </span><span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">fn </span>read(<span class="kw-2">&amp;</span><span class="self">self</span>, buf: <span class="kw-2">&amp;mut </span>[u8], fd_storage: <span class="kw-2">&amp;mut </span>Vec&lt;RawFdContainer&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;usize&gt; {
         <span class="attr">#[cfg(unix)]
         </span>{
-            <span class="kw">use </span>nix::sys::socket::{recvmsg, ControlMessageOwned};
+            <span class="kw">use </span>rustix::io::Errno;
+            <span class="kw">use </span>rustix::net::{recvmsg, RecvAncillaryBuffer, RecvAncillaryMessage};
             <span class="kw">use </span>std::io::IoSliceMut;
 
-            <span class="comment">// Chosen by checking what libxcb does
-            </span><span class="kw">const </span>MAX_FDS_RECEIVED: usize = <span class="number">16</span>;
-            <span class="kw">let </span><span class="kw-2">mut </span>cmsg = <span class="macro">nix::cmsg_space!</span>([RawFd; MAX_FDS_RECEIVED]);
+            <span class="comment">// 1024 bytes on the stack should be enough for more file descriptors than the X server will ever
+            // send, as well as the header for the ancillary data. If you can find a case where this can
+            // overflow with an actual production X11 server, I&#39;ll buy you a steak dinner.
+            </span><span class="kw">let </span><span class="kw-2">mut </span>cmsg = [<span class="number">0u8</span>; <span class="number">1024</span>];
             <span class="kw">let </span><span class="kw-2">mut </span>iov = [IoSliceMut::new(buf)];
+            <span class="kw">let </span><span class="kw-2">mut </span>cmsg_buffer = RecvAncillaryBuffer::new(<span class="kw-2">&amp;mut </span>cmsg);
 
-            <span class="kw">let </span>fd = <span class="self">self</span>.as_raw_fd();
+            <span class="kw">let </span>fd = <span class="self">self</span>.as_fd();
             <span class="kw">let </span>msg = <span class="kw">loop </span>{
-                <span class="kw">match </span>recvmsg::&lt;()&gt;(fd, <span class="kw-2">&amp;mut </span>iov, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>cmsg), recvmsg::flags()) {
+                <span class="kw">match </span>recvmsg(fd, <span class="kw-2">&amp;mut </span>iov, <span class="kw-2">&amp;mut </span>cmsg_buffer, recvmsg::flags()) {
                     <span class="prelude-val">Ok</span>(msg) =&gt; <span class="kw">break </span>msg,
                     <span class="comment">// try again
-                    </span><span class="prelude-val">Err</span>(nix::Error::EINTR) =&gt; {}
+                    </span><span class="prelude-val">Err</span>(Errno::INTR) =&gt; {}
                     <span class="prelude-val">Err</span>(e) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(e.into()),
                 }
             };
 
-            <span class="kw">let </span>fds_received = msg
-                .cmsgs()
-                .flat_map(|cmsg| <span class="kw">match </span>cmsg {
-                    ControlMessageOwned::ScmRights(r) =&gt; r,
-                    <span class="kw">_ </span>=&gt; Vec::new(),
+            <span class="kw">let </span>fds_received = cmsg_buffer
+                .drain()
+                .filter_map(|cmsg| <span class="kw">match </span>cmsg {
+                    RecvAncillaryMessage::ScmRights(r) =&gt; <span class="prelude-val">Some</span>(r),
+                    <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
                 })
-                .map(RawFdContainer::new);
+                .flatten();
 
             <span class="kw">let </span><span class="kw-2">mut </span>cloexec_error = <span class="prelude-val">Ok</span>(());
             fd_storage.extend(recvmsg::after_recvmsg(fds_received, <span class="kw-2">&amp;mut </span>cloexec_error));
@@ -1113,13 +985,8 @@
             <span class="comment">// No FDs are read, so nothing needs to be done with fd_storage
             </span><span class="kw">let _ </span>= fd_storage;
             <span class="kw">loop </span>{
-                <span class="kw">let </span>read_result = <span class="kw">match </span><span class="self">self</span>.inner {
-                    DefaultStreamInner::TcpStream(<span class="kw-2">ref </span>stream) =&gt; {
-                        <span class="comment">// Use `impl Read for &amp;TcpStream` to avoid needing a mutable `TcpStream`.
-                        </span>(<span class="kw-2">&amp;mut &amp;*</span>stream).read(buf)
-                    }
-                };
-                <span class="kw">match </span>read_result {
+                <span class="comment">// Use `impl Read for &amp;TcpStream` to avoid needing a mutable `TcpStream`.
+                </span><span class="kw">match </span>(<span class="kw-2">&amp;mut &amp;</span><span class="self">self</span>.inner).read(buf) {
                     <span class="prelude-val">Ok</span>(n) =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(n),
                     <span class="comment">// try again
                     </span><span class="prelude-val">Err</span>(<span class="kw-2">ref </span>e) <span class="kw">if </span>e.kind() == std::io::ErrorKind::Interrupted =&gt; {}
@@ -1141,13 +1008,8 @@
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::new(ErrorKind::Other, <span class="string">&quot;FD passing is unsupported&quot;</span>));
             }
             <span class="kw">loop </span>{
-                <span class="kw">let </span>write_result = <span class="kw">match </span><span class="self">self</span>.inner {
-                    DefaultStreamInner::TcpStream(<span class="kw-2">ref </span>stream) =&gt; {
-                        <span class="comment">// Use `impl Write for &amp;TcpStream` to avoid needing a mutable `TcpStream`.
-                        </span>(<span class="kw-2">&amp;mut &amp;*</span>stream).write(buf)
-                    }
-                };
-                <span class="kw">match </span>write_result {
+                <span class="comment">// Use `impl Write for &amp;TcpStream` to avoid needing a mutable `TcpStream`.
+                </span><span class="kw">match </span>(<span class="kw-2">&amp;mut &amp;</span><span class="self">self</span>.inner).write(buf) {
                     <span class="prelude-val">Ok</span>(n) =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(n),
                     <span class="comment">// try again
                     </span><span class="prelude-val">Err</span>(<span class="kw-2">ref </span>e) <span class="kw">if </span>e.kind() == std::io::ErrorKind::Interrupted =&gt; {}
@@ -1169,13 +1031,8 @@
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::new(ErrorKind::Other, <span class="string">&quot;FD passing is unsupported&quot;</span>));
             }
             <span class="kw">loop </span>{
-                <span class="kw">let </span>write_result = <span class="kw">match </span><span class="self">self</span>.inner {
-                    DefaultStreamInner::TcpStream(<span class="kw-2">ref </span>stream) =&gt; {
-                        <span class="comment">// Use `impl Write for &amp;TcpStream` to avoid needing a mutable `TcpStream`.
-                        </span>(<span class="kw-2">&amp;mut &amp;*</span>stream).write_vectored(bufs)
-                    }
-                };
-                <span class="kw">match </span>write_result {
+                <span class="comment">// Use `impl Write for &amp;TcpStream` to avoid needing a mutable `TcpStream`.
+                </span><span class="kw">match </span>(<span class="kw-2">&amp;mut &amp;</span><span class="self">self</span>.inner).write_vectored(bufs) {
                     <span class="prelude-val">Ok</span>(n) =&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(n),
                     <span class="comment">// try again
                     </span><span class="prelude-val">Err</span>(<span class="kw-2">ref </span>e) <span class="kw">if </span>e.kind() == std::io::ErrorKind::Interrupted =&gt; {}
@@ -1187,29 +1044,25 @@
 }
 
 <span class="attr">#[cfg(any(target_os = <span class="string">&quot;linux&quot;</span>, target_os = <span class="string">&quot;android&quot;</span>))]
-</span><span class="kw">fn </span>connect_abstract_unix_stream(path: <span class="kw-2">&amp;</span>[u8]) -&gt; nix::Result&lt;RawFdContainer&gt; {
-    <span class="kw">use </span>nix::fcntl::{fcntl, FcntlArg, OFlag};
-    <span class="kw">use </span>nix::sys::socket::{connect, socket, AddressFamily, SockFlag, SockType, UnixAddr};
+</span><span class="kw">fn </span>connect_abstract_unix_stream(
+    path: <span class="kw-2">&amp;</span>[u8],
+) -&gt; std::result::Result&lt;RawFdContainer, rustix::io::Errno&gt; {
+    <span class="kw">use </span>rustix::fs::{fcntl_getfl, fcntl_setfl, OFlags};
+    <span class="kw">use </span>rustix::net::{
+        connect_unix, socket_with, AddressFamily, SocketAddrUnix, SocketFlags, SocketType,
+    };
 
-    <span class="kw">let </span>socket = socket(
-        AddressFamily::Unix,
-        SockType::Stream,
-        SockFlag::SOCK_CLOEXEC,
+    <span class="kw">let </span>socket = socket_with(
+        AddressFamily::UNIX,
+        SocketType::STREAM,
+        SocketFlags::CLOEXEC,
         <span class="prelude-val">None</span>,
     )<span class="question-mark">?</span>;
 
-    <span class="comment">// Wrap it in a RawFdContainer. Its Drop impl makes sure to close the socket if something
-    // errors out below.
-    </span><span class="kw">let </span>socket = RawFdContainer::new(socket);
-
-    connect(socket.as_raw_fd(), <span class="kw-2">&amp;</span>UnixAddr::new_abstract(path)<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+    connect_unix(<span class="kw-2">&amp;</span>socket, <span class="kw-2">&amp;</span>SocketAddrUnix::new_abstract_name(path)<span class="question-mark">?</span>)<span class="question-mark">?</span>;
 
     <span class="comment">// Make the FD non-blocking
-    </span><span class="kw">let </span>flags = fcntl(socket.as_raw_fd(), FcntlArg::F_GETFL)<span class="question-mark">?</span>;
-    <span class="kw">let _ </span>= fcntl(
-        socket.as_raw_fd(),
-        FcntlArg::F_SETFL(OFlag::from_bits_truncate(flags) | OFlag::O_NONBLOCK),
-    )<span class="question-mark">?</span>;
+    </span>fcntl_setfl(<span class="kw-2">&amp;</span>socket, fcntl_getfl(<span class="kw-2">&amp;</span>socket)<span class="question-mark">? </span>| OFlags::NONBLOCK)<span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(socket)
 }
@@ -1225,14 +1078,15 @@
 </span>))]
 </span><span class="kw">mod </span>recvmsg {
     <span class="kw">use </span><span class="kw">super</span>::RawFdContainer;
+    <span class="kw">use </span>rustix::net::RecvFlags;
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>flags() -&gt; nix::sys::socket::MsgFlags {
-        nix::sys::socket::MsgFlags::MSG_CMSG_CLOEXEC
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>flags() -&gt; RecvFlags {
+        RecvFlags::CMSG_CLOEXEC
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>after_recvmsg&lt;<span class="lifetime">&#39;a</span>&gt;(
         fds: <span class="kw">impl </span>Iterator&lt;Item = RawFdContainer&gt; + <span class="lifetime">&#39;a</span>,
-        _cloexec_error: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>nix::Result&lt;()&gt;,
+        _cloexec_error: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="prelude-ty">Result</span>&lt;(), rustix::io::Errno&gt;,
     ) -&gt; <span class="kw">impl </span>Iterator&lt;Item = RawFdContainer&gt; + <span class="lifetime">&#39;a </span>{
         fds
     }
@@ -1252,24 +1106,66 @@
 ))]
 </span><span class="kw">mod </span>recvmsg {
     <span class="kw">use </span><span class="kw">super</span>::RawFdContainer;
-    <span class="kw">use </span>nix::fcntl::{fcntl, FcntlArg, FdFlag};
-    <span class="kw">use </span>nix::sys::socket::MsgFlags;
-    <span class="kw">use </span>std::os::unix::io::AsRawFd;
+    <span class="kw">use </span>rustix::io::{fcntl_getfd, fcntl_setfd, FdFlags};
+    <span class="kw">use </span>rustix::net::RecvFlags;
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>flags() -&gt; MsgFlags {
-        MsgFlags::empty()
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>flags() -&gt; RecvFlags {
+        RecvFlags::empty()
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>after_recvmsg&lt;<span class="lifetime">&#39;a</span>&gt;(
         fds: <span class="kw">impl </span>Iterator&lt;Item = RawFdContainer&gt; + <span class="lifetime">&#39;a</span>,
-        cloexec_error: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>nix::Result&lt;()&gt;,
+        cloexec_error: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>rustix::io::Result&lt;()&gt;,
     ) -&gt; <span class="kw">impl </span>Iterator&lt;Item = RawFdContainer&gt; + <span class="lifetime">&#39;a </span>{
         fds.map(<span class="kw">move </span>|fd| {
-            <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = fcntl(fd.as_raw_fd(), FcntlArg::F_SETFD(FdFlag::FD_CLOEXEC)) {
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(e) =
+                fcntl_getfd(<span class="kw-2">&amp;</span>fd).and_then(|flags| fcntl_setfd(<span class="kw-2">&amp;</span>fd, flags | FdFlags::CLOEXEC))
+            {
                 <span class="kw-2">*</span>cloexec_error = <span class="prelude-val">Err</span>(e);
             }
             fd
         })
+    }
+}
+
+<span class="kw">mod </span>peer_addr {
+    <span class="kw">use super</span>::{Family, PeerAddr};
+    <span class="kw">use </span>std::net::{Ipv4Addr, SocketAddr};
+
+    <span class="comment">// Get xauth information representing a local connection
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>local() -&gt; PeerAddr {
+        <span class="kw">let </span>hostname = <span class="kw">crate</span>::hostname()
+            .to_str()
+            .map_or_else(Vec::new, |s| s.as_bytes().to_vec());
+        (Family::LOCAL, hostname)
+    }
+
+    <span class="comment">// Get xauth information representing a TCP connection to the given address
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>tcp(addr: <span class="kw-2">&amp;</span>SocketAddr) -&gt; PeerAddr {
+        <span class="kw">let </span>ip = <span class="kw">match </span>addr {
+            SocketAddr::V4(addr) =&gt; <span class="kw-2">*</span>addr.ip(),
+            SocketAddr::V6(addr) =&gt; {
+                <span class="kw">let </span>ip = addr.ip();
+                <span class="kw">if </span>ip.is_loopback() {
+                    <span class="comment">// This is a local connection.
+                    // Use LOCALHOST to cause a fall-through in the code below.
+                    </span>Ipv4Addr::LOCALHOST
+                } <span class="kw">else if let </span><span class="prelude-val">Some</span>(ip) = ip.to_ipv4() {
+                    <span class="comment">// Let the ipv4 code below handle this
+                    </span>ip
+                } <span class="kw">else </span>{
+                    <span class="comment">// Okay, this is really a v6 address
+                    </span><span class="kw">return </span>(Family::INTERNET6, ip.octets().to_vec());
+                }
+            }
+        };
+
+        <span class="comment">// Handle the v4 address
+        </span><span class="kw">if </span>ip.is_loopback() {
+            local()
+        } <span class="kw">else </span>{
+            (Family::INTERNET, ip.octets().to_vec())
+        }
     }
 }
 </code></pre></div></section></main></body></html>

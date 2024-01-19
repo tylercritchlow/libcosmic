@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["Generic"]};
+window.SIDEBAR_ITEMS = {"struct":["FdWrapper","Generic","NoIoDrop"]};

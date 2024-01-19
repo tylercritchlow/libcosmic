@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["CSlice","RawFdContainer"]};
+window.SIDEBAR_ITEMS = {"type":["RawFdContainer"]};

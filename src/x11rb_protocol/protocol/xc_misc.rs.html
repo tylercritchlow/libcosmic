@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-protocol-0.12.0/src/protocol/xc_misc.rs`."><title>xc_misc.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb_protocol" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/x11rb-protocol-0.13.0/src/protocol/xc_misc.rs`."><title>xc_misc.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="x11rb_protocol" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -382,6 +382,21 @@
 <a href="#382" id="382">382</a>
 <a href="#383" id="383">383</a>
 <a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
 </pre></div><pre class="rust"><code><span class="comment">// This file contains generated code. Do not edit directly.
 // To regenerate this, run &#39;make&#39;.
 
@@ -401,7 +416,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::errors::ParseError;
 <span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span><span class="kw">crate</span>::x11_utils::TryIntoUSize;
-<span class="kw">use crate</span>::{BufWithFds, PiecewiseBuf};
+<span class="kw">use </span><span class="kw">crate</span>::BufWithFds;
 <span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span><span class="kw">crate</span>::utils::{RawFdContainer, pretty_print_bitmask, pretty_print_enum};
 <span class="attr">#[allow(unused_imports)]
@@ -420,15 +435,17 @@
 
 <span class="doccomment">/// Opcode for the GetVersion request
 </span><span class="kw">pub const </span>GET_VERSION_REQUEST: u8 = <span class="number">0</span>;
-<span class="attr">#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+<span class="attr">#[derive(Clone, Copy, Default)]
+#[cfg_attr(feature = <span class="string">&quot;extra-traits&quot;</span>, derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(serde::Serialize, serde::Deserialize))]
 </span><span class="kw">pub struct </span>GetVersionRequest {
     <span class="kw">pub </span>client_major_version: u16,
     <span class="kw">pub </span>client_minor_version: u16,
 }
+<span class="macro">impl_debug_if_no_extra_traits!</span>(GetVersionRequest, <span class="string">&quot;GetVersionRequest&quot;</span>);
 <span class="kw">impl </span>GetVersionRequest {
     <span class="doccomment">/// Serialize this request into bytes for the provided connection
-    </span><span class="kw">pub fn </span>serialize(<span class="self">self</span>, major_opcode: u8) -&gt; BufWithFds&lt;PiecewiseBuf&lt;<span class="lifetime">&#39;static</span>&gt;&gt; {
+    </span><span class="kw">pub fn </span>serialize(<span class="self">self</span>, major_opcode: u8) -&gt; BufWithFds&lt;[Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;; <span class="number">1</span>]&gt; {
         <span class="kw">let </span>length_so_far = <span class="number">0</span>;
         <span class="kw">let </span>client_major_version_bytes = <span class="self">self</span>.client_major_version.serialize();
         <span class="kw">let </span>client_minor_version_bytes = <span class="self">self</span>.client_minor_version.serialize();
@@ -446,9 +463,10 @@
         <span class="macro">assert_eq!</span>(length_so_far % <span class="number">4</span>, <span class="number">0</span>);
         <span class="kw">let </span>length = u16::try_from(length_so_far / <span class="number">4</span>).unwrap_or(<span class="number">0</span>);
         request0[<span class="number">2</span>..<span class="number">4</span>].copy_from_slice(<span class="kw-2">&amp;</span>length.to_ne_bytes());
-        (<span class="macro">vec!</span>[request0.into()], <span class="macro">vec!</span>[])
+        ([request0.into()], <span class="macro">vec!</span>[])
     }
     <span class="doccomment">/// Parse this request given its header, its body, and any fds that go along with it
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;request-parsing&quot;</span>)]
     </span><span class="kw">pub fn </span>try_parse_request(header: RequestHeader, value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseError&gt; {
         <span class="kw">if </span>header.minor_opcode != GET_VERSION_REQUEST {
             <span class="kw">return </span><span class="prelude-val">Err</span>(ParseError::InvalidValue);
@@ -476,7 +494,8 @@
     <span class="kw">type </span>Reply = GetVersionReply;
 }
 
-<span class="attr">#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+<span class="attr">#[derive(Clone, Copy, Default)]
+#[cfg_attr(feature = <span class="string">&quot;extra-traits&quot;</span>, derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(serde::Serialize, serde::Deserialize))]
 </span><span class="kw">pub struct </span>GetVersionReply {
     <span class="kw">pub </span>sequence: u16,
@@ -484,6 +503,7 @@
     <span class="kw">pub </span>server_major_version: u16,
     <span class="kw">pub </span>server_minor_version: u16,
 }
+<span class="macro">impl_debug_if_no_extra_traits!</span>(GetVersionReply, <span class="string">&quot;GetVersionReply&quot;</span>);
 <span class="kw">impl </span>TryParse <span class="kw">for </span>GetVersionReply {
     <span class="kw">fn </span>try_parse(initial_value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, <span class="kw-2">&amp;</span>[u8]), ParseError&gt; {
         <span class="kw">let </span>remaining = initial_value;
@@ -540,12 +560,14 @@
 
 <span class="doccomment">/// Opcode for the GetXIDRange request
 </span><span class="kw">pub const </span>GET_XID_RANGE_REQUEST: u8 = <span class="number">1</span>;
-<span class="attr">#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+<span class="attr">#[derive(Clone, Copy, Default)]
+#[cfg_attr(feature = <span class="string">&quot;extra-traits&quot;</span>, derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(serde::Serialize, serde::Deserialize))]
 </span><span class="kw">pub struct </span>GetXIDRangeRequest;
+<span class="macro">impl_debug_if_no_extra_traits!</span>(GetXIDRangeRequest, <span class="string">&quot;GetXIDRangeRequest&quot;</span>);
 <span class="kw">impl </span>GetXIDRangeRequest {
     <span class="doccomment">/// Serialize this request into bytes for the provided connection
-    </span><span class="kw">pub fn </span>serialize(<span class="self">self</span>, major_opcode: u8) -&gt; BufWithFds&lt;PiecewiseBuf&lt;<span class="lifetime">&#39;static</span>&gt;&gt; {
+    </span><span class="kw">pub fn </span>serialize(<span class="self">self</span>, major_opcode: u8) -&gt; BufWithFds&lt;[Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;; <span class="number">1</span>]&gt; {
         <span class="kw">let </span>length_so_far = <span class="number">0</span>;
         <span class="kw">let </span><span class="kw-2">mut </span>request0 = <span class="macro">vec!</span>[
             major_opcode,
@@ -557,9 +579,10 @@
         <span class="macro">assert_eq!</span>(length_so_far % <span class="number">4</span>, <span class="number">0</span>);
         <span class="kw">let </span>length = u16::try_from(length_so_far / <span class="number">4</span>).unwrap_or(<span class="number">0</span>);
         request0[<span class="number">2</span>..<span class="number">4</span>].copy_from_slice(<span class="kw-2">&amp;</span>length.to_ne_bytes());
-        (<span class="macro">vec!</span>[request0.into()], <span class="macro">vec!</span>[])
+        ([request0.into()], <span class="macro">vec!</span>[])
     }
     <span class="doccomment">/// Parse this request given its header, its body, and any fds that go along with it
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;request-parsing&quot;</span>)]
     </span><span class="kw">pub fn </span>try_parse_request(header: RequestHeader, value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseError&gt; {
         <span class="kw">if </span>header.minor_opcode != GET_XID_RANGE_REQUEST {
             <span class="kw">return </span><span class="prelude-val">Err</span>(ParseError::InvalidValue);
@@ -583,7 +606,8 @@
     <span class="kw">type </span>Reply = GetXIDRangeReply;
 }
 
-<span class="attr">#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+<span class="attr">#[derive(Clone, Copy, Default)]
+#[cfg_attr(feature = <span class="string">&quot;extra-traits&quot;</span>, derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(serde::Serialize, serde::Deserialize))]
 </span><span class="kw">pub struct </span>GetXIDRangeReply {
     <span class="kw">pub </span>sequence: u16,
@@ -591,6 +615,7 @@
     <span class="kw">pub </span>start_id: u32,
     <span class="kw">pub </span>count: u32,
 }
+<span class="macro">impl_debug_if_no_extra_traits!</span>(GetXIDRangeReply, <span class="string">&quot;GetXIDRangeReply&quot;</span>);
 <span class="kw">impl </span>TryParse <span class="kw">for </span>GetXIDRangeReply {
     <span class="kw">fn </span>try_parse(initial_value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, <span class="kw-2">&amp;</span>[u8]), ParseError&gt; {
         <span class="kw">let </span>remaining = initial_value;
@@ -651,14 +676,16 @@
 
 <span class="doccomment">/// Opcode for the GetXIDList request
 </span><span class="kw">pub const </span>GET_XID_LIST_REQUEST: u8 = <span class="number">2</span>;
-<span class="attr">#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+<span class="attr">#[derive(Clone, Copy, Default)]
+#[cfg_attr(feature = <span class="string">&quot;extra-traits&quot;</span>, derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(serde::Serialize, serde::Deserialize))]
 </span><span class="kw">pub struct </span>GetXIDListRequest {
     <span class="kw">pub </span>count: u32,
 }
+<span class="macro">impl_debug_if_no_extra_traits!</span>(GetXIDListRequest, <span class="string">&quot;GetXIDListRequest&quot;</span>);
 <span class="kw">impl </span>GetXIDListRequest {
     <span class="doccomment">/// Serialize this request into bytes for the provided connection
-    </span><span class="kw">pub fn </span>serialize(<span class="self">self</span>, major_opcode: u8) -&gt; BufWithFds&lt;PiecewiseBuf&lt;<span class="lifetime">&#39;static</span>&gt;&gt; {
+    </span><span class="kw">pub fn </span>serialize(<span class="self">self</span>, major_opcode: u8) -&gt; BufWithFds&lt;[Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;; <span class="number">1</span>]&gt; {
         <span class="kw">let </span>length_so_far = <span class="number">0</span>;
         <span class="kw">let </span>count_bytes = <span class="self">self</span>.count.serialize();
         <span class="kw">let </span><span class="kw-2">mut </span>request0 = <span class="macro">vec!</span>[
@@ -675,9 +702,10 @@
         <span class="macro">assert_eq!</span>(length_so_far % <span class="number">4</span>, <span class="number">0</span>);
         <span class="kw">let </span>length = u16::try_from(length_so_far / <span class="number">4</span>).unwrap_or(<span class="number">0</span>);
         request0[<span class="number">2</span>..<span class="number">4</span>].copy_from_slice(<span class="kw-2">&amp;</span>length.to_ne_bytes());
-        (<span class="macro">vec!</span>[request0.into()], <span class="macro">vec!</span>[])
+        ([request0.into()], <span class="macro">vec!</span>[])
     }
     <span class="doccomment">/// Parse this request given its header, its body, and any fds that go along with it
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;request-parsing&quot;</span>)]
     </span><span class="kw">pub fn </span>try_parse_request(header: RequestHeader, value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseError&gt; {
         <span class="kw">if </span>header.minor_opcode != GET_XID_LIST_REQUEST {
             <span class="kw">return </span><span class="prelude-val">Err</span>(ParseError::InvalidValue);
@@ -703,13 +731,15 @@
     <span class="kw">type </span>Reply = GetXIDListReply;
 }
 
-<span class="attr">#[derive(Debug, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+<span class="attr">#[derive(Clone, Default)]
+#[cfg_attr(feature = <span class="string">&quot;extra-traits&quot;</span>, derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(serde::Serialize, serde::Deserialize))]
 </span><span class="kw">pub struct </span>GetXIDListReply {
     <span class="kw">pub </span>sequence: u16,
     <span class="kw">pub </span>length: u32,
     <span class="kw">pub </span>ids: Vec&lt;u32&gt;,
 }
+<span class="macro">impl_debug_if_no_extra_traits!</span>(GetXIDListReply, <span class="string">&quot;GetXIDListReply&quot;</span>);
 <span class="kw">impl </span>TryParse <span class="kw">for </span>GetXIDListReply {
     <span class="kw">fn </span>try_parse(initial_value: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, <span class="kw-2">&amp;</span>[u8]), ParseError&gt; {
         <span class="kw">let </span>remaining = initial_value;
