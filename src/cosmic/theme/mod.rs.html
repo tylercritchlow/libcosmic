@@ -241,9 +241,6 @@
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -331,15 +328,12 @@
         .into(),
         <span class="kw">crate</span>::cosmic_theme::Theme::version(),
     )
-    .map(|(<span class="kw">_</span>, res)| {
-        <span class="kw">let </span>theme = res.unwrap_or_else(|(errors, theme)| {
-            <span class="kw">for </span>err <span class="kw">in </span>errors {
-                <span class="macro">tracing::error!</span>(<span class="string">&quot;{:?}&quot;</span>, err);
-            }
-            theme
-        });
+    .map(|res| {
+        <span class="kw">for </span>err <span class="kw">in </span>res.errors {
+            <span class="macro">tracing::error!</span>(<span class="string">&quot;{:?}&quot;</span>, err);
+        }
 
-        Theme::system(Arc::new(theme))
+        Theme::system(Arc::new(res.config))
     })
 }
 

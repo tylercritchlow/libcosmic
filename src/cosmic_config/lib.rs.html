@@ -339,6 +339,14 @@
 <a href="#339" id="339">339</a>
 <a href="#340" id="340">340</a>
 <a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>notify::{
     event::{EventKind, ModifyKind},
     Watcher,
@@ -373,6 +381,7 @@
     Notify(notify::Error),
     Ron(ron::Error),
     RonSpanned(ron::error::SpannedError),
+    GetKey(String, std::io::Error),
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Error {
@@ -385,6 +394,7 @@
             <span class="self">Self</span>::Notify(err) =&gt; err.fmt(f),
             <span class="self">Self</span>::Ron(err) =&gt; err.fmt(f),
             <span class="self">Self</span>::RonSpanned(err) =&gt; err.fmt(f),
+            <span class="self">Self</span>::GetKey(key, err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;failed to get key &#39;{}&#39;: {}&quot;</span>, key, err),
         }
     }
 }
@@ -605,11 +615,11 @@
         </span><span class="kw">let </span>key_path = <span class="self">self</span>.key_path(key)<span class="question-mark">?</span>;
         <span class="kw">let </span>data = <span class="kw">if </span>key_path.is_file() {
             <span class="comment">// Load user override
-            </span>fs::read_to_string(key_path)<span class="question-mark">?
+            </span>fs::read_to_string(key_path).map_err(|err| Error::GetKey(key.to_string(), err))<span class="question-mark">?
         </span>} <span class="kw">else </span>{
             <span class="comment">// Load system default
             </span><span class="kw">let </span>default_path = <span class="self">self</span>.default_path(key)<span class="question-mark">?</span>;
-            fs::read_to_string(default_path)<span class="question-mark">?
+            fs::read_to_string(default_path).map_err(|err| Error::GetKey(key.to_string(), err))<span class="question-mark">?
         </span>};
         <span class="kw">let </span>t = ron::from_str(<span class="kw-2">&amp;</span>data)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(t)
@@ -679,5 +689,11 @@
         config: <span class="kw-2">&amp;</span>Config,
         changed_keys: <span class="kw-2">&amp;</span>[T],
     ) -&gt; (Vec&lt;<span class="kw">crate</span>::Error&gt;, Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;);
+}
+
+<span class="kw">pub struct </span>Update&lt;T&gt; {
+    <span class="kw">pub </span>errors: Vec&lt;<span class="kw">crate</span>::Error&gt;,
+    <span class="kw">pub </span>keys: Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;,
+    <span class="kw">pub </span>config: T,
 }
 </code></pre></div></section></main></body></html>

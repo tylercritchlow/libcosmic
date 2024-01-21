@@ -407,41 +407,6 @@
 <a href="#407" id="407">407</a>
 <a href="#408" id="408">408</a>
 <a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a>
-<a href="#411" id="411">411</a>
-<a href="#412" id="412">412</a>
-<a href="#413" id="413">413</a>
-<a href="#414" id="414">414</a>
-<a href="#415" id="415">415</a>
-<a href="#416" id="416">416</a>
-<a href="#417" id="417">417</a>
-<a href="#418" id="418">418</a>
-<a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
-<a href="#421" id="421">421</a>
-<a href="#422" id="422">422</a>
-<a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -466,6 +431,7 @@
 <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
 </span><span class="kw">use </span>iced::Application <span class="kw">as </span>IcedApplication;
 <span class="kw">use </span>iced_futures::event::listen_raw;
+<span class="kw">use </span>iced_futures::futures::executor::block_on;
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
 </span><span class="kw">use </span>iced_runtime::command::Action;
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
@@ -510,9 +476,6 @@
     </span>WmCapabilities(window::Id, WindowManagerCapabilities),
     <span class="doccomment">/// Activate the application
     </span>Activate(String),
-    <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
-    </span><span class="doccomment">/// dbus settings daemon setup
-    </span>SettingsDaemon(zbus::Result&lt;cosmic_settings_daemon::CosmicSettingsDaemonProxy&lt;<span class="lifetime">&#39;static</span>&gt;&gt;),
 }
 
 <span class="attr">#[derive(Default)]
@@ -529,16 +492,14 @@
     <span class="kw">type </span>Message = <span class="kw">super</span>::Message&lt;T::Message&gt;;
     <span class="kw">type </span>Theme = Theme;
 
-    <span class="kw">fn </span>new((core, flags): <span class="self">Self</span>::Flags) -&gt; (<span class="self">Self</span>, iced::Command&lt;<span class="self">Self</span>::Message&gt;) {
+    <span class="kw">fn </span>new((<span class="kw-2">mut </span>core, flags): <span class="self">Self</span>::Flags) -&gt; (<span class="self">Self</span>, iced::Command&lt;<span class="self">Self</span>::Message&gt;) {
+        <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
+        </span>{
+            core.settings_daemon = block_on(cosmic_config::dbus::settings_daemon_proxy()).ok();
+        }
+
         <span class="kw">let </span>(model, command) = T::init(core, flags);
 
-        <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
-        </span><span class="kw">let </span>command = iced::Command::batch(<span class="macro">vec!</span>[
-            command,
-            iced::Command::perform(cosmic_config::dbus::settings_daemon_proxy(), |p| {
-                <span class="kw">super</span>::Message::Cosmic(<span class="kw">super</span>::cosmic::Message::SettingsDaemon(p))
-            }),
-        ]);
         (<span class="self">Self</span>::new(model), command)
     }
 
@@ -620,8 +581,7 @@
             keyboard_nav::subscription()
                 .map(Message::KeyboardNav)
                 .map(<span class="kw">super</span>::Message::Cosmic),
-            <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
-            </span><span class="self">self</span>.app
+            <span class="self">self</span>.app
                 .core()
                 .watch_config::&lt;cosmic_theme::Theme&gt;(<span class="kw">if </span><span class="self">self</span>.app.core().system_theme_mode.is_dark {
                     cosmic_theme::DARK_THEME_ID
@@ -635,28 +595,7 @@
                     Message::SystemThemeChange(<span class="kw">crate</span>::theme::Theme::system(Arc::new(update.config)))
                 })
                 .map(<span class="kw">super</span>::Message::Cosmic),
-            <span class="attr">#[cfg(not(feature = <span class="string">&quot;dbus-config&quot;</span>))]
-            </span>theme::subscription(<span class="self">self</span>.app.core().system_theme_mode.is_dark)
-                .map(Message::SystemThemeChange)
-                .map(<span class="kw">super</span>::Message::Cosmic),
-            <span class="attr">#[cfg(not(feature = <span class="string">&quot;dbus-config&quot;</span>))]
-            </span>cosmic_config::config_subscription::&lt;<span class="kw">_</span>, cosmic_theme::ThemeMode&gt;(
-                <span class="number">0</span>,
-                cosmic_theme::THEME_MODE_ID.into(),
-                cosmic_theme::ThemeMode::version(),
-            )
-            .map(|(<span class="kw">_</span>, u)| <span class="kw">match </span>u {
-                <span class="prelude-val">Ok</span>(t) =&gt; Message::SystemThemeModeChange(t),
-                <span class="prelude-val">Err</span>((errors, t)) =&gt; {
-                    <span class="kw">for </span>e <span class="kw">in </span>errors {
-                        <span class="macro">tracing::error!</span>(<span class="string">&quot;{e}&quot;</span>);
-                    }
-                    Message::SystemThemeModeChange(t)
-                }
-            })
-            .map(<span class="kw">super</span>::Message::Cosmic),
-            <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
-            </span><span class="self">self</span>.app
+            <span class="self">self</span>.app
                 .core()
                 .watch_config::&lt;ThemeMode&gt;(cosmic_theme::THEME_MODE_ID)
                 .map(|update| {
@@ -866,15 +805,6 @@
                     </span>_token,
                 );
             }
-            <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
-            </span>Message::SettingsDaemon(p) =&gt; <span class="kw">match </span>p {
-                <span class="prelude-val">Ok</span>(p) =&gt; {
-                    <span class="self">self</span>.app.core_mut().settings_daemon = <span class="prelude-val">Some</span>(p);
-                }
-                <span class="prelude-val">Err</span>(e) =&gt; {
-                    <span class="macro">tracing::error!</span>(<span class="string">&quot;Failed to connect to settings daemon: {e}&quot;</span>);
-                }
-            },
         }
 
         iced::Command::none()

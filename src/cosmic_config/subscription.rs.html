@@ -117,6 +117,17 @@
 <a href="#117" id="117">117</a>
 <a href="#118" id="118">118</a>
 <a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>iced_futures::futures::SinkExt;
 <span class="kw">use </span>iced_futures::{futures::channel::mpsc, subscription};
 <span class="kw">use </span>notify::RecommendedWatcher;
@@ -131,8 +142,7 @@
 }
 
 <span class="kw">pub enum </span>ConfigUpdate&lt;T&gt; {
-    Update(T),
-    UpdateError(T, Vec&lt;<span class="kw">crate</span>::Error&gt;),
+    Update(<span class="kw">crate</span>::Update&lt;T&gt;),
     Failed,
 }
 
@@ -143,7 +153,7 @@
     id: I,
     config_id: Cow&lt;<span class="lifetime">&#39;static</span>, str&gt;,
     config_version: u64,
-) -&gt; iced_futures::Subscription&lt;(I, <span class="prelude-ty">Result</span>&lt;T, (Vec&lt;<span class="kw">crate</span>::Error&gt;, T)&gt;)&gt; {
+) -&gt; iced_futures::Subscription&lt;<span class="kw">crate</span>::Update&lt;T&gt;&gt; {
     subscription::channel(id, <span class="number">100</span>, <span class="kw">move </span>|<span class="kw-2">mut </span>output| {
         <span class="kw">let </span>config_id = config_id.clone();
         <span class="kw">async move </span>{
@@ -164,7 +174,7 @@
     id: I,
     config_id: Cow&lt;<span class="lifetime">&#39;static</span>, str&gt;,
     config_version: u64,
-) -&gt; iced_futures::Subscription&lt;(I, <span class="prelude-ty">Result</span>&lt;T, (Vec&lt;<span class="kw">crate</span>::Error&gt;, T)&gt;)&gt; {
+) -&gt; iced_futures::Subscription&lt;<span class="kw">crate</span>::Update&lt;T&gt;&gt; {
     subscription::channel(id, <span class="number">100</span>, <span class="kw">move </span>|<span class="kw-2">mut </span>output| {
         <span class="kw">let </span>config_id = config_id.clone();
         <span class="kw">async move </span>{
@@ -183,7 +193,7 @@
     T: <span class="lifetime">&#39;static </span>+ Send + Sync + PartialEq + Clone + CosmicConfigEntry,
 &gt;(
     state: ConfigState&lt;T&gt;,
-    output: <span class="kw-2">&amp;mut </span>mpsc::Sender&lt;(I, <span class="prelude-ty">Result</span>&lt;T, (Vec&lt;<span class="kw">crate</span>::Error&gt;, T)&gt;)&gt;,
+    output: <span class="kw-2">&amp;mut </span>mpsc::Sender&lt;<span class="kw">crate</span>::Update&lt;T&gt;&gt;,
     id: I,
 ) -&gt; ConfigState&lt;T&gt; {
     <span class="kw">use </span>iced_futures::futures::{future::pending, StreamExt};
@@ -209,11 +219,21 @@
 
             <span class="kw">match </span>T::get_entry(<span class="kw-2">&amp;</span>config) {
                 <span class="prelude-val">Ok</span>(t) =&gt; {
-                    <span class="kw">_ </span>= output.send((id, <span class="prelude-val">Ok</span>(t.clone()))).<span class="kw">await</span>;
+                    <span class="kw">let </span>update = <span class="kw">crate</span>::Update {
+                        errors: Vec::new(),
+                        keys: Vec::new(),
+                        config: t.clone(),
+                    };
+                    <span class="kw">_ </span>= output.send(update).<span class="kw">await</span>;
                     ConfigState::Waiting(t, watcher, rx, config)
                 }
                 <span class="prelude-val">Err</span>((errors, t)) =&gt; {
-                    <span class="kw">_ </span>= output.send((id, <span class="prelude-val">Err</span>((errors, t.clone())))).<span class="kw">await</span>;
+                    <span class="kw">let </span>update = <span class="kw">crate</span>::Update {
+                        errors: errors,
+                        keys: Vec::new(),
+                        config: t.clone(),
+                    };
+                    <span class="kw">_ </span>= output.send(update).<span class="kw">await</span>;
                     ConfigState::Waiting(t, watcher, rx, config)
                 }
             }
@@ -223,11 +243,13 @@
                 <span class="kw">let </span>(errors, changed) = conf_data.update_keys(<span class="kw-2">&amp;</span>config, <span class="kw-2">&amp;</span>keys);
 
                 <span class="kw">if </span>!changed.is_empty() {
-                    <span class="kw">if </span>errors.is_empty() {
-                        <span class="kw">_ </span>= output.send((id, <span class="prelude-val">Ok</span>(conf_data.clone()))).<span class="kw">await</span>;
-                    } <span class="kw">else </span>{
-                        <span class="kw">_ </span>= output.send((id, <span class="prelude-val">Err</span>((errors, conf_data.clone())))).<span class="kw">await</span>;
-                    }
+                    <span class="kw">_ </span>= output
+                        .send(<span class="kw">crate</span>::Update {
+                            errors: errors,
+                            keys: changed,
+                            config: conf_data.clone(),
+                        })
+                        .<span class="kw">await</span>;
                 }
                 ConfigState::Waiting(conf_data, watcher, rx, config)
             }
