@@ -753,6 +753,72 @@
 <a href="#753" id="753">753</a>
 <a href="#754" id="754">754</a>
 <a href="#755" id="755">755</a>
+<a href="#756" id="756">756</a>
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+<a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
+<a href="#791" id="791">791</a>
+<a href="#792" id="792">792</a>
+<a href="#793" id="793">793</a>
+<a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
+<a href="#798" id="798">798</a>
+<a href="#799" id="799">799</a>
+<a href="#800" id="800">800</a>
+<a href="#801" id="801">801</a>
+<a href="#802" id="802">802</a>
+<a href="#803" id="803">803</a>
+<a href="#804" id="804">804</a>
+<a href="#805" id="805">805</a>
+<a href="#806" id="806">806</a>
+<a href="#807" id="807">807</a>
+<a href="#808" id="808">808</a>
+<a href="#809" id="809">809</a>
+<a href="#810" id="810">810</a>
+<a href="#811" id="811">811</a>
+<a href="#812" id="812">812</a>
+<a href="#813" id="813">813</a>
+<a href="#814" id="814">814</a>
+<a href="#815" id="815">815</a>
+<a href="#816" id="816">816</a>
+<a href="#817" id="817">817</a>
+<a href="#818" id="818">818</a>
+<a href="#819" id="819">819</a>
+<a href="#820" id="820">820</a>
+<a href="#821" id="821">821</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -765,12 +831,14 @@
     alignment, event, keyboard, mouse, touch, Background, Color, Command, Event, Length, Rectangle,
     Size,
 };
+<span class="kw">use </span>iced_core::mouse::ScrollDelta;
 <span class="kw">use </span>iced_core::text::{LineHeight, Paragraph, Renderer <span class="kw">as </span>TextRenderer, Shaping};
 <span class="kw">use </span>iced_core::widget::{<span class="self">self</span>, operation, tree};
 <span class="kw">use </span>iced_core::{layout, renderer, widget::Tree, Clipboard, Layout, Shell, Widget};
-<span class="kw">use </span>iced_core::{BorderRadius, Point, Renderer <span class="kw">as </span>IcedRenderer, Text};
-<span class="kw">use </span>slotmap::SecondaryMap;
+<span class="kw">use </span>iced_core::{Point, Renderer <span class="kw">as </span>IcedRenderer, Text};
+<span class="kw">use </span>slotmap::{Key, SecondaryMap};
 <span class="kw">use </span>std::marker::PhantomData;
+<span class="kw">use </span>std::time::{Duration, Instant};
 
 <span class="doccomment">/// State that is maintained by each individual widget.
 </span><span class="attr">#[derive(Default)]
@@ -785,6 +853,8 @@
     </span>hovered: Entity,
     <span class="doccomment">/// The paragraphs for each text.
     </span>paragraphs: SecondaryMap&lt;Entity, <span class="kw">crate</span>::Paragraph&gt;,
+    <span class="doccomment">/// Time since last tab activation from wheel movements.
+    </span>wheel_timestamp: <span class="prelude-ty">Option</span>&lt;Instant&gt;,
 }
 
 <span class="kw">impl </span>operation::Focusable <span class="kw">for </span>LocalState {
@@ -825,6 +895,7 @@
 
 <span class="doccomment">/// A conjoined group of items that function together as a button.
 </span><span class="attr">#[derive(Setters)]
+#[must_use]
 </span><span class="kw">pub struct </span>SegmentedButton&lt;<span class="lifetime">&#39;a</span>, Variant, SelectionMode, Message&gt;
 <span class="kw">where
     </span>Model&lt;SelectionMode&gt;: Selectable,
@@ -1135,7 +1206,8 @@
 
                         <span class="comment">// If marked as closable, show a close icon.
                         </span><span class="kw">if </span><span class="self">self</span>.model.items[key].closable {
-                            <span class="kw">if let </span><span class="prelude-val">Some</span>(on_close) = <span class="self">self</span>.on_close.as_ref() {
+                            <span class="comment">// Emit close message if the close button is pressed.
+                            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(on_close) = <span class="self">self</span>.on_close.as_ref() {
                                 <span class="kw">if </span>cursor_position.is_over(close_bounds(
                                     bounds,
                                     f32::from(<span class="self">self</span>.close_icon.size),
@@ -1149,6 +1221,15 @@
                                         shell.publish(on_close(key));
                                         <span class="kw">return </span>event::Status::Captured;
                                     }
+                                }
+
+                                <span class="comment">// Emit close message if the tab is middle clicked.
+                                </span><span class="kw">if let </span>Event::Mouse(mouse::Event::ButtonReleased(
+                                    mouse::Button::Middle,
+                                )) = event
+                                {
+                                    shell.publish(on_close(key));
+                                    <span class="kw">return </span>event::Status::Captured;
                                 }
                             }
                         }
@@ -1164,6 +1245,57 @@
                     }
 
                     <span class="kw">break</span>;
+                }
+            }
+
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(on_activate) = <span class="self">self</span>.on_activate.as_ref() {
+                <span class="kw">if let </span>Event::Mouse(mouse::Event::WheelScrolled { delta }) = event {
+                    <span class="kw">let </span>current = Instant::now();
+
+                    <span class="comment">// Permit successive scroll wheel events only after a given delay.
+                    </span><span class="kw">if </span>state.wheel_timestamp.map_or(<span class="bool-val">true</span>, |previous| {
+                        current.duration_since(previous) &gt; Duration::from_millis(<span class="number">250</span>)
+                    }) {
+                        state.wheel_timestamp = <span class="prelude-val">Some</span>(current);
+
+                        <span class="kw">match </span>delta {
+                            ScrollDelta::Lines { y, .. } | ScrollDelta::Pixels { y, .. } =&gt; {
+                                <span class="kw">let </span><span class="kw-2">mut </span>activate_key = <span class="prelude-val">None</span>;
+
+                                <span class="kw">if </span>y &lt; <span class="number">0.0 </span>{
+                                    <span class="kw">let </span><span class="kw-2">mut </span>prev_key = Entity::null();
+
+                                    <span class="kw">for </span>key <span class="kw">in </span><span class="self">self</span>.model.order.iter().copied() {
+                                        <span class="kw">if </span><span class="self">self</span>.model.is_active(key) &amp;&amp; !prev_key.is_null() {
+                                            activate_key = <span class="prelude-val">Some</span>(prev_key);
+                                        }
+
+                                        <span class="kw">if </span><span class="self">self</span>.model.is_enabled(key) {
+                                            prev_key = key;
+                                        }
+                                    }
+                                } <span class="kw">else if </span>y &gt; <span class="number">0.0 </span>{
+                                    <span class="kw">let </span><span class="kw-2">mut </span>buttons = <span class="self">self</span>.model.order.iter().copied();
+                                    <span class="kw">while let </span><span class="prelude-val">Some</span>(key) = buttons.next() {
+                                        <span class="kw">if </span><span class="self">self</span>.model.is_active(key) {
+                                            <span class="kw">for </span>key <span class="kw">in </span>buttons {
+                                                <span class="kw">if </span><span class="self">self</span>.model.is_enabled(key) {
+                                                    activate_key = <span class="prelude-val">Some</span>(key);
+                                                    <span class="kw">break</span>;
+                                                }
+                                            }
+                                            <span class="kw">break</span>;
+                                        }
+                                    }
+                                }
+
+                                <span class="kw">if let </span><span class="prelude-val">Some</span>(key) = activate_key {
+                                    shell.publish(on_activate(key));
+                                    <span class="kw">return </span>event::Status::Captured;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         } <span class="kw">else </span>{
