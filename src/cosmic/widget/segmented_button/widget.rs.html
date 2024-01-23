@@ -1145,9 +1145,6 @@
 <a href="#1145" id="1145">1145</a>
 <a href="#1146" id="1146">1146</a>
 <a href="#1147" id="1147">1147</a>
-<a href="#1148" id="1148">1148</a>
-<a href="#1149" id="1149">1149</a>
-<a href="#1150" id="1150">1150</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -2059,15 +2056,12 @@
             <span class="comment">// Draw the image beside the text.
             </span><span class="kw">let </span>horizontal_alignment = <span class="kw">if let </span><span class="prelude-val">Some</span>(icon) = <span class="self">self</span>.model.icon(key) {
                 bounds.x += f32::from(<span class="self">self</span>.button_padding[<span class="number">0</span>]);
-                bounds.y += f32::from(<span class="self">self</span>.button_padding[<span class="number">1</span>]);
-                bounds.width -=
-                    f32::from(<span class="self">self</span>.button_padding[<span class="number">0</span>]) - f32::from(<span class="self">self</span>.button_padding[<span class="number">2</span>]);
-                bounds.height -=
-                    f32::from(<span class="self">self</span>.button_padding[<span class="number">1</span>]) - f32::from(<span class="self">self</span>.button_padding[<span class="number">3</span>]);
 
+                <span class="kw">let </span><span class="kw-2">mut </span>image_bounds = bounds;
                 <span class="kw">let </span>width = f32::from(icon.size);
                 <span class="kw">let </span>offset = width + f32::from(<span class="self">self</span>.button_spacing);
-                bounds.y = y - width / <span class="number">2.0</span>;
+                image_bounds.y += f32::from(<span class="self">self</span>.button_padding[<span class="number">1</span>]);
+                image_bounds.y = y - width / <span class="number">2.0</span>;
 
                 draw_icon::&lt;Message&gt;(
                     renderer,
@@ -2079,7 +2073,7 @@
                     Rectangle {
                         width,
                         height: width,
-                        ..bounds
+                        ..image_bounds
                     },
                     icon.clone(),
                 );
@@ -2123,7 +2117,7 @@
                     bounds.position(),
                     status_appearance.text_color,
                     Rectangle {
-                        width: bounds.width - close_icon_width - <span class="number">12.0</span>,
+                        width: bounds.width - close_icon_width,
                         ..original_bounds
                     },
                 );
