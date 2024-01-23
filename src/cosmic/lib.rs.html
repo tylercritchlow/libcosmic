@@ -100,7 +100,7 @@
 <span class="kw">pub use </span>cosmic_config;
 <span class="kw">pub use </span>cosmic_theme;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;xdg-portal&quot;</span>)]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;xdg-portal&quot;</span>, feature = <span class="string">&quot;rfd&quot;</span>))]
 </span><span class="kw">pub mod </span>dialog;
 
 <span class="kw">pub mod </span>executor;

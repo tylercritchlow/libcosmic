@@ -84,6 +84,35 @@
 <a href="#84" id="84">84</a>
 <a href="#85" id="85">85</a>
 <a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -130,18 +159,38 @@
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]
-    </span><span class="kw">fn </span>variant_button_bounds(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>bounds: Rectangle, nth: usize) -&gt; Rectangle {
-        <span class="kw">let </span>num = <span class="self">self</span>.model.items.len();
-        <span class="kw">if </span>num != <span class="number">0 </span>{
-            <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
-            bounds.width = ((num <span class="kw">as </span>f32).mul_add(-spacing, bounds.width) + spacing) / num <span class="kw">as </span>f32;
+    </span><span class="kw">fn </span>variant_button_bounds(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;</span>LocalState,
+        <span class="kw-2">mut </span>bounds: Rectangle,
+        nth: usize,
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;Rectangle&gt; {
+        <span class="kw">let </span>num = state.buttons_visible;
 
-            <span class="kw">if </span>nth != <span class="number">0 </span>{
-                bounds.x += (nth <span class="kw">as </span>f32).mul_add(bounds.width, nth <span class="kw">as </span>f32 * spacing);
+        <span class="comment">// Do not display tabs that are currently hidden due to width constraints.
+        </span><span class="kw">if </span>state.collapsed &amp;&amp; nth &lt; state.buttons_offset {
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        }
+
+        <span class="kw">if </span>num != <span class="number">0 </span>{
+            <span class="kw">let </span>offset_width;
+            (bounds.x, offset_width) = <span class="kw">if </span>state.collapsed {
+                (bounds.x + <span class="number">16.0</span>, <span class="number">32.0</span>)
+            } <span class="kw">else </span>{
+                (bounds.x, <span class="number">0.0</span>)
+            };
+
+            <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
+            bounds.width = ((num <span class="kw">as </span>f32).mul_add(-spacing, bounds.width - offset_width) + spacing)
+                / num <span class="kw">as </span>f32;
+
+            <span class="kw">if </span>nth != state.buttons_offset {
+                <span class="kw">let </span>pos = (nth - state.buttons_offset) <span class="kw">as </span>f32;
+                bounds.x += pos.mul_add(bounds.width, pos * spacing);
             }
         }
 
-        bounds
+        <span class="prelude-val">Some</span>(bounds)
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]
@@ -166,6 +215,15 @@
         <span class="kw">let </span>size = limits
             .height(Length::Fixed(height))
             .resolve(Size::new(width, height));
+
+        <span class="kw">let </span>actual_width = size.width <span class="kw">as </span>usize;
+        <span class="kw">let </span>minimum_width = <span class="self">self</span>.minimum_button_width <span class="kw">as </span>usize * <span class="self">self</span>.model.items.len();
+
+        state.buttons_visible = num;
+        state.collapsed = actual_width &lt; minimum_width;
+        <span class="kw">if </span>state.collapsed {
+            state.buttons_visible = (actual_width / <span class="self">self</span>.minimum_button_width <span class="kw">as </span>usize).min(num);
+        }
 
         layout::Node::new(size)
     }
