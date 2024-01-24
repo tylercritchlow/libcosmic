@@ -342,11 +342,6 @@
 <a href="#342" id="342">342</a>
 <a href="#343" id="343">343</a>
 <a href="#344" id="344">344</a>
-<a href="#345" id="345">345</a>
-<a href="#346" id="346">346</a>
-<a href="#347" id="347">347</a>
-<a href="#348" id="348">348</a>
-<a href="#349" id="349">349</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>notify::{
     event::{EventKind, ModifyKind},
     Watcher,
@@ -443,8 +438,21 @@
 
 <span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Config {
-    system_path: PathBuf,
+    system_path: <span class="prelude-ty">Option</span>&lt;PathBuf&gt;,
     user_path: PathBuf,
+}
+
+<span class="doccomment">/// Check that the name is relative and doesn&#39;t contain . or ..
+</span><span class="kw">fn </span>sanitize_name(name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span>Path, Error&gt; {
+    <span class="kw">let </span>path = Path::new(name);
+    <span class="kw">if </span>path
+        .components()
+        .all(|x| <span class="macro">matches!</span>(x, std::path::Component::Normal(<span class="kw">_</span>)))
+    {
+        <span class="prelude-val">Ok</span>(path)
+    } <span class="kw">else </span>{
+        <span class="prelude-val">Err</span>(Error::InvalidName(name.to_owned()))
+    }
 }
 
 <span class="kw">impl </span>Config {
@@ -457,33 +465,34 @@
     </span><span class="comment">// Use folder at XDG config/name for config storage, return Config if successful
     //TODO: fallbacks for flatpak (HOST_XDG_CONFIG_HOME, xdg-desktop settings proxy)
     </span><span class="kw">pub fn </span>new(name: <span class="kw-2">&amp;</span>str, version: u64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
-        <span class="comment">// Get libcosmic system defaults path
-        //TODO: support non-UNIX OS
-        </span><span class="kw">let </span>cosmic_system_path = Path::new(<span class="string">&quot;/usr/share/cosmic&quot;</span>);
-        <span class="comment">// Append [name]/v[version]
-        </span><span class="kw">let </span>system_path = cosmic_system_path.join(name).join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
+        <span class="comment">// Look for [name]/v[version]
+        </span><span class="kw">let </span>path = sanitize_name(name)<span class="question-mark">?</span>.join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
+
+        <span class="comment">// Search data file, which provides default (e.g. /usr/share)
+        </span><span class="attr">#[cfg(unix)]
+        </span><span class="kw">let </span>system_path = xdg::BaseDirectories::with_prefix(<span class="string">&quot;cosmic&quot;</span>)
+            .map_err(std::io::Error::from)<span class="question-mark">?
+            </span>.find_data_file(<span class="kw-2">&amp;</span>path);
+
+        <span class="attr">#[cfg(windows)]
+        </span><span class="kw">let </span>system_path =
+            known_folders::get_known_folder_path(known_folders::KnownFolder::ProgramFilesCommon)
+                .map(|x| x.join(<span class="string">&quot;COSMIC&quot;</span>).join(<span class="kw-2">&amp;</span>path));
 
         <span class="comment">// Get libcosmic user configuration directory
         </span><span class="kw">let </span>cosmic_user_path = dirs::config_dir()
             .ok_or(Error::NoConfigDirectory)<span class="question-mark">?
             </span>.join(<span class="string">&quot;cosmic&quot;</span>);
-        <span class="comment">// Append [name]/v[version]
-        </span><span class="kw">let </span>user_path = cosmic_user_path.join(name).join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
 
-        <span class="comment">// If the app paths are children of the cosmic paths
-        </span><span class="kw">if </span>system_path.starts_with(<span class="kw-2">&amp;</span>cosmic_system_path) &amp;&amp; user_path.starts_with(<span class="kw-2">&amp;</span>cosmic_user_path)
-        {
-            <span class="comment">// Create app user path
-            </span>fs::create_dir_all(<span class="kw-2">&amp;</span>user_path)<span class="question-mark">?</span>;
-            <span class="comment">// Return Config
-            </span><span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-                system_path,
-                user_path,
-            })
-        } <span class="kw">else </span>{
-            <span class="comment">// Return error for invalid name
-            </span><span class="prelude-val">Err</span>(Error::InvalidName(name.to_string()))
-        }
+        <span class="kw">let </span>user_path = cosmic_user_path.join(path);
+        <span class="comment">// Create new configuration directory if not found.
+        </span>fs::create_dir_all(<span class="kw-2">&amp;</span>user_path)<span class="question-mark">?</span>;
+
+        <span class="comment">// Return Config
+        </span><span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            system_path,
+            user_path,
+        })
     }
 
     <span class="doccomment">/// Get state for the given application name and config version. State is meant to be used to
@@ -492,33 +501,22 @@
     </span><span class="comment">// Use folder at XDG config/name for config storage, return Config if successful
     //TODO: fallbacks for flatpak (HOST_XDG_CONFIG_HOME, xdg-desktop settings proxy)
     </span><span class="kw">pub fn </span>new_state(name: <span class="kw-2">&amp;</span>str, version: u64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
-        <span class="comment">// Get libcosmic system defaults path
-        //TODO: support non-UNIX OS
-        </span><span class="kw">let </span>cosmic_system_path = Path::new(<span class="string">&quot;/var/lib/cosmic&quot;</span>);
-        <span class="comment">// Append [name]/v[version]
-        </span><span class="kw">let </span>system_path = cosmic_system_path.join(name).join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
+        <span class="comment">// Look for [name]/v[version]
+        </span><span class="kw">let </span>path = sanitize_name(name)<span class="question-mark">?</span>.join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
 
-        <span class="comment">// Get libcosmic user configuration directory
+        <span class="comment">// Get libcosmic user state directory
         </span><span class="kw">let </span>cosmic_user_path = dirs::state_dir()
             .ok_or(Error::NoConfigDirectory)<span class="question-mark">?
             </span>.join(<span class="string">&quot;cosmic&quot;</span>);
-        <span class="comment">// Append [name]/v[version]
-        </span><span class="kw">let </span>user_path = cosmic_user_path.join(name).join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
 
-        <span class="comment">// If the app paths are children of the cosmic paths
-        </span><span class="kw">if </span>system_path.starts_with(<span class="kw-2">&amp;</span>cosmic_system_path) &amp;&amp; user_path.starts_with(<span class="kw-2">&amp;</span>cosmic_user_path)
-        {
-            <span class="comment">// Create app user path
-            </span>fs::create_dir_all(<span class="kw-2">&amp;</span>user_path)<span class="question-mark">?</span>;
-            <span class="comment">// Return Config
-            </span><span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-                system_path,
-                user_path,
-            })
-        } <span class="kw">else </span>{
-            <span class="comment">// Return error for invalid name
-            </span><span class="prelude-val">Err</span>(Error::InvalidName(name.to_string()))
-        }
+        <span class="kw">let </span>user_path = cosmic_user_path.join(path);
+        <span class="comment">// Create new state directory if not found.
+        </span>fs::create_dir_all(<span class="kw-2">&amp;</span>user_path)<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            system_path: <span class="prelude-val">None</span>,
+            user_path,
+        })
     }
 
     <span class="comment">// Start a transaction (to set multiple configs at the same time)
@@ -587,23 +585,15 @@
     }
 
     <span class="kw">fn </span>default_path(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;PathBuf, Error&gt; {
-        <span class="kw">let </span>default_path = <span class="self">self</span>.system_path.join(key);
-        <span class="comment">// Ensure key path is a direct child of config directory
-        </span><span class="kw">if </span>default_path.parent() == <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.system_path) {
-            <span class="prelude-val">Ok</span>(default_path)
-        } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(Error::InvalidName(key.to_string()))
-        }
+        <span class="kw">let </span><span class="prelude-val">Some</span>(system_path) = <span class="self">self</span>.system_path.as_ref() <span class="kw">else </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::NoConfigDirectory);
+        };
+
+        <span class="prelude-val">Ok</span>(system_path.join(sanitize_name(key)<span class="question-mark">?</span>))
     }
 
     <span class="kw">fn </span>key_path(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;PathBuf, Error&gt; {
-        <span class="kw">let </span>key_path = <span class="self">self</span>.user_path.join(key);
-        <span class="comment">// Ensure key path is a direct child of config directory
-        </span><span class="kw">if </span>key_path.parent() == <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.user_path) {
-            <span class="prelude-val">Ok</span>(key_path)
-        } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(Error::InvalidName(key.to_string()))
-        }
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>.user_path.join(sanitize_name(key)<span class="question-mark">?</span>))
     }
 }
 
