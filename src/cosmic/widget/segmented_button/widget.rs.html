@@ -1134,6 +1134,42 @@
 <a href="#1134" id="1134">1134</a>
 <a href="#1135" id="1135">1135</a>
 <a href="#1136" id="1136">1136</a>
+<a href="#1137" id="1137">1137</a>
+<a href="#1138" id="1138">1138</a>
+<a href="#1139" id="1139">1139</a>
+<a href="#1140" id="1140">1140</a>
+<a href="#1141" id="1141">1141</a>
+<a href="#1142" id="1142">1142</a>
+<a href="#1143" id="1143">1143</a>
+<a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
+<a href="#1155" id="1155">1155</a>
+<a href="#1156" id="1156">1156</a>
+<a href="#1157" id="1157">1157</a>
+<a href="#1158" id="1158">1158</a>
+<a href="#1159" id="1159">1159</a>
+<a href="#1160" id="1160">1160</a>
+<a href="#1161" id="1161">1161</a>
+<a href="#1162" id="1162">1162</a>
+<a href="#1163" id="1163">1163</a>
+<a href="#1164" id="1164">1164</a>
+<a href="#1165" id="1165">1165</a>
+<a href="#1166" id="1166">1166</a>
+<a href="#1167" id="1167">1167</a>
+<a href="#1168" id="1168">1168</a>
+<a href="#1169" id="1169">1169</a>
+<a href="#1170" id="1170">1170</a>
+<a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1295,10 +1331,10 @@
         <span class="self">self</span>.model.items.get(key).map_or(<span class="bool-val">false</span>, |item| item.enabled)
     }
 
-    <span class="doccomment">/// Focus the previous item in the widget.
+    <span class="doccomment">/// Item the previous item in the widget.
     </span><span class="kw">fn </span>focus_previous(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>LocalState) -&gt; event::Status {
         <span class="kw">match </span>state.focused_item {
-            Focus::Tab(entity) =&gt; {
+            Item::Tab(entity) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>keys = <span class="self">self</span>.iterate_visible_tabs(state).rev();
 
                 <span class="kw">while let </span><span class="prelude-val">Some</span>(key) = keys.next() {
@@ -1309,7 +1345,7 @@
                                 <span class="kw">continue</span>;
                             }
 
-                            state.focused_item = Focus::Tab(key);
+                            state.focused_item = Item::Tab(key);
                             <span class="kw">return </span>event::Status::Captured;
                         }
 
@@ -1318,39 +1354,39 @@
                 }
 
                 <span class="kw">if </span><span class="self">self</span>.prev_tab_sensitive(state) {
-                    state.focused_item = Focus::PrevButton;
+                    state.focused_item = Item::PrevButton;
                     <span class="kw">return </span>event::Status::Captured;
                 }
             }
 
-            Focus::NextButton =&gt; {
+            Item::NextButton =&gt; {
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(last) = <span class="self">self</span>.last_tab(state) {
-                    state.focused_item = Focus::Tab(last);
+                    state.focused_item = Item::Tab(last);
                     <span class="kw">return </span>event::Status::Captured;
                 }
             }
 
-            Focus::None =&gt; {
+            Item::None =&gt; {
                 <span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
-                    state.focused_item = Focus::NextButton;
+                    state.focused_item = Item::NextButton;
                     <span class="kw">return </span>event::Status::Captured;
                 } <span class="kw">else if let </span><span class="prelude-val">Some</span>(last) = <span class="self">self</span>.last_tab(state) {
-                    state.focused_item = Focus::Tab(last);
+                    state.focused_item = Item::Tab(last);
                     <span class="kw">return </span>event::Status::Captured;
                 }
             }
 
-            Focus::PrevButton | Focus::Set =&gt; (),
+            Item::PrevButton | Item::Set =&gt; (),
         }
 
-        state.focused_item = Focus::None;
+        state.focused_item = Item::None;
         event::Status::Ignored
     }
 
-    <span class="doccomment">/// Focus the next item in the widget.
+    <span class="doccomment">/// Item the next item in the widget.
     </span><span class="kw">fn </span>focus_next(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>LocalState) -&gt; event::Status {
         <span class="kw">match </span>state.focused_item {
-            Focus::Tab(entity) =&gt; {
+            Item::Tab(entity) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>keys = <span class="self">self</span>.iterate_visible_tabs(state);
                 <span class="kw">while let </span><span class="prelude-val">Some</span>(key) = keys.next() {
                     <span class="kw">if </span>key == entity {
@@ -1360,7 +1396,7 @@
                                 <span class="kw">continue</span>;
                             }
 
-                            state.focused_item = Focus::Tab(key);
+                            state.focused_item = Item::Tab(key);
                             <span class="kw">return </span>event::Status::Captured;
                         }
 
@@ -1369,32 +1405,32 @@
                 }
 
                 <span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
-                    state.focused_item = Focus::NextButton;
+                    state.focused_item = Item::NextButton;
                     <span class="kw">return </span>event::Status::Captured;
                 }
             }
 
-            Focus::PrevButton =&gt; {
+            Item::PrevButton =&gt; {
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(first) = <span class="self">self</span>.first_tab(state) {
-                    state.focused_item = Focus::Tab(first);
+                    state.focused_item = Item::Tab(first);
                     <span class="kw">return </span>event::Status::Captured;
                 }
             }
 
-            Focus::None =&gt; {
+            Item::None =&gt; {
                 <span class="kw">if </span><span class="self">self</span>.prev_tab_sensitive(state) {
-                    state.focused_item = Focus::PrevButton;
+                    state.focused_item = Item::PrevButton;
                     <span class="kw">return </span>event::Status::Captured;
                 } <span class="kw">else if let </span><span class="prelude-val">Some</span>(first) = <span class="self">self</span>.first_tab(state) {
-                    state.focused_item = Focus::Tab(first);
+                    state.focused_item = Item::Tab(first);
                     <span class="kw">return </span>event::Status::Captured;
                 }
             }
 
-            Focus::NextButton | Focus::Set =&gt; (),
+            Item::NextButton | Item::Set =&gt; (),
         }
 
-        state.focused_item = Focus::None;
+        state.focused_item = Item::None;
         event::Status::Ignored
     }
 
@@ -1596,31 +1632,33 @@
             </span><span class="kw">if </span>state.collapsed {
                 <span class="comment">// Check if the prev tab button was clicked.
                 </span><span class="kw">if </span>cursor_position.is_over(Rectangle {
-                    y: bounds.y + <span class="number">8.0</span>,
-                    width: <span class="number">16.0</span>,
-                    ..bounds
-                }) {
+                    x: bounds.x,
+                    y: bounds.y,
+                    width: f32::from(<span class="self">self</span>.button_height),
+                    height: f32::from(<span class="self">self</span>.button_height),
+                }) &amp;&amp; <span class="self">self</span>.prev_tab_sensitive(state)
+                {
+                    state.hovered = Item::PrevButton;
                     <span class="kw">if let </span>Event::Mouse(mouse::Event::ButtonReleased(mouse::Button::Left))
                     | Event::Touch(touch::Event::FingerLifted { .. }) = event
                     {
-                        <span class="kw">if </span><span class="self">self</span>.prev_tab_sensitive(state) {
-                            state.buttons_offset -= <span class="number">1</span>;
-                        }
+                        state.buttons_offset -= <span class="number">1</span>;
                     }
                 } <span class="kw">else </span>{
                     <span class="comment">// Check if the next tab button was clicked.
                     </span><span class="kw">if </span>cursor_position.is_over(Rectangle {
-                        x: bounds.width,
-                        y: bounds.y + <span class="number">8.0</span>,
-                        width: <span class="number">16.0</span>,
-                        ..bounds
-                    }) {
+                        x: bounds.width - f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0 </span>- <span class="number">8.0</span>,
+                        y: bounds.y,
+                        width: f32::from(<span class="self">self</span>.button_height),
+                        height: f32::from(<span class="self">self</span>.button_height),
+                    }) &amp;&amp; <span class="self">self</span>.next_tab_sensitive(state)
+                    {
+                        state.hovered = Item::NextButton;
+
                         <span class="kw">if let </span>Event::Mouse(mouse::Event::ButtonReleased(mouse::Button::Left))
                         | Event::Touch(touch::Event::FingerLifted { .. }) = event
                         {
-                            <span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
-                                state.buttons_offset += <span class="number">1</span>;
-                            }
+                            state.buttons_offset += <span class="number">1</span>;
                         }
                     }
                 }
@@ -1633,7 +1671,7 @@
                 <span class="kw">if </span>cursor_position.is_over(bounds) {
                     <span class="kw">if </span><span class="self">self</span>.model.items[key].enabled {
                         <span class="comment">// Record that the mouse is hovering over this button.
-                        </span>state.hovered = key;
+                        </span>state.hovered = Item::Tab(key);
 
                         <span class="comment">// If marked as closable, show a close icon.
                         </span><span class="kw">if </span><span class="self">self</span>.model.items[key].closable {
@@ -1730,7 +1768,7 @@
                 }
             }
         } <span class="kw">else </span>{
-            state.hovered = Entity::default();
+            state.hovered = Item::None;
         }
 
         <span class="kw">if </span>state.focused {
@@ -1754,37 +1792,37 @@
                 }) = event
                 {
                     <span class="kw">match </span>state.focused_item {
-                        Focus::Tab(entity) =&gt; {
+                        Item::Tab(entity) =&gt; {
                             shell.publish(on_activate(entity));
                         }
 
-                        Focus::PrevButton =&gt; {
+                        Item::PrevButton =&gt; {
                             <span class="kw">if </span><span class="self">self</span>.prev_tab_sensitive(state) {
                                 state.buttons_offset -= <span class="number">1</span>;
 
                                 <span class="comment">// If the change would cause it to be insensitive, focus the first tab.
                                 </span><span class="kw">if </span>!<span class="self">self</span>.prev_tab_sensitive(state) {
                                     <span class="kw">if let </span><span class="prelude-val">Some</span>(first) = <span class="self">self</span>.first_tab(state) {
-                                        state.focused_item = Focus::Tab(first);
+                                        state.focused_item = Item::Tab(first);
                                     }
                                 }
                             }
                         }
 
-                        Focus::NextButton =&gt; {
+                        Item::NextButton =&gt; {
                             <span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
                                 state.buttons_offset += <span class="number">1</span>;
 
                                 <span class="comment">// If the change would cause it to be insensitive, focus the last tab.
                                 </span><span class="kw">if </span>!<span class="self">self</span>.next_tab_sensitive(state) {
                                     <span class="kw">if let </span><span class="prelude-val">Some</span>(last) = <span class="self">self</span>.last_tab(state) {
-                                        state.focused_item = Focus::Tab(last);
+                                        state.focused_item = Item::Tab(last);
                                     }
                                 }
                             }
                         }
 
-                        Focus::None | Focus::Set =&gt; (),
+                        Item::None | Item::Set =&gt; (),
                     }
 
                     <span class="kw">return </span>event::Status::Captured;
@@ -1807,11 +1845,11 @@
         <span class="kw">let </span>state = tree.state.downcast_mut::&lt;LocalState&gt;();
         operation.focusable(state, <span class="self">self</span>.id.as_ref().map(|id| <span class="kw-2">&amp;</span>id.<span class="number">0</span>));
 
-        <span class="kw">if let </span>Focus::Set = state.focused_item {
+        <span class="kw">if let </span>Item::Set = state.focused_item {
             <span class="kw">if </span><span class="self">self</span>.prev_tab_sensitive(state) {
-                state.focused_item = Focus::PrevButton;
+                state.focused_item = Item::PrevButton;
             } <span class="kw">else if let </span><span class="prelude-val">Some</span>(first) = <span class="self">self</span>.first_tab(state) {
-                state.focused_item = Focus::Tab(first);
+                state.focused_item = Item::Tab(first);
             }
         }
     }
@@ -1853,6 +1891,7 @@
         cursor: mouse::Cursor,
         viewport: <span class="kw-2">&amp;</span>iced::Rectangle,
     ) {
+        <span class="kw">let </span>cosmic_theme = theme.cosmic();
         <span class="kw">let </span>state = tree.state.downcast_ref::&lt;LocalState&gt;();
         <span class="kw">let </span>appearance = <span class="self">Self</span>::variant_appearance(theme, <span class="kw-2">&amp;</span><span class="self">self</span>.style);
         <span class="kw">let </span>bounds = layout.bounds();
@@ -1874,22 +1913,28 @@
         <span class="comment">// Draw previous and next tab buttons if there is a need to paginate tabs.
         </span><span class="kw">if </span>state.collapsed {
             <span class="comment">// Previous tab button
-            </span><span class="kw">let </span>prev_bounds = Rectangle {
-                y: bounds.y + <span class="number">8.0</span>,
-                width: <span class="number">16.0</span>,
-                ..bounds
-            };
+            </span><span class="kw">let </span><span class="kw-2">mut </span>background_appearance = <span class="kw">if </span>Item::PrevButton == state.focused_item {
+                <span class="prelude-val">Some</span>(appearance.focus)
+            } <span class="kw">else if </span>Item::PrevButton == state.hovered {
+                <span class="prelude-val">Some</span>(appearance.hover)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>};
 
-            <span class="kw">if let </span>Focus::PrevButton = state.focused_item {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(background_appearance) = background_appearance.take() {
                 renderer.fill_quad(
                     renderer::Quad {
-                        bounds: prev_bounds,
-                        border_radius: appearance.focus.first.border_radius,
+                        bounds: Rectangle {
+                            x: bounds.x,
+                            y: bounds.y,
+                            width: f32::from(<span class="self">self</span>.button_height),
+                            height: bounds.height,
+                        },
+                        border_radius: cosmic_theme.radius_s().into(),
                         border_width: <span class="number">0.0</span>,
                         border_color: Color::TRANSPARENT,
                     },
-                    appearance
-                        .focus
+                    background_appearance
                         .background
                         .unwrap_or(Background::Color(Color::TRANSPARENT)),
                 );
@@ -1903,33 +1948,49 @@
                 viewport,
                 <span class="kw">if </span>state.buttons_offset == <span class="number">0 </span>{
                     appearance.inactive.text_color
-                } <span class="kw">else if let </span>Focus::PrevButton = state.focused_item {
+                } <span class="kw">else if let </span>Item::PrevButton = state.focused_item {
                     appearance.focus.text_color
                 } <span class="kw">else </span>{
                     appearance.active.text_color
                 },
-                prev_bounds,
+                Rectangle {
+                    x: bounds.x + f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0</span>,
+                    y: bounds.y + f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0</span>,
+                    width: <span class="number">16.0</span>,
+                    height: <span class="number">16.0</span>,
+                },
                 icon::from_name(<span class="string">&quot;go-previous-symbolic&quot;</span>).size(<span class="number">16</span>).icon(),
             );
 
             <span class="comment">// Next tab button
-            </span><span class="kw">let </span>next_bounds = Rectangle {
-                x: bounds.width,
-                y: bounds.y + <span class="number">8.0</span>,
-                width: <span class="number">16.0</span>,
-                ..bounds
-            };
+            </span>background_appearance = <span class="kw">if </span>Item::NextButton == state.focused_item {
+                <span class="prelude-val">Some</span>(appearance.focus)
+            } <span class="kw">else if </span>Item::NextButton == state.hovered {
+                <span class="prelude-val">Some</span>(appearance.hover)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>};
 
-            <span class="kw">if let </span>Focus::NextButton = state.focused_item {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(background_appearance) = background_appearance {
                 renderer.fill_quad(
                     renderer::Quad {
-                        bounds: next_bounds,
-                        border_radius: appearance.focus.last.border_radius,
+                        bounds: Rectangle {
+                            x: bounds.width
+                                - f32::from(<span class="self">self</span>.button_height) / <span class="number">2.0
+                                </span>- <span class="kw">if let </span>Length::Shrink = <span class="self">self</span>.width {
+                                    <span class="number">0.0
+                                </span>} <span class="kw">else </span>{
+                                    <span class="number">8.0
+                                </span>},
+                            y: bounds.y,
+                            width: f32::from(<span class="self">self</span>.button_height),
+                            height: bounds.height,
+                        },
+                        border_radius: cosmic_theme.radius_s().into(),
                         border_width: <span class="number">0.0</span>,
                         border_color: Color::TRANSPARENT,
                     },
-                    appearance
-                        .focus
+                    background_appearance
                         .background
                         .unwrap_or(Background::Color(Color::TRANSPARENT)),
                 );
@@ -1943,12 +2004,23 @@
                 viewport,
                 <span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
                     appearance.active.text_color
-                } <span class="kw">else if let </span>Focus::NextButton = state.focused_item {
+                } <span class="kw">else if let </span>Item::NextButton = state.focused_item {
                     appearance.focus.text_color
                 } <span class="kw">else </span>{
                     appearance.inactive.text_color
                 },
-                next_bounds,
+                Rectangle {
+                    x: bounds.width
+                        - f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0
+                        </span>- <span class="kw">if let </span>Length::Shrink = <span class="self">self</span>.width {
+                            <span class="number">0.0
+                        </span>} <span class="kw">else </span>{
+                            <span class="number">8.0
+                        </span>},
+                    y: bounds.y + f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0</span>,
+                    width: <span class="number">16.0</span>,
+                    height: <span class="number">16.0</span>,
+                },
                 icon::from_name(<span class="string">&quot;go-next-symbolic&quot;</span>).size(<span class="number">16</span>).icon(),
             );
         }
@@ -1956,9 +2028,9 @@
         <span class="comment">// Draw each of the items in the widget.
         </span><span class="kw">for </span>(nth, (key, <span class="kw-2">mut </span>bounds)) <span class="kw">in </span><span class="self">self</span>.variant_button_bounds(state, bounds).enumerate() {
             <span class="kw">let </span>key_is_active = <span class="self">self</span>.model.is_active(key);
-            <span class="kw">let </span>key_is_hovered = state.hovered == key;
+            <span class="kw">let </span>key_is_hovered = state.hovered == Item::Tab(key);
 
-            <span class="kw">let </span>(status_appearance, font) = <span class="kw">if </span>Focus::Tab(key) == state.focused_item {
+            <span class="kw">let </span>(status_appearance, font) = <span class="kw">if </span>Item::Tab(key) == state.focused_item {
                 (appearance.focus, <span class="kw-2">&amp;</span><span class="self">self</span>.font_active)
             } <span class="kw">else if </span>key_is_active {
                 (appearance.active, <span class="kw-2">&amp;</span><span class="self">self</span>.font_active)
@@ -2158,9 +2230,9 @@
     <span class="doccomment">/// If the widget is focused or not.
     </span>focused: bool,
     <span class="doccomment">/// The key inside the widget that is currently focused.
-    </span>focused_item: Focus,
+    </span>focused_item: Item,
     <span class="doccomment">/// The ID of the button that is being hovered. Defaults to null.
-    </span>hovered: Entity,
+    </span>hovered: Item,
     <span class="doccomment">/// Last known length of the model.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) known_length: usize,
     <span class="doccomment">/// Dimensions of internal buttons when shrinking
@@ -2172,7 +2244,7 @@
 }
 
 <span class="attr">#[derive(Default, PartialEq)]
-</span><span class="kw">enum </span>Focus {
+</span><span class="kw">enum </span>Item {
     NextButton,
     <span class="attr">#[default]
     </span><span class="prelude-val">None</span>,
@@ -2188,12 +2260,12 @@
 
     <span class="kw">fn </span>focus(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.focused = <span class="bool-val">true</span>;
-        <span class="self">self</span>.focused_item = Focus::Set;
+        <span class="self">self</span>.focused_item = Item::Set;
     }
 
     <span class="kw">fn </span>unfocus(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.focused = <span class="bool-val">false</span>;
-        <span class="self">self</span>.focused_item = Focus::None;
+        <span class="self">self</span>.focused_item = Item::None;
     }
 }
 
