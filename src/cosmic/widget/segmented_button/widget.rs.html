@@ -1134,17 +1134,6 @@
 <a href="#1134" id="1134">1134</a>
 <a href="#1135" id="1135">1135</a>
 <a href="#1136" id="1136">1136</a>
-<a href="#1137" id="1137">1137</a>
-<a href="#1138" id="1138">1138</a>
-<a href="#1139" id="1139">1139</a>
-<a href="#1140" id="1140">1140</a>
-<a href="#1141" id="1141">1141</a>
-<a href="#1142" id="1142">1142</a>
-<a href="#1143" id="1143">1143</a>
-<a href="#1144" id="1144">1144</a>
-<a href="#1145" id="1145">1145</a>
-<a href="#1146" id="1146">1146</a>
-<a href="#1147" id="1147">1147</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1179,13 +1168,12 @@
         style: <span class="kw-2">&amp;</span><span class="kw">crate</span>::theme::SegmentedButton,
     ) -&gt; <span class="kw">super</span>::Appearance;
 
-    <span class="doccomment">/// Calculates the bounds for the given button by its position.
+    <span class="doccomment">/// Calculates the bounds for visible buttons.
     </span><span class="kw">fn </span>variant_button_bounds(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         state: <span class="kw-2">&amp;</span>LocalState,
         bounds: Rectangle,
-        position: usize,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;Rectangle&gt;;
+    ) -&gt; <span class="kw">impl </span>Iterator&lt;Item = (Entity, Rectangle)&gt;;
 
     <span class="doccomment">/// Calculates the layout of this variant.
     </span><span class="kw">fn </span>variant_layout(
@@ -1284,7 +1272,8 @@
         }
     }
 
-    <span class="kw">pub fn </span>on_activate&lt;T&gt;(<span class="kw-2">mut </span><span class="self">self</span>, on_activate: T) -&gt; <span class="self">Self
+    <span class="doccomment">/// Emitted when a tab is pressed.
+    </span><span class="kw">pub fn </span>on_activate&lt;T&gt;(<span class="kw-2">mut </span><span class="self">self</span>, on_activate: T) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>T: Fn(Entity) -&gt; Message + <span class="lifetime">&#39;static</span>,
     {
@@ -1292,7 +1281,8 @@
         <span class="self">self
     </span>}
 
-    <span class="kw">pub fn </span>on_close&lt;T&gt;(<span class="kw-2">mut </span><span class="self">self</span>, on_close: T) -&gt; <span class="self">Self
+    <span class="doccomment">/// Emitted when a tab close button is pressed.
+    </span><span class="kw">pub fn </span>on_close&lt;T&gt;(<span class="kw-2">mut </span><span class="self">self</span>, on_close: T) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>T: Fn(Entity) -&gt; Message + <span class="lifetime">&#39;static</span>,
     {
@@ -1440,6 +1430,65 @@
         state.buttons_offset &lt; <span class="self">self</span>.model.order.len() - state.buttons_visible
     }
 
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>button_dimensions(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;mut </span>LocalState,
+        font: <span class="kw">crate</span>::font::Font,
+        button: Entity,
+    ) -&gt; (f32, f32) {
+        <span class="kw">let </span><span class="kw-2">mut </span>width = <span class="number">0.0f32</span>;
+        <span class="kw">let </span><span class="kw-2">mut </span>height = <span class="number">0.0f32</span>;
+
+        <span class="comment">// Add text to measurement if text was given.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>((text, entry)) = <span class="self">self
+            </span>.model
+            .text
+            .get(button)
+            .zip(state.paragraphs.entry(button))
+        {
+            <span class="kw">let </span>paragraph = entry.or_insert_with(|| {
+                <span class="kw">crate</span>::Paragraph::with_text(Text {
+                    content: text,
+                    size: iced::Pixels(<span class="self">self</span>.font_size),
+                    bounds: Size::INFINITY,
+                    font,
+                    horizontal_alignment: alignment::Horizontal::Left,
+                    vertical_alignment: alignment::Vertical::Center,
+                    shaping: Shaping::Advanced,
+                    line_height: <span class="self">self</span>.line_height,
+                })
+            });
+
+            <span class="kw">let </span>size = paragraph.min_bounds();
+            width += size.width;
+            height += size.height;
+        }
+
+        <span class="comment">// Add indent to measurement if found.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(indent) = <span class="self">self</span>.model.indent(button) {
+            width = f32::from(indent).mul_add(f32::from(<span class="self">self</span>.indent_spacing), width);
+        }
+
+        <span class="comment">// Add icon to measurement if icon was given.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(icon) = <span class="self">self</span>.model.icon(button) {
+            height = height.max(f32::from(icon.size));
+            width += f32::from(icon.size) + f32::from(<span class="self">self</span>.button_spacing);
+        }
+
+        <span class="comment">// Add close button to measurement if found.
+        </span><span class="kw">if </span><span class="self">self</span>.model.is_closable(button) {
+            height = height.max(f32::from(<span class="self">self</span>.close_icon.size));
+            width += f32::from(<span class="self">self</span>.close_icon.size) + f32::from(<span class="self">self</span>.button_spacing) + <span class="number">8.0</span>;
+        }
+
+        <span class="comment">// Add button padding to the max size found
+        </span>width += f32::from(<span class="self">self</span>.button_padding[<span class="number">0</span>]) + f32::from(<span class="self">self</span>.button_padding[<span class="number">2</span>]);
+        height += f32::from(<span class="self">self</span>.button_padding[<span class="number">1</span>]) + f32::from(<span class="self">self</span>.button_padding[<span class="number">3</span>]);
+        height = height.max(f32::from(<span class="self">self</span>.button_height));
+
+        (width, height)
+    }
+
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>max_button_dimensions(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         state: <span class="kw-2">&amp;mut </span>LocalState,
@@ -1451,57 +1500,11 @@
         <span class="kw">let </span>font = renderer.default_font();
 
         <span class="kw">for </span>key <span class="kw">in </span><span class="self">self</span>.model.order.iter().copied() {
-            <span class="kw">let </span><span class="kw-2">mut </span>button_width = <span class="number">0.0f32</span>;
-            <span class="kw">let </span><span class="kw-2">mut </span>button_height = <span class="number">0.0f32</span>;
-
-            <span class="comment">// Add text to measurement if text was given.
-            </span><span class="kw">if let </span><span class="prelude-val">Some</span>((text, entry)) = <span class="self">self</span>.model.text.get(key).zip(state.paragraphs.entry(key)) {
-                <span class="kw">let </span>paragraph = entry.or_insert_with(|| {
-                    <span class="kw">crate</span>::Paragraph::with_text(Text {
-                        content: text,
-                        size: iced::Pixels(<span class="self">self</span>.font_size),
-                        bounds: Size::INFINITY,
-                        font,
-                        horizontal_alignment: alignment::Horizontal::Left,
-                        vertical_alignment: alignment::Vertical::Center,
-                        shaping: Shaping::Advanced,
-                        line_height: <span class="self">self</span>.line_height,
-                    })
-                });
-
-                <span class="kw">let </span>Size { width, height } = paragraph.min_bounds();
-
-                button_width = width;
-                button_height = height;
-            }
-
-            <span class="comment">// Add indent to measurement if found.
-            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(indent) = <span class="self">self</span>.model.indent(key) {
-                button_width =
-                    f32::from(indent).mul_add(f32::from(<span class="self">self</span>.indent_spacing), button_width);
-            }
-
-            <span class="comment">// Add icon to measurement if icon was given.
-            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(icon) = <span class="self">self</span>.model.icon(key) {
-                button_height = button_height.max(f32::from(icon.size));
-                button_width += f32::from(icon.size) + f32::from(<span class="self">self</span>.button_spacing);
-            }
-
-            <span class="comment">// Add close button to measurement if found.
-            </span><span class="kw">if </span><span class="self">self</span>.model.is_closable(key) {
-                button_height = button_height.max(f32::from(<span class="self">self</span>.close_icon.size));
-                button_width +=
-                    f32::from(<span class="self">self</span>.close_icon.size) + f32::from(<span class="self">self</span>.button_spacing) + <span class="number">8.0</span>;
-            }
+            <span class="kw">let </span>(button_width, button_height) = <span class="self">self</span>.button_dimensions(state, font, key);
 
             height = height.max(button_height);
             width = width.max(button_width);
         }
-
-        <span class="comment">// Add button padding to the max size found
-        </span>width += f32::from(<span class="self">self</span>.button_padding[<span class="number">0</span>]) + f32::from(<span class="self">self</span>.button_padding[<span class="number">2</span>]);
-        height += f32::from(<span class="self">self</span>.button_padding[<span class="number">1</span>]) + f32::from(<span class="self">self</span>.button_padding[<span class="number">3</span>]);
-        height = height.max(f32::from(<span class="self">self</span>.button_height));
 
         (width, height)
     }
@@ -1520,9 +1523,7 @@
     }
 
     <span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::State {
-        <span class="comment">// update the paragraphs for the model
-        </span>tree::State::new(LocalState {
-            first: <span class="self">self</span>.model.order.iter().copied().next().unwrap_or_default(),
+        tree::State::new(LocalState {
             paragraphs: SecondaryMap::new(),
             ..LocalState::default()
         })
@@ -1625,19 +1626,10 @@
                 }
             }
 
-            <span class="kw">for </span>(nth, key) <span class="kw">in </span><span class="self">self
-                </span>.model
-                .order
-                .iter()
-                .copied()
-                .enumerate()
-                .skip(state.buttons_offset)
-                .take(state.buttons_visible)
+            <span class="kw">for </span>(key, bounds) <span class="kw">in </span><span class="self">self
+                </span>.variant_button_bounds(state, bounds)
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
             {
-                <span class="kw">let </span><span class="prelude-val">Some</span>(bounds) = <span class="self">self</span>.variant_button_bounds(state, bounds, nth) <span class="kw">else </span>{
-                    <span class="kw">continue</span>;
-                };
-
                 <span class="kw">if </span>cursor_position.is_over(bounds) {
                     <span class="kw">if </span><span class="self">self</span>.model.items[key].enabled {
                         <span class="comment">// Record that the mouse is hovering over this button.
@@ -1836,19 +1828,7 @@
         <span class="kw">let </span>bounds = layout.bounds();
 
         <span class="kw">if </span>cursor_position.is_over(bounds) {
-            <span class="kw">for </span>(nth, key) <span class="kw">in </span><span class="self">self
-                </span>.model
-                .order
-                .iter()
-                .copied()
-                .enumerate()
-                .skip(state.buttons_offset)
-                .take(state.buttons_visible)
-            {
-                <span class="kw">let </span><span class="prelude-val">Some</span>(bounds) = <span class="self">self</span>.variant_button_bounds(state, bounds, nth) <span class="kw">else </span>{
-                    <span class="kw">continue</span>;
-                };
-
+            <span class="kw">for </span>(key, bounds) <span class="kw">in </span><span class="self">self</span>.variant_button_bounds(state, bounds) {
                 <span class="kw">if </span>cursor_position.is_over(bounds) {
                     <span class="kw">return if </span><span class="self">self</span>.model.items[key].enabled {
                         iced_core::mouse::Interaction::Pointer
@@ -1974,19 +1954,7 @@
         }
 
         <span class="comment">// Draw each of the items in the widget.
-        </span><span class="kw">for </span>(nth, key) <span class="kw">in </span><span class="self">self
-            </span>.model
-            .order
-            .iter()
-            .copied()
-            .enumerate()
-            .skip(state.buttons_offset)
-            .take(state.buttons_visible)
-        {
-            <span class="kw">let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>bounds) = <span class="self">self</span>.variant_button_bounds(state, bounds, nth) <span class="kw">else </span>{
-                <span class="kw">continue</span>;
-            };
-
+        </span><span class="kw">for </span>(nth, (key, <span class="kw-2">mut </span>bounds)) <span class="kw">in </span><span class="self">self</span>.variant_button_bounds(state, bounds).enumerate() {
             <span class="kw">let </span>key_is_active = <span class="self">self</span>.model.is_active(key);
             <span class="kw">let </span>key_is_hovered = state.hovered == key;
 
@@ -2117,7 +2085,15 @@
                     bounds.position(),
                     status_appearance.text_color,
                     Rectangle {
-                        width: bounds.width - close_icon_width,
+                        width: {
+                            <span class="kw">let </span>width = bounds.width - close_icon_width;
+                            <span class="comment">// TODO: determine cause of differences here.
+                            </span><span class="kw">if </span><span class="self">self</span>.model.icon(key).is_some() {
+                                width - f32::from(<span class="self">self</span>.button_spacing)
+                            } <span class="kw">else </span>{
+                                width - <span class="number">12.0
+                            </span>}
+                        },
                         ..original_bounds
                     },
                 );
@@ -2173,20 +2149,22 @@
 <span class="doccomment">/// State that is maintained by each individual widget.
 </span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>LocalState {
-    <span class="doccomment">/// Whether buttons need to be collapsed to preserve minimum width
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) collapsed: bool,
     <span class="doccomment">/// Defines how many buttons to show at a time.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) buttons_visible: usize,
     <span class="doccomment">/// Button visibility offset, when collapsed.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) buttons_offset: usize,
-    <span class="doccomment">/// The first focusable key.
-    </span>first: Entity,
+    <span class="doccomment">/// Whether buttons need to be collapsed to preserve minimum width
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) collapsed: bool,
     <span class="doccomment">/// If the widget is focused or not.
     </span>focused: bool,
     <span class="doccomment">/// The key inside the widget that is currently focused.
     </span>focused_item: Focus,
     <span class="doccomment">/// The ID of the button that is being hovered. Defaults to null.
     </span>hovered: Entity,
+    <span class="doccomment">/// Last known length of the model.
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) known_length: usize,
+    <span class="doccomment">/// Dimensions of internal buttons when shrinking
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) internal_layout: Vec&lt;Size&gt;,
     <span class="doccomment">/// The paragraphs for each text.
     </span>paragraphs: SecondaryMap&lt;Entity, <span class="kw">crate</span>::Paragraph&gt;,
     <span class="doccomment">/// Time since last tab activation from wheel movements.
@@ -2278,7 +2256,7 @@
     });
 
     Widget::&lt;Message, Renderer&gt;::draw(
-        Element::&lt;Message&gt;::from(icon.clone()).as_widget(),
+        Element::&lt;Message&gt;::from(icon).as_widget(),
         <span class="kw-2">&amp;</span>Tree::empty(),
         renderer,
         theme,
