@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/wayland-client-0.31.1/src/event_queue.rs`."><title>event_queue.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="wayland_client" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/wayland-client-0.31.2/src/event_queue.rs`."><title>event_queue.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="wayland_client" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -872,7 +872,6 @@
 <span class="kw">use </span>std::sync::{atomic::Ordering, Arc, Condvar, Mutex};
 <span class="kw">use </span>std::task;
 
-<span class="kw">use </span>nix::Error;
 <span class="kw">use </span>wayland_backend::{
     client::{Backend, ObjectData, ObjectId, ReadEventsGuard, WaylandError},
     protocol::{Argument, Message},
@@ -880,15 +879,15 @@
 
 <span class="kw">use crate</span>::{conn::SyncData, Connection, DispatchError, Proxy};
 
-<span class="doccomment">/// A trait providing an implementation for handling events a proxy through an [`EventQueue`].
+<span class="doccomment">/// A trait for handlers of proxies&#39; events delivered to an [`EventQueue`].
 ///
 /// ## General usage
 ///
 /// You need to implement this trait on your `State` for every type of Wayland object that will be processed
 /// by the [`EventQueue`] working with your `State`.
 ///
-/// You can have different implementations of the trait for the same interface but different `UserData` type,
-/// this way the events for a given object will be processed by the adequate implementation depending on
+/// You can have different implementations of the trait for the same interface but different `UserData` type.
+/// This way the events for a given object will be processed by the adequate implementation depending on
 /// which `UserData` was assigned to it at creation.
 ///
 /// The way this trait works is that the [`Dispatch::event()`] method will be invoked by the event queue for
@@ -897,7 +896,7 @@
 ///
 /// In the rare case of an interface with *events* creating new objects (in the core protocol, the only
 /// instance of this is the `wl_data_device.data_offer` event), you&#39;ll need to implement the
-/// [`Dispatch::event_created_child()`] method. See the [`event_created_child!`](event_created_child!) macro
+/// [`Dispatch::event_created_child()`] method. See the [`event_created_child!`](macro.event_created_child.html) macro
 /// for a simple way to do this.
 ///
 /// ## Modularity
@@ -906,7 +905,7 @@
 /// that is generic over the last type argument, as illustrated below. Users will then be able to
 /// automatically delegate their implementation to yours using the [`delegate_dispatch!`] macro.
 ///
-/// As a result, when your implementation is instanciated, the last type parameter `State` will be the state
+/// As a result, when your implementation is instantiated, the last type parameter `State` will be the state
 /// struct of the app using your generic implementation. You can put additional trait constraints on it to
 /// specify an interface between your module and downstream code, as illustrated in this example:
 ///
@@ -918,8 +917,8 @@
 /// struct DelegateToMe;
 ///
 /// /// The user data relevant for your implementation.
-/// /// When providing delegate implementation, it is recommended to use your own type here, even if it is
-/// /// just a unit struct: using () would cause a risk of clashing with an other such implementation.
+/// /// When providing a delegate implementation, it is recommended to use your own type here, even if it is
+/// /// just a unit struct: using () would cause a risk of clashing with another such implementation.
 /// struct MyUserData;
 ///
 /// // Now a generic implementation of Dispatch, we are generic over the last type argument instead of using
@@ -955,6 +954,8 @@
 /// implementation of [`Dispatch`] cannot be used directly as the dispatching state, as rustc
 /// currently fails to understand that it also provides `Dispatch&lt;I, U, Self&gt;` (assuming all other
 /// trait bounds are respected as well).
+///
+/// [`delegate_dispatch!`]: crate::delegate_dispatch
 </span><span class="kw">pub trait </span>Dispatch&lt;I, UserData, State = <span class="self">Self</span>&gt;
 <span class="kw">where
     </span><span class="self">Self</span>: Sized,
@@ -984,7 +985,7 @@
     <span class="doccomment">/// Method used to initialize the user-data of objects created by events
     ///
     /// If the interface does not have any such event, you can ignore it. If not, the
-    /// [`event_created_child!`](event_created_child!) macro is provided for overriding it.
+    /// [`event_created_child!`](macro.event_created_child.html) macro is provided for overriding it.
     </span><span class="attr">#[cfg_attr(coverage, coverage(off))]
     </span><span class="kw">fn </span>event_created_child(opcode: u16, _qhandle: <span class="kw-2">&amp;</span>QueueHandle&lt;State&gt;) -&gt; Arc&lt;<span class="kw">dyn </span>ObjectData&gt; {
         <span class="macro">panic!</span>(
@@ -1288,7 +1289,7 @@
                 <span class="kw">crate</span>::protocol::wl_display::Request::Sync {},
                 <span class="prelude-val">Some</span>(done.clone()),
             )
-            .map_err(|<span class="kw">_</span>| WaylandError::Io(Error::EPIPE.into()))<span class="question-mark">?</span>;
+            .map_err(|<span class="kw">_</span>| WaylandError::Io(rustix::io::Errno::PIPE.into()))<span class="question-mark">?</span>;
 
         <span class="kw">let </span><span class="kw-2">mut </span>dispatched = <span class="number">0</span>;
 
@@ -1337,9 +1338,8 @@
         //
         // We purposefully ignore the possible error, as that would make us early return in a way that might
         // lose events, and the potential socket error will be caught in other places anyway.
-        </span><span class="kw">let _ </span>= backend.backend.dispatch_inner_queue();
+        </span><span class="kw">let </span><span class="kw-2">mut </span>dispatched = backend.backend.dispatch_inner_queue().unwrap_or_default();
 
-        <span class="kw">let </span><span class="kw-2">mut </span>dispatched = <span class="number">0</span>;
         <span class="kw">while let </span><span class="prelude-val">Some</span>(QueueEvent(cb, msg, odata)) = <span class="self">Self</span>::try_next(<span class="kw-2">&amp;</span>qhandle.inner) {
             cb(backend, msg, data, odata, qhandle)<span class="question-mark">?</span>;
             dispatched += <span class="number">1</span>;

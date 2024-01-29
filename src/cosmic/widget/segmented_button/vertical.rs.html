@@ -93,6 +93,8 @@
 <a href="#93" id="93">93</a>
 <a href="#94" id="94">94</a>
 <a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -140,24 +142,26 @@
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]
-    </span><span class="kw">fn </span>variant_button_bounds(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        state: <span class="kw-2">&amp;</span>LocalState,
+    </span><span class="kw">fn </span>variant_button_bounds&lt;<span class="lifetime">&#39;b</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>LocalState,
         <span class="kw-2">mut </span>bounds: Rectangle,
-    ) -&gt; <span class="kw">impl </span>Iterator&lt;Item = (Entity, Rectangle)&gt; {
+    ) -&gt; Box&lt;<span class="kw">dyn </span>Iterator&lt;Item = (Entity, Rectangle)&gt; + <span class="lifetime">&#39;b</span>&gt; {
         <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
 
-        <span class="self">self</span>.model
-            .order
-            .iter()
-            .copied()
-            .enumerate()
-            .map(<span class="kw">move </span>|(_nth, key)| {
-                <span class="kw">let </span><span class="kw-2">mut </span>this_bounds = bounds;
-                this_bounds.height = state.internal_layout[<span class="number">0</span>].height;
-                bounds.y += this_bounds.height + spacing;
-                (key, this_bounds)
-            })
+        Box::new(
+            <span class="self">self</span>.model
+                .order
+                .iter()
+                .copied()
+                .enumerate()
+                .map(<span class="kw">move </span>|(_nth, key)| {
+                    <span class="kw">let </span><span class="kw-2">mut </span>this_bounds = bounds;
+                    this_bounds.height = state.internal_layout[<span class="number">0</span>].height;
+                    bounds.y += this_bounds.height + spacing;
+                    (key, this_bounds)
+                }),
+        )
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]

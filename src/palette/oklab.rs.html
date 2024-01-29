@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/palette-0.7.3/src/oklab.rs`."><title>oklab.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="palette" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/palette-0.7.4/src/oklab.rs`."><title>oklab.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="palette" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -723,7 +723,6 @@
 <a href="#723" id="723">723</a>
 <a href="#724" id="724">724</a>
 <a href="#725" id="725">725</a>
-<a href="#726" id="726">726</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Types for the Oklab color space.
 
 </span><span class="kw">use </span>core::{any::TypeId, fmt::Debug, ops::Mul};
@@ -1236,17 +1235,7 @@
     }
 }
 
-<span class="kw">impl</span>&lt;T&gt; From&lt;(T, T, T)&gt; <span class="kw">for </span>Oklab&lt;T&gt; {
-    <span class="kw">fn </span>from(components: (T, T, T)) -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::from_components(components)
-    }
-}
-
-<span class="kw">impl</span>&lt;T&gt; From&lt;Oklab&lt;T&gt;&gt; <span class="kw">for </span>(T, T, T) {
-    <span class="kw">fn </span>from(color: Oklab&lt;T&gt;) -&gt; (T, T, T) {
-        color.into_components()
-    }
-}
+<span class="macro">impl_tuple_conversion!</span>(Oklab <span class="kw">as </span>(T, T, T));
 
 <span class="kw">impl</span>&lt;T&gt; HasBoolMask <span class="kw">for </span>Oklab&lt;T&gt;
 <span class="kw">where
@@ -1272,118 +1261,127 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
-    <span class="kw">use </span>core::str::FromStr;
-
-    <span class="kw">use </span><span class="kw">crate</span>::rgb::Rgb;
-    <span class="kw">use </span><span class="kw">crate</span>::visual::VisuallyEqual;
-    <span class="kw">use crate</span>::{FromColor, Lab, LinSrgb, Srgb};
-
-    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use </span><span class="kw">crate</span>::Oklab;
 
     <span class="macro">test_convert_into_from_xyz!</span>(Oklab);
 
-    <span class="doccomment">/// Asserts that, for any color space, the lightness of pure white is converted to `l == 1.0`
-    </span><span class="attr">#[test]
-    </span><span class="kw">fn </span>lightness_of_white_is_one() {
-        <span class="kw">let </span>rgb: Srgb&lt;f64&gt; = Rgb::from_str(<span class="string">&quot;#ffffff&quot;</span>).unwrap().into_format();
-        <span class="kw">let </span>lin_rgb = LinSrgb::from_color_unclamped(rgb);
-        <span class="kw">let </span>oklab = Oklab::from_color_unclamped(lin_rgb);
-        <span class="macro">println!</span>(<span class="string">&quot;white {rgb:?} == {oklab:?}&quot;</span>);
-        <span class="macro">assert_abs_diff_eq!</span>(oklab.l, <span class="number">1.0</span>, epsilon = <span class="number">1e-7</span>);
-        <span class="macro">assert_abs_diff_eq!</span>(oklab.a, <span class="number">0.0</span>, epsilon = <span class="number">1e-7</span>);
-        <span class="macro">assert_abs_diff_eq!</span>(oklab.b, <span class="number">0.0</span>, epsilon = <span class="number">1e-7</span>);
+    <span class="attr">#[cfg(feature = <span class="string">&quot;approx&quot;</span>)]
+    </span><span class="kw">mod </span>conversion {
+        <span class="kw">use </span>core::str::FromStr;
 
-        <span class="kw">let </span>lab: Lab&lt;D65, f64&gt; = Lab::from_components((<span class="number">100.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>));
-        <span class="kw">let </span>rgb: Srgb&lt;f64&gt; = Srgb::from_color_unclamped(lab);
-        <span class="kw">let </span>oklab = Oklab::from_color_unclamped(lab);
-        <span class="macro">println!</span>(<span class="string">&quot;white {lab:?} == {rgb:?} == {oklab:?}&quot;</span>);
-        <span class="macro">assert_abs_diff_eq!</span>(oklab.l, <span class="number">1.0</span>, epsilon = <span class="number">1e-4</span>);
-        <span class="macro">assert_abs_diff_eq!</span>(oklab.a, <span class="number">0.0</span>, epsilon = <span class="number">1e-4</span>);
-        <span class="macro">assert_abs_diff_eq!</span>(oklab.b, <span class="number">0.0</span>, epsilon = <span class="number">1e-4</span>);
+        <span class="kw">use crate</span>::{
+            convert::FromColorUnclamped, rgb::Rgb, visual::VisuallyEqual, white_point::D65,
+            FromColor, Lab, LinSrgb, Oklab, Srgb,
+        };
+
+        <span class="doccomment">/// Asserts that, for any color space, the lightness of pure white is converted to `l == 1.0`
+        </span><span class="attr">#[test]
+        </span><span class="kw">fn </span>lightness_of_white_is_one() {
+            <span class="kw">let </span>rgb: Srgb&lt;f64&gt; = Rgb::from_str(<span class="string">&quot;#ffffff&quot;</span>).unwrap().into_format();
+            <span class="kw">let </span>lin_rgb = LinSrgb::from_color_unclamped(rgb);
+            <span class="kw">let </span>oklab = Oklab::from_color_unclamped(lin_rgb);
+            <span class="macro">println!</span>(<span class="string">&quot;white {rgb:?} == {oklab:?}&quot;</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.l, <span class="number">1.0</span>, epsilon = <span class="number">1e-7</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.a, <span class="number">0.0</span>, epsilon = <span class="number">1e-7</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.b, <span class="number">0.0</span>, epsilon = <span class="number">1e-7</span>);
+
+            <span class="kw">let </span>lab: Lab&lt;D65, f64&gt; = Lab::from_components((<span class="number">100.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>));
+            <span class="kw">let </span>rgb: Srgb&lt;f64&gt; = Srgb::from_color_unclamped(lab);
+            <span class="kw">let </span>oklab = Oklab::from_color_unclamped(lab);
+            <span class="macro">println!</span>(<span class="string">&quot;white {lab:?} == {rgb:?} == {oklab:?}&quot;</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.l, <span class="number">1.0</span>, epsilon = <span class="number">1e-4</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.a, <span class="number">0.0</span>, epsilon = <span class="number">1e-4</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.b, <span class="number">0.0</span>, epsilon = <span class="number">1e-4</span>);
+        }
+
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>blue_srgb() {
+            <span class="comment">// use f64 to be comparable to javascript
+            </span><span class="kw">let </span>rgb: Srgb&lt;f64&gt; = Rgb::from_str(<span class="string">&quot;#0000ff&quot;</span>).unwrap().into_format();
+            <span class="kw">let </span>lin_rgb = LinSrgb::from_color_unclamped(rgb);
+            <span class="kw">let </span>oklab = Oklab::from_color_unclamped(lin_rgb);
+
+            <span class="comment">// values from Ok Color Picker, which seems to use  Björn Ottosson&#39;s original
+            // algorithm (from the direct srgb2oklab conversion, not via the XYZ color space)
+            </span><span class="macro">assert_abs_diff_eq!</span>(oklab.l, <span class="number">0.4520137183853429</span>, epsilon = <span class="number">1e-9</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.a, -<span class="number">0.03245698416876397</span>, epsilon = <span class="number">1e-9</span>);
+            <span class="macro">assert_abs_diff_eq!</span>(oklab.b, -<span class="number">0.3115281476783751</span>, epsilon = <span class="number">1e-9</span>);
+        }
+
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>red() {
+            <span class="kw">let </span>a = Oklab::from_color(LinSrgb::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>));
+            <span class="comment">// from https://github.com/bottosson/bottosson.github.io/blob/master/misc/ok_color.h
+            </span><span class="kw">let </span>b = Oklab::new(<span class="number">0.6279553606145516</span>, <span class="number">0.22486306106597395</span>, <span class="number">0.1258462985307351</span>);
+            <span class="macro">assert!</span>(Oklab::visually_eq(a, b, <span class="number">1e-8</span>));
+        }
+
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>green() {
+            <span class="kw">let </span>a = Oklab::from_color(LinSrgb::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>));
+            <span class="comment">// from https://github.com/bottosson/bottosson.github.io/blob/master/misc/ok_color.h
+            </span><span class="kw">let </span>b = Oklab::new(
+                <span class="number">0.8664396115356694</span>,
+                -<span class="number">0.23388757418790812</span>,
+                <span class="number">0.17949847989672985</span>,
+            );
+            <span class="macro">assert!</span>(Oklab::visually_eq(a, b, <span class="number">1e-8</span>));
+        }
+
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>blue() {
+            <span class="kw">let </span>a = Oklab::from_color(LinSrgb::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>));
+            <span class="macro">println!</span>(<span class="string">&quot;Oklab blue: {:?}&quot;</span>, a);
+            <span class="comment">// from https://github.com/bottosson/bottosson.github.io/blob/master/misc/ok_color.h
+            </span><span class="kw">let </span>b = Oklab::new(<span class="number">0.4520137183853429</span>, -<span class="number">0.0324569841687640</span>, -<span class="number">0.3115281476783751</span>);
+            <span class="macro">assert!</span>(Oklab::visually_eq(a, b, <span class="number">1e-8</span>));
+        }
     }
 
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>blue_srgb() {
-        <span class="comment">// use f64 to be comparable to javascript
-        </span><span class="kw">let </span>rgb: Srgb&lt;f64&gt; = Rgb::from_str(<span class="string">&quot;#0000ff&quot;</span>).unwrap().into_format();
-        <span class="kw">let </span>lin_rgb = LinSrgb::from_color_unclamped(rgb);
-        <span class="kw">let </span>oklab = Oklab::from_color_unclamped(lin_rgb);
+    <span class="attr">#[cfg(feature = <span class="string">&quot;approx&quot;</span>)]
+    </span><span class="kw">mod </span>visually_eq {
+        <span class="kw">use crate</span>::{visual::VisuallyEqual, Oklab};
 
-        <span class="comment">// values from Ok Color Picker, which seems to use  Björn Ottosson&#39;s original
-        // algorithm (from the direct srgb2oklab conversion, not via the XYZ color space)
-        </span><span class="macro">assert!</span>(<span class="macro">abs_diff_eq!</span>(oklab.l, <span class="number">0.4520137183853429</span>, epsilon = <span class="number">1e-9</span>));
-        <span class="macro">assert!</span>(<span class="macro">abs_diff_eq!</span>(oklab.a, -<span class="number">0.03245698416876397</span>, epsilon = <span class="number">1e-9</span>));
-        <span class="macro">assert!</span>(<span class="macro">abs_diff_eq!</span>(oklab.b, -<span class="number">0.3115281476783751</span>, epsilon = <span class="number">1e-9</span>));
-    }
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>black_eq_different_black() {
+            <span class="macro">assert!</span>(Oklab::visually_eq(
+                Oklab::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
+                Oklab::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
+                <span class="number">1e-8
+            </span>));
+        }
 
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>red() {
-        <span class="kw">let </span>a = Oklab::from_color(LinSrgb::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>));
-        <span class="comment">// from https://github.com/bottosson/bottosson.github.io/blob/master/misc/ok_color.h
-        </span><span class="kw">let </span>b = Oklab::new(<span class="number">0.6279553606145516</span>, <span class="number">0.22486306106597395</span>, <span class="number">0.1258462985307351</span>);
-        <span class="macro">assert!</span>(Oklab::visually_eq(a, b, <span class="number">1e-8</span>));
-    }
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>white_eq_different_white() {
+            <span class="macro">assert!</span>(Oklab::visually_eq(
+                Oklab::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
+                Oklab::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
+                <span class="number">1e-8
+            </span>));
+        }
 
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>green() {
-        <span class="kw">let </span>a = Oklab::from_color(LinSrgb::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>));
-        <span class="comment">// from https://github.com/bottosson/bottosson.github.io/blob/master/misc/ok_color.h
-        </span><span class="kw">let </span>b = Oklab::new(
-            <span class="number">0.8664396115356694</span>,
-            -<span class="number">0.23388757418790812</span>,
-            <span class="number">0.17949847989672985</span>,
-        );
-        <span class="macro">assert!</span>(Oklab::visually_eq(a, b, <span class="number">1e-8</span>));
-    }
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>white_ne_black() {
+            <span class="macro">assert!</span>(!Oklab::visually_eq(
+                Oklab::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
+                Oklab::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
+                <span class="number">1e-8
+            </span>));
+            <span class="macro">assert!</span>(!Oklab::visually_eq(
+                Oklab::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
+                Oklab::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
+                <span class="number">1e-8
+            </span>));
+        }
 
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>blue() {
-        <span class="kw">let </span>a = Oklab::from_color(LinSrgb::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>));
-        <span class="macro">println!</span>(<span class="string">&quot;Oklab blue: {:?}&quot;</span>, a);
-        <span class="comment">// from https://github.com/bottosson/bottosson.github.io/blob/master/misc/ok_color.h
-        </span><span class="kw">let </span>b = Oklab::new(<span class="number">0.4520137183853429</span>, -<span class="number">0.0324569841687640</span>, -<span class="number">0.3115281476783751</span>);
-        <span class="macro">assert!</span>(Oklab::visually_eq(a, b, <span class="number">1e-8</span>));
-    }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>black_eq_different_black() {
-        <span class="macro">assert!</span>(Oklab::visually_eq(
-            Oklab::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
-            Oklab::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
-            <span class="number">1e-8
-        </span>));
-    }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>white_eq_different_white() {
-        <span class="macro">assert!</span>(Oklab::visually_eq(
-            Oklab::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
-            Oklab::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
-            <span class="number">1e-8
-        </span>));
-    }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>white_ne_black() {
-        <span class="macro">assert!</span>(!Oklab::visually_eq(
-            Oklab::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
-            Oklab::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
-            <span class="number">1e-8
-        </span>));
-        <span class="macro">assert!</span>(!Oklab::visually_eq(
-            Oklab::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
-            Oklab::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
-            <span class="number">1e-8
-        </span>));
-    }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>non_bw_neq_different_non_bw() {
-        <span class="macro">assert!</span>(!Oklab::visually_eq(
-            Oklab::new(<span class="number">0.3</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
-            Oklab::new(<span class="number">0.3</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
-            <span class="number">1e-8
-        </span>));
+        <span class="attr">#[test]
+        </span><span class="kw">fn </span>non_bw_neq_different_non_bw() {
+            <span class="macro">assert!</span>(!Oklab::visually_eq(
+                Oklab::new(<span class="number">0.3</span>, <span class="number">1.0</span>, <span class="number">0.0</span>),
+                Oklab::new(<span class="number">0.3</span>, <span class="number">0.0</span>, <span class="number">1.0</span>),
+                <span class="number">1e-8
+            </span>));
+        }
     }
 
     <span class="attr">#[test]
@@ -1413,7 +1411,8 @@
     );
 
     <span class="kw">mod </span>alpha {
-        <span class="kw">use </span><span class="kw">crate</span>::oklab::Oklaba;
+        <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+        </span><span class="kw">use </span><span class="kw">crate</span>::oklab::Oklaba;
 
         <span class="macro">struct_of_arrays_tests!</span>(
             Oklaba,
@@ -1439,8 +1438,7 @@
         <span class="macro">assert_eq!</span>(deserialized, Oklab::new(<span class="number">0.3</span>, <span class="number">0.8</span>, <span class="number">0.1</span>));
     }
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;random&quot;</span>)]
-    </span><span class="macro">test_uniform_distribution! </span>{
+    <span class="macro">test_uniform_distribution! </span>{
         Oklab {
             l: (<span class="number">0.0</span>, <span class="number">1.0</span>),
             a: (-<span class="number">1.0</span>, <span class="number">1.0</span>),

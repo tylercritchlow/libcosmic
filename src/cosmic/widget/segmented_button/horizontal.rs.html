@@ -192,6 +192,8 @@
 <a href="#192" id="192">192</a>
 <a href="#193" id="193">193</a>
 <a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -239,11 +241,11 @@
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]
-    </span><span class="kw">fn </span>variant_button_bounds(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        state: <span class="kw-2">&amp;</span>LocalState,
+    </span><span class="kw">fn </span>variant_button_bounds&lt;<span class="lifetime">&#39;b</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>LocalState,
         <span class="kw-2">mut </span>bounds: Rectangle,
-    ) -&gt; <span class="kw">impl </span>Iterator&lt;Item = (Entity, Rectangle)&gt; {
+    ) -&gt; Box&lt;<span class="kw">dyn </span>Iterator&lt;Item = (Entity, Rectangle)&gt; + <span class="lifetime">&#39;b</span>&gt; {
         <span class="kw">let </span>num = state.buttons_visible;
         <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
         <span class="kw">let </span><span class="kw-2">mut </span>homogenous_width = <span class="number">0.0</span>;
@@ -260,25 +262,27 @@
                 / num <span class="kw">as </span>f32;
         }
 
-        <span class="self">self</span>.model
-            .order
-            .iter()
-            .copied()
-            .enumerate()
-            .skip(state.buttons_offset)
-            .take(state.buttons_visible)
-            .map(<span class="kw">move </span>|(nth, key)| {
-                <span class="kw">let </span><span class="kw-2">mut </span>this_bounds = bounds;
+        Box::new(
+            <span class="self">self</span>.model
+                .order
+                .iter()
+                .copied()
+                .enumerate()
+                .skip(state.buttons_offset)
+                .take(state.buttons_visible)
+                .map(<span class="kw">move </span>|(nth, key)| {
+                    <span class="kw">let </span><span class="kw-2">mut </span>this_bounds = bounds;
 
-                <span class="kw">if </span>!state.collapsed &amp;&amp; Length::Shrink == <span class="self">self</span>.width {
-                    this_bounds.width = state.internal_layout[nth].width;
-                } <span class="kw">else </span>{
-                    this_bounds.width = homogenous_width;
-                }
+                    <span class="kw">if </span>!state.collapsed &amp;&amp; Length::Shrink == <span class="self">self</span>.width {
+                        this_bounds.width = state.internal_layout[nth].width;
+                    } <span class="kw">else </span>{
+                        this_bounds.width = homogenous_width;
+                    }
 
-                bounds.x += this_bounds.width + spacing;
-                (key, this_bounds)
-            })
+                    bounds.x += this_bounds.width + spacing;
+                    (key, this_bounds)
+                }),
+        )
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]

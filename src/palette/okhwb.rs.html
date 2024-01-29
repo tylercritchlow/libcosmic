@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/palette-0.7.3/src/okhwb.rs`."><title>okhwb.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="palette" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/palette-0.7.4/src/okhwb.rs`."><title>okhwb.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="palette" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -294,6 +294,12 @@
 <a href="#294" id="294">294</a>
 <a href="#295" id="295">295</a>
 <a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Types for the Okhwb color space.
 
 </span><span class="kw">use </span>core::fmt::Debug;
@@ -469,106 +475,111 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="kw">use </span><span class="kw">crate</span>::convert::FromColorUnclamped;
-    <span class="kw">use </span><span class="kw">crate</span>::rgb::Rgb;
-    <span class="kw">use </span><span class="kw">crate</span>::visual::VisuallyEqual;
-    <span class="kw">use crate</span>::{encoding, LinSrgb, Okhsv, Okhwb, Oklab};
+    <span class="kw">use </span><span class="kw">crate</span>::Okhwb;
 
     <span class="macro">test_convert_into_from_xyz!</span>(Okhwb);
 
-    <span class="attr">#[cfg_attr(miri, ignore)]
-    #[test]
-    </span><span class="kw">fn </span>test_roundtrip_okhwb_oklab_is_original() {
-        <span class="kw">let </span>colors = [
-            (
-                <span class="string">&quot;red&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>)),
-            ),
-            (
-                <span class="string">&quot;green&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>)),
-            ),
-            (
-                <span class="string">&quot;cyan&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>)),
-            ),
-            (
-                <span class="string">&quot;magenta&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>)),
-            ),
-            (
-                <span class="string">&quot;white&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>)),
-            ),
-            (
-                <span class="string">&quot;black&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>)),
-            ),
-            (
-                <span class="string">&quot;grey&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>)),
-            ),
-            (
-                <span class="string">&quot;yellow&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>)),
-            ),
-            (
-                <span class="string">&quot;blue&quot;</span>,
-                Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>)),
-            ),
-        ];
+    <span class="attr">#[cfg(feature = <span class="string">&quot;approx&quot;</span>)]
+    </span><span class="kw">mod </span>conversion {
+        <span class="kw">use crate</span>::{
+            convert::FromColorUnclamped, encoding, rgb::Rgb, visual::VisuallyEqual, LinSrgb, Okhsv,
+            Okhwb, Oklab,
+        };
 
-        <span class="kw">const </span>EPSILON: f64 = <span class="number">1e-14</span>;
+        <span class="attr">#[cfg_attr(miri, ignore)]
+        #[test]
+        </span><span class="kw">fn </span>test_roundtrip_okhwb_oklab_is_original() {
+            <span class="kw">let </span>colors = [
+                (
+                    <span class="string">&quot;red&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;green&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;cyan&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;magenta&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;white&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;black&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;grey&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>)),
+                ),
+                (
+                    <span class="string">&quot;yellow&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>)),
+                ),
+                (
+                    <span class="string">&quot;blue&quot;</span>,
+                    Oklab::from_color_unclamped(LinSrgb::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>)),
+                ),
+            ];
 
-        <span class="kw">for </span>(name, color) <span class="kw">in </span>colors {
-            <span class="kw">let </span>rgb: Rgb&lt;encoding::Srgb, u8&gt; =
-                <span class="kw">crate</span>::Srgb::&lt;f64&gt;::from_color_unclamped(color).into_format();
-            <span class="macro">println!</span>(
-                <span class="string">&quot;\n\
-            roundtrip of {} (#{:x} / {:?})\n\
-            =================================================&quot;</span>,
-                name, rgb, color
-            );
+            <span class="kw">const </span>EPSILON: f64 = <span class="number">1e-14</span>;
 
-            <span class="kw">let </span>okhsv = Okhsv::from_color_unclamped(color);
-            <span class="macro">println!</span>(<span class="string">&quot;Okhsv: {:?}&quot;</span>, okhsv);
-            <span class="kw">let </span>okhwb_from_okhsv = Okhwb::from_color_unclamped(okhsv);
-            <span class="kw">let </span>okhwb = Okhwb::from_color_unclamped(color);
-            <span class="macro">println!</span>(<span class="string">&quot;Okhwb: {:?}&quot;</span>, okhwb);
-            <span class="macro">assert!</span>(
+            <span class="kw">for </span>(name, color) <span class="kw">in </span>colors {
+                <span class="kw">let </span>rgb: Rgb&lt;encoding::Srgb, u8&gt; =
+                    <span class="kw">crate</span>::Srgb::&lt;f64&gt;::from_color_unclamped(color).into_format();
+                <span class="macro">println!</span>(
+                    <span class="string">&quot;\n\
+                    roundtrip of {} (#{:x} / {:?})\n\
+                    =================================================&quot;</span>,
+                    name, rgb, color
+                );
+
+                <span class="kw">let </span>okhsv = Okhsv::from_color_unclamped(color);
+                <span class="macro">println!</span>(<span class="string">&quot;Okhsv: {:?}&quot;</span>, okhsv);
+                <span class="kw">let </span>okhwb_from_okhsv = Okhwb::from_color_unclamped(okhsv);
+                <span class="kw">let </span>okhwb = Okhwb::from_color_unclamped(color);
+                <span class="macro">println!</span>(<span class="string">&quot;Okhwb: {:?}&quot;</span>, okhwb);
+                <span class="macro">assert!</span>(
                 Okhwb::visually_eq(okhwb, okhwb_from_okhsv, EPSILON),
                 <span class="string">&quot;Okhwb \n{:?} is not visually equal to Okhwb from Okhsv \n{:?}\nwithin EPSILON {}&quot;</span>,
                 okhwb,
                 okhwb_from_okhsv,
                 EPSILON
             );
-            <span class="kw">let </span>okhsv_from_okhwb = Okhsv::from_color_unclamped(okhwb);
-            <span class="macro">assert!</span>(
+                <span class="kw">let </span>okhsv_from_okhwb = Okhsv::from_color_unclamped(okhwb);
+                <span class="macro">assert!</span>(
                 Okhsv::visually_eq(okhsv, okhsv_from_okhwb, EPSILON),
                 <span class="string">&quot;Okhsv \n{:?} is not visually equal to Okhsv from Okhsv from Okhwb \n{:?}\nwithin EPSILON {}&quot;</span>,
                 okhsv,
                 okhsv_from_okhwb, EPSILON
             );
 
-            <span class="kw">let </span>roundtrip_color = Oklab::from_color_unclamped(okhwb);
-            <span class="kw">let </span>oklab_from_okhsv = Oklab::from_color_unclamped(okhsv);
-            <span class="macro">assert!</span>(
-                Oklab::visually_eq(roundtrip_color, oklab_from_okhsv, EPSILON),
-                <span class="string">&quot;roundtrip color \n{:?} does not match \n{:?}\nwithin EPSILON {}&quot;</span>,
-                roundtrip_color,
-                oklab_from_okhsv,
-                EPSILON
-            );
-            <span class="macro">assert!</span>(
-                Oklab::visually_eq(roundtrip_color, color, EPSILON),
-                <span class="string">&quot;&#39;{}&#39; failed.\n\
+                <span class="kw">let </span>roundtrip_color = Oklab::from_color_unclamped(okhwb);
+                <span class="kw">let </span>oklab_from_okhsv = Oklab::from_color_unclamped(okhsv);
+                <span class="macro">assert!</span>(
+                    Oklab::visually_eq(roundtrip_color, oklab_from_okhsv, EPSILON),
+                    <span class="string">&quot;roundtrip color \n{:?} does not match \n{:?}\nwithin EPSILON {}&quot;</span>,
+                    roundtrip_color,
+                    oklab_from_okhsv,
+                    EPSILON
+                );
+                <span class="macro">assert!</span>(
+                    Oklab::visually_eq(roundtrip_color, color, EPSILON),
+                    <span class="string">&quot;&#39;{}&#39; failed.\n\
                 {:?}\n\
                 !=\n\
                 \n{:?}\n&quot;</span>,
-                name,
-                roundtrip_color,
-                color
-            );
+                    name,
+                    roundtrip_color,
+                    color
+                );
+            }
         }
     }
 
@@ -580,7 +591,8 @@
     );
 
     <span class="kw">mod </span>alpha {
-        <span class="kw">use </span><span class="kw">crate</span>::okhwb::Okhwba;
+        <span class="attr">#[cfg(feature = <span class="string">&quot;alloc&quot;</span>)]
+        </span><span class="kw">use </span><span class="kw">crate</span>::okhwb::Okhwba;
 
         <span class="macro">struct_of_arrays_tests!</span>(
             Okhwba,
