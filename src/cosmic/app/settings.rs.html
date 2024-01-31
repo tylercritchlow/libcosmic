@@ -97,17 +97,13 @@
 <a href="#97" id="97">97</a>
 <a href="#98" id="98">98</a>
 <a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
-<a href="#102" id="102">102</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="doccomment">//! Configure a new COSMIC application.
 
 </span><span class="kw">use crate</span>::{font, Theme};
-<span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
-</span><span class="kw">use </span>iced_core::layout::Limits;
+<span class="kw">use </span>iced_core::layout::Limits;
 <span class="kw">use </span>iced_core::Font;
 
 <span class="doccomment">/// Configure a new COSMIC application.
@@ -153,7 +149,6 @@
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) size: iced::Size,
 
     <span class="doccomment">/// Limitations of the window size
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) size_limits: Limits,
 
     <span class="doccomment">/// The theme to apply to the application.
@@ -194,8 +189,7 @@
                 .and_then(|scale| scale.parse::&lt;f32&gt;().ok())
                 .unwrap_or(<span class="number">1.0</span>),
             size: iced::Size::new(<span class="number">1024.0</span>, <span class="number">768.0</span>),
-            <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
-            </span>size_limits: Limits::NONE.min_height(<span class="number">1.0</span>).min_width(<span class="number">1.0</span>),
+            size_limits: Limits::NONE.min_height(<span class="number">1.0</span>).min_width(<span class="number">1.0</span>),
             theme: <span class="kw">crate</span>::theme::system_preference(),
             transparent: <span class="bool-val">true</span>,
             exit_on_close: <span class="bool-val">true</span>,
