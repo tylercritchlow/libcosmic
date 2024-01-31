@@ -69,6 +69,8 @@
 <a href="#69" id="69">69</a>
 <a href="#70" id="70">70</a>
 <a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -126,6 +128,8 @@
 <span class="kw">pub mod </span>icon_theme;
 <span class="kw">pub mod </span>keyboard_nav;
 
+<span class="attr">#[cfg(feature = <span class="string">&quot;desktop&quot;</span>)]
+</span><span class="kw">pub mod </span>desktop;
 <span class="attr">#[cfg(feature = <span class="string">&quot;process&quot;</span>)]
 </span><span class="kw">pub mod </span>process;
 
