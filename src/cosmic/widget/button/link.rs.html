@@ -99,6 +99,7 @@
 <a href="#99" id="99">99</a>
 <a href="#100" id="100">100</a>
 <a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -159,32 +160,33 @@
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message: Clone + <span class="lifetime">&#39;static</span>&gt; From&lt;Button&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
     <span class="kw">fn </span>from(<span class="kw-2">mut </span>builder: Button&lt;<span class="lifetime">&#39;a</span>, Message&gt;) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
-        <span class="kw">let </span>button: <span class="kw">super</span>::Button&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt; = row::with_capacity(<span class="number">2</span>)
-            .push({
-                <span class="kw">let </span><span class="kw-2">mut </span>font = <span class="kw">crate</span>::font::DEFAULT;
-                font.weight = builder.font_weight;
+        <span class="kw">let </span>button: <span class="kw">super</span>::Button&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt; =
+            row::with_capacity(<span class="number">2</span>)
+                .push({
+                    <span class="kw">let </span><span class="kw-2">mut </span>font = <span class="kw">crate</span>::font::DEFAULT;
+                    font.weight = builder.font_weight;
 
-                <span class="comment">// TODO: Avoid allocation
-                </span><span class="kw">crate</span>::widget::text(builder.label.to_string())
-                    .size(builder.font_size)
-                    .line_height(LineHeight::Absolute(builder.line_height.into()))
-                    .font(font)
-            })
-            .push_maybe(<span class="kw">if </span>builder.variant.trailing_icon {
-                <span class="prelude-val">Some</span>(icon().icon().size(builder.icon_size))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>})
-            .padding(builder.padding)
-            .width(builder.width)
-            .height(builder.height)
-            .spacing(builder.spacing)
-            .align_items(Alignment::Center)
-            .apply(button)
-            .padding(<span class="number">0</span>)
-            .id(builder.id)
-            .on_press_maybe(builder.on_press.take())
-            .style(builder.style);
+                    <span class="comment">// TODO: Avoid allocation
+                    </span><span class="kw">crate</span>::widget::text(builder.label.to_string())
+                        .size(builder.font_size)
+                        .line_height(LineHeight::Absolute(builder.line_height.into()))
+                        .font(font)
+                })
+                .push_maybe(<span class="kw">if </span>builder.variant.trailing_icon {
+                    <span class="prelude-val">Some</span>(icon().icon().size(builder.icon_size))
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">None
+                </span>})
+                .padding(builder.padding)
+                .width(builder.width)
+                .height(builder.height)
+                .spacing(builder.spacing)
+                .align_items(Alignment::Center)
+                .apply(button)
+                .padding(<span class="number">0</span>)
+                .id(builder.id)
+                .on_press_maybe(builder.on_press.take())
+                .style(builder.style);
 
         <span class="kw">if </span>builder.tooltip.is_empty() {
             button.into()

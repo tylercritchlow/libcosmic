@@ -209,6 +209,7 @@
 <a href="#209" id="209">209</a>
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -246,7 +247,7 @@
 
 <span class="kw">pub use </span>column::{column, Column};
 <span class="kw">pub mod </span>column {
-    <span class="kw">pub type </span>Column&lt;<span class="lifetime">&#39;a</span>, Message&gt; = iced::widget::Column&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;;
+    <span class="kw">pub type </span>Column&lt;<span class="lifetime">&#39;a</span>, Message&gt; = iced::widget::Column&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;;
 
     <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>column&lt;<span class="lifetime">&#39;a</span>, Message&gt;() -&gt; Column&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
@@ -275,19 +276,19 @@
 
         <span class="doccomment">/// Horizontal divider with default thickness
         </span><span class="attr">#[must_use]
-        </span><span class="kw">pub fn </span>default() -&gt; Rule&lt;<span class="kw">crate</span>::Renderer&gt; {
+        </span><span class="kw">pub fn </span>default() -&gt; Rule&lt;<span class="kw">crate</span>::Theme&gt; {
             horizontal_rule(<span class="number">1</span>).style(<span class="kw">crate</span>::theme::Rule::Default)
         }
 
         <span class="doccomment">/// Horizontal divider with light thickness
         </span><span class="attr">#[must_use]
-        </span><span class="kw">pub fn </span>light() -&gt; Rule&lt;<span class="kw">crate</span>::Renderer&gt; {
+        </span><span class="kw">pub fn </span>light() -&gt; Rule&lt;<span class="kw">crate</span>::Theme&gt; {
             horizontal_rule(<span class="number">4</span>).style(<span class="kw">crate</span>::theme::Rule::LightDivider)
         }
 
         <span class="doccomment">/// Horizontal divider with heavy thickness.
         </span><span class="attr">#[must_use]
-        </span><span class="kw">pub fn </span>heavy() -&gt; Rule&lt;<span class="kw">crate</span>::Renderer&gt; {
+        </span><span class="kw">pub fn </span>heavy() -&gt; Rule&lt;<span class="kw">crate</span>::Theme&gt; {
             horizontal_rule(<span class="number">10</span>).style(<span class="kw">crate</span>::theme::Rule::HeavyDivider)
         }
     }
@@ -298,19 +299,19 @@
 
         <span class="doccomment">/// Vertical divider with default thickness
         </span><span class="attr">#[must_use]
-        </span><span class="kw">pub fn </span>default() -&gt; Rule&lt;<span class="kw">crate</span>::Renderer&gt; {
+        </span><span class="kw">pub fn </span>default() -&gt; Rule&lt;<span class="kw">crate</span>::Theme&gt; {
             vertical_rule(<span class="number">1</span>).style(<span class="kw">crate</span>::theme::Rule::Default)
         }
 
         <span class="doccomment">/// Vertical divider with light thickness
         </span><span class="attr">#[must_use]
-        </span><span class="kw">pub fn </span>light() -&gt; Rule&lt;<span class="kw">crate</span>::Renderer&gt; {
+        </span><span class="kw">pub fn </span>light() -&gt; Rule&lt;<span class="kw">crate</span>::Theme&gt; {
             vertical_rule(<span class="number">4</span>).style(<span class="kw">crate</span>::theme::Rule::LightDivider)
         }
 
         <span class="doccomment">/// Vertical divider with heavy thickness.
         </span><span class="attr">#[must_use]
-        </span><span class="kw">pub fn </span>heavy() -&gt; Rule&lt;<span class="kw">crate</span>::Renderer&gt; {
+        </span><span class="kw">pub fn </span>heavy() -&gt; Rule&lt;<span class="kw">crate</span>::Theme&gt; {
             vertical_rule(<span class="number">10</span>).style(<span class="kw">crate</span>::theme::Rule::HeavyDivider)
         }
     }
@@ -353,7 +354,7 @@
 
 <span class="kw">pub use </span>row::{row, Row};
 <span class="kw">pub mod </span>row {
-    <span class="kw">pub type </span>Row&lt;<span class="lifetime">&#39;a</span>, Message&gt; = iced::widget::Row&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;;
+    <span class="kw">pub type </span>Row&lt;<span class="lifetime">&#39;a</span>, Message&gt; = iced::widget::Row&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;;
 
     <span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>row&lt;<span class="lifetime">&#39;a</span>, Message&gt;() -&gt; Row&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
@@ -398,7 +399,8 @@
 
     <span class="kw">pub use </span>iced::widget::tooltip::Position;
 
-    <span class="kw">pub type </span>Tooltip&lt;<span class="lifetime">&#39;a</span>, Message&gt; = iced::widget::Tooltip&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;;
+    <span class="kw">pub type </span>Tooltip&lt;<span class="lifetime">&#39;a</span>, Message&gt; =
+        iced::widget::Tooltip&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;;
 
     <span class="kw">pub fn </span>tooltip&lt;<span class="lifetime">&#39;a</span>, Message&gt;(
         content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt;,

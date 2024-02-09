@@ -19,7 +19,7 @@
 
 <span class="kw">pub fn </span>scrollable&lt;<span class="lifetime">&#39;a</span>, Message&gt;(
     element: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt;,
-) -&gt; widget::Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+) -&gt; widget::Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt; {
     widget::scrollable(element)
     <span class="comment">// .scrollbar_width(8) TODO add these back
     // .scroller_width(8)

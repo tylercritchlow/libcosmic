@@ -98,7 +98,7 @@
 <span class="doccomment">/// Creates a new [`Text`] widget with the provided content.
 ///
 /// [`Text`]: widget::Text
-</span><span class="kw">pub fn </span>text&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>text&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
 }
 
@@ -117,7 +117,7 @@
 }
 
 <span class="doccomment">/// [`Text`] widget with the Title 1 typography preset.
-</span><span class="kw">pub fn </span>title1&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>title1&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">32.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">44.0</span>.into()))
@@ -125,28 +125,28 @@
 }
 
 <span class="doccomment">/// [`Text`] widget with the Title 2 typography preset.
-</span><span class="kw">pub fn </span>title2&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>title2&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">28.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">36.0</span>.into()))
 }
 
 <span class="doccomment">/// [`Text`] widget with the Title 3 typography preset.
-</span><span class="kw">pub fn </span>title3&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>title3&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">24.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">32.0</span>.into()))
 }
 
 <span class="doccomment">/// [`Text`] widget with the Title 4 typography preset.
-</span><span class="kw">pub fn </span>title4&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>title4&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">20.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">28.0</span>.into()))
 }
 
 <span class="doccomment">/// [`Text`] widget with the Heading typography preset.
-</span><span class="kw">pub fn </span>heading&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>heading&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">14.0</span>)
         .line_height(LineHeight::Absolute(iced::Pixels(<span class="number">20.0</span>)))
@@ -154,7 +154,7 @@
 }
 
 <span class="doccomment">/// [`Text`] widget with the Caption Heading typography preset.
-</span><span class="kw">pub fn </span>caption_heading&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>caption_heading&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">10.0</span>)
         .line_height(LineHeight::Absolute(iced::Pixels(<span class="number">14.0</span>)))
@@ -162,21 +162,21 @@
 }
 
 <span class="doccomment">/// [`Text`] widget with the Body typography preset.
-</span><span class="kw">pub fn </span>body&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>body&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">14.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">20.0</span>.into()))
 }
 
 <span class="doccomment">/// [`Text`] widget with the Caption typography preset.
-</span><span class="kw">pub fn </span>caption&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>caption&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">10.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">14.0</span>.into()))
 }
 
 <span class="doccomment">/// [`Text`] widget with the Monotext typography preset.
-</span><span class="kw">pub fn </span>monotext&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; {
+</span><span class="kw">pub fn </span>monotext&lt;<span class="lifetime">&#39;a</span>&gt;(text: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, <span class="kw">crate</span>::Theme, Renderer&gt; {
     Text::new(text)
         .size(<span class="number">14.0</span>)
         .line_height(LineHeight::Absolute(<span class="number">20.0</span>.into()))

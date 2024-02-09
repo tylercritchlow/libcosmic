@@ -137,7 +137,7 @@
     window: <span class="kw-2">&amp;</span>winit::window::Window,
     border_size: f64,
 ) -&gt; <span class="prelude-ty">Option</span>&lt;
-    <span class="kw">impl </span>FnMut(<span class="kw-2">&amp;</span>winit::window::Window, <span class="kw-2">&amp;</span>winit::event::WindowEvent&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; bool,
+    <span class="kw">impl </span>FnMut(<span class="kw-2">&amp;</span>winit::window::Window, <span class="kw-2">&amp;</span>winit::event::WindowEvent) -&gt; bool,
 &gt; {
     <span class="kw">if </span>window.drag_resize_window(ResizeDirection::East).is_ok() {
         <span class="comment">// Keep track of cursor when it is within a resizeable border.
@@ -145,7 +145,7 @@
 
         <span class="prelude-val">Some</span>(
             <span class="kw">move </span>|window: <span class="kw-2">&amp;</span>winit::window::Window,
-                  window_event: <span class="kw-2">&amp;</span>winit::event::WindowEvent&lt;<span class="lifetime">&#39;_</span>&gt;|
+                  window_event: <span class="kw-2">&amp;</span>winit::event::WindowEvent|
                   -&gt; bool {
                 <span class="comment">// Keep track of border resize state and set cursor icon when in range
                 </span><span class="kw">match </span>window_event {

@@ -106,7 +106,7 @@
     row_spacing: f32,
     tree: <span class="kw-2">&amp;mut </span>[Tree],
 ) -&gt; Node {
-    <span class="kw">let </span>limits = limits.pad(padding);
+    <span class="kw">let </span>limits = limits.shrink(padding);
 
     <span class="kw">let </span><span class="kw-2">mut </span>nodes = Vec::with_capacity(items.len());
 
@@ -142,7 +142,7 @@
             <span class="kw">let </span>pos_y = flex_height;
 
             <span class="kw">for </span><span class="kw-2">mut </span>child_node <span class="kw">in </span>row_buffer.drain(..) {
-                child_node.move_to(Point::new(pos_x, pos_y));
+                child_node = child_node.move_to(Point::new(pos_x, pos_y));
                 pos_x += row_spacing + child_node.size().width;
                 nodes.push(child_node);
             }
@@ -168,7 +168,7 @@
         <span class="kw">let </span>pos_y = flex_height;
 
         <span class="kw">for </span><span class="kw-2">mut </span>child_node <span class="kw">in </span>row_buffer.drain(..) {
-            child_node.move_to(Point::new(pos_x, pos_y));
+            child_node = child_node.move_to(Point::new(pos_x, pos_y));
             pos_x += row_spacing + child_node.size().width;
             nodes.push(child_node);
         }
@@ -177,7 +177,7 @@
         flex_width = flex_width.max(current_row_width);
     }
 
-    <span class="kw">let </span>flex_size = limits.resolve(Size::new(flex_width, flex_height));
-    Node::with_children(flex_size.pad(padding), nodes)
+    <span class="kw">let </span>flex_size = limits.resolve(flex_width, flex_height, Size::new(flex_width, flex_height));
+    Node::with_children(flex_size.expand(padding), nodes)
 }
 </code></pre></div></section></main></body></html>

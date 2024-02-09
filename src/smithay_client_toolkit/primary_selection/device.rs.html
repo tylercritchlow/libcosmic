@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/client-toolkit-7d7953e59045198e/515820f/src/primary_selection/device.rs`."><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="smithay_client_toolkit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/smithay-client-toolkit-0.18.1/src/primary_selection/device.rs`."><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="smithay_client_toolkit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -150,184 +150,156 @@
 <a href="#150" id="150">150</a>
 <a href="#151" id="151">151</a>
 <a href="#152" id="152">152</a>
-<a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a>
-<a href="#155" id="155">155</a>
-<a href="#156" id="156">156</a>
-<a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a>
-<a href="#159" id="159">159</a>
-<a href="#160" id="160">160</a>
-<a href="#161" id="161">161</a>
-<a href="#162" id="162">162</a>
-<a href="#163" id="163">163</a>
-<a href="#164" id="164">164</a>
-<a href="#165" id="165">165</a>
-<a href="#166" id="166">166</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::{Arc, Mutex};
 
-<span class="kw">use </span>wayland_protocols::{
-    misc::gtk_primary_selection::client::gtk_primary_selection_device::{
-        <span class="self">self</span>, GtkPrimarySelectionDevice,
-    },
-    unstable::primary_selection::v1::client::zwp_primary_selection_device_v1::{
-        <span class="self">self</span>, ZwpPrimarySelectionDeviceV1,
-    },
+<span class="kw">use </span><span class="kw">crate</span>::reexports::client::{
+    event_created_child, protocol::wl_seat::WlSeat, Connection, Dispatch, Proxy, QueueHandle,
+};
+<span class="kw">use </span><span class="kw">crate</span>::reexports::protocols::wp::primary_selection::zv1::client::{
+    zwp_primary_selection_device_v1::ZwpPrimarySelectionDeviceV1,
+    zwp_primary_selection_offer_v1::ZwpPrimarySelectionOfferV1,
 };
 
-<span class="kw">use </span>wayland_client::protocol::wl_seat::WlSeat;
+<span class="kw">use super</span>::{
+    offer::{PrimarySelectionOffer, PrimarySelectionOfferData},
+    PrimarySelectionManagerState,
+};
 
-<span class="kw">use </span><span class="kw">crate</span>::primary_selection::offer::PrimarySelectionOfferImpl;
-<span class="kw">use </span><span class="kw">crate</span>::primary_selection::source::PrimarySelectionSourceImpl;
-
-<span class="kw">use </span><span class="kw">super</span>::PrimarySelectionDeviceManager;
-<span class="kw">use </span><span class="kw">super</span>::PrimarySelectionOffer;
-<span class="kw">use </span><span class="kw">super</span>::PrimarySelectionSource;
-
-<span class="doccomment">/// Handle to support primary selection on a given seat.
-///
-/// This type provides you with copy/paste actions. It is associated with a seat upon creation.
-</span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>PrimarySelectionDevice {
-    device: PrimarySelectionDeviceImpl,
-    inner: Arc&lt;Mutex&lt;PrimarySelectionDeviceInner&gt;&gt;,
-}
-
-<span class="doccomment">/// Possible supported primary selection devices.
-</span><span class="attr">#[derive(Debug)]
-</span><span class="kw">enum </span>PrimarySelectionDeviceImpl {
-    Zwp(ZwpPrimarySelectionDeviceV1),
-    Gtk(GtkPrimarySelectionDevice),
-}
-
-<span class="doccomment">/// Inner state for `PrimarySelectionDevice`.
-</span><span class="attr">#[derive(Debug)]
-</span><span class="kw">struct </span>PrimarySelectionDeviceInner {
-    <span class="doccomment">/// Current selection.
-    </span>selection: <span class="prelude-ty">Option</span>&lt;PrimarySelectionOffer&gt;,
-
-    <span class="doccomment">/// List of known offers.
-    </span>know_offers: Vec&lt;PrimarySelectionOffer&gt;,
-}
-
-<span class="kw">impl </span>PrimarySelectionDeviceInner {
-    <span class="doccomment">/// Provide a primary selection source as the new content for the primary selection.
+<span class="kw">pub trait </span>PrimarySelectionDeviceHandler: Sized {
+    <span class="doccomment">/// The new selection is received.
     ///
-    /// Correspond to traditional copy/paste behavior. Setting the source to `None` will clear
-    /// the selection.
-    </span><span class="kw">fn </span>set_selection(<span class="kw-2">&amp;mut </span><span class="self">self</span>, offer: <span class="prelude-ty">Option</span>&lt;PrimarySelectionOfferImpl&gt;) {
-        <span class="kw">let </span>offer = <span class="kw">match </span>offer {
-            <span class="prelude-val">Some</span>(offer) =&gt; offer,
-            <span class="prelude-val">None </span>=&gt; {
-                <span class="comment">// Drop the current offer if any.
-                </span><span class="self">self</span>.selection = <span class="prelude-val">None</span>;
-                <span class="kw">return</span>;
-            }
-        };
+    /// The given primary selection device could be used to identify [`PrimarySelectionDevice`].
+    </span><span class="kw">fn </span>selection(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        primary_selection_device: <span class="kw-2">&amp;</span>ZwpPrimarySelectionDeviceV1,
+    );
+}
 
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(id) = <span class="self">self</span>.know_offers.iter().position(|o| o.offer == offer) {
-            <span class="self">self</span>.selection = <span class="prelude-val">Some</span>(<span class="self">self</span>.know_offers.swap_remove(id));
-        } <span class="kw">else </span>{
-            <span class="macro">panic!</span>(<span class="string">&quot;Compositor set an unknown primary offer for a primary selection.&quot;</span>)
-        }
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>PrimarySelectionDevice {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) device: ZwpPrimarySelectionDeviceV1,
+}
+
+<span class="kw">impl </span>PrimarySelectionDevice {
+    <span class="doccomment">/// Remove the currently active selection.
+    ///
+    /// The passed `serial` is the serial of the input event.
+    </span><span class="kw">pub fn </span>unset_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, serial: u32) {
+        <span class="self">self</span>.device.set_selection(<span class="prelude-val">None</span>, serial);
+    }
+
+    <span class="doccomment">/// Get the underlying data.
+    </span><span class="kw">pub fn </span>data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>PrimarySelectionDeviceData {
+        <span class="self">self</span>.device.data::&lt;PrimarySelectionDeviceData&gt;().unwrap()
+    }
+
+    <span class="kw">pub fn </span>inner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>ZwpPrimarySelectionDeviceV1 {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.device
     }
 }
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>PrimarySelectionDevice {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">match </span><span class="self">self</span>.device {
-            PrimarySelectionDeviceImpl::Zwp(<span class="kw-2">ref </span>device) =&gt; device.destroy(),
-            PrimarySelectionDeviceImpl::Gtk(<span class="kw-2">ref </span>device) =&gt; device.destroy(),
+        <span class="self">self</span>.device.destroy();
+    }
+}
+
+<span class="kw">impl</span>&lt;State&gt; Dispatch&lt;ZwpPrimarySelectionDeviceV1, PrimarySelectionDeviceData, State&gt;
+    <span class="kw">for </span>PrimarySelectionManagerState
+<span class="kw">where
+    </span>State: Dispatch&lt;ZwpPrimarySelectionDeviceV1, PrimarySelectionDeviceData&gt;
+        + Dispatch&lt;ZwpPrimarySelectionOfferV1, PrimarySelectionOfferData&gt;
+        + PrimarySelectionDeviceHandler
+        + <span class="lifetime">&#39;static</span>,
+{
+    <span class="macro">event_created_child!</span>(State, ZwpPrimarySelectionDeviceV1, [
+        <span class="number">0 </span>=&gt; (ZwpPrimarySelectionOfferV1, PrimarySelectionOfferData::default())
+    ]);
+
+    <span class="kw">fn </span>event(
+        state: <span class="kw-2">&amp;mut </span>State,
+        proxy: <span class="kw-2">&amp;</span>ZwpPrimarySelectionDeviceV1,
+        event: &lt;ZwpPrimarySelectionDeviceV1 <span class="kw">as </span>wayland_client::Proxy&gt;::Event,
+        data: <span class="kw-2">&amp;</span>PrimarySelectionDeviceData,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qhandle: <span class="kw-2">&amp;</span>QueueHandle&lt;State&gt;,
+    ) {
+        <span class="kw">use </span>wayland_protocols::wp::primary_selection::zv1::client::zwp_primary_selection_device_v1::Event;
+        <span class="kw">let </span><span class="kw-2">mut </span>data = data.inner.lock().unwrap();
+        <span class="kw">match </span>event {
+            Event::DataOffer { offer } =&gt; {
+                <span class="comment">// Try to resist faulty compositors.
+                </span><span class="kw">if let </span><span class="prelude-val">Some</span>(pending_offer) = data.pending_offer.take() {
+                    pending_offer.destroy();
+                }
+
+                data.pending_offer = <span class="prelude-val">Some</span>(offer);
+            }
+            Event::Selection { id } =&gt; {
+                <span class="comment">// We must drop the current offer regardless.
+                </span><span class="kw">if let </span><span class="prelude-val">Some</span>(offer) = data.offer.take() {
+                    offer.destroy();
+                }
+
+                <span class="kw">if </span>id == data.pending_offer {
+                    data.offer = data.pending_offer.take();
+                } <span class="kw">else </span>{
+                    <span class="comment">// Remove the pending offer, assign the new delivered one.
+                    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(offer) = data.pending_offer.take() {
+                        offer.destroy()
+                    }
+
+                    data.offer = id;
+                }
+
+                <span class="comment">// Release the user data lock before calling into user.
+                </span>drop(data);
+
+                state.selection(conn, qhandle, proxy);
+            }
+            <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
 
-<span class="kw">impl </span>PrimarySelectionDevice {
-    <span class="doccomment">/// Create the `PrimarySelectionDevice` helper for this seat.
-    </span><span class="kw">pub fn </span>init_for_seat(manager: <span class="kw-2">&amp;</span>PrimarySelectionDeviceManager, seat: <span class="kw-2">&amp;</span>WlSeat) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>inner = Arc::new(Mutex::new(PrimarySelectionDeviceInner {
-            selection: <span class="prelude-val">None</span>,
-            know_offers: Vec::new(),
-        }));
+<span class="doccomment">/// The user data associated with the [`ZwpPrimarySelectionDeviceV1`].
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>PrimarySelectionDeviceData {
+    <span class="doccomment">/// The seat associated with this device.
+    </span>seat: WlSeat,
+    <span class="doccomment">/// The inner mutable storage.
+    </span>inner: Arc&lt;Mutex&lt;PrimarySelectionDeviceDataInner&gt;&gt;,
+}
 
-        <span class="kw">let </span>inner2 = inner.clone();
-
-        <span class="kw">let </span>device = <span class="kw">match </span>manager {
-            PrimarySelectionDeviceManager::Zwp(zwp_manager) =&gt; {
-                <span class="kw">let </span>device = zwp_manager.get_device(seat);
-
-                device.quick_assign(<span class="kw">move </span>|<span class="kw">_</span>, event, <span class="kw">_</span>| {
-                    <span class="kw">let </span><span class="kw-2">mut </span>inner = inner2.lock().unwrap();
-
-                    <span class="kw">use </span>zwp_primary_selection_device_v1::Event;
-                    <span class="kw">match </span>event {
-                        Event::DataOffer { offer } =&gt; {
-                            inner.know_offers.push(PrimarySelectionOffer::from_zwp(offer))
-                        }
-                        Event::Selection { id } =&gt; {
-                            <span class="kw">let </span>id = id.map(PrimarySelectionOfferImpl::Zwp);
-                            inner.set_selection(id);
-                        }
-                        <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
-                    }
-                });
-
-                PrimarySelectionDeviceImpl::Zwp(device.detach())
-            }
-            PrimarySelectionDeviceManager::Gtk(gtk_manager) =&gt; {
-                <span class="kw">let </span>device = gtk_manager.get_device(seat);
-
-                device.quick_assign(<span class="kw">move </span>|<span class="kw">_</span>, event, <span class="kw">_</span>| {
-                    <span class="kw">let </span><span class="kw-2">mut </span>inner = inner2.lock().unwrap();
-
-                    <span class="kw">use </span>gtk_primary_selection_device::Event;
-                    <span class="kw">match </span>event {
-                        Event::DataOffer { offer } =&gt; {
-                            inner.know_offers.push(PrimarySelectionOffer::from_gtk(offer))
-                        }
-                        Event::Selection { id } =&gt; {
-                            <span class="kw">let </span>id = id.map(PrimarySelectionOfferImpl::Gtk);
-                            inner.set_selection(id);
-                        }
-                        <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
-                    }
-                });
-                PrimarySelectionDeviceImpl::Gtk(device.detach())
-            }
-        };
-
-        <span class="self">Self </span>{ device, inner }
+<span class="kw">impl </span>PrimarySelectionDeviceData {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(seat: WlSeat) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ seat, inner: Default::default() }
     }
 
-    <span class="doccomment">/// Provide a primary selection source as the new content for the primary selection.
-    ///
-    /// Correspond to traditional copy/paste behavior. Setting the source to `None` will clear
-    /// the selection.
-    </span><span class="kw">pub fn </span>set_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, source: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;PrimarySelectionSource&gt;, serial: u32) {
-        <span class="kw">match </span><span class="self">self</span>.device {
-            PrimarySelectionDeviceImpl::Zwp(<span class="kw-2">ref </span>device) =&gt; {
-                <span class="kw">let </span>source = source.as_ref().map(|source| <span class="kw">match </span>source.source {
-                    PrimarySelectionSourceImpl::Zwp(<span class="kw-2">ref </span>source) =&gt; source,
-                    <span class="comment">// We can&#39;t reach `Gtk` source in `Zwp`.
-                    </span><span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
-                });
-                device.set_selection(source, serial);
-            }
-            PrimarySelectionDeviceImpl::Gtk(<span class="kw-2">ref </span>device) =&gt; {
-                <span class="kw">let </span>source = source.as_ref().map(|source| <span class="kw">match </span>source.source {
-                    PrimarySelectionSourceImpl::Gtk(<span class="kw-2">ref </span>source) =&gt; source,
-                    <span class="comment">// We can&#39;t reach `Zwp` source in `Gtk`.
-                    </span><span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
-                });
-                device.set_selection(source, serial);
-            }
-        }
+    <span class="doccomment">/// The seat used to create this primary selection device.
+    </span><span class="kw">pub fn </span>seat(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>WlSeat {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.seat
     }
 
-    <span class="doccomment">/// Access the `PrimarySelectionOffer` currently associated with the primary selection buffer.
-    </span><span class="kw">pub fn </span>with_selection&lt;F: FnOnce(<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PrimarySelectionOffer&gt;) -&gt; T, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; T {
-        <span class="kw">let </span>inner = <span class="self">self</span>.inner.lock().unwrap();
-        f(inner.selection.as_ref())
+    <span class="doccomment">/// The active selection offer.
+    </span><span class="kw">pub fn </span>selection_offer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrimarySelectionOffer&gt; {
+        <span class="self">self</span>.inner
+            .lock()
+            .unwrap()
+            .offer
+            .as_ref()
+            .map(|offer| PrimarySelectionOffer { offer: offer.clone() })
     }
+}
+
+<span class="attr">#[derive(Debug, Default)]
+</span><span class="kw">struct </span>PrimarySelectionDeviceDataInner {
+    <span class="doccomment">/// The offer is valid until either `NULL` or new selection is received via the
+    /// `selection` event.
+    </span>offer: <span class="prelude-ty">Option</span>&lt;ZwpPrimarySelectionOfferV1&gt;,
+    <span class="doccomment">/// The offer we&#39;ve got in `offer` event, but not finished it in `selection`.
+    </span>pending_offer: <span class="prelude-ty">Option</span>&lt;ZwpPrimarySelectionOfferV1&gt;,
 }
 </code></pre></div></section></main></body></html>

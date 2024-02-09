@@ -98,20 +98,14 @@
 <a href="#98" id="98">98</a>
 <a href="#99" id="99">99</a>
 <a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
-<a href="#102" id="102">102</a>
-<a href="#103" id="103">103</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="doccomment">//! Subscribe to common application keyboard shortcuts.
 
-</span><span class="kw">use </span>iced::{
-    event,
-    keyboard::{<span class="self">self</span>, KeyCode},
-    mouse, Command, Event, Subscription,
-};
+</span><span class="kw">use </span>iced::{event, keyboard, mouse, Command, Event, Subscription};
 <span class="kw">use </span>iced_core::{
+    keyboard::key::Named,
     widget::{operation, Id, Operation},
     Rectangle,
 };
@@ -135,10 +129,11 @@
 
         <span class="kw">match </span>event {
             Event::Keyboard(keyboard::Event::KeyPressed {
-                key_code,
+                key: keyboard::Key::Named(key),
                 modifiers,
-            }) =&gt; <span class="kw">match </span>key_code {
-                KeyCode::Tab =&gt; {
+                ..
+            }) =&gt; <span class="kw">match </span>key {
+                Named::Tab =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Some</span>(<span class="kw">if </span>modifiers.shift() {
                         Message::FocusPrevious
                     } <span class="kw">else </span>{
@@ -146,24 +141,23 @@
                     });
                 }
 
-                KeyCode::Escape =&gt; {
+                Named::Escape =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Some</span>(Message::Escape);
                 }
 
-                KeyCode::F11 =&gt; {
+                Named::F11 =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Some</span>(Message::Fullscreen);
-                }
-
-                KeyCode::F =&gt; {
-                    <span class="kw">return if </span>modifiers.control() {
-                        <span class="prelude-val">Some</span>(Message::Search)
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">None
-                    </span>};
                 }
 
                 <span class="kw">_ </span>=&gt; (),
             },
+            Event::Keyboard(keyboard::Event::KeyPressed {
+                key: keyboard::Key::Character(c),
+                modifiers,
+                ..
+            }) <span class="kw">if </span>c == <span class="string">&quot;f&quot; </span>&amp;&amp; modifiers.control() =&gt; {
+                <span class="kw">return </span><span class="prelude-val">Some</span>(Message::Search);
+            }
 
             Event::Mouse(mouse::Event::ButtonPressed { .. }) =&gt; {
                 <span class="kw">return </span><span class="prelude-val">Some</span>(Message::Unfocus);

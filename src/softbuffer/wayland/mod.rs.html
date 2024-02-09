@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/softbuffer-b53d51e2579e9817/6f0371c/src/wayland/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="softbuffer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/softbuffer-b53d51e2579e9817/0bb8598/src/wayland/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="softbuffer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -250,8 +250,67 @@
 <a href="#250" id="250">250</a>
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
-</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{error::SwResultExt, util, Rect, SoftBufferError};
-<span class="kw">use </span>raw_window_handle::{WaylandDisplayHandle, WaylandWindowHandle};
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
+    error::{InitError, SwResultExt},
+    util, Rect, SoftBufferError,
+};
+<span class="kw">use </span>raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle};
 <span class="kw">use </span>std::{
     cell::RefCell,
     num::{NonZeroI32, NonZeroU32},
@@ -269,17 +328,31 @@
 
 <span class="kw">struct </span>State;
 
-<span class="kw">pub struct </span>WaylandDisplayImpl {
-    conn: Connection,
+<span class="kw">pub struct </span>WaylandDisplayImpl&lt;D: <span class="question-mark">?</span>Sized&gt; {
+    conn: <span class="prelude-ty">Option</span>&lt;Connection&gt;,
     event_queue: RefCell&lt;EventQueue&lt;State&gt;&gt;,
     qh: QueueHandle&lt;State&gt;,
     shm: wl_shm::WlShm,
+
+    <span class="doccomment">/// The object that owns the display handle.
+    ///
+    /// This has to be dropped *after* the `conn` field, because the `conn` field implicitly borrows
+    /// this.
+    </span>_display: D,
 }
 
-<span class="kw">impl </span>WaylandDisplayImpl {
-    <span class="kw">pub unsafe fn </span>new(display_handle: WaylandDisplayHandle) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="comment">// SAFETY: Ensured by user
-        </span><span class="kw">let </span>backend = <span class="kw">unsafe </span>{ Backend::from_foreign_display(display_handle.display <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>) };
+<span class="kw">impl</span>&lt;D: HasDisplayHandle + <span class="question-mark">?</span>Sized&gt; WaylandDisplayImpl&lt;D&gt; {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(display: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InitError&lt;D&gt;&gt;
+    <span class="kw">where
+        </span>D: Sized,
+    {
+        <span class="kw">let </span>raw = display.display_handle()<span class="question-mark">?</span>.as_raw();
+        <span class="kw">let </span>wayland_handle = <span class="kw">match </span>raw {
+            RawDisplayHandle::Wayland(w) =&gt; w.display,
+            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(InitError::Unsupported(display)),
+        };
+
+        <span class="kw">let </span>backend = <span class="kw">unsafe </span>{ Backend::from_foreign_display(wayland_handle.as_ptr().cast()) };
         <span class="kw">let </span>conn = Connection::from_backend(backend);
         <span class="kw">let </span>(globals, event_queue) =
             registry_queue_init(<span class="kw-2">&amp;</span>conn).swbuf_err(<span class="string">&quot;Failed to make round trip to server&quot;</span>)<span class="question-mark">?</span>;
@@ -288,42 +361,70 @@
             .bind(<span class="kw-2">&amp;</span>qh, <span class="number">1</span>..=<span class="number">1</span>, ())
             .swbuf_err(<span class="string">&quot;Failed to instantiate Wayland Shm&quot;</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-            conn,
+            conn: <span class="prelude-val">Some</span>(conn),
             event_queue: RefCell::new(event_queue),
             qh,
             shm,
+            _display: display,
         })
+    }
+
+    <span class="kw">fn </span>conn(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Connection {
+        <span class="self">self</span>.conn.as_ref().unwrap()
     }
 }
 
-<span class="kw">pub struct </span>WaylandImpl {
-    display: Rc&lt;WaylandDisplayImpl&gt;,
-    surface: wl_surface::WlSurface,
-    buffers: <span class="prelude-ty">Option</span>&lt;(WaylandBuffer, WaylandBuffer)&gt;,
-    size: <span class="prelude-ty">Option</span>&lt;(NonZeroI32, NonZeroI32)&gt;,
+<span class="kw">impl</span>&lt;D: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>WaylandDisplayImpl&lt;D&gt; {
+    <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="comment">// Make sure the connection is dropped first.
+        </span><span class="self">self</span>.conn = <span class="prelude-val">None</span>;
+    }
 }
 
-<span class="kw">impl </span>WaylandImpl {
-    <span class="kw">pub unsafe fn </span>new(
-        window_handle: WaylandWindowHandle,
-        display: Rc&lt;WaylandDisplayImpl&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="comment">// SAFETY: Ensured by user
-        </span><span class="kw">let </span>surface_id = <span class="kw">unsafe </span>{
+<span class="kw">pub struct </span>WaylandImpl&lt;D: <span class="question-mark">?</span>Sized, W: <span class="question-mark">?</span>Sized&gt; {
+    display: Rc&lt;WaylandDisplayImpl&lt;D&gt;&gt;,
+    surface: <span class="prelude-ty">Option</span>&lt;wl_surface::WlSurface&gt;,
+    buffers: <span class="prelude-ty">Option</span>&lt;(WaylandBuffer, WaylandBuffer)&gt;,
+    size: <span class="prelude-ty">Option</span>&lt;(NonZeroI32, NonZeroI32)&gt;,
+
+    <span class="doccomment">/// The pointer to the window object.
+    ///
+    /// This has to be dropped *after* the `surface` field, because the `surface` field implicitly
+    /// borrows this.
+    </span>window_handle: W,
+}
+
+<span class="kw">impl</span>&lt;D: HasDisplayHandle + <span class="question-mark">?</span>Sized, W: HasWindowHandle&gt; WaylandImpl&lt;D, W&gt; {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(window: W, display: Rc&lt;WaylandDisplayImpl&lt;D&gt;&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InitError&lt;W&gt;&gt; {
+        <span class="comment">// Get the raw Wayland window.
+        </span><span class="kw">let </span>raw = window.window_handle()<span class="question-mark">?</span>.as_raw();
+        <span class="kw">let </span>wayland_handle = <span class="kw">match </span>raw {
+            RawWindowHandle::Wayland(w) =&gt; w.surface,
+            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(InitError::Unsupported(window)),
+        };
+
+        <span class="kw">let </span>surface_id = <span class="kw">unsafe </span>{
             ObjectId::from_ptr(
                 wl_surface::WlSurface::interface(),
-                window_handle.surface <span class="kw">as _</span>,
+                wayland_handle.as_ptr().cast(),
             )
         }
         .swbuf_err(<span class="string">&quot;Failed to create proxy for surface ID.&quot;</span>)<span class="question-mark">?</span>;
-        <span class="kw">let </span>surface = wl_surface::WlSurface::from_id(<span class="kw-2">&amp;</span>display.conn, surface_id)
+        <span class="kw">let </span>surface = wl_surface::WlSurface::from_id(display.conn(), surface_id)
             .swbuf_err(<span class="string">&quot;Failed to create proxy for surface ID.&quot;</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             display,
-            surface,
+            surface: <span class="prelude-val">Some</span>(surface),
             buffers: Default::default(),
             size: <span class="prelude-val">None</span>,
+            window_handle: window,
         })
+    }
+
+    <span class="doccomment">/// Get the inner window handle.
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>W {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.window_handle
     }
 
     <span class="kw">pub fn </span>resize(<span class="kw-2">&amp;mut </span><span class="self">self</span>, width: NonZeroU32, height: NonZeroU32) -&gt; <span class="prelude-ty">Result</span>&lt;(), SoftBufferError&gt; {
@@ -338,7 +439,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">pub fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;BufferImpl, SoftBufferError&gt; {
+    <span class="kw">pub fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;BufferImpl&lt;<span class="lifetime">&#39;_</span>, D, W&gt;, SoftBufferError&gt; {
         <span class="kw">let </span>(width, height) = <span class="self">self
             </span>.size
             .expect(<span class="string">&quot;Must set size of surface before calling `buffer_mut()`&quot;</span>);
@@ -399,21 +500,21 @@
             .dispatch_pending(<span class="kw-2">&amp;mut </span>State);
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>((front, back)) = <span class="kw-2">&amp;mut </span><span class="self">self</span>.buffers {
+            <span class="comment">// Swap front and back buffer
+            </span>std::mem::swap(front, back);
+
             front.age = <span class="number">1</span>;
             <span class="kw">if </span>back.age != <span class="number">0 </span>{
                 back.age += <span class="number">1</span>;
             }
 
-            <span class="comment">// Swap front and back buffer
-            </span>std::mem::swap(front, back);
-
-            front.attach(<span class="kw-2">&amp;</span><span class="self">self</span>.surface);
+            front.attach(<span class="self">self</span>.surface.as_ref().unwrap());
 
             <span class="comment">// Like Mesa&#39;s EGL/WSI implementation, we damage the whole buffer with `i32::MAX` if
             // the compositor doesn&#39;t support `damage_buffer`.
             // https://bugs.freedesktop.org/show_bug.cgi?id=78190
-            </span><span class="kw">if </span><span class="self">self</span>.surface.version() &lt; <span class="number">4 </span>{
-                <span class="self">self</span>.surface.damage(<span class="number">0</span>, <span class="number">0</span>, i32::MAX, i32::MAX);
+            </span><span class="kw">if </span><span class="self">self</span>.surface().version() &lt; <span class="number">4 </span>{
+                <span class="self">self</span>.surface().damage(<span class="number">0</span>, <span class="number">0</span>, i32::MAX, i32::MAX);
             } <span class="kw">else </span>{
                 <span class="kw">for </span>rect <span class="kw">in </span>damage {
                     <span class="comment">// Introduced in version 4, it is an error to use this request in version 3 or lower.
@@ -426,25 +527,36 @@
                         ))
                     })()
                     .ok_or(SoftBufferError::DamageOutOfRange { rect: <span class="kw-2">*</span>rect })<span class="question-mark">?</span>;
-                    <span class="self">self</span>.surface.damage_buffer(x, y, width, height);
+                    <span class="self">self</span>.surface().damage_buffer(x, y, width, height);
                 }
             }
 
-            <span class="self">self</span>.surface.commit();
+            <span class="self">self</span>.surface().commit();
         }
 
         <span class="kw">let _ </span>= <span class="self">self</span>.display.event_queue.borrow_mut().flush();
 
         <span class="prelude-val">Ok</span>(())
     }
+
+    <span class="kw">fn </span>surface(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>wl_surface::WlSurface {
+        <span class="self">self</span>.surface.as_ref().unwrap()
+    }
 }
 
-<span class="kw">pub struct </span>BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt; {
-    stack: util::BorrowStack&lt;<span class="lifetime">&#39;a</span>, WaylandImpl, [u32]&gt;,
+<span class="kw">impl</span>&lt;D: <span class="question-mark">?</span>Sized, W: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>WaylandImpl&lt;D, W&gt; {
+    <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="comment">// Make sure the surface is dropped first.
+        </span><span class="self">self</span>.surface = <span class="prelude-val">None</span>;
+    }
+}
+
+<span class="kw">pub struct </span>BufferImpl&lt;<span class="lifetime">&#39;a</span>, D: <span class="question-mark">?</span>Sized, W&gt; {
+    stack: util::BorrowStack&lt;<span class="lifetime">&#39;a</span>, WaylandImpl&lt;D, W&gt;, [u32]&gt;,
     age: u8,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, D: HasDisplayHandle + <span class="question-mark">?</span>Sized, W: HasWindowHandle&gt; BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pixels(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u32] {
         <span class="self">self</span>.stack.member()

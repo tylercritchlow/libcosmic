@@ -67,6 +67,10 @@
 <a href="#67" id="67">67</a>
 <a href="#68" id="68">68</a>
 <a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Write your own renderer.
 </span><span class="attr">#[cfg(debug_assertions)]
 </span><span class="kw">mod </span>null;
@@ -74,13 +78,10 @@
 <span class="attr">#[cfg(debug_assertions)]
 </span><span class="kw">pub use </span>null::Null;
 
-<span class="kw">use crate</span>::{Background, BorderRadius, Color, Rectangle, Vector};
+<span class="kw">use crate</span>::{Background, Border, Color, Rectangle, Shadow, Size, Vector};
 
 <span class="doccomment">/// A component that can be used by widgets to draw themselves on a screen.
 </span><span class="kw">pub trait </span>Renderer: Sized {
-    <span class="doccomment">/// The supported theme of the [`Renderer`].
-    </span><span class="kw">type </span>Theme;
-
     <span class="doccomment">/// Draws the primitives recorded in the given closure in a new layer.
     ///
     /// The layer will clip its contents to the provided `bounds`.
@@ -106,14 +107,21 @@
     <span class="doccomment">/// The bounds of the [`Quad`].
     </span><span class="kw">pub </span>bounds: Rectangle,
 
-    <span class="doccomment">/// The border radius of the [`Quad`].
-    </span><span class="kw">pub </span>border_radius: BorderRadius,
+    <span class="doccomment">/// The [`Border`] of the [`Quad`].
+    </span><span class="kw">pub </span>border: Border,
 
-    <span class="doccomment">/// The border width of the [`Quad`].
-    </span><span class="kw">pub </span>border_width: f32,
+    <span class="doccomment">/// The [`Shadow`] of the [`Quad`].
+    </span><span class="kw">pub </span>shadow: Shadow,
+}
 
-    <span class="doccomment">/// The border color of the [`Quad`].
-    </span><span class="kw">pub </span>border_color: Color,
+<span class="kw">impl </span>Default <span class="kw">for </span>Quad {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            bounds: Rectangle::with_size(Size::ZERO),
+            border: Border::default(),
+            shadow: Shadow::default(),
+        }
+    }
 }
 
 <span class="doccomment">/// The styling attributes of a [`Renderer`].

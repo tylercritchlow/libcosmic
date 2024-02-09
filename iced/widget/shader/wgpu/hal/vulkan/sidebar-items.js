@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["Fence","ShaderModule"],"struct":["Adapter","Api","BindGroup","BindGroupLayout","Buffer","CommandBuffer","CommandEncoder","ComputePipeline","DebugUtilsMessengerUserData","Device","Instance","InstanceShared","PipelineLayout","QuerySet","Queue","RenderPipeline","Sampler","Surface","SurfaceTexture","Texture","TextureView","Workarounds"]};

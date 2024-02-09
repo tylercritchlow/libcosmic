@@ -265,6 +265,7 @@
 <a href="#265" id="265">265</a>
 <a href="#266" id="266">266</a>
 <a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>cosmic_theme::LayeredTheme;
 <span class="kw">use </span>iced::widget::Container;
 <span class="kw">use </span>iced_core::alignment;
@@ -277,11 +278,13 @@
 <span class="kw">use </span>iced_core::{Clipboard, Element, Layout, Length, Padding, Rectangle, Shell, Widget};
 <span class="kw">pub use </span>iced_style::container::{Appearance, StyleSheet};
 
-<span class="kw">pub fn </span>container&lt;<span class="lifetime">&#39;a</span>, Message: <span class="lifetime">&#39;static</span>, T&gt;(
-    content: T,
-) -&gt; LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;
+<span class="kw">pub fn </span>container&lt;<span class="lifetime">&#39;a</span>, Message: <span class="lifetime">&#39;static</span>, Theme, E&gt;(
+    content: E,
+) -&gt; LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, <span class="kw">crate</span>::Renderer&gt;
 <span class="kw">where
-    </span>T: Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;&gt;,
+    </span>E: Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, <span class="kw">crate</span>::Renderer&gt;&gt;,
+    Theme: iced_style::container::StyleSheet + LayeredTheme,
+    &lt;Theme <span class="kw">as </span>iced_widget::container::StyleSheet&gt;::Style: From&lt;<span class="kw">crate</span>::theme::Container&gt;,
 {
     LayerContainer::new(content)
 }
@@ -290,25 +293,25 @@
 ///
 /// It is normally used for alignment purposes.
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub struct </span>LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: iced_core::Renderer,
-    Renderer::Theme: StyleSheet + Clone + cosmic_theme::LayeredTheme,
+    Theme: iced_style::container::StyleSheet + LayeredTheme,
 {
     layer: <span class="prelude-ty">Option</span>&lt;cosmic_theme::Layer&gt;,
-    container: Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
+    container: Container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: iced_core::Renderer,
-    Renderer::Theme: StyleSheet + Clone + cosmic_theme::LayeredTheme,
-    &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style: std::convert::From&lt;<span class="kw">crate</span>::theme::Container&gt;,
+    Theme: iced_style::container::StyleSheet + LayeredTheme,
+    &lt;Theme <span class="kw">as </span>iced_style::container::StyleSheet&gt;::Style: From&lt;<span class="kw">crate</span>::theme::Container&gt;,
 {
     <span class="doccomment">/// Creates an empty [`Container`].
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new&lt;T&gt;(content: T) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>T: Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+        </span>T: Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
     {
         LayerContainer {
             layer: <span class="prelude-val">None</span>,
@@ -392,16 +395,17 @@
 
     <span class="doccomment">/// Sets the style of the [`LayerContainer`].
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;&lt;Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.container = <span class="self">self</span>.container.style(style);
         <span class="self">self
     </span>}
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt; <span class="kw">for </span>LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: iced_core::Renderer,
-    Renderer::Theme: StyleSheet + Clone + cosmic_theme::LayeredTheme,
+    Theme: iced_style::container::StyleSheet + LayeredTheme + Clone,
 {
     <span class="kw">fn </span>children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Tree&gt; {
         <span class="self">self</span>.container.children()
@@ -419,12 +423,8 @@
         <span class="self">self</span>.container.state()
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Widget::width(<span class="kw-2">&amp;</span><span class="self">self</span>.container)
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Widget::height(<span class="kw-2">&amp;</span><span class="self">self</span>.container)
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; iced_core::Size&lt;Length&gt; {
+        <span class="self">self</span>.container.size()
     }
 
     <span class="kw">fn </span>layout(
@@ -487,7 +487,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         renderer_style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor_position: mouse::Cursor,
@@ -516,19 +516,21 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Theme, Renderer&gt;&gt; {
         <span class="self">self</span>.container.overlay(tree, layout, renderer)
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;a</span>,
     Renderer: <span class="lifetime">&#39;a </span>+ iced_core::Renderer,
-    Renderer::Theme: StyleSheet + Clone + cosmic_theme::LayeredTheme,
+    Theme: iced_style::container::StyleSheet + LayeredTheme + <span class="lifetime">&#39;a </span>+ Clone,
 {
-    <span class="kw">fn </span>from(column: LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+    <span class="kw">fn </span>from(
+        column: LayerContainer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
         Element::new(column)
     }
 }

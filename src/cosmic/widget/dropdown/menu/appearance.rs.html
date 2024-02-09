@@ -43,7 +43,7 @@
 // SPDX-License-Identifier: MPL-2.0 AND MIT
 
 </span><span class="doccomment">//! Change the appearance of menus.
-</span><span class="kw">use </span>iced_core::{Background, BorderRadius, Color};
+</span><span class="kw">use </span>iced_core::{border::Radius, Background, Color};
 
 <span class="doccomment">/// The appearance of a menu.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
@@ -55,7 +55,7 @@
     <span class="doccomment">/// Menu border width
     </span><span class="kw">pub </span>border_width: f32,
     <span class="doccomment">/// Menu border radius
-    </span><span class="kw">pub </span>border_radius: BorderRadius,
+    </span><span class="kw">pub </span>border_radius: Radius,
     <span class="doccomment">/// Menu border color
     </span><span class="kw">pub </span>border_color: Color,
     <span class="doccomment">/// Text color when hovered

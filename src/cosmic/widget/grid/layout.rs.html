@@ -187,6 +187,8 @@
 <a href="#187" id="187">187</a>
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -232,7 +234,8 @@
 
         nodes.push(child_node);
 
-        <span class="kw">let </span>(width, justify_self) = <span class="kw">match </span>child_widget.width() {
+        <span class="kw">let </span>c_size = child_widget.size();
+        <span class="kw">let </span>(width, justify_self) = <span class="kw">match </span>c_size.width {
             Length::Fill | Length::FillPortion(<span class="kw">_</span>) =&gt; (Dimension::Auto, <span class="prelude-val">Some</span>(AlignItems::Stretch)),
             <span class="kw">_ </span>=&gt; (length(size.width), <span class="prelude-val">None</span>),
         };
@@ -251,7 +254,7 @@
             },
             size: taffy::geometry::Size {
                 width,
-                height: <span class="kw">match </span>child_widget.height() {
+                height: <span class="kw">match </span>c_size.height {
                     Length::Fill | Length::FillPortion(<span class="kw">_</span>) =&gt; Dimension::Auto,
                     <span class="kw">_ </span>=&gt; length(size.height),
                 },
@@ -354,7 +357,8 @@
     {
         <span class="kw">if let </span><span class="prelude-val">Ok</span>(leaf_layout) = taffy.layout(leaf) {
             <span class="kw">let </span>child_widget = child.as_widget();
-            <span class="kw">match </span>child_widget.width() {
+            <span class="kw">let </span>c_size = child_widget.size();
+            <span class="kw">match </span>c_size.width {
                 Length::Fill | Length::FillPortion(<span class="kw">_</span>) =&gt; {
                     <span class="kw-2">*</span>node =
                         child_widget.layout(tree, renderer, <span class="kw-2">&amp;</span>limits.width(leaf_layout.size.width));
@@ -362,10 +366,10 @@
                 <span class="kw">_ </span>=&gt; (),
             }
 
-            node.move_to(Point {
+            <span class="kw-2">*</span>node = node.clone().move_to(Point {
                 x: leaf_layout.location.x,
                 y: leaf_layout.location.y,
-            });
+            })
         }
     }
 
@@ -374,6 +378,6 @@
         height: grid_layout.size.height,
     };
 
-    Node::with_children(grid_size.pad(padding), nodes)
+    Node::with_children(grid_size.expand(padding), nodes)
 }
 </code></pre></div></section></main></body></html>

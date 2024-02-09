@@ -388,6 +388,7 @@
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
 <a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Write some text for your users to read.
 </span><span class="kw">use </span><span class="kw">crate</span>::alignment;
 <span class="kw">use </span><span class="kw">crate</span>::layout;
@@ -395,7 +396,9 @@
 <span class="kw">use </span><span class="kw">crate</span>::renderer;
 <span class="kw">use </span><span class="kw">crate</span>::text::{<span class="self">self</span>, Paragraph};
 <span class="kw">use </span><span class="kw">crate</span>::widget::tree::{<span class="self">self</span>, Tree};
-<span class="kw">use crate</span>::{Color, Element, Layout, Length, Pixels, Point, Rectangle, Widget};
+<span class="kw">use crate</span>::{
+    Color, Element, Layout, Length, Pixels, Point, Rectangle, Size, Widget,
+};
 
 <span class="kw">use </span>std::borrow::Cow;
 
@@ -403,10 +406,10 @@
 
 <span class="doccomment">/// A paragraph of text.
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+</span><span class="kw">pub struct </span>Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     id: <span class="kw">crate</span>::widget::Id,
     content: Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;,
@@ -418,13 +421,13 @@
     vertical_alignment: alignment::Vertical,
     font: <span class="prelude-ty">Option</span>&lt;Renderer::Font&gt;,
     shaping: Shaping,
-    style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    style: Theme::Style,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt; Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="doccomment">/// Create a new fragment of [`Text`] with the given contents.
     </span><span class="kw">pub fn </span>new(content: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt;) -&gt; <span class="self">Self </span>{
@@ -464,10 +467,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the style of the [`Text`].
-    </span><span class="kw">pub fn </span>style(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
-    ) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;Theme::Style&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.style = style.into();
         <span class="self">self
     </span>}
@@ -513,10 +513,11 @@
 </span><span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub struct </span>State&lt;P: Paragraph&gt;(P);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt; <span class="kw">for </span>Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         tree::Tag::of::&lt;State&lt;Renderer::Paragraph&gt;&gt;()
@@ -526,12 +527,11 @@
         tree::State::new(State(Renderer::Paragraph::default()))
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.height
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: <span class="self">self</span>.width,
+            height: <span class="self">self</span>.height,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -560,7 +560,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         _cursor_position: mouse::Cursor,
@@ -641,28 +641,27 @@
 <span class="kw">where
     </span>Renderer: text::Renderer,
 {
-    <span class="kw">let </span>limits = limits.width(width).height(height);
-    <span class="kw">let </span>bounds = limits.max();
+    layout::sized(limits, width, height, |limits| {
+        <span class="kw">let </span>bounds = limits.max();
 
-    <span class="kw">let </span>size = size.unwrap_or_else(|| renderer.default_size());
-    <span class="kw">let </span>font = font.unwrap_or_else(|| renderer.default_font());
+        <span class="kw">let </span>size = size.unwrap_or_else(|| renderer.default_size());
+        <span class="kw">let </span>font = font.unwrap_or_else(|| renderer.default_font());
 
-    <span class="kw">let </span>State(<span class="kw-2">ref mut </span>paragraph) = state;
+        <span class="kw">let </span>State(<span class="kw-2">ref mut </span>paragraph) = state;
 
-    paragraph.update(text::Text {
-        content,
-        bounds,
-        size,
-        line_height,
-        font,
-        horizontal_alignment,
-        vertical_alignment,
-        shaping,
-    });
+        paragraph.update(text::Text {
+            content,
+            bounds,
+            size,
+            line_height,
+            font,
+            horizontal_alignment,
+            vertical_alignment,
+            shaping,
+        });
 
-    <span class="kw">let </span>size = limits.resolve(paragraph.min_bounds());
-
-    layout::Node::new(size)
+        paragraph.min_bounds()
+    })
 }
 
 <span class="doccomment">/// Draws text using the same logic as the [`Text`] widget.
@@ -708,21 +707,23 @@
     );
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer + <span class="lifetime">&#39;a</span>,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet + <span class="lifetime">&#39;a</span>,
+    Renderer: text::Renderer + <span class="lifetime">&#39;a</span>,
 {
-    <span class="kw">fn </span>from(text: Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+    <span class="kw">fn </span>from(
+        text: Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
         Element::new(text)
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; Clone <span class="kw">for </span>Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt; Clone <span class="kw">for </span>Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
@@ -741,20 +742,21 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Renderer&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="kw">fn </span>from(content: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(content)
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer + <span class="lifetime">&#39;a</span>,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet + <span class="lifetime">&#39;a</span>,
+    Renderer: text::Renderer + <span class="lifetime">&#39;a</span>,
 {
     <span class="kw">fn </span>from(content: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
         Text::from(content).into()

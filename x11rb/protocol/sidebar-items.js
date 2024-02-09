@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["ErrorKind","Event","Reply","Request"],"mod":["bigreq","ge","xc_misc","xproto"]};
+window.SIDEBAR_ITEMS = {"enum":["ErrorKind","Event","Reply","Request"],"mod":["bigreq","ge","randr","render","shape","shm","xc_misc","xfixes","xinput","xkb","xproto"]};

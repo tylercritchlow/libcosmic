@@ -79,6 +79,11 @@
 <a href="#79" id="79">79</a>
 <a href="#80" id="80">80</a>
 <a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! The core library of [Iced].
 //!
 //! This library holds basic types that can be reused and re-exported in
@@ -90,21 +95,17 @@
 </span><span class="attr">#![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/iced-rs/iced/9ab6923e943f784985e9ef9ca28b10278297225d/docs/logo.svg&quot;
 </span>)]
-#![forbid(unsafe_code, rust_2018_idioms)]
+#![forbid(unsafe_code)]
 #![deny(
     missing_debug_implementations,
     missing_docs,
     unused_results,
-    rustdoc::broken_intra_doc_links
+    rustdoc::broken_intra_doc_links,
+    rust_2018_idioms
 )]
 </span><span class="kw">pub mod </span>alignment;
-<span class="kw">mod </span>angle;
-<span class="kw">mod </span>background;
-<span class="kw">mod </span>border_radius;
+<span class="kw">pub mod </span>border;
 <span class="kw">pub mod </span>clipboard;
-<span class="kw">mod </span>color;
-<span class="kw">pub mod </span>content_fit;
-<span class="kw">mod </span>element;
 <span class="kw">pub mod </span>event;
 <span class="kw">pub mod </span>font;
 <span class="kw">pub mod </span>gradient;
@@ -121,6 +122,11 @@
 <span class="kw">pub mod </span>widget;
 <span class="kw">pub mod </span>window;
 
+<span class="kw">mod </span>angle;
+<span class="kw">mod </span>background;
+<span class="kw">mod </span>color;
+<span class="kw">mod </span>content_fit;
+<span class="kw">mod </span>element;
 <span class="kw">mod </span>hasher;
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;a11y&quot;</span>))]
 </span><span class="kw">pub mod </span>id;
@@ -129,6 +135,7 @@
 <span class="kw">mod </span>pixels;
 <span class="kw">mod </span>point;
 <span class="kw">mod </span>rectangle;
+<span class="kw">mod </span>shadow;
 <span class="kw">mod </span>shell;
 <span class="kw">mod </span>size;
 <span class="kw">mod </span>vector;
@@ -136,7 +143,7 @@
 <span class="kw">pub use </span>alignment::Alignment;
 <span class="kw">pub use </span>angle::{Degrees, Radians};
 <span class="kw">pub use </span>background::Background;
-<span class="kw">pub use </span>border_radius::BorderRadius;
+<span class="kw">pub use </span>border::Border;
 <span class="kw">pub use </span>clipboard::Clipboard;
 <span class="kw">pub use </span>color::Color;
 <span class="kw">pub use </span>content_fit::ContentFit;
@@ -155,9 +162,12 @@
 <span class="kw">pub use </span>point::Point;
 <span class="kw">pub use </span>rectangle::Rectangle;
 <span class="kw">pub use </span>renderer::Renderer;
+<span class="kw">pub use </span>shadow::Shadow;
 <span class="kw">pub use </span>shell::Shell;
 <span class="kw">pub use </span>size::Size;
 <span class="kw">pub use </span>text::Text;
 <span class="kw">pub use </span>vector::Vector;
 <span class="kw">pub use </span>widget::Widget;
+
+<span class="kw">pub use </span>smol_str::SmolStr;
 </code></pre></div></section></main></body></html>

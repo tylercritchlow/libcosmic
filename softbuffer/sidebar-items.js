@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["SoftBufferError"],"struct":["Buffer","Context","Rect","Surface"]};
+window.SIDEBAR_ITEMS = {"enum":["SoftBufferError"],"struct":["Buffer","Context","NoDisplayHandle","NoWindowHandle","Rect","Surface"]};

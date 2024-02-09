@@ -463,6 +463,9 @@
 <a href="#463" id="463">463</a>
 <a href="#464" id="464">464</a>
 <a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Decorate content and apply alignment.
 </span><span class="kw">use </span><span class="kw">crate</span>::core::alignment::{<span class="self">self</span>, Alignment};
 <span class="kw">use </span><span class="kw">crate</span>::core::event::{<span class="self">self</span>, Event};
@@ -485,10 +488,14 @@
 ///
 /// It is normally used for alignment purposes.
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt;
-<span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+</span><span class="kw">pub struct </span>Container&lt;
+    <span class="lifetime">&#39;a</span>,
+    Message,
+    Theme = <span class="kw">crate</span>::Theme,
+    Renderer = <span class="kw">crate</span>::Renderer,
+&gt; <span class="kw">where
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     id: <span class="prelude-ty">Option</span>&lt;Id&gt;,
     padding: Padding,
@@ -498,31 +505,34 @@
     max_height: f32,
     horizontal_alignment: alignment::Horizontal,
     vertical_alignment: alignment::Vertical,
-    style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
-    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
+    style: Theme::Style,
+    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     <span class="doccomment">/// Creates an empty [`Container`].
     </span><span class="kw">pub fn </span>new&lt;T&gt;(content: T) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>T: Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+        </span>T: Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
     {
+        <span class="kw">let </span>content = content.into();
+        <span class="kw">let </span>size = content.as_widget().size_hint();
+
         Container {
             id: <span class="prelude-val">None</span>,
             padding: Padding::ZERO,
-            width: Length::Shrink,
-            height: Length::Shrink,
+            width: size.width.fluid(),
+            height: size.height.fluid(),
             max_width: f32::INFINITY,
             max_height: f32::INFINITY,
             horizontal_alignment: alignment::Horizontal::Left,
             vertical_alignment: alignment::Vertical::Top,
             style: Default::default(),
-            content: content.into(),
+            content,
         }
     }
 
@@ -587,20 +597,17 @@
     </span>}
 
     <span class="doccomment">/// Sets the style of the [`Container`].
-    </span><span class="kw">pub fn </span>style(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
-    ) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;Theme::Style&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.style = style.into();
         <span class="self">self
     </span>}
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         <span class="self">self</span>.content.as_widget().tag()
@@ -618,12 +625,11 @@
         <span class="self">self</span>.content.as_widget_mut().diff(tree);
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.height
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: <span class="self">self</span>.width,
+            height: <span class="self">self</span>.height,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -710,7 +716,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         renderer_style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -746,7 +752,7 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Theme, Renderer&gt;&gt; {
         <span class="self">self</span>.content.as_widget_mut().overlay(
             tree,
             layout.children().next().unwrap(),
@@ -763,23 +769,26 @@
         cursor: mouse::Cursor,
     ) -&gt; iced_accessibility::A11yTree {
         <span class="kw">let </span>c_layout = layout.children().next().unwrap();
-        <span class="kw">let </span>c_state = <span class="kw-2">&amp;</span>state.children[<span class="number">0</span>];
-        <span class="self">self</span>.content
-            .as_widget()
-            .a11y_nodes(c_layout, c_state, cursor)
+        <span class="kw">let </span>c_state = state.children.get(<span class="number">0</span>);
+
+        <span class="self">self</span>.content.as_widget().a11y_nodes(
+            c_layout,
+            c_state.unwrap_or(<span class="kw-2">&amp;</span>Tree::empty()),
+            cursor,
+        )
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;Container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;a</span>,
+    Theme: <span class="lifetime">&#39;a </span>+ StyleSheet,
     Renderer: <span class="lifetime">&#39;a </span>+ <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">fn </span>from(
-        column: Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
-    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+        column: Container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
         Element::new(column)
     }
 }
@@ -796,25 +805,20 @@
     vertical_alignment: alignment::Vertical,
     layout_content: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>layout::Limits) -&gt; layout::Node,
 ) -&gt; layout::Node {
-    <span class="kw">let </span>limits = limits
-        .loose()
-        .max_width(max_width)
-        .max_height(max_height)
-        .width(width)
-        .height(height);
-
-    <span class="kw">let </span><span class="kw-2">mut </span>content = layout_content(<span class="kw-2">&amp;</span>limits.pad(padding).loose());
-    <span class="kw">let </span>padding = padding.fit(content.size(), limits.max());
-    <span class="kw">let </span>size = limits.pad(padding).resolve(content.size());
-
-    content.move_to(Point::new(padding.left, padding.top));
-    content.align(
-        Alignment::from(horizontal_alignment),
-        Alignment::from(vertical_alignment),
-        size,
-    );
-
-    layout::Node::with_children(size.pad(padding), <span class="macro">vec!</span>[content])
+    layout::positioned(
+        <span class="kw-2">&amp;</span>limits.max_width(max_width).max_height(max_height),
+        width,
+        height,
+        padding,
+        |limits| layout_content(<span class="kw-2">&amp;</span>limits.loose()),
+        |content, size| {
+            content.align(
+                Alignment::from(horizontal_alignment),
+                Alignment::from(vertical_alignment),
+                size,
+            )
+        },
+    )
 }
 
 <span class="doccomment">/// Draws the background of a [`Container`] given its [`Appearance`] and its `bounds`.
@@ -825,13 +829,15 @@
 ) <span class="kw">where
     </span>Renderer: <span class="kw">crate</span>::core::Renderer,
 {
-    <span class="kw">if </span>appearance.background.is_some() || appearance.border_width &gt; <span class="number">0.0 </span>{
+    <span class="kw">if </span>appearance.background.is_some()
+        || appearance.border.width &gt; <span class="number">0.0
+        </span>|| appearance.shadow.color.a &gt; <span class="number">0.0
+    </span>{
         renderer.fill_quad(
             renderer::Quad {
                 bounds,
-                border_radius: appearance.border_radius,
-                border_width: appearance.border_width,
-                border_color: appearance.border_color,
+                border: appearance.border,
+                shadow: appearance.shadow,
             },
             appearance
                 .background

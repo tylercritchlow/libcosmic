@@ -528,6 +528,11 @@
 <a href="#528" id="528">528</a>
 <a href="#529" id="529">529</a>
 <a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // Copyright 2019 Héctor Ramón, Iced contributors
 // SPDX-License-Identifier: MPL-2.0 AND MIT
@@ -543,8 +548,8 @@
 <span class="kw">use </span>iced_core::text::{<span class="self">self</span>, Text};
 <span class="kw">use </span>iced_core::widget::Tree;
 <span class="kw">use </span>iced_core::{
-    alignment, mouse, overlay, renderer, svg, touch, Clipboard, Color, Element, Length, Padding,
-    Pixels, Point, Rectangle, Renderer, Shell, Size, Vector, Widget,
+    alignment, mouse, overlay, renderer, svg, touch, Border, Clipboard, Element, Length, Padding,
+    Pixels, Point, Rectangle, Renderer, Shadow, Shell, Size, Vector, Widget,
 };
 <span class="kw">use </span>iced_widget::scrollable::Scrollable;
 
@@ -628,7 +633,7 @@
         <span class="self">self</span>,
         position: Point,
         target_height: f32,
-    ) -&gt; overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt; {
+    ) -&gt; overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt; {
         overlay::Element::new(position, Box::new(Overlay::new(<span class="self">self</span>, target_height)))
     }
 }
@@ -657,7 +662,7 @@
 
 <span class="kw">struct </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
     state: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Tree,
-    container: Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;,
+    container: Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;,
     width: f32,
     target_height: f32,
     style: (),
@@ -704,7 +709,7 @@
             .padding(padding)
             .style(<span class="kw">crate</span>::style::Container::Dropdown);
 
-        state.tree.diff(<span class="kw-2">&amp;mut </span>container <span class="kw">as </span><span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt;);
+        state.tree.diff(<span class="kw-2">&amp;mut </span>container <span class="kw">as </span><span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>&gt;);
 
         <span class="self">Self </span>{
             state: <span class="kw-2">&amp;mut </span>state.tree,
@@ -716,7 +721,9 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message&gt; iced_core::Overlay&lt;Message, <span class="kw">crate</span>::Renderer&gt; <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message&gt; iced_core::Overlay&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message&gt;
+{
     <span class="kw">fn </span>layout(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
@@ -740,15 +747,13 @@
         )
         .width(<span class="self">self</span>.width);
 
-        <span class="kw">let </span><span class="kw-2">mut </span>node = <span class="self">self</span>.container.layout(<span class="self">self</span>.state, renderer, <span class="kw-2">&amp;</span>limits);
+        <span class="kw">let </span>node = <span class="self">self</span>.container.layout(<span class="self">self</span>.state, renderer, <span class="kw-2">&amp;</span>limits);
 
-        node.move_to(<span class="kw">if </span>space_below &gt; space_above {
+        node.clone().move_to(<span class="kw">if </span>space_below &gt; space_above {
             position + Vector::new(<span class="number">0.0</span>, <span class="self">self</span>.target_height)
         } <span class="kw">else </span>{
             position - Vector::new(<span class="number">0.0</span>, node.size().height)
-        });
-
-        node
+        })
     }
 
     <span class="kw">fn </span>on_event(
@@ -792,9 +797,12 @@
         renderer.fill_quad(
             renderer::Quad {
                 bounds,
-                border_color: appearance.border_color,
-                border_width: appearance.border_width,
-                border_radius: appearance.border_radius,
+                border: Border {
+                    width: appearance.border_width,
+                    color: appearance.border_color,
+                    radius: appearance.border_radius,
+                },
+                shadow: Shadow::default(),
             },
             appearance.background,
         );
@@ -816,13 +824,11 @@
     selected_icon: <span class="prelude-ty">Option</span>&lt;svg::Handle&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S: AsRef&lt;str&gt;, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Renderer&gt; <span class="kw">for </span>List&lt;<span class="lifetime">&#39;a</span>, S, Message&gt; {
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Fill
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Shrink
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S: AsRef&lt;str&gt;, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>List&lt;<span class="lifetime">&#39;a</span>, S, Message&gt;
+{
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size::new(Length::Fill, Length::Shrink)
     }
 
     <span class="kw">fn </span>layout(
@@ -846,7 +852,7 @@
                 (f32::from(text_line_height) + <span class="self">self</span>.padding.vertical()) * <span class="self">self</span>.options.len() <span class="kw">as </span>f32,
             );
 
-            limits.resolve(intrinsic)
+            limits.resolve(Length::Fill, Length::Shrink, intrinsic)
         };
 
         layout::Node::new(size)
@@ -980,9 +986,11 @@
                             width: item_width,
                             ..bounds
                         },
-                        border_color: Color::TRANSPARENT,
-                        border_width: <span class="number">0.0</span>,
-                        border_radius: appearance.border_radius,
+                        border: Border {
+                            radius: appearance.border_radius,
+                            ..Default::default()
+                        },
+                        shadow: Shadow::default(),
                     },
                     appearance.selected_background,
                 );
@@ -1013,9 +1021,11 @@
                             width: item_width,
                             ..bounds
                         },
-                        border_color: Color::TRANSPARENT,
-                        border_width: <span class="number">0.0</span>,
-                        border_radius: appearance.border_radius,
+                        border: Border {
+                            radius: appearance.border_radius,
+                            ..Default::default()
+                        },
+                        shadow: Shadow::default(),
                     },
                     appearance.hovered_background,
                 );
@@ -1052,7 +1062,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S: AsRef&lt;str&gt;, Message: <span class="lifetime">&#39;a</span>&gt; From&lt;List&lt;<span class="lifetime">&#39;a</span>, S, Message&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
 {
     <span class="kw">fn </span>from(list: List&lt;<span class="lifetime">&#39;a</span>, S, Message&gt;) -&gt; <span class="self">Self </span>{
         Element::new(list)

@@ -14,17 +14,23 @@
 <a href="#14" id="14">14</a>
 <a href="#15" id="15">15</a>
 <a href="#16" id="16">16</a>
+<a href="#17" id="17">17</a>
+<a href="#18" id="18">18</a>
+<a href="#19" id="19">19</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Renderer;
-<span class="kw">use </span>iced::{widget, Length};
+</span><span class="kw">use </span>iced::{widget, Length};
+<span class="kw">use </span>iced_core::text;
 
-<span class="kw">pub fn </span>toggler&lt;<span class="lifetime">&#39;a</span>, Message&gt;(
+<span class="kw">pub fn </span>toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme: iced_widget::toggler::StyleSheet, Renderer&gt;(
     label: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
     is_checked: bool,
     f: <span class="kw">impl </span>Fn(bool) -&gt; Message + <span class="lifetime">&#39;a</span>,
-) -&gt; widget::Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+) -&gt; widget::Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+<span class="kw">where
+    </span>Renderer: iced_core::Renderer + text::Renderer,
+{
     widget::Toggler::new(label, is_checked, f)
         .size(<span class="number">24</span>)
         .spacing(<span class="number">12</span>)

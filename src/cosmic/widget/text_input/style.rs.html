@@ -61,7 +61,7 @@
 
 </span><span class="doccomment">//! Change the appearance of a text input.
 
-</span><span class="kw">use </span>iced_core::{Background, BorderRadius, Color};
+</span><span class="kw">use </span>iced_core::{border::Radius, Background, Color};
 
 <span class="doccomment">/// The appearance of a text input.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
@@ -69,7 +69,7 @@
     <span class="doccomment">/// The [`Background`] of the text input.
     </span><span class="kw">pub </span>background: Background,
     <span class="doccomment">/// The border radius of the text input.
-    </span><span class="kw">pub </span>border_radius: BorderRadius,
+    </span><span class="kw">pub </span>border_radius: Radius,
     <span class="doccomment">/// The border offset
     </span><span class="kw">pub </span>border_offset: <span class="prelude-ty">Option</span>&lt;f32&gt;,
     <span class="doccomment">/// The border width of the text input.

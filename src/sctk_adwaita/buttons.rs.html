@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/sctk-adwaita-335b3838158c83d2/da85380/src/buttons.rs`."><title>buttons.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sctk-adwaita-0.8.1/src/buttons.rs`."><title>buttons.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -343,77 +343,306 @@
 <a href="#343" id="343">343</a>
 <a href="#344" id="344">344</a>
 <a href="#345" id="345">345</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>smithay_client_toolkit::window::ButtonState;
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>log::{debug, warn};
+<span class="kw">use </span>smithay_client_toolkit::reexports::csd_frame::{WindowManagerCapabilities, WindowState};
 <span class="kw">use </span>tiny_skia::{FillRule, PathBuilder, PixmapMut, Rect, Stroke, Transform};
 
-<span class="kw">use crate</span>::{
-    theme::{ColorMap, BORDER_SIZE},
-    Location, SkiaResult,
-};
+<span class="kw">use crate</span>::{theme::ColorMap, Location, SkiaResult};
 
-<span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-</span><span class="kw">pub enum </span>ButtonKind {
-    Close,
-    Maximize,
-    Minimize,
+<span class="doccomment">/// The size of the button on the header bar in logical points.
+</span><span class="kw">const </span>BUTTON_SIZE: f32 = <span class="number">24.</span>;
+<span class="kw">const </span>BUTTON_MARGIN: f32 = <span class="number">5.</span>;
+<span class="kw">const </span>BUTTON_SPACING: f32 = <span class="number">13.</span>;
+
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Buttons {
+    <span class="comment">// Sorted by order vec of buttons for the left and right sides
+    </span>buttons_left: Vec&lt;Button&gt;,
+    buttons_right: Vec&lt;Button&gt;,
+    layout_config: <span class="prelude-ty">Option</span>&lt;(String, String)&gt;,
 }
 
-<span class="attr">#[derive(Default, Debug)]
+<span class="kw">type </span>ButtonLayout = (Vec&lt;Button&gt;, Vec&lt;Button&gt;);
+
+<span class="kw">impl </span>Default <span class="kw">for </span>Buttons {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span>(buttons_left, buttons_right) = Buttons::get_default_buttons_layout();
+
+        <span class="self">Self </span>{
+            buttons_left,
+            buttons_right,
+            layout_config: <span class="prelude-val">None</span>,
+        }
+    }
+}
+
+<span class="kw">impl </span>Buttons {
+    <span class="kw">pub fn </span>new(layout_config: <span class="prelude-ty">Option</span>&lt;(String, String)&gt;) -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span>Buttons::parse_button_layout(layout_config.clone()) {
+            <span class="prelude-val">Some</span>((buttons_left, buttons_right)) =&gt; <span class="self">Self </span>{
+                buttons_left,
+                buttons_right,
+                layout_config,
+            },
+            <span class="kw">_ </span>=&gt; <span class="self">Self</span>::default(),
+        }
+    }
+
+    <span class="doccomment">/// Rearrange the buttons with the new width.
+    </span><span class="kw">pub fn </span>arrange(<span class="kw-2">&amp;mut </span><span class="self">self</span>, width: u32, margin_h: f32) {
+        <span class="kw">let </span><span class="kw-2">mut </span>left_x = BUTTON_MARGIN + margin_h;
+        <span class="kw">let </span><span class="kw-2">mut </span>right_x = width <span class="kw">as </span>f32 - BUTTON_MARGIN;
+
+        <span class="kw">for </span>button <span class="kw">in </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.buttons_left {
+            button.offset = left_x;
+
+            <span class="comment">// Add the button size plus spacing
+            </span>left_x += BUTTON_SIZE + BUTTON_SPACING;
+        }
+
+        <span class="kw">for </span>button <span class="kw">in </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.buttons_right {
+            <span class="comment">// Subtract the button size.
+            </span>right_x -= BUTTON_SIZE;
+
+            <span class="comment">// Update it
+            </span>button.offset = right_x;
+
+            <span class="comment">// Subtract spacing for the next button.
+            </span>right_x -= BUTTON_SPACING;
+        }
+    }
+
+    <span class="doccomment">/// Find the coordinate of the button.
+    </span><span class="kw">pub fn </span>find_button(<span class="kw-2">&amp;</span><span class="self">self</span>, x: f64, y: f64) -&gt; Location {
+        <span class="kw">let </span>x = x <span class="kw">as </span>f32;
+        <span class="kw">let </span>y = y <span class="kw">as </span>f32;
+        <span class="kw">let </span>buttons = <span class="self">self</span>.buttons_left.iter().chain(<span class="self">self</span>.buttons_right.iter());
+
+        <span class="kw">for </span>button <span class="kw">in </span>buttons {
+            <span class="kw">if </span>button.contains(x, y) {
+                <span class="kw">return </span>Location::Button(button.kind);
+            }
+        }
+
+        Location::Head
+    }
+
+    <span class="kw">pub fn </span>update_wm_capabilities(<span class="kw-2">&amp;mut </span><span class="self">self</span>, wm_capabilites: WindowManagerCapabilities) {
+        <span class="kw">let </span>supports_maximize = wm_capabilites.contains(WindowManagerCapabilities::MAXIMIZE);
+        <span class="kw">let </span>supports_minimize = wm_capabilites.contains(WindowManagerCapabilities::MINIMIZE);
+
+        <span class="self">self</span>.update_buttons(supports_maximize, supports_minimize);
+    }
+
+    <span class="kw">pub fn </span>update_buttons(<span class="kw-2">&amp;mut </span><span class="self">self</span>, supports_maximize: bool, supports_minimize: bool) {
+        <span class="kw">let </span>is_supported = |button: <span class="kw-2">&amp;</span>Button| <span class="kw">match </span>button.kind {
+            ButtonKind::Close =&gt; <span class="bool-val">true</span>,
+            ButtonKind::Maximize =&gt; supports_maximize,
+            ButtonKind::Minimize =&gt; supports_minimize,
+        };
+
+        <span class="kw">let </span>(buttons_left, buttons_right) =
+            Buttons::parse_button_layout(<span class="self">self</span>.layout_config.clone())
+                .unwrap_or_else(Buttons::get_default_buttons_layout);
+
+        <span class="self">self</span>.buttons_left = buttons_left.into_iter().filter(is_supported).collect();
+        <span class="self">self</span>.buttons_right = buttons_right.into_iter().filter(is_supported).collect();
+    }
+
+    <span class="kw">pub fn </span>right_buttons_start_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f32&gt; {
+        <span class="self">self</span>.buttons_right.last().map(|button| button.x())
+    }
+
+    <span class="kw">pub fn </span>left_buttons_end_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f32&gt; {
+        <span class="self">self</span>.buttons_left.last().map(|button| button.end_x())
+    }
+
+    <span class="attr">#[allow(clippy::too_many_arguments)]
+    </span><span class="kw">pub fn </span>draw(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        start_x: f32,
+        end_x: f32,
+        scale: f32,
+        colors: <span class="kw-2">&amp;</span>ColorMap,
+        mouse_location: Location,
+        pixmap: <span class="kw-2">&amp;mut </span>PixmapMut,
+        resizable: bool,
+        state: <span class="kw-2">&amp;</span>WindowState,
+    ) {
+        <span class="kw">let </span>left_buttons_right_limit =
+            <span class="self">self</span>.right_buttons_start_x().unwrap_or(end_x).min(end_x) - BUTTON_SPACING;
+        <span class="kw">let </span>buttons_left = <span class="self">self</span>.buttons_left.iter().map(|x| (x, Side::Left));
+        <span class="kw">let </span>buttons_right = <span class="self">self</span>.buttons_right.iter().map(|x| (x, Side::Right));
+
+        <span class="kw">for </span>(button, side) <span class="kw">in </span>buttons_left.chain(buttons_right) {
+            <span class="kw">let </span>is_visible = button.x() &gt; start_x &amp;&amp; button.end_x() &lt; end_x
+                <span class="comment">// If we have buttons from both sides and they overlap, prefer the right side
+                </span>&amp;&amp; (side == Side::Right || button.end_x() &lt; left_buttons_right_limit);
+
+            <span class="kw">if </span>is_visible {
+                button.draw(scale, colors, mouse_location, pixmap, resizable, state);
+            }
+        }
+    }
+
+    <span class="kw">fn </span>parse_button_layout(sides: <span class="prelude-ty">Option</span>&lt;(String, String)&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;ButtonLayout&gt; {
+        <span class="kw">let </span><span class="prelude-val">Some</span>((left_side, right_side)) = sides <span class="kw">else </span>{
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        };
+
+        <span class="kw">let </span>buttons_left = Buttons::parse_button_layout_side(left_side, Side::Left);
+        <span class="kw">let </span>buttons_right = Buttons::parse_button_layout_side(right_side, Side::Right);
+
+        <span class="kw">if </span>buttons_left.is_empty() &amp;&amp; buttons_right.is_empty() {
+            <span class="macro">warn!</span>(<span class="string">&quot;No valid buttons found in configuration&quot;</span>);
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        }
+
+        <span class="prelude-val">Some</span>((buttons_left, buttons_right))
+    }
+
+    <span class="kw">fn </span>parse_button_layout_side(config: String, side: Side) -&gt; Vec&lt;Button&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>buttons: Vec&lt;Button&gt; = <span class="macro">vec!</span>[];
+
+        <span class="kw">for </span>button <span class="kw">in </span>config.split(<span class="string">&#39;,&#39;</span>).take(<span class="number">3</span>) {
+            <span class="kw">let </span>button_kind = <span class="kw">match </span>button {
+                <span class="string">&quot;close&quot; </span>=&gt; ButtonKind::Close,
+                <span class="string">&quot;maximize&quot; </span>=&gt; ButtonKind::Maximize,
+                <span class="string">&quot;minimize&quot; </span>=&gt; ButtonKind::Minimize,
+                <span class="string">&quot;appmenu&quot; </span>=&gt; {
+                    <span class="macro">debug!</span>(<span class="string">&quot;Ignoring \&quot;appmenu\&quot; button&quot;</span>);
+                    <span class="kw">continue</span>;
+                }
+                <span class="kw">_ </span>=&gt; {
+                    <span class="macro">warn!</span>(<span class="string">&quot;Ignoring unknown button type: {button}&quot;</span>);
+                    <span class="kw">continue</span>;
+                }
+            };
+
+            buttons.push(Button::new(button_kind));
+        }
+
+        <span class="comment">// For the right side, we need to revert the order
+        </span><span class="kw">if </span>side == Side::Right {
+            buttons.into_iter().rev().collect()
+        } <span class="kw">else </span>{
+            buttons
+        }
+    }
+
+    <span class="kw">fn </span>get_default_buttons_layout() -&gt; ButtonLayout {
+        (
+            <span class="macro">vec!</span>[],
+            <span class="macro">vec!</span>[
+                Button::new(ButtonKind::Close),
+                Button::new(ButtonKind::Maximize),
+                Button::new(ButtonKind::Minimize),
+            ],
+        )
+    }
+}
+
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Button {
-    x: f32,
-    y: f32,
-    size: f32,
+    <span class="doccomment">/// The button offset into the header bar canvas.
+    </span>offset: f32,
+    <span class="doccomment">/// The kind of the button.
+    </span>kind: ButtonKind,
 }
 
 <span class="kw">impl </span>Button {
+    <span class="kw">pub fn </span>new(kind: ButtonKind) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ offset: <span class="number">0.</span>, kind }
+    }
+
     <span class="kw">pub fn </span>radius(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
-        <span class="self">self</span>.size / <span class="number">2.0
+        BUTTON_SIZE / <span class="number">2.0
     </span>}
 
     <span class="kw">pub fn </span>x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
-        <span class="self">self</span>.x
+        <span class="self">self</span>.offset
     }
 
     <span class="kw">pub fn </span>center_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
-        <span class="self">self</span>.x + <span class="self">self</span>.radius()
+        <span class="self">self</span>.offset + <span class="self">self</span>.radius()
     }
 
     <span class="kw">pub fn </span>center_y(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
-        <span class="self">self</span>.y + <span class="self">self</span>.radius()
+        BUTTON_MARGIN + <span class="self">self</span>.radius()
+    }
+
+    <span class="kw">pub fn </span>end_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
+        <span class="self">self</span>.offset + BUTTON_SIZE
     }
 
     <span class="kw">fn </span>contains(<span class="kw-2">&amp;</span><span class="self">self</span>, x: f32, y: f32) -&gt; bool {
-        x &gt; <span class="self">self</span>.x &amp;&amp; x &lt; <span class="self">self</span>.x + <span class="self">self</span>.size &amp;&amp; y &gt; <span class="self">self</span>.y &amp;&amp; y &lt; <span class="self">self</span>.y + <span class="self">self</span>.size
+        x &gt; <span class="self">self</span>.offset
+            &amp;&amp; x &lt; <span class="self">self</span>.offset + BUTTON_SIZE
+            &amp;&amp; y &gt; BUTTON_MARGIN
+            &amp;&amp; y &lt; BUTTON_MARGIN + BUTTON_SIZE
     }
-}
 
-<span class="kw">impl </span>Button {
-    <span class="kw">pub fn </span>draw_minimize(
+    <span class="kw">pub fn </span>draw(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         scale: f32,
         colors: <span class="kw-2">&amp;</span>ColorMap,
-        mouses: <span class="kw-2">&amp;</span>[Location],
+        mouse_location: Location,
         pixmap: <span class="kw-2">&amp;mut </span>PixmapMut,
+        resizable: bool,
+        state: <span class="kw-2">&amp;</span>WindowState,
     ) -&gt; SkiaResult {
-        <span class="kw">let </span>btn_state = <span class="kw">if </span>mouses.contains(<span class="kw-2">&amp;</span>Location::Button(ButtonKind::Minimize)) {
-            ButtonState::Hovered
-        } <span class="kw">else </span>{
-            ButtonState::Idle
-        };
-
-        <span class="kw">let </span>radius = <span class="self">self</span>.radius();
-
-        <span class="kw">let </span>x = <span class="self">self</span>.center_x();
-        <span class="kw">let </span>y = <span class="self">self</span>.center_y();
-
-        <span class="kw">let </span>circle = PathBuilder::from_circle(x, y, radius)<span class="question-mark">?</span>;
-
-        <span class="kw">let </span>button_bg = <span class="kw">if </span>btn_state == ButtonState::Hovered {
+        <span class="kw">let </span>button_bg = <span class="kw">if </span>mouse_location == Location::Button(<span class="self">self</span>.kind)
+            &amp;&amp; (resizable || <span class="self">self</span>.kind != ButtonKind::Maximize)
+        {
             colors.button_hover_paint()
         } <span class="kw">else </span>{
             colors.button_idle_paint()
         };
 
+        <span class="comment">// Convert to pixels.
+        </span><span class="kw">let </span>x = <span class="self">self</span>.center_x() * scale;
+        <span class="kw">let </span>y = <span class="self">self</span>.center_y() * scale;
+        <span class="kw">let </span>radius = <span class="self">self</span>.radius() * scale;
+
+        <span class="comment">// Draw the button background.
+        </span><span class="kw">let </span>circle = PathBuilder::from_circle(x, y, radius)<span class="question-mark">?</span>;
         pixmap.fill_path(
             <span class="kw-2">&amp;</span>circle,
             <span class="kw-2">&amp;</span>button_bg,
@@ -423,269 +652,114 @@
         );
 
         <span class="kw">let </span><span class="kw-2">mut </span>button_icon_paint = colors.button_icon_paint();
-        button_icon_paint.anti_alias = <span class="bool-val">false</span>;
+        <span class="comment">// Do AA only for diagonal lines.
+        </span>button_icon_paint.anti_alias = <span class="self">self</span>.kind == ButtonKind::Close;
 
-        <span class="kw">let </span>len = <span class="number">8.0 </span>* scale;
-        <span class="kw">let </span>hlen = len / <span class="number">2.0</span>;
-        pixmap.fill_rect(
-            Rect::from_xywh(x - hlen, y + hlen, len, <span class="number">1.0 </span>* scale)<span class="question-mark">?</span>,
-            <span class="kw-2">&amp;</span>button_icon_paint,
-            Transform::identity(),
-            <span class="prelude-val">None</span>,
-        );
+        <span class="comment">// Draw the icon.
+        </span><span class="kw">match </span><span class="self">self</span>.kind {
+            ButtonKind::Close =&gt; {
+                <span class="kw">let </span>x_icon = {
+                    <span class="kw">let </span>size = <span class="number">3.5 </span>* scale;
+                    <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
 
-        <span class="prelude-val">Some</span>(())
-    }
+                    {
+                        <span class="kw">let </span>sx = x - size;
+                        <span class="kw">let </span>sy = y - size;
+                        <span class="kw">let </span>ex = x + size;
+                        <span class="kw">let </span>ey = y + size;
 
-    <span class="kw">pub fn </span>draw_maximize(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        scale: f32,
-        colors: <span class="kw-2">&amp;</span>ColorMap,
-        mouses: <span class="kw-2">&amp;</span>[Location],
-        maximizable: bool,
-        is_maximized: bool,
-        pixmap: <span class="kw-2">&amp;mut </span>PixmapMut,
-    ) -&gt; SkiaResult {
-        <span class="kw">let </span>btn_state = <span class="kw">if </span>!maximizable {
-            ButtonState::Disabled
-        } <span class="kw">else if </span>mouses
-            .iter()
-            .any(|<span class="kw-2">&amp;</span>l| l == Location::Button(ButtonKind::Maximize))
-        {
-            ButtonState::Hovered
-        } <span class="kw">else </span>{
-            ButtonState::Idle
-        };
+                        pb.move_to(sx, sy);
+                        pb.line_to(ex, ey);
+                        pb.close();
+                    }
 
-        <span class="kw">let </span>radius = <span class="self">self</span>.radius();
+                    {
+                        <span class="kw">let </span>sx = x - size;
+                        <span class="kw">let </span>sy = y + size;
+                        <span class="kw">let </span>ex = x + size;
+                        <span class="kw">let </span>ey = y - size;
 
-        <span class="kw">let </span>x = <span class="self">self</span>.center_x();
-        <span class="kw">let </span>y = <span class="self">self</span>.center_y();
+                        pb.move_to(sx, sy);
+                        pb.line_to(ex, ey);
+                        pb.close();
+                    }
 
-        <span class="kw">let </span>path1 = {
-            <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
-            pb.push_circle(x, y, radius);
-            pb.finish()<span class="question-mark">?
-        </span>};
+                    pb.finish()<span class="question-mark">?
+                </span>};
 
-        <span class="kw">let </span>button_bg = <span class="kw">if </span>btn_state == ButtonState::Hovered {
-            colors.button_hover_paint()
-        } <span class="kw">else </span>{
-            colors.button_idle_paint()
-        };
-
-        pixmap.fill_path(
-            <span class="kw-2">&amp;</span>path1,
-            <span class="kw-2">&amp;</span>button_bg,
-            FillRule::Winding,
-            Transform::identity(),
-            <span class="prelude-val">None</span>,
-        );
-
-        <span class="kw">let </span>path2 = {
-            <span class="kw">let </span>size = <span class="number">8.0 </span>* scale;
-            <span class="kw">let </span>hsize = size / <span class="number">2.0</span>;
-            <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
-
-            <span class="kw">let </span>x = x - hsize;
-            <span class="kw">let </span>y = y - hsize;
-            pb.push_rect(x, y, size, size);
-
-            <span class="kw">if </span>is_maximized {
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(rect) = Rect::from_xywh(x + <span class="number">2.0</span>, y - <span class="number">2.0</span>, size, size) {
-                    pb.move_to(rect.left(), rect.top());
-                    pb.line_to(rect.right(), rect.top());
-                    pb.line_to(rect.right(), rect.bottom());
-                }
+                pixmap.stroke_path(
+                    <span class="kw-2">&amp;</span>x_icon,
+                    <span class="kw-2">&amp;</span>button_icon_paint,
+                    <span class="kw-2">&amp;</span>Stroke {
+                        width: <span class="number">1.1 </span>* scale,
+                        ..Default::default()
+                    },
+                    Transform::identity(),
+                    <span class="prelude-val">None</span>,
+                );
             }
+            ButtonKind::Maximize =&gt; {
+                <span class="kw">let </span>path2 = {
+                    <span class="kw">let </span>size = <span class="number">8.0 </span>* scale;
+                    <span class="kw">let </span>hsize = size / <span class="number">2.0</span>;
+                    <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
 
-            pb.finish()<span class="question-mark">?
-        </span>};
+                    <span class="kw">let </span>x = x - hsize;
+                    <span class="kw">let </span>y = y - hsize;
+                    <span class="kw">if </span>state.contains(WindowState::MAXIMIZED) {
+                        <span class="kw">let </span>offset = <span class="number">2.0 </span>* scale;
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(rect) =
+                            Rect::from_xywh(x, y + offset, size - offset, size - offset)
+                        {
+                            pb.push_rect(rect);
+                            pb.move_to(rect.left() + offset, rect.top() - offset);
+                            pb.line_to(rect.right() + offset, rect.top() - offset);
+                            pb.line_to(rect.right() + offset, rect.bottom() - offset + <span class="number">0.5</span>);
+                        }
+                    } <span class="kw">else if let </span><span class="prelude-val">Some</span>(rect) = Rect::from_xywh(x, y, size, size) {
+                        pb.push_rect(rect);
+                    }
 
-        <span class="kw">let </span><span class="kw-2">mut </span>button_icon_paint = colors.button_icon_paint();
-        button_icon_paint.anti_alias = <span class="bool-val">false</span>;
-        pixmap.stroke_path(
-            <span class="kw-2">&amp;</span>path2,
-            <span class="kw-2">&amp;</span>button_icon_paint,
-            <span class="kw-2">&amp;</span>Stroke {
-                width: <span class="number">1.0 </span>* scale,
-                ..Default::default()
-            },
-            Transform::identity(),
-            <span class="prelude-val">None</span>,
-        );
+                    pb.finish()<span class="question-mark">?
+                </span>};
 
-        <span class="prelude-val">Some</span>(())
-    }
-
-    <span class="kw">pub fn </span>draw_close(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        scale: f32,
-        colors: <span class="kw-2">&amp;</span>ColorMap,
-        mouses: <span class="kw-2">&amp;</span>[Location],
-        pixmap: <span class="kw-2">&amp;mut </span>PixmapMut,
-    ) -&gt; SkiaResult {
-        <span class="comment">// Draw the close button
-        </span><span class="kw">let </span>btn_state = <span class="kw">if </span>mouses
-            .iter()
-            .any(|<span class="kw-2">&amp;</span>l| l == Location::Button(ButtonKind::Close))
-        {
-            ButtonState::Hovered
-        } <span class="kw">else </span>{
-            ButtonState::Idle
-        };
-
-        <span class="kw">let </span>radius = <span class="self">self</span>.radius();
-
-        <span class="kw">let </span>x = <span class="self">self</span>.center_x();
-        <span class="kw">let </span>y = <span class="self">self</span>.center_y();
-
-        <span class="kw">let </span>path1 = {
-            <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
-            pb.push_circle(x, y, radius);
-            pb.finish()<span class="question-mark">?
-        </span>};
-
-        <span class="kw">let </span>button_bg = <span class="kw">if </span>btn_state == ButtonState::Hovered {
-            colors.button_hover_paint()
-        } <span class="kw">else </span>{
-            colors.button_idle_paint()
-        };
-
-        pixmap.fill_path(
-            <span class="kw-2">&amp;</span>path1,
-            <span class="kw-2">&amp;</span>button_bg,
-            FillRule::Winding,
-            Transform::identity(),
-            <span class="prelude-val">None</span>,
-        );
-
-        <span class="kw">let </span>x_icon = {
-            <span class="kw">let </span>size = <span class="number">3.5 </span>* scale;
-            <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
-
-            {
-                <span class="kw">let </span>sx = x - size;
-                <span class="kw">let </span>sy = y - size;
-                <span class="kw">let </span>ex = x + size;
-                <span class="kw">let </span>ey = y + size;
-
-                pb.move_to(sx, sy);
-                pb.line_to(ex, ey);
-                pb.close();
+                pixmap.stroke_path(
+                    <span class="kw-2">&amp;</span>path2,
+                    <span class="kw-2">&amp;</span>button_icon_paint,
+                    <span class="kw-2">&amp;</span>Stroke {
+                        width: <span class="number">1.0 </span>* scale,
+                        ..Default::default()
+                    },
+                    Transform::identity(),
+                    <span class="prelude-val">None</span>,
+                );
             }
-
-            {
-                <span class="kw">let </span>sx = x - size;
-                <span class="kw">let </span>sy = y + size;
-                <span class="kw">let </span>ex = x + size;
-                <span class="kw">let </span>ey = y - size;
-
-                pb.move_to(sx, sy);
-                pb.line_to(ex, ey);
-                pb.close();
+            ButtonKind::Minimize =&gt; {
+                <span class="kw">let </span>len = <span class="number">8.0 </span>* scale;
+                <span class="kw">let </span>hlen = len / <span class="number">2.0</span>;
+                pixmap.fill_rect(
+                    Rect::from_xywh(x - hlen, y + hlen, len, scale)<span class="question-mark">?</span>,
+                    <span class="kw-2">&amp;</span>button_icon_paint,
+                    Transform::identity(),
+                    <span class="prelude-val">None</span>,
+                );
             }
-
-            pb.finish()<span class="question-mark">?
-        </span>};
-
-        <span class="kw">let </span><span class="kw-2">mut </span>button_icon_paint = colors.button_icon_paint();
-        button_icon_paint.anti_alias = <span class="bool-val">true</span>;
-        pixmap.stroke_path(
-            <span class="kw-2">&amp;</span>x_icon,
-            <span class="kw-2">&amp;</span>button_icon_paint,
-            <span class="kw-2">&amp;</span>Stroke {
-                width: <span class="number">1.1 </span>* scale,
-                ..Default::default()
-            },
-            Transform::identity(),
-            <span class="prelude-val">None</span>,
-        );
+        }
 
         <span class="prelude-val">Some</span>(())
     }
 }
 
-<span class="attr">#[derive(Debug)]
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Buttons {
-    <span class="kw">pub </span>close: Button,
-    <span class="kw">pub </span>maximize: Button,
-    <span class="kw">pub </span>minimize: Button,
-
-    w: u32,
-    h: u32,
-
-    scale: u32,
+<span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+</span><span class="kw">pub enum </span>ButtonKind {
+    Close,
+    Maximize,
+    Minimize,
 }
 
-<span class="kw">impl </span>Default <span class="kw">for </span>Buttons {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            close: Default::default(),
-            maximize: Default::default(),
-            minimize: Default::default(),
-            scale: <span class="number">1</span>,
-
-            w: <span class="number">0</span>,
-            h: <span class="kw">super</span>::theme::HEADER_SIZE,
-        }
-    }
-}
-
-<span class="kw">impl </span>Buttons {
-    <span class="kw">pub fn </span>arrange(<span class="kw-2">&amp;mut </span><span class="self">self</span>, w: u32) {
-        <span class="self">self</span>.w = w;
-
-        <span class="kw">let </span>scale = <span class="self">self</span>.scale <span class="kw">as </span>f32;
-        <span class="kw">let </span>margin_top = BORDER_SIZE <span class="kw">as </span>f32 * scale;
-        <span class="kw">let </span>margin = <span class="number">5.0 </span>* scale;
-        <span class="kw">let </span>spacing = <span class="number">13.0 </span>* scale;
-        <span class="kw">let </span>size = <span class="number">12.0 </span>* <span class="number">2.0 </span>* scale;
-
-        <span class="kw">let </span><span class="kw-2">mut </span>x = w <span class="kw">as </span>f32 * scale - margin - BORDER_SIZE <span class="kw">as </span>f32 * scale;
-        <span class="kw">let </span>y = margin + margin_top;
-
-        x -= size;
-        <span class="self">self</span>.close.x = x;
-        <span class="self">self</span>.close.y = y;
-        <span class="self">self</span>.close.size = size;
-
-        x -= size;
-        x -= spacing;
-        <span class="self">self</span>.maximize.x = x;
-        <span class="self">self</span>.maximize.y = y;
-        <span class="self">self</span>.maximize.size = size;
-
-        x -= size;
-        x -= spacing;
-        <span class="self">self</span>.minimize.x = x;
-        <span class="self">self</span>.minimize.y = y;
-        <span class="self">self</span>.minimize.size = size;
-    }
-
-    <span class="kw">pub fn </span>update_scale(<span class="kw-2">&amp;mut </span><span class="self">self</span>, scale: u32) {
-        <span class="kw">if </span><span class="self">self</span>.scale != scale {
-            <span class="self">self</span>.scale = scale;
-            <span class="self">self</span>.arrange(<span class="self">self</span>.w);
-        }
-    }
-
-    <span class="kw">pub fn </span>find_button(<span class="kw-2">&amp;</span><span class="self">self</span>, x: f64, y: f64) -&gt; Location {
-        <span class="kw">let </span>x = x <span class="kw">as </span>f32 * <span class="self">self</span>.scale <span class="kw">as </span>f32;
-        <span class="kw">let </span>y = y <span class="kw">as </span>f32 * <span class="self">self</span>.scale <span class="kw">as </span>f32;
-        <span class="kw">if </span><span class="self">self</span>.close.contains(x, y) {
-            Location::Button(ButtonKind::Close)
-        } <span class="kw">else if </span><span class="self">self</span>.maximize.contains(x, y) {
-            Location::Button(ButtonKind::Maximize)
-        } <span class="kw">else if </span><span class="self">self</span>.minimize.contains(x, y) {
-            Location::Button(ButtonKind::Minimize)
-        } <span class="kw">else </span>{
-            Location::Head
-        }
-    }
-
-    <span class="kw">pub fn </span>scaled_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (u32, u32) {
-        (<span class="self">self</span>.w * <span class="self">self</span>.scale, <span class="self">self</span>.h * <span class="self">self</span>.scale)
-    }
+<span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+</span><span class="kw">pub enum </span>Side {
+    Left,
+    Right,
 }
 </code></pre></div></section></main></body></html>

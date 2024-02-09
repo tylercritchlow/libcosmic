@@ -91,7 +91,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="doccomment">//! Change the apperance of a button.
-</span><span class="kw">use </span>iced_core::{Background, BorderRadius, Color, Vector};
+</span><span class="kw">use </span>iced_core::{border::Radius, Background, Color, Vector};
 
 <span class="kw">use </span><span class="kw">crate</span>::theme::THEME;
 
@@ -106,7 +106,7 @@
     </span><span class="kw">pub </span>background: <span class="prelude-ty">Option</span>&lt;Background&gt;,
 
     <span class="doccomment">/// The border radius of the button.
-    </span><span class="kw">pub </span>border_radius: BorderRadius,
+    </span><span class="kw">pub </span>border_radius: Radius,
 
     <span class="doccomment">/// The border width of the button.
     </span><span class="kw">pub </span>border_width: f32,
@@ -128,13 +128,13 @@
 }
 
 <span class="kw">impl </span>Appearance {
-    <span class="comment">// TODO: `BorderRadius` is not `const fn` compatible.
+    <span class="comment">// TODO: `Radius` is not `const fn` compatible.
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>rad_0 = THEME.with(|t| t.borrow().cosmic().corner_radii.radius_0);
         <span class="self">Self </span>{
             shadow_offset: Vector::new(<span class="number">0.0</span>, <span class="number">0.0</span>),
             background: <span class="prelude-val">None</span>,
-            border_radius: BorderRadius::from(rad_0),
+            border_radius: Radius::from(rad_0),
             border_width: <span class="number">0.0</span>,
             border_color: Color::TRANSPARENT,
             outline_width: <span class="number">0.0</span>,

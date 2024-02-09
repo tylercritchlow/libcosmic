@@ -732,6 +732,11 @@
 <a href="#732" id="732">732</a>
 <a href="#733" id="733">733</a>
 <a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Model;
 <span class="kw">pub use </span><span class="kw">crate</span>::widget::dropdown::menu::{Appearance, StyleSheet};
 
@@ -743,8 +748,8 @@
 <span class="kw">use </span>iced_core::text::{<span class="self">self</span>, Text};
 <span class="kw">use </span>iced_core::widget::Tree;
 <span class="kw">use </span>iced_core::{
-    alignment, mouse, overlay, renderer, svg, touch, Clipboard, Color, Element, Length, Padding,
-    Pixels, Point, Rectangle, Renderer, Shell, Size, Vector, Widget,
+    alignment, mouse, overlay, renderer, svg, touch, Border, Clipboard, Element, Length, Padding,
+    Pixels, Point, Rectangle, Renderer, Shadow, Shell, Size, Vector, Widget,
 };
 <span class="kw">use </span>iced_widget::scrollable::Scrollable;
 
@@ -832,7 +837,7 @@
         <span class="self">self</span>,
         position: Point,
         target_height: f32,
-    ) -&gt; overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt; {
+    ) -&gt; overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt; {
         overlay::Element::new(position, Box::new(Overlay::new(<span class="self">self</span>, target_height)))
     }
 }
@@ -861,7 +866,7 @@
 
 <span class="kw">struct </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
     state: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Tree,
-    container: Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;,
+    container: Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;,
     width: f32,
     target_height: f32,
     style: (),
@@ -911,7 +916,7 @@
             .padding(padding)
             .style(<span class="kw">crate</span>::style::Container::Dropdown);
 
-        state.tree.diff(<span class="kw-2">&amp;mut </span>container <span class="kw">as </span><span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt;);
+        state.tree.diff(<span class="kw-2">&amp;mut </span>container <span class="kw">as </span><span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>&gt;);
 
         <span class="self">Self </span>{
             state: <span class="kw-2">&amp;mut </span>state.tree,
@@ -923,7 +928,9 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message&gt; iced_core::Overlay&lt;Message, <span class="kw">crate</span>::Renderer&gt; <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message&gt; iced_core::Overlay&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message&gt;
+{
     <span class="kw">fn </span>layout(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
@@ -949,7 +956,7 @@
 
         <span class="kw">let </span><span class="kw-2">mut </span>node = <span class="self">self</span>.container.layout(<span class="self">self</span>.state, renderer, <span class="kw-2">&amp;</span>limits);
 
-        node.move_to(<span class="kw">if </span>space_below &gt; space_above {
+        node = node.clone().move_to(<span class="kw">if </span>space_below &gt; space_above {
             position + Vector::new(<span class="number">0.0</span>, <span class="self">self</span>.target_height)
         } <span class="kw">else </span>{
             position - Vector::new(<span class="number">0.0</span>, node.size().height)
@@ -999,9 +1006,12 @@
         renderer.fill_quad(
             renderer::Quad {
                 bounds,
-                border_color: appearance.border_color,
-                border_width: appearance.border_width,
-                border_radius: appearance.border_radius,
+                border: Border {
+                    width: appearance.border_width,
+                    color: appearance.border_color,
+                    radius: appearance.border_radius,
+                },
+                shadow: Shadow::default(),
             },
             appearance.background,
         );
@@ -1023,17 +1033,14 @@
     selected_icon: <span class="prelude-ty">Option</span>&lt;svg::Handle&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S, Item, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Renderer&gt; <span class="kw">for </span>InnerList&lt;<span class="lifetime">&#39;a</span>, S, Item, Message&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S, Item, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>InnerList&lt;<span class="lifetime">&#39;a</span>, S, Item, Message&gt;
 <span class="kw">where
     </span>S: AsRef&lt;str&gt;,
     Item: Clone + PartialEq,
 {
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Fill
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Shrink
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size::new(Length::Fill, Length::Shrink)
     }
 
     <span class="kw">fn </span>layout(
@@ -1072,7 +1079,7 @@
                 separators + descriptions + options
             });
 
-            limits.resolve(intrinsic)
+            limits.resolve(Length::Fill, Length::Shrink, intrinsic)
         };
 
         layout::Node::new(size)
@@ -1273,9 +1280,11 @@
                         renderer.fill_quad(
                             renderer::Quad {
                                 bounds,
-                                border_color: Color::TRANSPARENT,
-                                border_width: <span class="number">0.0</span>,
-                                border_radius: appearance.border_radius,
+                                border: Border {
+                                    radius: appearance.border_radius,
+                                    ..Default::default()
+                                },
+                                shadow: Shadow::default(),
                             },
                             appearance.selected_background,
                         );
@@ -1308,9 +1317,11 @@
                         renderer.fill_quad(
                             renderer::Quad {
                                 bounds,
-                                border_color: Color::TRANSPARENT,
-                                border_width: <span class="number">0.0</span>,
-                                border_radius: appearance.border_radius,
+                                border: Border {
+                                    radius: appearance.border_radius,
+                                    ..Default::default()
+                                },
+                                shadow: Shadow::default(),
                             },
                             appearance.hovered_background,
                         );
@@ -1348,18 +1359,17 @@
                 OptionElement::Separator =&gt; {
                     <span class="kw">let </span>divider = <span class="kw">crate</span>::widget::divider::horizontal::light().height(<span class="number">1.0</span>);
 
-                    <span class="kw">let </span><span class="kw-2">mut </span>layout_node = layout::Node::new(Size {
+                    <span class="kw">let </span>layout_node = layout::Node::new(Size {
                         width: bounds.width,
                         height: <span class="number">1.0</span>,
-                    });
-
-                    layout_node.move_to(Point {
+                    })
+                    .move_to(Point {
                         x: bounds.x,
                         y: bounds.y + (<span class="self">self</span>.padding.vertical() / <span class="number">2.0</span>) - <span class="number">4.0</span>,
                     });
 
-                    Widget::&lt;Message, <span class="kw">crate</span>::Renderer&gt;::draw(
-                        <span class="kw-2">&amp;</span><span class="kw">crate</span>::Element::&lt;Message&gt;::from(divider),
+                    Widget::&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;::draw(
+                        <span class="kw">crate</span>::Element::&lt;Message&gt;::from(divider).as_widget(),
                         <span class="kw-2">&amp;</span>Tree::empty(),
                         renderer,
                         theme,
@@ -1399,7 +1409,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S, Item, Message: <span class="lifetime">&#39;a</span>&gt; From&lt;InnerList&lt;<span class="lifetime">&#39;a</span>, S, Item, Message&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
 <span class="kw">where
     </span>S: AsRef&lt;str&gt;,
     Item: Clone + PartialEq,

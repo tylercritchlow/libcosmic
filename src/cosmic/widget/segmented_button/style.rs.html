@@ -52,13 +52,13 @@
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
-</span><span class="kw">use </span>iced_core::{Background, BorderRadius, Color};
+</span><span class="kw">use </span>iced_core::{border::Radius, Background, Color};
 
 <span class="doccomment">/// Appearance of the segmented button.
 </span><span class="attr">#[derive(Default, Clone, Copy)]
 </span><span class="kw">pub struct </span>Appearance {
     <span class="kw">pub </span>background: <span class="prelude-ty">Option</span>&lt;Background&gt;,
-    <span class="kw">pub </span>border_radius: BorderRadius,
+    <span class="kw">pub </span>border_radius: Radius,
     <span class="kw">pub </span>border_bottom: <span class="prelude-ty">Option</span>&lt;(f32, Color)&gt;,
     <span class="kw">pub </span>border_end: <span class="prelude-ty">Option</span>&lt;(f32, Color)&gt;,
     <span class="kw">pub </span>border_start: <span class="prelude-ty">Option</span>&lt;(f32, Color)&gt;,
@@ -72,7 +72,7 @@
 <span class="doccomment">/// Appearance of an item in the segmented button.
 </span><span class="attr">#[derive(Default, Clone, Copy)]
 </span><span class="kw">pub struct </span>ItemAppearance {
-    <span class="kw">pub </span>border_radius: BorderRadius,
+    <span class="kw">pub </span>border_radius: Radius,
     <span class="kw">pub </span>border_bottom: <span class="prelude-ty">Option</span>&lt;(f32, Color)&gt;,
     <span class="kw">pub </span>border_end: <span class="prelude-ty">Option</span>&lt;(f32, Color)&gt;,
     <span class="kw">pub </span>border_start: <span class="prelude-ty">Option</span>&lt;(f32, Color)&gt;,

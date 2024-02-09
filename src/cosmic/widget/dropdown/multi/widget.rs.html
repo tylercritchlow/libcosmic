@@ -556,9 +556,6 @@
 <a href="#556" id="556">556</a>
 <a href="#557" id="557">557</a>
 <a href="#558" id="558">558</a>
-<a href="#559" id="559">559</a>
-<a href="#560" id="560">560</a>
-<a href="#561" id="561">561</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // Copyright 2019 Héctor Ramón, Iced contributors
 // SPDX-License-Identifier: MPL-2.0 AND MIT
@@ -569,7 +566,7 @@
 <span class="kw">use </span>iced_core::event::{<span class="self">self</span>, Event};
 <span class="kw">use </span>iced_core::text::{<span class="self">self</span>, Paragraph, Text};
 <span class="kw">use </span>iced_core::widget::tree::{<span class="self">self</span>, Tree};
-<span class="kw">use </span>iced_core::{alignment, keyboard, layout, mouse, overlay, renderer, svg, touch};
+<span class="kw">use </span>iced_core::{alignment, keyboard, layout, mouse, overlay, renderer, svg, touch, Shadow};
 <span class="kw">use </span>iced_core::{Clipboard, Layout, Length, Padding, Pixels, Rectangle, Shell, Size, Widget};
 <span class="kw">use </span>std::ffi::OsStr;
 
@@ -621,7 +618,7 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, S: AsRef&lt;str&gt;, Message: <span class="lifetime">&#39;a</span>, Item: Clone + PartialEq + <span class="lifetime">&#39;static</span>&gt;
-    Widget&lt;Message, <span class="kw">crate</span>::Renderer&gt; <span class="kw">for </span>Dropdown&lt;<span class="lifetime">&#39;a</span>, S, Message, Item&gt;
+    Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt; <span class="kw">for </span>Dropdown&lt;<span class="lifetime">&#39;a</span>, S, Message, Item&gt;
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         tree::Tag::of::&lt;State&lt;Item&gt;&gt;()
@@ -631,12 +628,8 @@
         tree::State::new(State::&lt;Item&gt;::new())
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Shrink
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size::new(<span class="self">self</span>.width, Length::Shrink)
     }
 
     <span class="kw">fn </span>layout(
@@ -749,7 +742,7 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;&gt; {
         <span class="kw">let </span>state = tree.state.downcast_mut::&lt;State&lt;Item&gt;&gt;();
 
         overlay(
@@ -830,7 +823,7 @@
 ) -&gt; layout::Node {
     <span class="kw">use </span>std::f32;
 
-    <span class="kw">let </span>limits = limits.width(width).height(Length::Shrink).pad(padding);
+    <span class="kw">let </span>limits = limits.width(width).height(Length::Shrink).shrink(padding);
 
     <span class="kw">let </span>max_width = <span class="kw">match </span>width {
         Length::Shrink =&gt; {
@@ -859,7 +852,9 @@
             f32::from(text_line_height.to_absolute(Pixels(text_size))),
         );
 
-        limits.resolve(intrinsic).pad(padding)
+        limits
+            .resolve(width, Length::Shrink, intrinsic)
+            .expand(padding)
     };
 
     layout::Node::new(size)
@@ -952,7 +947,7 @@
     text_line_height: text::LineHeight,
     selections: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">super</span>::Model&lt;S, Item&gt;,
     on_selected: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw">dyn </span>Fn(Item) -&gt; Message,
-) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt;&gt; {
+) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;&gt; {
     <span class="kw">if </span>state.is_open {
         <span class="kw">let </span>description_line_height = text::LineHeight::Absolute(Pixels(
             text_line_height.to_absolute(Pixels(text_size)).<span class="number">0 </span>+ <span class="number">4.0</span>,
@@ -1071,9 +1066,8 @@
         renderer,
         renderer::Quad {
             bounds,
-            border_color: style.border_color,
-            border_width: style.border_width,
-            border_radius: style.border_radius,
+            border: style.border,
+            shadow: Shadow::default(),
         },
         style.background,
     );

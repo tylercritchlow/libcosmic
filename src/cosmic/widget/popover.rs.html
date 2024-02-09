@@ -313,12 +313,6 @@
 <a href="#313" id="313">313</a>
 <a href="#314" id="314">314</a>
 <a href="#315" id="315">315</a>
-<a href="#316" id="316">316</a>
-<a href="#317" id="317">317</a>
-<a href="#318" id="318">318</a>
-<a href="#319" id="319">319</a>
-<a href="#320" id="320">320</a>
-<a href="#321" id="321">321</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -338,24 +332,24 @@
 <span class="kw">pub use </span>iced_style::container::{Appearance, StyleSheet};
 
 <span class="kw">pub fn </span>popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-    popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
+    popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
 ) -&gt; Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
     Popover::new(content, popup)
 }
 
 <span class="kw">pub struct </span>Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
-    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
+    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;,
     <span class="comment">// XXX Avoid refcell; improve iced overlay API?
-    </span>popup: RefCell&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+    </span>popup: RefCell&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
     position: <span class="prelude-ty">Option</span>&lt;Point&gt;,
     show_popup: bool,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
     <span class="kw">pub fn </span>new(
-        content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-        popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+        content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
+        popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             content: content.into(),
@@ -378,10 +372,10 @@
     <span class="comment">// TODO More options for positioning similar to GdkPopup, xdg_popup
 </span>}
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt; <span class="kw">for </span>Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, Renderer&gt;
+    <span class="kw">for </span>Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
 <span class="kw">where
     </span>Renderer: iced_core::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">fn </span>children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Tree&gt; {
         <span class="macro">vec!</span>[Tree::new(<span class="kw-2">&amp;</span><span class="self">self</span>.content), Tree::new(<span class="kw-2">&amp;*</span><span class="self">self</span>.popup.borrow())]
@@ -391,12 +385,8 @@
         tree.diff_children(<span class="kw-2">&amp;mut </span>[<span class="kw-2">&amp;mut </span><span class="self">self</span>.content, <span class="kw-2">&amp;mut </span><span class="self">self</span>.popup.borrow_mut()]);
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.content.as_widget().width()
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.content.as_widget().height()
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        <span class="self">self</span>.content.as_widget().size()
     }
 
     <span class="kw">fn </span>layout(
@@ -465,7 +455,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Theme,
         renderer_style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor_position: mouse::Cursor,
@@ -487,7 +477,7 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         _renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt; {
         <span class="kw">if </span>!<span class="self">self</span>.show_popup {
             <span class="kw">return </span><span class="prelude-val">None</span>;
         }
@@ -519,11 +509,11 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;static</span>,
     Renderer: iced_core::Renderer + <span class="lifetime">&#39;static</span>,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">fn </span>from(popover: Popover&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(popover)
@@ -532,11 +522,11 @@
 
 <span class="kw">pub struct </span>Overlay&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt; {
     tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Tree,
-    content: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>RefCell&lt;Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt;,
+    content: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>RefCell&lt;Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
     centered: bool,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt; overlay::Overlay&lt;Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt; overlay::Overlay&lt;Message, <span class="kw">crate</span>::Theme, Renderer&gt;
     <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt;
 <span class="kw">where
     </span>Renderer: iced_core::Renderer,
@@ -549,7 +539,7 @@
         _translation: iced::Vector,
     ) -&gt; layout::Node {
         <span class="kw">let </span>limits = layout::Limits::new(Size::UNIT, bounds);
-        <span class="kw">let </span><span class="kw-2">mut </span>node = <span class="self">self
+        <span class="kw">let </span>node = <span class="self">self
             </span>.content
             .borrow()
             .as_widget()
@@ -566,9 +556,7 @@
                 position.y = (position.y - size.height).clamp(<span class="number">0.0</span>, bounds.height - size.height);
             }
         }
-        node.move_to(position);
-
-        node
+        node.move_to(position)
     }
 
     <span class="kw">fn </span>operate(
@@ -623,7 +611,7 @@
     <span class="kw">fn </span>draw(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor_position: mouse::Cursor,

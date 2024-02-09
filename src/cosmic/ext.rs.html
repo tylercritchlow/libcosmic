@@ -100,6 +100,7 @@
 <a href="#100" id="100">100</a>
 <a href="#101" id="101">101</a>
 <a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -122,7 +123,8 @@
 }
 
 <span class="doccomment">/// Additional methods for the [`Column`] and [`Row`] widgets.
-</span><span class="kw">pub trait </span>CollectionWidget&lt;<span class="lifetime">&#39;a</span>, Message: <span class="lifetime">&#39;a</span>&gt;: Widget&lt;Message, <span class="kw">crate</span>::Renderer&gt;
+</span><span class="kw">pub trait </span>CollectionWidget&lt;<span class="lifetime">&#39;a</span>, Message: <span class="lifetime">&#39;a</span>&gt;:
+    Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
 <span class="kw">where
     </span><span class="self">Self</span>: Sized,
 {

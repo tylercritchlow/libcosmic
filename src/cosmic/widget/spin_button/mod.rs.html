@@ -111,6 +111,10 @@
 <a href="#111" id="111">111</a>
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -126,6 +130,7 @@
     alignment::{Horizontal, Vertical},
     Alignment, Length,
 };
+<span class="kw">use </span>iced_core::{Border, Shadow};
 
 <span class="kw">pub struct </span>SpinButton&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
     label: Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;,
@@ -219,9 +224,12 @@
         icon_color: <span class="prelude-val">Some</span>(basic.palette.neutral_10.into()),
         text_color: <span class="prelude-val">Some</span>(basic.palette.neutral_10.into()),
         background: <span class="prelude-val">None</span>,
-        border_radius: corners.radius_s.into(),
-        border_width: <span class="number">0.0</span>,
-        border_color: accent.base.into(),
+        border: Border {
+            radius: corners.radius_s.into(),
+            width: <span class="number">0.0</span>,
+            color: accent.base.into(),
+        },
+        shadow: Shadow::default(),
     }
 }
 </code></pre></div></section></main></body></html>

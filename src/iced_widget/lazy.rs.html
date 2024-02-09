@@ -428,6 +428,20 @@
 <a href="#428" id="428">428</a>
 <a href="#429" id="429">429</a>
 <a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
 </pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::await_holding_refcell_ref, clippy::type_complexity)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>helpers;
 
@@ -460,19 +474,19 @@
 
 <span class="doccomment">/// A widget that only rebuilds its contents when necessary.
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt; {
+</span><span class="kw">pub struct </span>Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt; {
     dependency: Dependency,
     view: Box&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>Dependency) -&gt; View + <span class="lifetime">&#39;a</span>&gt;,
     element: RefCell&lt;
-        <span class="prelude-ty">Option</span>&lt;Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;&gt;&gt;&gt;&gt;,
+        <span class="prelude-ty">Option</span>&lt;Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;&gt;&gt;&gt;&gt;,
     &gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt;
-    Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;
+    Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;
 <span class="kw">where
     </span>Dependency: Hash + <span class="lifetime">&#39;a</span>,
-    View: Into&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;&gt;,
+    View: Into&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;&gt;,
 {
     <span class="doccomment">/// Creates a new [`Lazy`] widget with the given data `Dependency` and a
     /// closure that can turn this data into a widget tree.
@@ -489,7 +503,7 @@
 
     <span class="kw">fn </span>with_element&lt;T&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>Element&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;) -&gt; T,
+        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>Element&lt;<span class="lifetime">&#39;_</span>, Message, Theme, Renderer&gt;) -&gt; T,
     ) -&gt; T {
         f(<span class="self">self
             </span>.element
@@ -503,7 +517,7 @@
 
     <span class="kw">fn </span>with_element_mut&lt;T&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Element&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;) -&gt; T,
+        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Element&lt;<span class="lifetime">&#39;_</span>, Message, Theme, Renderer&gt;) -&gt; T,
     ) -&gt; T {
         f(<span class="self">self
             </span>.element
@@ -516,17 +530,19 @@
     }
 }
 
-<span class="kw">struct </span>Internal&lt;Message, Renderer&gt; {
-    element: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;&gt;&gt;&gt;,
+<span class="kw">struct </span>Internal&lt;Message, Theme, Renderer&gt; {
+    element: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;&gt;&gt;&gt;,
     hash: u64,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt; Widget&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;
+    Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;
 <span class="kw">where
-    </span>View: Into&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;&gt; + <span class="lifetime">&#39;static</span>,
+    </span>View: Into&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;&gt; + <span class="lifetime">&#39;static</span>,
     Dependency: Hash + <span class="lifetime">&#39;a</span>,
     Message: <span class="lifetime">&#39;static</span>,
+    Theme: <span class="lifetime">&#39;static</span>,
     Renderer: core::Renderer + <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
@@ -552,7 +568,9 @@
     }
 
     <span class="kw">fn </span>diff(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tree: <span class="kw-2">&amp;mut </span>Tree) {
-        <span class="kw">let </span>current = tree.state.downcast_mut::&lt;Internal&lt;Message, Renderer&gt;&gt;();
+        <span class="kw">let </span>current = tree
+            .state
+            .downcast_mut::&lt;Internal&lt;Message, Theme, Renderer&gt;&gt;();
 
         <span class="kw">let </span><span class="kw-2">mut </span>hasher = Hasher::default();
         <span class="self">self</span>.dependency.hash(<span class="kw-2">&amp;mut </span>hasher);
@@ -575,12 +593,15 @@
         }
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.with_element(|element| element.as_widget().width())
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        <span class="self">self</span>.with_element(|element| element.as_widget().size())
     }
 
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.with_element(|element| element.as_widget().height())
+    <span class="kw">fn </span>size_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: Length::Shrink,
+            height: Length::Shrink,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -661,7 +682,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -685,7 +706,7 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;_</span>, Message, Theme, Renderer&gt;&gt; {
         <span class="kw">let </span>overlay = Overlay(<span class="prelude-val">Some</span>(
             InnerBuilder {
                 cell: <span class="self">self</span>.element.borrow().as_ref().unwrap().clone(),
@@ -734,29 +755,33 @@
 }
 
 <span class="attr">#[self_referencing]
-</span><span class="kw">struct </span>Inner&lt;<span class="lifetime">&#39;a</span>, Message: <span class="lifetime">&#39;a</span>, Renderer: <span class="lifetime">&#39;a</span>&gt; {
-    cell: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;&gt;&gt;&gt;,
-    element: Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;,
+</span><span class="kw">struct </span>Inner&lt;<span class="lifetime">&#39;a</span>, Message: <span class="lifetime">&#39;a</span>, Theme: <span class="lifetime">&#39;a</span>, Renderer: <span class="lifetime">&#39;a</span>&gt; {
+    cell: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;&gt;&gt;&gt;,
+    element: Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;,
     tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>Tree,
 
     <span class="attr">#[borrows(<span class="kw-2">mut </span>element, <span class="kw-2">mut </span>tree)]
     #[not_covariant]
-    </span>overlay: <span class="prelude-ty">Option</span>&lt;RefCell&lt;Nested&lt;<span class="lifetime">&#39;this</span>, Message, Renderer&gt;&gt;&gt;,
+    </span>overlay: <span class="prelude-ty">Option</span>&lt;RefCell&lt;Nested&lt;<span class="lifetime">&#39;this</span>, Message, Theme, Renderer&gt;&gt;&gt;,
 }
 
-<span class="kw">struct </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(<span class="prelude-ty">Option</span>&lt;Inner&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;);
+<span class="kw">struct </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    <span class="prelude-ty">Option</span>&lt;Inner&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Drop <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Drop
+    <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+{
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">let </span>heads = <span class="self">self</span>.<span class="number">0</span>.take().unwrap().into_heads();
         (<span class="kw-2">*</span>heads.cell.borrow_mut()) = <span class="prelude-val">Some</span>(heads.element);
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
     <span class="kw">fn </span>with_overlay_maybe&lt;T&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Nested&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;) -&gt; T,
+        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Nested&lt;<span class="lifetime">&#39;_</span>, Message, Theme, Renderer&gt;) -&gt; T,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
         <span class="self">self</span>.<span class="number">0</span>.as_ref().unwrap().with_overlay(|overlay| {
             overlay.as_ref().map(|nested| (f)(<span class="kw-2">&amp;mut </span>nested.borrow_mut()))
@@ -765,7 +790,7 @@
 
     <span class="kw">fn </span>with_overlay_mut_maybe&lt;T&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Nested&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;) -&gt; T,
+        f: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Nested&lt;<span class="lifetime">&#39;_</span>, Message, Theme, Renderer&gt;) -&gt; T,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
         <span class="self">self</span>.<span class="number">0</span>.as_mut().unwrap().with_overlay_mut(|overlay| {
             overlay.as_mut().map(|nested| (f)(nested.get_mut()))
@@ -773,8 +798,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; overlay::Overlay&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; overlay::Overlay&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Overlay&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: core::Renderer,
 {
@@ -794,7 +819,7 @@
     <span class="kw">fn </span>draw(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -845,16 +870,19 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt;
-    From&lt;Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;
+    From&lt;Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>View: Into&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Renderer&gt;&gt; + <span class="lifetime">&#39;static</span>,
+    </span>View: Into&lt;Element&lt;<span class="lifetime">&#39;static</span>, Message, Theme, Renderer&gt;&gt; + <span class="lifetime">&#39;static</span>,
     Renderer: core::Renderer + <span class="lifetime">&#39;static</span>,
     Message: <span class="lifetime">&#39;static</span>,
+    Theme: <span class="lifetime">&#39;static</span>,
     Dependency: Hash + <span class="lifetime">&#39;a</span>,
 {
-    <span class="kw">fn </span>from(lazy: Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, Dependency, View&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">fn </span>from(
+        lazy: Lazy&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, Dependency, View&gt;,
+    ) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(lazy)
     }
 }

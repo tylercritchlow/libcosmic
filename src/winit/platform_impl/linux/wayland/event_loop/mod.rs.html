@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-40d7deb2b0c08730/c6ad672/src/platform_impl/linux/wayland/event_loop/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="winit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../../src-files.js"></script><script defer src="../../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-40d7deb2b0c08730/8987daa/src/platform_impl/linux/wayland/event_loop/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="winit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../../src-files.js"></script><script defer src="../../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -607,574 +607,607 @@
 <a href="#607" id="607">607</a>
 <a href="#608" id="608">608</a>
 <a href="#609" id="609">609</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::cell::RefCell;
-<span class="kw">use </span>std::collections::HashMap;
-<span class="kw">use </span>std::error::Error;
+<a href="#610" id="610">610</a>
+<a href="#611" id="611">611</a>
+<a href="#612" id="612">612</a>
+<a href="#613" id="613">613</a>
+<a href="#614" id="614">614</a>
+<a href="#615" id="615">615</a>
+<a href="#616" id="616">616</a>
+<a href="#617" id="617">617</a>
+<a href="#618" id="618">618</a>
+<a href="#619" id="619">619</a>
+<a href="#620" id="620">620</a>
+<a href="#621" id="621">621</a>
+<a href="#622" id="622">622</a>
+<a href="#623" id="623">623</a>
+<a href="#624" id="624">624</a>
+<a href="#625" id="625">625</a>
+<a href="#626" id="626">626</a>
+<a href="#627" id="627">627</a>
+<a href="#628" id="628">628</a>
+<a href="#629" id="629">629</a>
+<a href="#630" id="630">630</a>
+<a href="#631" id="631">631</a>
+<a href="#632" id="632">632</a>
+<a href="#633" id="633">633</a>
+<a href="#634" id="634">634</a>
+<a href="#635" id="635">635</a>
+<a href="#636" id="636">636</a>
+<a href="#637" id="637">637</a>
+<a href="#638" id="638">638</a>
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
+<a href="#642" id="642">642</a>
+<a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
+<a href="#648" id="648">648</a>
+<a href="#649" id="649">649</a>
+<a href="#650" id="650">650</a>
+<a href="#651" id="651">651</a>
+<a href="#652" id="652">652</a>
+<a href="#653" id="653">653</a>
+<a href="#654" id="654">654</a>
+<a href="#655" id="655">655</a>
+<a href="#656" id="656">656</a>
+<a href="#657" id="657">657</a>
+<a href="#658" id="658">658</a>
+<a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a>
+<a href="#664" id="664">664</a>
+<a href="#665" id="665">665</a>
+<a href="#666" id="666">666</a>
+<a href="#667" id="667">667</a>
+<a href="#668" id="668">668</a>
+<a href="#669" id="669">669</a>
+<a href="#670" id="670">670</a>
+<a href="#671" id="671">671</a>
+<a href="#672" id="672">672</a>
+<a href="#673" id="673">673</a>
+<a href="#674" id="674">674</a>
+<a href="#675" id="675">675</a>
+<a href="#676" id="676">676</a>
+<a href="#677" id="677">677</a>
+<a href="#678" id="678">678</a>
+<a href="#679" id="679">679</a>
+<a href="#680" id="680">680</a>
+<a href="#681" id="681">681</a>
+<a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! The event-loop routines.
+
+</span><span class="kw">use </span>std::cell::{Cell, RefCell};
 <span class="kw">use </span>std::io::Result <span class="kw">as </span>IOResult;
+<span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::process;
+<span class="kw">use </span>std::os::unix::io::{AsFd, AsRawFd, BorrowedFd, RawFd};
 <span class="kw">use </span>std::rc::Rc;
+<span class="kw">use </span>std::sync::atomic::Ordering;
+<span class="kw">use </span>std::sync::{Arc, Mutex};
 <span class="kw">use </span>std::time::{Duration, Instant};
 
-<span class="kw">use </span>raw_window_handle::{RawDisplayHandle, WaylandDisplayHandle};
-
-<span class="kw">use </span>sctk::reexports::client::protocol::wl_compositor::WlCompositor;
-<span class="kw">use </span>sctk::reexports::client::protocol::wl_shm::WlShm;
-<span class="kw">use </span>sctk::reexports::client::Display;
-
 <span class="kw">use </span>sctk::reexports::calloop;
+<span class="kw">use </span>sctk::reexports::calloop::Error <span class="kw">as </span>CalloopError;
+<span class="kw">use </span>sctk::reexports::calloop_wayland_source::WaylandSource;
+<span class="kw">use </span>sctk::reexports::client::globals;
+<span class="kw">use </span>sctk::reexports::client::{Connection, QueueHandle};
 
-<span class="kw">use </span>sctk::environment::Environment;
-<span class="kw">use </span>sctk::seat::pointer::{ThemeManager, ThemeSpec};
-<span class="kw">use </span>sctk::WaylandSource;
-
-<span class="kw">use </span><span class="kw">crate</span>::dpi::{LogicalSize, PhysicalSize};
-<span class="kw">use </span><span class="kw">crate</span>::event::{Event, StartCause, WindowEvent};
-<span class="kw">use </span><span class="kw">crate</span>::event_loop::{ControlFlow, EventLoopWindowTarget <span class="kw">as </span>RootEventLoopWindowTarget};
-<span class="kw">use </span><span class="kw">crate</span>::platform_impl::platform::sticky_exit_callback;
-<span class="kw">use </span><span class="kw">crate</span>::platform_impl::EventLoopWindowTarget <span class="kw">as </span>PlatformEventLoopWindowTarget;
-
-<span class="kw">use </span><span class="kw">super</span>::env::{WindowingFeatures, WinitEnv};
-<span class="kw">use </span><span class="kw">super</span>::output::OutputManager;
-<span class="kw">use </span><span class="kw">super</span>::seat::SeatManager;
-<span class="kw">use </span><span class="kw">super</span>::window::shim::{<span class="self">self</span>, WindowCompositorUpdate, WindowUserRequest};
-<span class="kw">use super</span>::{DeviceId, WindowId};
+<span class="kw">use </span><span class="kw">crate</span>::dpi::LogicalSize;
+<span class="kw">use </span><span class="kw">crate</span>::error::{EventLoopError, OsError <span class="kw">as </span>RootOsError};
+<span class="kw">use </span><span class="kw">crate</span>::event::{Event, InnerSizeWriter, StartCause, WindowEvent};
+<span class="kw">use </span><span class="kw">crate</span>::event_loop::{
+    ControlFlow, DeviceEvents, EventLoopWindowTarget <span class="kw">as </span>RootEventLoopWindowTarget,
+};
+<span class="kw">use </span><span class="kw">crate</span>::platform::pump_events::PumpStatus;
+<span class="kw">use </span><span class="kw">crate</span>::platform_impl::platform::min_timeout;
+<span class="kw">use </span><span class="kw">crate</span>::platform_impl::{EventLoopWindowTarget <span class="kw">as </span>PlatformEventLoopWindowTarget, OsError};
 
 <span class="kw">mod </span>proxy;
-<span class="kw">mod </span>sink;
-<span class="kw">mod </span>state;
+<span class="kw">pub mod </span>sink;
 
 <span class="kw">pub use </span>proxy::EventLoopProxy;
-<span class="kw">pub use </span>sink::EventSink;
-<span class="kw">pub use </span>state::WinitState;
+<span class="kw">use </span>sink::EventSink;
 
-<span class="kw">type </span>WinitDispatcher = calloop::Dispatcher&lt;<span class="lifetime">&#39;static</span>, WaylandSource, WinitState&gt;;
+<span class="kw">use </span><span class="kw">super</span>::state::{WindowCompositorUpdate, WinitState};
+<span class="kw">use </span><span class="kw">super</span>::window::state::FrameCallbackState;
+<span class="kw">use super</span>::{logical_to_physical_rounded, DeviceId, WaylandError, WindowId};
 
-<span class="kw">pub struct </span>EventLoopWindowTarget&lt;T&gt; {
-    <span class="doccomment">/// Wayland display.
-    </span><span class="kw">pub </span>display: Display,
+<span class="kw">type </span>WaylandDispatcher = calloop::Dispatcher&lt;<span class="lifetime">&#39;static</span>, WaylandSource&lt;WinitState&gt;, WinitState&gt;;
 
-    <span class="doccomment">/// Environment to handle object creation, etc.
-    </span><span class="kw">pub </span>env: Environment&lt;WinitEnv&gt;,
+<span class="doccomment">/// The Wayland event loop.
+</span><span class="kw">pub struct </span>EventLoop&lt;T: <span class="lifetime">&#39;static</span>&gt; {
+    <span class="doccomment">/// Has `run` or `run_on_demand` been called or a call to `pump_events` that starts the loop
+    </span>loop_running: bool,
 
-    <span class="doccomment">/// Event loop handle.
-    </span><span class="kw">pub </span>event_loop_handle: calloop::LoopHandle&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;,
-
-    <span class="doccomment">/// Output manager.
-    </span><span class="kw">pub </span>output_manager: OutputManager,
-
-    <span class="doccomment">/// State that we share across callbacks.
-    </span><span class="kw">pub </span>state: RefCell&lt;WinitState&gt;,
-
-    <span class="doccomment">/// Dispatcher of Wayland events.
-    </span><span class="kw">pub </span>wayland_dispatcher: WinitDispatcher,
-
-    <span class="doccomment">/// A proxy to wake up event loop.
-    </span><span class="kw">pub </span>event_loop_awakener: calloop::ping::Ping,
-
-    <span class="doccomment">/// The available windowing features.
-    </span><span class="kw">pub </span>windowing_features: WindowingFeatures,
-
-    <span class="doccomment">/// Theme manager to manage cursors.
-    ///
-    /// It&#39;s being shared between all windows to avoid loading
-    /// multiple similar themes.
-    </span><span class="kw">pub </span>theme_manager: ThemeManager,
-
-    _marker: std::marker::PhantomData&lt;T&gt;,
-}
-
-<span class="kw">impl</span>&lt;T&gt; EventLoopWindowTarget&lt;T&gt; {
-    <span class="kw">pub fn </span>raw_display_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawDisplayHandle {
-        <span class="kw">let </span><span class="kw-2">mut </span>display_handle = WaylandDisplayHandle::empty();
-        display_handle.display = <span class="self">self</span>.display.get_display_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
-        RawDisplayHandle::Wayland(display_handle)
-    }
-}
-
-<span class="kw">pub struct </span>EventLoop&lt;T: <span class="lifetime">&#39;static</span>&gt; {
-    <span class="doccomment">/// Dispatcher of Wayland events.
-    </span><span class="kw">pub </span>wayland_dispatcher: WinitDispatcher,
-
-    <span class="doccomment">/// Event loop.
-    </span>event_loop: calloop::EventLoop&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;,
-
-    <span class="doccomment">/// Wayland display.
-    </span>display: Display,
-
-    <span class="doccomment">/// Pending user events.
-    </span>pending_user_events: Rc&lt;RefCell&lt;Vec&lt;T&gt;&gt;&gt;,
+    buffer_sink: EventSink,
+    compositor_updates: Vec&lt;WindowCompositorUpdate&gt;,
+    window_ids: Vec&lt;WindowId&gt;,
 
     <span class="doccomment">/// Sender of user events.
     </span>user_events_sender: calloop::channel::Sender&lt;T&gt;,
 
-    <span class="doccomment">/// Window target.
+    <span class="comment">// XXX can&#39;t remove RefCell out of here, unless we can plumb generics into the `Window`, which
+    // we don&#39;t really want, since it&#39;ll break public API by a lot.
+    </span><span class="doccomment">/// Pending events from the user.
+    </span>pending_user_events: Rc&lt;RefCell&lt;Vec&lt;T&gt;&gt;&gt;,
+
+    <span class="doccomment">/// The Wayland dispatcher to has raw access to the queue when needed, such as
+    /// when creating a new window.
+    </span>wayland_dispatcher: WaylandDispatcher,
+
+    <span class="doccomment">/// Connection to the wayland server.
+    </span>connection: Connection,
+
+    <span class="doccomment">/// Event loop window target.
     </span>window_target: RootEventLoopWindowTarget&lt;T&gt;,
 
-    <span class="doccomment">/// Output manager.
-    </span>_seat_manager: SeatManager,
+    <span class="comment">// XXX drop after everything else, just to be safe.
+    </span><span class="doccomment">/// Calloop&#39;s event loop.
+    </span>event_loop: calloop::EventLoop&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;,
 }
 
 <span class="kw">impl</span>&lt;T: <span class="lifetime">&#39;static</span>&gt; EventLoop&lt;T&gt; {
-    <span class="kw">pub fn </span>new() -&gt; <span class="prelude-ty">Result</span>&lt;EventLoop&lt;T&gt;, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
-        <span class="comment">// Connect to wayland server and setup event queue.
-        </span><span class="kw">let </span>display = Display::connect_to_env()<span class="question-mark">?</span>;
-        <span class="kw">let </span><span class="kw-2">mut </span>event_queue = display.create_event_queue();
-        <span class="kw">let </span>display_proxy = display.attach(event_queue.token());
+    <span class="kw">pub fn </span>new() -&gt; <span class="prelude-ty">Result</span>&lt;EventLoop&lt;T&gt;, EventLoopError&gt; {
+        <span class="macro">macro_rules! </span>map_err {
+            (<span class="macro-nonterminal">$e</span>:expr, <span class="macro-nonterminal">$err</span>:expr) =&gt; {
+                <span class="macro-nonterminal">$e</span>.map_err(|error| <span class="macro">os_error!</span>(<span class="macro-nonterminal">$err</span>(error).into()))
+            };
+        }
 
-        <span class="comment">// Setup environment.
-        </span><span class="kw">let </span>env = Environment::new(<span class="kw-2">&amp;</span>display_proxy, <span class="kw-2">&amp;mut </span>event_queue, WinitEnv::new())<span class="question-mark">?</span>;
+        <span class="kw">let </span>connection = <span class="macro">map_err!</span>(Connection::connect_to_env(), WaylandError::Connection)<span class="question-mark">?</span>;
 
-        <span class="comment">// Create event loop.
-        </span><span class="kw">let </span>event_loop = calloop::EventLoop::&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;::try_new()<span class="question-mark">?</span>;
-        <span class="comment">// Build windowing features.
-        </span><span class="kw">let </span>windowing_features = WindowingFeatures::new(<span class="kw-2">&amp;</span>env);
+        <span class="kw">let </span>(globals, <span class="kw-2">mut </span>event_queue) = <span class="macro">map_err!</span>(
+            globals::registry_queue_init(<span class="kw-2">&amp;</span>connection),
+            WaylandError::Global
+        )<span class="question-mark">?</span>;
+        <span class="kw">let </span>queue_handle = event_queue.handle();
 
-        <span class="comment">// Create a theme manager.
-        </span><span class="kw">let </span>compositor = env.require_global::&lt;WlCompositor&gt;();
-        <span class="kw">let </span>shm = env.require_global::&lt;WlShm&gt;();
-        <span class="kw">let </span>theme_manager = ThemeManager::init(ThemeSpec::System, compositor, shm);
+        <span class="kw">let </span>event_loop = <span class="macro">map_err!</span>(
+            calloop::EventLoop::&lt;WinitState&gt;::try_new(),
+            WaylandError::Calloop
+        )<span class="question-mark">?</span>;
 
-        <span class="comment">// Setup theme seat and output managers.
-        </span><span class="kw">let </span>seat_manager = SeatManager::new(<span class="kw-2">&amp;</span>env, event_loop.handle(), theme_manager.clone());
-        <span class="kw">let </span>output_manager = OutputManager::new(<span class="kw-2">&amp;</span>env);
+        <span class="kw">let </span><span class="kw-2">mut </span>winit_state = WinitState::new(<span class="kw-2">&amp;</span>globals, <span class="kw-2">&amp;</span>queue_handle, event_loop.handle())
+            .map_err(|error| <span class="macro">os_error!</span>(error))<span class="question-mark">?</span>;
 
-        <span class="comment">// A source of events that we plug into our event loop.
-        </span><span class="kw">let </span>wayland_source = WaylandSource::new(event_queue);
+        <span class="comment">// NOTE: do a roundtrip after binding the globals to prevent potential
+        // races with the server.
+        </span><span class="macro">map_err!</span>(
+            event_queue.roundtrip(<span class="kw-2">&amp;mut </span>winit_state),
+            WaylandError::Dispatch
+        )<span class="question-mark">?</span>;
+
+        <span class="comment">// Register Wayland source.
+        </span><span class="kw">let </span>wayland_source = WaylandSource::new(connection.clone(), event_queue);
         <span class="kw">let </span>wayland_dispatcher =
-            calloop::Dispatcher::new(wayland_source, |<span class="kw">_</span>, queue, winit_state| {
-                queue.dispatch_pending(winit_state, |event, object, <span class="kw">_</span>| {
-                    <span class="macro">panic!</span>(
-                        <span class="string">&quot;[calloop] Encountered an orphan event: {}@{} : {}&quot;</span>,
-                        event.interface,
-                        object.as_ref().id(),
-                        event.name
-                    );
-                })
+            calloop::Dispatcher::new(wayland_source, |<span class="kw">_</span>, queue, winit_state: <span class="kw-2">&amp;mut </span>WinitState| {
+                <span class="kw">let </span>result = queue.dispatch_pending(winit_state);
+                <span class="kw">if </span>result.is_ok()
+                    &amp;&amp; (!winit_state.events_sink.is_empty()
+                        || !winit_state.window_compositor_updates.is_empty())
+                {
+                    winit_state.dispatched_events = <span class="bool-val">true</span>;
+                }
+                result
             });
 
-        <span class="kw">let </span>_wayland_source_dispatcher = event_loop
-            .handle()
-            .register_dispatcher(wayland_dispatcher.clone())<span class="question-mark">?</span>;
+        <span class="macro">map_err!</span>(
+            event_loop
+                .handle()
+                .register_dispatcher(wayland_dispatcher.clone()),
+            WaylandError::Calloop
+        )<span class="question-mark">?</span>;
 
-        <span class="comment">// A source of user events.
+        <span class="comment">// Setup the user proxy.
         </span><span class="kw">let </span>pending_user_events = Rc::new(RefCell::new(Vec::new()));
         <span class="kw">let </span>pending_user_events_clone = pending_user_events.clone();
         <span class="kw">let </span>(user_events_sender, user_events_channel) = calloop::channel::channel();
-
-        <span class="comment">// User events channel.
-        </span>event_loop
+        <span class="kw">let </span>result = event_loop
             .handle()
-            .insert_source(user_events_channel, <span class="kw">move </span>|event, <span class="kw">_</span>, <span class="kw">_</span>| {
-                <span class="kw">if let </span>calloop::channel::Event::Msg(msg) = event {
-                    pending_user_events_clone.borrow_mut().push(msg);
-                }
-            })<span class="question-mark">?</span>;
+            .insert_source(
+                user_events_channel,
+                <span class="kw">move </span>|event, <span class="kw">_</span>, winit_state: <span class="kw-2">&amp;mut </span>WinitState| {
+                    <span class="kw">if let </span>calloop::channel::Event::Msg(msg) = event {
+                        winit_state.dispatched_events = <span class="bool-val">true</span>;
+                        pending_user_events_clone.borrow_mut().push(msg);
+                    }
+                },
+            )
+            .map_err(|error| error.error);
+        <span class="macro">map_err!</span>(result, WaylandError::Calloop)<span class="question-mark">?</span>;
 
         <span class="comment">// An event&#39;s loop awakener to wake up for window events from winit&#39;s windows.
-        </span><span class="kw">let </span>(event_loop_awakener, event_loop_awakener_source) = calloop::ping::make_ping()<span class="question-mark">?</span>;
+        </span><span class="kw">let </span>(event_loop_awakener, event_loop_awakener_source) = <span class="macro">map_err!</span>(
+            calloop::ping::make_ping()
+                .map_err(|error| CalloopError::OtherError(Box::new(error).into())),
+            WaylandError::Calloop
+        )<span class="question-mark">?</span>;
 
-        <span class="comment">// Handler of window requests.
-        </span>event_loop
+        <span class="kw">let </span>result = event_loop
             .handle()
-            .insert_source(event_loop_awakener_source, <span class="kw">move </span>|<span class="kw">_</span>, <span class="kw">_</span>, state| {
-                <span class="comment">// Drain events here as well to account for application doing batch event processing
-                // on RedrawEventsCleared.
-                </span>shim::handle_window_requests(state);
-            })<span class="question-mark">?</span>;
+            .insert_source(
+                event_loop_awakener_source,
+                <span class="kw">move </span>|<span class="kw">_</span>, <span class="kw">_</span>, winit_state: <span class="kw-2">&amp;mut </span>WinitState| {
+                    <span class="comment">// Mark that we have something to dispatch.
+                    </span>winit_state.dispatched_events = <span class="bool-val">true</span>;
+                },
+            )
+            .map_err(|error| error.error);
+        <span class="macro">map_err!</span>(result, WaylandError::Calloop)<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>event_loop_handle = event_loop.handle();
-        <span class="kw">let </span>window_map = HashMap::new();
-        <span class="kw">let </span>event_sink = EventSink::new();
-        <span class="kw">let </span>window_user_requests = HashMap::new();
-        <span class="kw">let </span>window_compositor_updates = HashMap::new();
-
-        <span class="comment">// Create event loop window target.
-        </span><span class="kw">let </span>event_loop_window_target = EventLoopWindowTarget {
-            display: display.clone(),
-            env,
-            state: RefCell::new(WinitState {
-                window_map,
-                event_sink,
-                window_user_requests,
-                window_compositor_updates,
-            }),
-            event_loop_handle,
-            output_manager,
-            event_loop_awakener,
+        <span class="kw">let </span>window_target = EventLoopWindowTarget {
+            connection: connection.clone(),
             wayland_dispatcher: wayland_dispatcher.clone(),
-            windowing_features,
-            theme_manager,
-            _marker: std::marker::PhantomData,
+            event_loop_awakener,
+            queue_handle,
+            control_flow: Cell::new(ControlFlow::default()),
+            exit: Cell::new(<span class="prelude-val">None</span>),
+            state: RefCell::new(winit_state),
+            _marker: PhantomData,
         };
 
-        <span class="comment">// Create event loop itself.
-        </span><span class="kw">let </span>event_loop = <span class="self">Self </span>{
-            event_loop,
-            display,
-            pending_user_events,
+        <span class="kw">let </span>event_loop = <span class="self">Self </span>{
+            loop_running: <span class="bool-val">false</span>,
+            compositor_updates: Vec::new(),
+            buffer_sink: EventSink::default(),
+            window_ids: Vec::new(),
+            connection,
             wayland_dispatcher,
-            _seat_manager: seat_manager,
             user_events_sender,
+            pending_user_events,
+            event_loop,
             window_target: RootEventLoopWindowTarget {
-                p: PlatformEventLoopWindowTarget::Wayland(event_loop_window_target),
-                _marker: std::marker::PhantomData,
+                p: PlatformEventLoopWindowTarget::Wayland(window_target),
+                _marker: PhantomData,
             },
         };
 
         <span class="prelude-val">Ok</span>(event_loop)
     }
 
-    <span class="kw">pub fn </span>run&lt;F&gt;(<span class="kw-2">mut </span><span class="self">self</span>, callback: F) -&gt; !
+    <span class="kw">pub fn </span>run_on_demand&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>event_handler: F) -&gt; <span class="prelude-ty">Result</span>&lt;(), EventLoopError&gt;
     <span class="kw">where
-        </span>F: FnMut(Event&lt;<span class="lifetime">&#39;_</span>, T&gt;, <span class="kw-2">&amp;</span>RootEventLoopWindowTarget&lt;T&gt;, <span class="kw-2">&amp;mut </span>ControlFlow) + <span class="lifetime">&#39;static</span>,
+        </span>F: FnMut(Event&lt;T&gt;, <span class="kw-2">&amp;</span>RootEventLoopWindowTarget&lt;T&gt;),
     {
-        <span class="kw">let </span>exit_code = <span class="self">self</span>.run_return(callback);
-        process::exit(exit_code);
+        <span class="kw">if </span><span class="self">self</span>.loop_running {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(EventLoopError::AlreadyRunning);
+        }
+
+        <span class="kw">let </span>exit = <span class="kw">loop </span>{
+            <span class="kw">match </span><span class="self">self</span>.pump_events(<span class="prelude-val">None</span>, <span class="kw-2">&amp;mut </span>event_handler) {
+                PumpStatus::Exit(<span class="number">0</span>) =&gt; {
+                    <span class="kw">break </span><span class="prelude-val">Ok</span>(());
+                }
+                PumpStatus::Exit(code) =&gt; {
+                    <span class="kw">break </span><span class="prelude-val">Err</span>(EventLoopError::ExitFailure(code));
+                }
+                <span class="kw">_ </span>=&gt; {
+                    <span class="kw">continue</span>;
+                }
+            }
+        };
+
+        <span class="comment">// Applications aren&#39;t allowed to carry windows between separate
+        // `run_on_demand` calls but if they have only just dropped their
+        // windows we need to make sure those last requests are sent to the
+        // compositor.
+        </span><span class="kw">let _ </span>= <span class="self">self</span>.roundtrip().map_err(EventLoopError::Os);
+
+        exit
     }
 
-    <span class="kw">pub fn </span>run_return&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>callback: F) -&gt; i32
+    <span class="kw">pub fn </span>pump_events&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timeout: <span class="prelude-ty">Option</span>&lt;Duration&gt;, <span class="kw-2">mut </span>callback: F) -&gt; PumpStatus
     <span class="kw">where
-        </span>F: FnMut(Event&lt;<span class="lifetime">&#39;_</span>, T&gt;, <span class="kw-2">&amp;</span>RootEventLoopWindowTarget&lt;T&gt;, <span class="kw-2">&amp;mut </span>ControlFlow),
+        </span>F: FnMut(Event&lt;T&gt;, <span class="kw-2">&amp;</span>RootEventLoopWindowTarget&lt;T&gt;),
     {
-        <span class="kw">let </span><span class="kw-2">mut </span>control_flow = ControlFlow::Poll;
-        <span class="kw">let </span>pending_user_events = <span class="self">self</span>.pending_user_events.clone();
+        <span class="kw">if </span>!<span class="self">self</span>.loop_running {
+            <span class="self">self</span>.loop_running = <span class="bool-val">true</span>;
 
-        callback(
-            Event::NewEvents(StartCause::Init),
-            <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-            <span class="kw-2">&amp;mut </span>control_flow,
-        );
+            <span class="comment">// Run the initial loop iteration.
+            </span><span class="self">self</span>.single_iteration(<span class="kw-2">&amp;mut </span>callback, StartCause::Init);
+        }
 
-        <span class="comment">// NB: For consistency all platforms must emit a &#39;resumed&#39; event even though Wayland
-        // applications don&#39;t themselves have a formal suspend/resume lifecycle.
-        </span>callback(Event::Resumed, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target, <span class="kw-2">&amp;mut </span>control_flow);
+        <span class="comment">// Consider the possibility that the `StartCause::Init` iteration could
+        // request to Exit.
+        </span><span class="kw">if </span>!<span class="self">self</span>.exiting() {
+            <span class="self">self</span>.poll_events_with_timeout(timeout, <span class="kw-2">&amp;mut </span>callback);
+        }
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(code) = <span class="self">self</span>.exit_code() {
+            <span class="self">self</span>.loop_running = <span class="bool-val">false</span>;
 
-        <span class="kw">let </span><span class="kw-2">mut </span>window_compositor_updates: Vec&lt;(WindowId, WindowCompositorUpdate)&gt; = Vec::new();
-        <span class="kw">let </span><span class="kw-2">mut </span>window_user_requests: Vec&lt;(WindowId, WindowUserRequest)&gt; = Vec::new();
-        <span class="kw">let </span><span class="kw-2">mut </span>event_sink_back_buffer = Vec::new();
+            callback(Event::LoopExiting, <span class="self">self</span>.window_target());
 
-        <span class="comment">// NOTE We break on errors from dispatches, since if we&#39;ve got protocol error
-        // libwayland-client/wayland-rs will inform us anyway, but crashing downstream is not
-        // really an option. Instead we inform that the event loop got destroyed. We may
-        // communicate an error that something was terminated, but winit doesn&#39;t provide us
-        // with an API to do that via some event.
-        // Still, we set the exit code to the error&#39;s OS error code, or to 1 if not possible.
-        </span><span class="kw">let </span>exit_code = <span class="kw">loop </span>{
-            <span class="comment">// Send pending events to the server.
-            </span><span class="kw">let _ </span>= <span class="self">self</span>.display.flush();
+            PumpStatus::Exit(code)
+        } <span class="kw">else </span>{
+            PumpStatus::Continue
+        }
+    }
 
-            <span class="comment">// During the run of the user callback, some other code monitoring and reading the
-            // Wayland socket may have been run (mesa for example does this with vsync), if that
-            // is the case, some events may have been enqueued in our event queue.
-            //
-            // If some messages are there, the event loop needs to behave as if it was instantly
-            // woken up by messages arriving from the Wayland socket, to avoid delaying the
-            // dispatch of these events until we&#39;re woken up again.
-            </span><span class="kw">let </span>instant_wakeup = {
-                <span class="kw">let </span><span class="kw-2">mut </span>wayland_source = <span class="self">self</span>.wayland_dispatcher.as_source_mut();
-                <span class="kw">let </span>queue = wayland_source.queue();
-                <span class="kw">let </span>state = <span class="kw">match </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.window_target.p {
-                    PlatformEventLoopWindowTarget::Wayland(window_target) =&gt; {
-                        window_target.state.get_mut()
+    <span class="kw">pub fn </span>poll_events_with_timeout&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw-2">mut </span>timeout: <span class="prelude-ty">Option</span>&lt;Duration&gt;, <span class="kw-2">mut </span>callback: F)
+    <span class="kw">where
+        </span>F: FnMut(Event&lt;T&gt;, <span class="kw-2">&amp;</span>RootEventLoopWindowTarget&lt;T&gt;),
+    {
+        <span class="kw">let </span>cause = <span class="kw">loop </span>{
+            <span class="kw">let </span>start = Instant::now();
+
+            timeout = {
+                <span class="kw">let </span>control_flow_timeout = <span class="kw">match </span><span class="self">self</span>.control_flow() {
+                    ControlFlow::Wait =&gt; <span class="prelude-val">None</span>,
+                    ControlFlow::Poll =&gt; <span class="prelude-val">Some</span>(Duration::ZERO),
+                    ControlFlow::WaitUntil(wait_deadline) =&gt; {
+                        <span class="prelude-val">Some</span>(wait_deadline.saturating_duration_since(start))
                     }
-                    <span class="attr">#[cfg(x11_platform)]
-                    </span><span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
                 };
+                min_timeout(control_flow_timeout, timeout)
+            };
 
-                <span class="kw">match </span>queue.dispatch_pending(state, |<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>| <span class="macro">unimplemented!</span>()) {
-                    <span class="prelude-val">Ok</span>(dispatched) =&gt; dispatched &gt; <span class="number">0</span>,
-                    <span class="prelude-val">Err</span>(error) =&gt; <span class="kw">break </span>error.raw_os_error().unwrap_or(<span class="number">1</span>),
+            <span class="comment">// NOTE Ideally we should flush as the last thing we do before polling
+            // to wait for events, and this should be done by the calloop
+            // WaylandSource but we currently need to flush writes manually.
+            //
+            // Checking for flush error is essential to perform an exit with error, since
+            // once we have a protocol error, we could get stuck retrying...
+            </span><span class="kw">if </span><span class="self">self</span>.connection.flush().is_err() {
+                <span class="self">self</span>.set_exit_code(<span class="number">1</span>);
+                <span class="kw">return</span>;
+            }
+
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = <span class="self">self</span>.loop_dispatch(timeout) {
+                <span class="comment">// NOTE We exit on errors from dispatches, since if we&#39;ve got protocol error
+                // libwayland-client/wayland-rs will inform us anyway, but crashing downstream is not
+                // really an option. Instead we inform that the event loop got destroyed. We may
+                // communicate an error that something was terminated, but winit doesn&#39;t provide us
+                // with an API to do that via some event.
+                // Still, we set the exit code to the error&#39;s OS error code, or to 1 if not possible.
+                </span><span class="kw">let </span>exit_code = error.raw_os_error().unwrap_or(<span class="number">1</span>);
+                <span class="self">self</span>.set_exit_code(exit_code);
+                <span class="kw">return</span>;
+            }
+
+            <span class="comment">// NB: `StartCause::Init` is handled as a special case and doesn&#39;t need
+            // to be considered here
+            </span><span class="kw">let </span>cause = <span class="kw">match </span><span class="self">self</span>.control_flow() {
+                ControlFlow::Poll =&gt; StartCause::Poll,
+                ControlFlow::Wait =&gt; StartCause::WaitCancelled {
+                    start,
+                    requested_resume: <span class="prelude-val">None</span>,
+                },
+                ControlFlow::WaitUntil(deadline) =&gt; {
+                    <span class="kw">if </span>Instant::now() &lt; deadline {
+                        StartCause::WaitCancelled {
+                            start,
+                            requested_resume: <span class="prelude-val">Some</span>(deadline),
+                        }
+                    } <span class="kw">else </span>{
+                        StartCause::ResumeTimeReached {
+                            start,
+                            requested_resume: deadline,
+                        }
+                    }
                 }
             };
 
-            <span class="kw">match </span>control_flow {
-                ControlFlow::ExitWithCode(code) =&gt; <span class="kw">break </span>code,
-                ControlFlow::Poll =&gt; {
-                    <span class="comment">// Non-blocking dispatch.
-                    </span><span class="kw">let </span>timeout = Duration::from_millis(<span class="number">0</span>);
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = <span class="self">self</span>.loop_dispatch(<span class="prelude-val">Some</span>(timeout)) {
-                        <span class="kw">break </span>error.raw_os_error().unwrap_or(<span class="number">1</span>);
-                    }
-
-                    callback(
-                        Event::NewEvents(StartCause::Poll),
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                        <span class="kw-2">&amp;mut </span>control_flow,
-                    );
-                }
-                ControlFlow::Wait =&gt; {
-                    <span class="kw">let </span>timeout = <span class="kw">if </span>instant_wakeup {
-                        <span class="prelude-val">Some</span>(Duration::from_millis(<span class="number">0</span>))
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">None
-                    </span>};
-
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = <span class="self">self</span>.loop_dispatch(timeout) {
-                        <span class="kw">break </span>error.raw_os_error().unwrap_or(<span class="number">1</span>);
-                    }
-
-                    callback(
-                        Event::NewEvents(StartCause::WaitCancelled {
-                            start: Instant::now(),
-                            requested_resume: <span class="prelude-val">None</span>,
-                        }),
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                        <span class="kw-2">&amp;mut </span>control_flow,
-                    );
-                }
-                ControlFlow::WaitUntil(deadline) =&gt; {
-                    <span class="kw">let </span>start = Instant::now();
-
-                    <span class="comment">// Compute the amount of time we&#39;ll block for.
-                    </span><span class="kw">let </span>duration = <span class="kw">if </span>deadline &gt; start &amp;&amp; !instant_wakeup {
-                        deadline - start
-                    } <span class="kw">else </span>{
-                        Duration::from_millis(<span class="number">0</span>)
-                    };
-
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = <span class="self">self</span>.loop_dispatch(<span class="prelude-val">Some</span>(duration)) {
-                        <span class="kw">break </span>error.raw_os_error().unwrap_or(<span class="number">1</span>);
-                    }
-
-                    <span class="kw">let </span>now = Instant::now();
-
-                    <span class="kw">if </span>now &lt; deadline {
-                        callback(
-                            Event::NewEvents(StartCause::WaitCancelled {
-                                start,
-                                requested_resume: <span class="prelude-val">Some</span>(deadline),
-                            }),
-                            <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                            <span class="kw-2">&amp;mut </span>control_flow,
-                        )
-                    } <span class="kw">else </span>{
-                        callback(
-                            Event::NewEvents(StartCause::ResumeTimeReached {
-                                start,
-                                requested_resume: deadline,
-                            }),
-                            <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                            <span class="kw-2">&amp;mut </span>control_flow,
-                        )
-                    }
-                }
+            <span class="comment">// Reduce spurious wake-ups.
+            </span><span class="kw">let </span>dispatched_events = <span class="self">self</span>.with_state(|state| state.dispatched_events);
+            <span class="kw">if </span><span class="macro">matches!</span>(cause, StartCause::WaitCancelled { .. }) &amp;&amp; !dispatched_events {
+                <span class="kw">continue</span>;
             }
 
-            <span class="comment">// Handle pending user events. We don&#39;t need back buffer, since we can&#39;t dispatch
-            // user events indirectly via callback to the user.
-            </span><span class="kw">for </span>user_event <span class="kw">in </span>pending_user_events.borrow_mut().drain(..) {
-                sticky_exit_callback(
-                    Event::UserEvent(user_event),
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                    <span class="kw-2">&amp;mut </span>control_flow,
-                    <span class="kw-2">&amp;mut </span>callback,
-                );
-            }
-
-            <span class="comment">// Process &#39;new&#39; pending updates from compositor.
-            </span><span class="self">self</span>.with_state(|state| {
-                window_compositor_updates.clear();
-                window_compositor_updates.extend(
-                    state
-                        .window_compositor_updates
-                        .iter_mut()
-                        .map(|(wid, window_update)| (<span class="kw-2">*</span>wid, mem::take(window_update))),
-                );
-            });
-
-            <span class="kw">for </span>(window_id, window_compositor_update) <span class="kw">in </span>window_compositor_updates.iter_mut() {
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(scale_factor) = window_compositor_update.scale_factor {
-                    <span class="kw">let </span><span class="kw-2">mut </span>physical_size = <span class="self">self</span>.with_state(|state| {
-                        <span class="kw">let </span>window_handle = state.window_map.get(window_id).unwrap();
-                        <span class="kw-2">*</span>window_handle.scale_factor.lock().unwrap() = scale_factor;
-
-                        <span class="kw">let </span><span class="kw-2">mut </span>size = window_handle.size.lock().unwrap();
-
-                        <span class="comment">// Update the new logical size if it was changed.
-                        </span><span class="kw">let </span>window_size = window_compositor_update.size.unwrap_or(<span class="kw-2">*</span>size);
-                        <span class="kw-2">*</span>size = window_size;
-
-                        logical_to_physical_rounded(window_size, scale_factor)
-                    });
-
-                    sticky_exit_callback(
-                        Event::WindowEvent {
-                            window_id: <span class="kw">crate</span>::window::WindowId(<span class="kw-2">*</span>window_id),
-                            event: WindowEvent::ScaleFactorChanged {
-                                scale_factor,
-                                new_inner_size: <span class="kw-2">&amp;mut </span>physical_size,
-                            },
-                        },
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                        <span class="kw-2">&amp;mut </span>control_flow,
-                        <span class="kw-2">&amp;mut </span>callback,
-                    );
-
-                    <span class="comment">// We don&#39;t update size on a window handle since we&#39;ll do that later
-                    // when handling size update.
-                    </span><span class="kw">let </span>new_logical_size = physical_size.to_logical(scale_factor);
-                    window_compositor_update.size = <span class="prelude-val">Some</span>(new_logical_size);
-                }
-
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(size) = window_compositor_update.size.take() {
-                    <span class="kw">let </span>physical_size = <span class="self">self</span>.with_state(|state| {
-                        <span class="kw">let </span>window_handle = state.window_map.get_mut(window_id).unwrap();
-
-                        <span class="kw">if let </span><span class="prelude-val">Some</span>(fs_state) = window_handle.fractional_scaling_state.as_ref() {
-                            <span class="comment">// If we have a viewport then we support fractional scaling. As per the
-                            // protocol, we have to set the viewport size of the size prior scaling.
-                            </span>fs_state
-                                .viewport
-                                .set_destination(size.width <span class="kw">as _</span>, size.height <span class="kw">as _</span>);
-                        }
-
-                        <span class="kw">let </span><span class="kw-2">mut </span>window_size = window_handle.size.lock().unwrap();
-
-                        <span class="comment">// Always issue resize event on scale factor change.
-                        </span><span class="kw">let </span>physical_size = <span class="kw">if </span>window_compositor_update.scale_factor.is_none()
-                            &amp;&amp; <span class="kw-2">*</span>window_size == size
-                        {
-                            <span class="comment">// The size hasn&#39;t changed, don&#39;t inform downstream about that.
-                            </span><span class="prelude-val">None
-                        </span>} <span class="kw">else </span>{
-                            <span class="kw-2">*</span>window_size = size;
-                            <span class="kw">let </span>scale_factor = window_handle.scale_factor();
-                            <span class="kw">let </span>physical_size = logical_to_physical_rounded(size, scale_factor);
-                            <span class="prelude-val">Some</span>(physical_size)
-                        };
-
-                        <span class="comment">// We still perform all of those resize related logic even if the size
-                        // hasn&#39;t changed, since GNOME relies on `set_geometry` calls after
-                        // configures.
-                        </span>window_handle.window.resize(size.width, size.height);
-                        window_handle.window.refresh();
-
-                        <span class="comment">// Update the opaque region.
-                        </span>window_handle.set_transparent(window_handle.transparent.get());
-
-                        <span class="comment">// Mark that refresh isn&#39;t required, since we&#39;ve done it right now.
-                        </span>state
-                            .window_user_requests
-                            .get_mut(window_id)
-                            .unwrap()
-                            .refresh_frame = <span class="bool-val">false</span>;
-
-                        <span class="comment">// Queue redraw requested.
-                        </span>state
-                            .window_user_requests
-                            .get_mut(window_id)
-                            .unwrap()
-                            .redraw_requested = <span class="bool-val">true</span>;
-
-                        physical_size
-                    });
-
-                    <span class="kw">if let </span><span class="prelude-val">Some</span>(physical_size) = physical_size {
-                        sticky_exit_callback(
-                            Event::WindowEvent {
-                                window_id: <span class="kw">crate</span>::window::WindowId(<span class="kw-2">*</span>window_id),
-                                event: WindowEvent::Resized(physical_size),
-                            },
-                            <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                            <span class="kw-2">&amp;mut </span>control_flow,
-                            <span class="kw-2">&amp;mut </span>callback,
-                        );
-                    }
-                }
-
-                <span class="comment">// If the close is requested, send it here.
-                </span><span class="kw">if </span>window_compositor_update.close_window {
-                    sticky_exit_callback(
-                        Event::WindowEvent {
-                            window_id: <span class="kw">crate</span>::window::WindowId(<span class="kw-2">*</span>window_id),
-                            event: WindowEvent::CloseRequested,
-                        },
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                        <span class="kw-2">&amp;mut </span>control_flow,
-                        <span class="kw-2">&amp;mut </span>callback,
-                    );
-                }
-            }
-
-            <span class="comment">// The purpose of the back buffer and that swap is to not hold borrow_mut when
-            // we&#39;re doing callback to the user, since we can double borrow if the user decides
-            // to create a window in one of those callbacks.
-            </span><span class="self">self</span>.with_state(|state| {
-                std::mem::swap(
-                    <span class="kw-2">&amp;mut </span>event_sink_back_buffer,
-                    <span class="kw-2">&amp;mut </span>state.event_sink.window_events,
-                )
-            });
-
-            <span class="comment">// Handle pending window events.
-            </span><span class="kw">for </span>event <span class="kw">in </span>event_sink_back_buffer.drain(..) {
-                <span class="kw">let </span>event = event.map_nonuser_event().unwrap();
-                sticky_exit_callback(event, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target, <span class="kw-2">&amp;mut </span>control_flow, <span class="kw-2">&amp;mut </span>callback);
-            }
-
-            <span class="comment">// Send events cleared.
-            </span>sticky_exit_callback(
-                Event::MainEventsCleared,
-                <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                <span class="kw-2">&amp;mut </span>control_flow,
-                <span class="kw-2">&amp;mut </span>callback,
-            );
-
-            <span class="comment">// Apply user requests, so every event required resize and latter surface commit will
-            // be applied right before drawing. This will also ensure that every `RedrawRequested`
-            // event will be delivered in time.
-            </span><span class="self">self</span>.with_state(|state| {
-                shim::handle_window_requests(state);
-            });
-
-            <span class="comment">// Process &#39;new&#39; pending updates from compositor.
-            </span><span class="self">self</span>.with_state(|state| {
-                window_user_requests.clear();
-                window_user_requests.extend(
-                    state
-                        .window_user_requests
-                        .iter_mut()
-                        .map(|(wid, window_request)| (<span class="kw-2">*</span>wid, mem::take(window_request))),
-                );
-            });
-
-            <span class="comment">// Handle RedrawRequested events.
-            </span><span class="kw">for </span>(window_id, <span class="kw-2">mut </span>window_request) <span class="kw">in </span>window_user_requests.iter() {
-                <span class="comment">// Handle refresh of the frame.
-                </span><span class="kw">if </span>window_request.refresh_frame {
-                    <span class="self">self</span>.with_state(|state| {
-                        <span class="kw">let </span>window_handle = state.window_map.get_mut(window_id).unwrap();
-                        window_handle.window.refresh();
-                    });
-
-                    <span class="comment">// In general refreshing the frame requires surface commit, those force user
-                    // to redraw.
-                    </span>window_request.redraw_requested = <span class="bool-val">true</span>;
-                }
-
-                <span class="comment">// Handle redraw request.
-                </span><span class="kw">if </span>window_request.redraw_requested {
-                    sticky_exit_callback(
-                        Event::RedrawRequested(<span class="kw">crate</span>::window::WindowId(<span class="kw-2">*</span>window_id)),
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                        <span class="kw-2">&amp;mut </span>control_flow,
-                        <span class="kw-2">&amp;mut </span>callback,
-                    );
-                }
-            }
-
-            <span class="comment">// Send RedrawEventCleared.
-            </span>sticky_exit_callback(
-                Event::RedrawEventsCleared,
-                <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
-                <span class="kw-2">&amp;mut </span>control_flow,
-                <span class="kw-2">&amp;mut </span>callback,
-            );
+            <span class="kw">break </span>cause;
         };
 
-        callback(Event::LoopDestroyed, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target, <span class="kw-2">&amp;mut </span>control_flow);
-        exit_code
+        <span class="self">self</span>.single_iteration(<span class="kw-2">&amp;mut </span>callback, cause);
+    }
+
+    <span class="kw">fn </span>single_iteration&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, callback: <span class="kw-2">&amp;mut </span>F, cause: StartCause)
+    <span class="kw">where
+        </span>F: FnMut(Event&lt;T&gt;, <span class="kw-2">&amp;</span>RootEventLoopWindowTarget&lt;T&gt;),
+    {
+        <span class="comment">// NOTE currently just indented to simplify the diff
+
+        // We retain these grow-only scratch buffers as part of the EventLoop
+        // for the sake of avoiding lots of reallocs. We take them here to avoid
+        // trying to mutably borrow `self` more than once and we swap them back
+        // when finished.
+        </span><span class="kw">let </span><span class="kw-2">mut </span>compositor_updates = std::mem::take(<span class="kw-2">&amp;mut </span><span class="self">self</span>.compositor_updates);
+        <span class="kw">let </span><span class="kw-2">mut </span>buffer_sink = std::mem::take(<span class="kw-2">&amp;mut </span><span class="self">self</span>.buffer_sink);
+        <span class="kw">let </span><span class="kw-2">mut </span>window_ids = std::mem::take(<span class="kw-2">&amp;mut </span><span class="self">self</span>.window_ids);
+
+        callback(Event::NewEvents(cause), <span class="kw-2">&amp;</span><span class="self">self</span>.window_target);
+
+        <span class="comment">// NB: For consistency all platforms must emit a &#39;resumed&#39; event even though Wayland
+        // applications don&#39;t themselves have a formal suspend/resume lifecycle.
+        </span><span class="kw">if </span>cause == StartCause::Init {
+            callback(Event::Resumed, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target);
+        }
+
+        <span class="comment">// Handle pending user events. We don&#39;t need back buffer, since we can&#39;t dispatch
+        // user events indirectly via callback to the user.
+        </span><span class="kw">for </span>user_event <span class="kw">in </span><span class="self">self</span>.pending_user_events.borrow_mut().drain(..) {
+            callback(Event::UserEvent(user_event), <span class="kw-2">&amp;</span><span class="self">self</span>.window_target);
+        }
+
+        <span class="comment">// Drain the pending compositor updates.
+        </span><span class="self">self</span>.with_state(|state| compositor_updates.append(<span class="kw-2">&amp;mut </span>state.window_compositor_updates));
+
+        <span class="kw">for </span><span class="kw-2">mut </span>compositor_update <span class="kw">in </span>compositor_updates.drain(..) {
+            <span class="kw">let </span>window_id = compositor_update.window_id;
+            <span class="kw">if </span>compositor_update.scale_changed {
+                <span class="kw">let </span>(physical_size, scale_factor) = <span class="self">self</span>.with_state(|state| {
+                    <span class="kw">let </span>windows = state.windows.get_mut();
+                    <span class="kw">let </span>window = windows.get(<span class="kw-2">&amp;</span>window_id).unwrap().lock().unwrap();
+                    <span class="kw">let </span>scale_factor = window.scale_factor();
+                    <span class="kw">let </span>size = logical_to_physical_rounded(window.inner_size(), scale_factor);
+                    (size, scale_factor)
+                });
+
+                <span class="comment">// Stash the old window size.
+                </span><span class="kw">let </span>old_physical_size = physical_size;
+
+                <span class="kw">let </span>new_inner_size = Arc::new(Mutex::new(physical_size));
+                callback(
+                    Event::WindowEvent {
+                        window_id: <span class="kw">crate</span>::window::WindowId(window_id),
+                        event: WindowEvent::ScaleFactorChanged {
+                            scale_factor,
+                            inner_size_writer: InnerSizeWriter::new(Arc::downgrade(
+                                <span class="kw-2">&amp;</span>new_inner_size,
+                            )),
+                        },
+                    },
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
+                );
+
+                <span class="kw">let </span>physical_size = <span class="kw-2">*</span>new_inner_size.lock().unwrap();
+                drop(new_inner_size);
+
+                <span class="comment">// Resize the window when user altered the size.
+                </span><span class="kw">if </span>old_physical_size != physical_size {
+                    <span class="self">self</span>.with_state(|state| {
+                        <span class="kw">let </span>windows = state.windows.get_mut();
+                        <span class="kw">let </span><span class="kw-2">mut </span>window = windows.get(<span class="kw-2">&amp;</span>window_id).unwrap().lock().unwrap();
+
+                        <span class="kw">let </span>new_logical_size: LogicalSize&lt;f64&gt; =
+                            physical_size.to_logical(scale_factor);
+                        window.request_inner_size(new_logical_size.into());
+                    });
+
+                    <span class="comment">// Make it queue resize.
+                    </span>compositor_update.resized = <span class="bool-val">true</span>;
+                }
+            }
+
+            <span class="comment">// NOTE: Rescale changed the physical size which winit operates in, thus we should
+            // resize.
+            </span><span class="kw">if </span>compositor_update.resized || compositor_update.scale_changed {
+                <span class="kw">let </span>physical_size = <span class="self">self</span>.with_state(|state| {
+                    <span class="kw">let </span>windows = state.windows.get_mut();
+                    <span class="kw">let </span>window = windows.get(<span class="kw-2">&amp;</span>window_id).unwrap().lock().unwrap();
+
+                    <span class="kw">let </span>scale_factor = window.scale_factor();
+                    <span class="kw">let </span>size = logical_to_physical_rounded(window.inner_size(), scale_factor);
+
+                    <span class="comment">// Mark the window as needed a redraw.
+                    </span>state
+                        .window_requests
+                        .get_mut()
+                        .get_mut(<span class="kw-2">&amp;</span>window_id)
+                        .unwrap()
+                        .redraw_requested
+                        .store(<span class="bool-val">true</span>, Ordering::Relaxed);
+
+                    size
+                });
+
+                callback(
+                    Event::WindowEvent {
+                        window_id: <span class="kw">crate</span>::window::WindowId(window_id),
+                        event: WindowEvent::Resized(physical_size),
+                    },
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
+                );
+            }
+
+            <span class="kw">if </span>compositor_update.close_window {
+                callback(
+                    Event::WindowEvent {
+                        window_id: <span class="kw">crate</span>::window::WindowId(window_id),
+                        event: WindowEvent::CloseRequested,
+                    },
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
+                );
+            }
+        }
+
+        <span class="comment">// Push the events directly from the window.
+        </span><span class="self">self</span>.with_state(|state| {
+            buffer_sink.append(<span class="kw-2">&amp;mut </span>state.window_events_sink.lock().unwrap());
+        });
+        <span class="kw">for </span>event <span class="kw">in </span>buffer_sink.drain() {
+            <span class="kw">let </span>event = event.map_nonuser_event().unwrap();
+            callback(event, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target);
+        }
+
+        <span class="comment">// Handle non-synthetic events.
+        </span><span class="self">self</span>.with_state(|state| {
+            buffer_sink.append(<span class="kw-2">&amp;mut </span>state.events_sink);
+        });
+        <span class="kw">for </span>event <span class="kw">in </span>buffer_sink.drain() {
+            <span class="kw">let </span>event = event.map_nonuser_event().unwrap();
+            callback(event, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target);
+        }
+
+        <span class="comment">// Collect the window ids
+        </span><span class="self">self</span>.with_state(|state| {
+            window_ids.extend(state.window_requests.get_mut().keys());
+        });
+
+        <span class="kw">for </span>window_id <span class="kw">in </span>window_ids.drain(..) {
+            <span class="kw">let </span>event = <span class="self">self</span>.with_state(|state| {
+                <span class="kw">let </span>window_requests = state.window_requests.get_mut();
+                <span class="kw">if </span>window_requests.get(<span class="kw-2">&amp;</span>window_id).unwrap().take_closed() {
+                    mem::drop(window_requests.remove(<span class="kw-2">&amp;</span>window_id));
+                    mem::drop(state.windows.get_mut().remove(<span class="kw-2">&amp;</span>window_id));
+                    <span class="kw">return </span><span class="prelude-val">Some</span>(WindowEvent::Destroyed);
+                }
+
+                <span class="kw">let </span><span class="kw-2">mut </span>window = state
+                    .windows
+                    .get_mut()
+                    .get_mut(<span class="kw-2">&amp;</span>window_id)
+                    .unwrap()
+                    .lock()
+                    .unwrap();
+
+                <span class="kw">if </span>window.frame_callback_state() == FrameCallbackState::Requested {
+                    <span class="kw">return </span><span class="prelude-val">None</span>;
+                }
+
+                <span class="comment">// Reset the frame callbacks state.
+                </span>window.frame_callback_reset();
+                <span class="kw">let </span><span class="kw-2">mut </span>redraw_requested = window_requests
+                    .get(<span class="kw-2">&amp;</span>window_id)
+                    .unwrap()
+                    .take_redraw_requested();
+
+                <span class="comment">// Redraw the frame while at it.
+                </span>redraw_requested |= window.refresh_frame();
+
+                redraw_requested.then_some(WindowEvent::RedrawRequested)
+            });
+
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(event) = event {
+                callback(
+                    Event::WindowEvent {
+                        window_id: <span class="kw">crate</span>::window::WindowId(window_id),
+                        event,
+                    },
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.window_target,
+                );
+            }
+        }
+
+        <span class="comment">// Reset the hint that we&#39;ve dispatched events.
+        </span><span class="self">self</span>.with_state(|state| {
+            state.dispatched_events = <span class="bool-val">false</span>;
+        });
+
+        <span class="comment">// This is always the last event we dispatch before poll again
+        </span>callback(Event::AboutToWait, <span class="kw-2">&amp;</span><span class="self">self</span>.window_target);
+
+        std::mem::swap(<span class="kw-2">&amp;mut </span><span class="self">self</span>.compositor_updates, <span class="kw-2">&amp;mut </span>compositor_updates);
+        std::mem::swap(<span class="kw-2">&amp;mut </span><span class="self">self</span>.buffer_sink, <span class="kw-2">&amp;mut </span>buffer_sink);
+        std::mem::swap(<span class="kw-2">&amp;mut </span><span class="self">self</span>.window_ids, <span class="kw-2">&amp;mut </span>window_ids);
     }
 
     <span class="attr">#[inline]
@@ -1187,33 +1220,154 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.window_target
     }
 
-    <span class="kw">fn </span>with_state&lt;U, F: FnOnce(<span class="kw-2">&amp;mut </span>WinitState) -&gt; U&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, f: F) -&gt; U {
+    <span class="kw">fn </span>with_state&lt;<span class="lifetime">&#39;a</span>, U: <span class="lifetime">&#39;a</span>, F: FnOnce(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>WinitState) -&gt; U&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>, callback: F) -&gt; U {
         <span class="kw">let </span>state = <span class="kw">match </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.window_target.p {
             PlatformEventLoopWindowTarget::Wayland(window_target) =&gt; window_target.state.get_mut(),
             <span class="attr">#[cfg(x11_platform)]
             </span><span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
         };
 
-        f(state)
+        callback(state)
     }
 
     <span class="kw">fn </span>loop_dispatch&lt;D: Into&lt;<span class="prelude-ty">Option</span>&lt;std::time::Duration&gt;&gt;&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, timeout: D) -&gt; IOResult&lt;()&gt; {
         <span class="kw">let </span>state = <span class="kw">match </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.window_target.p {
             PlatformEventLoopWindowTarget::Wayland(window_target) =&gt; window_target.state.get_mut(),
-            <span class="attr">#[cfg(x11_platform)]
+            <span class="attr">#[cfg(feature = <span class="string">&quot;x11&quot;</span>)]
             </span><span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
         };
 
-        <span class="self">self</span>.event_loop
-            .dispatch(timeout, state)
-            .map_err(|error| error.into())
+        <span class="self">self</span>.event_loop.dispatch(timeout, state).map_err(|error| {
+            <span class="macro">error!</span>(<span class="string">&quot;Error dispatching event loop: {}&quot;</span>, error);
+            error.into()
+        })
+    }
+
+    <span class="kw">fn </span>roundtrip(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;usize, RootOsError&gt; {
+        <span class="kw">let </span>state = <span class="kw">match </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.window_target.p {
+            PlatformEventLoopWindowTarget::Wayland(window_target) =&gt; window_target.state.get_mut(),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;x11&quot;</span>)]
+            </span><span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+        };
+
+        <span class="kw">let </span><span class="kw-2">mut </span>wayland_source = <span class="self">self</span>.wayland_dispatcher.as_source_mut();
+        <span class="kw">let </span>event_queue = wayland_source.queue();
+        event_queue.roundtrip(state).map_err(|error| {
+            <span class="macro">os_error!</span>(OsError::WaylandError(Arc::new(WaylandError::Dispatch(
+                error
+            ))))
+        })
+    }
+
+    <span class="kw">fn </span>control_flow(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ControlFlow {
+        <span class="self">self</span>.window_target.p.control_flow()
+    }
+
+    <span class="kw">fn </span>exiting(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.window_target.p.exiting()
+    }
+
+    <span class="kw">fn </span>set_exit_code(<span class="kw-2">&amp;</span><span class="self">self</span>, code: i32) {
+        <span class="self">self</span>.window_target.p.set_exit_code(code)
+    }
+
+    <span class="kw">fn </span>exit_code(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
+        <span class="self">self</span>.window_target.p.exit_code()
     }
 }
 
-<span class="comment">// The default routine does floor, but we need round on Wayland.
-</span><span class="kw">fn </span>logical_to_physical_rounded(size: LogicalSize&lt;u32&gt;, scale_factor: f64) -&gt; PhysicalSize&lt;u32&gt; {
-    <span class="kw">let </span>width = size.width <span class="kw">as </span>f64 * scale_factor;
-    <span class="kw">let </span>height = size.height <span class="kw">as </span>f64 * scale_factor;
-    (width.round(), height.round()).into()
+<span class="kw">impl</span>&lt;T&gt; AsFd <span class="kw">for </span>EventLoop&lt;T&gt; {
+    <span class="kw">fn </span>as_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt; {
+        <span class="self">self</span>.event_loop.as_fd()
+    }
+}
+
+<span class="kw">impl</span>&lt;T&gt; AsRawFd <span class="kw">for </span>EventLoop&lt;T&gt; {
+    <span class="kw">fn </span>as_raw_fd(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawFd {
+        <span class="self">self</span>.event_loop.as_raw_fd()
+    }
+}
+
+<span class="kw">pub struct </span>EventLoopWindowTarget&lt;T&gt; {
+    <span class="doccomment">/// The event loop wakeup source.
+    </span><span class="kw">pub </span>event_loop_awakener: calloop::ping::Ping,
+
+    <span class="doccomment">/// The main queue used by the event loop.
+    </span><span class="kw">pub </span>queue_handle: QueueHandle&lt;WinitState&gt;,
+
+    <span class="doccomment">/// The application&#39;s latest control_flow state
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) control_flow: Cell&lt;ControlFlow&gt;,
+
+    <span class="doccomment">/// The application&#39;s exit state.
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) exit: Cell&lt;<span class="prelude-ty">Option</span>&lt;i32&gt;&gt;,
+
+    <span class="comment">// TODO remove that RefCell once we can pass `&amp;mut` in `Window::new`.
+    </span><span class="doccomment">/// Winit state.
+    </span><span class="kw">pub </span>state: RefCell&lt;WinitState&gt;,
+
+    <span class="doccomment">/// Dispatcher of Wayland events.
+    </span><span class="kw">pub </span>wayland_dispatcher: WaylandDispatcher,
+
+    <span class="doccomment">/// Connection to the wayland server.
+    </span><span class="kw">pub </span>connection: Connection,
+
+    _marker: std::marker::PhantomData&lt;T&gt;,
+}
+
+<span class="kw">impl</span>&lt;T&gt; EventLoopWindowTarget&lt;T&gt; {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_control_flow(<span class="kw-2">&amp;</span><span class="self">self</span>, control_flow: ControlFlow) {
+        <span class="self">self</span>.control_flow.set(control_flow)
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>control_flow(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ControlFlow {
+        <span class="self">self</span>.control_flow.get()
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>exit(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.exit.set(<span class="prelude-val">Some</span>(<span class="number">0</span>))
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>clear_exit(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.exit.set(<span class="prelude-val">None</span>)
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>exiting(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.exit.get().is_some()
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_exit_code(<span class="kw-2">&amp;</span><span class="self">self</span>, code: i32) {
+        <span class="self">self</span>.exit.set(<span class="prelude-val">Some</span>(code))
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>exit_code(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
+        <span class="self">self</span>.exit.get()
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>listen_device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, _allowed: DeviceEvents) {}
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_05&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_display_handle_rwh_05(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; rwh_05::RawDisplayHandle {
+        <span class="kw">use </span>sctk::reexports::client::Proxy;
+
+        <span class="kw">let </span><span class="kw-2">mut </span>display_handle = rwh_05::WaylandDisplayHandle::empty();
+        display_handle.display = <span class="self">self</span>.connection.display().id().as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
+        rwh_05::RawDisplayHandle::Wayland(display_handle)
+    }
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_06&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_display_handle_rwh_06(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;rwh_06::RawDisplayHandle, rwh_06::HandleError&gt; {
+        <span class="kw">use </span>sctk::reexports::client::Proxy;
+
+        <span class="prelude-val">Ok</span>(rwh_06::WaylandDisplayHandle::new({
+            <span class="kw">let </span>ptr = <span class="self">self</span>.connection.display().id().as_ptr();
+            std::ptr::NonNull::new(ptr <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>).expect(<span class="string">&quot;wl_display should never be null&quot;</span>)
+        })
+        .into())
+    }
 }
 </code></pre></div></section></main></body></html>

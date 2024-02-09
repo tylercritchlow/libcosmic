@@ -83,8 +83,14 @@
 <a href="#83" id="83">83</a>
 <a href="#84" id="84">84</a>
 <a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Change the apperance of a button.
-</span><span class="kw">use </span>iced_core::{Background, BorderRadius, Color, Vector};
+</span><span class="kw">use </span>iced_core::{border::Radius, Background, Border, Color, Shadow, Vector};
 
 <span class="doccomment">/// The appearance of a button.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
@@ -94,7 +100,7 @@
     <span class="doccomment">/// The [`Background`] of the button.
     </span><span class="kw">pub </span>background: <span class="prelude-ty">Option</span>&lt;Background&gt;,
     <span class="doccomment">/// The border radius of the button.
-    </span><span class="kw">pub </span>border_radius: BorderRadius,
+    </span><span class="kw">pub </span>border_radius: Radius,
     <span class="doccomment">/// The border width of the button.
     </span><span class="kw">pub </span>border_width: f32,
     <span class="doccomment">/// The border [`Color`] of the button.
@@ -103,6 +109,10 @@
     </span><span class="kw">pub </span>icon_color: <span class="prelude-ty">Option</span>&lt;Color&gt;,
     <span class="doccomment">/// The text [`Color`] of the button.
     </span><span class="kw">pub </span>text_color: Color,
+    <span class="doccomment">/// The [`Border`] of the buton.
+    </span><span class="kw">pub </span>border: Border,
+    <span class="doccomment">/// The [`Shadow`] of the butoon.
+    </span><span class="kw">pub </span>shadow: Shadow,
 }
 
 <span class="kw">impl </span>std::default::Default <span class="kw">for </span>Appearance {
@@ -115,6 +125,8 @@
             border_color: Color::TRANSPARENT,
             icon_color: <span class="prelude-val">None</span>,
             text_color: Color::BLACK,
+            border: Border::default(),
+            shadow: Shadow::default(),
         }
     }
 }

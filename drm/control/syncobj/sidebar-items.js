@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["Handle","SyncFile"]};
+window.SIDEBAR_ITEMS = {"struct":["Handle"]};

@@ -1,5 +1,4 @@
 (function() {var type_impls = {
-"ash":[],
 "wayland_sys":[],
 "x11rb":[],
 "x11rb_protocol":[]

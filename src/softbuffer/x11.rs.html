@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/softbuffer-b53d51e2579e9817/6f0371c/src/x11.rs`."><title>x11.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="softbuffer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/softbuffer-b53d51e2579e9817/0bb8598/src/x11.rs`."><title>x11.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="softbuffer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -910,6 +910,101 @@
 <a href="#910" id="910">910</a>
 <a href="#911" id="911">911</a>
 <a href="#912" id="912">912</a>
+<a href="#913" id="913">913</a>
+<a href="#914" id="914">914</a>
+<a href="#915" id="915">915</a>
+<a href="#916" id="916">916</a>
+<a href="#917" id="917">917</a>
+<a href="#918" id="918">918</a>
+<a href="#919" id="919">919</a>
+<a href="#920" id="920">920</a>
+<a href="#921" id="921">921</a>
+<a href="#922" id="922">922</a>
+<a href="#923" id="923">923</a>
+<a href="#924" id="924">924</a>
+<a href="#925" id="925">925</a>
+<a href="#926" id="926">926</a>
+<a href="#927" id="927">927</a>
+<a href="#928" id="928">928</a>
+<a href="#929" id="929">929</a>
+<a href="#930" id="930">930</a>
+<a href="#931" id="931">931</a>
+<a href="#932" id="932">932</a>
+<a href="#933" id="933">933</a>
+<a href="#934" id="934">934</a>
+<a href="#935" id="935">935</a>
+<a href="#936" id="936">936</a>
+<a href="#937" id="937">937</a>
+<a href="#938" id="938">938</a>
+<a href="#939" id="939">939</a>
+<a href="#940" id="940">940</a>
+<a href="#941" id="941">941</a>
+<a href="#942" id="942">942</a>
+<a href="#943" id="943">943</a>
+<a href="#944" id="944">944</a>
+<a href="#945" id="945">945</a>
+<a href="#946" id="946">946</a>
+<a href="#947" id="947">947</a>
+<a href="#948" id="948">948</a>
+<a href="#949" id="949">949</a>
+<a href="#950" id="950">950</a>
+<a href="#951" id="951">951</a>
+<a href="#952" id="952">952</a>
+<a href="#953" id="953">953</a>
+<a href="#954" id="954">954</a>
+<a href="#955" id="955">955</a>
+<a href="#956" id="956">956</a>
+<a href="#957" id="957">957</a>
+<a href="#958" id="958">958</a>
+<a href="#959" id="959">959</a>
+<a href="#960" id="960">960</a>
+<a href="#961" id="961">961</a>
+<a href="#962" id="962">962</a>
+<a href="#963" id="963">963</a>
+<a href="#964" id="964">964</a>
+<a href="#965" id="965">965</a>
+<a href="#966" id="966">966</a>
+<a href="#967" id="967">967</a>
+<a href="#968" id="968">968</a>
+<a href="#969" id="969">969</a>
+<a href="#970" id="970">970</a>
+<a href="#971" id="971">971</a>
+<a href="#972" id="972">972</a>
+<a href="#973" id="973">973</a>
+<a href="#974" id="974">974</a>
+<a href="#975" id="975">975</a>
+<a href="#976" id="976">976</a>
+<a href="#977" id="977">977</a>
+<a href="#978" id="978">978</a>
+<a href="#979" id="979">979</a>
+<a href="#980" id="980">980</a>
+<a href="#981" id="981">981</a>
+<a href="#982" id="982">982</a>
+<a href="#983" id="983">983</a>
+<a href="#984" id="984">984</a>
+<a href="#985" id="985">985</a>
+<a href="#986" id="986">986</a>
+<a href="#987" id="987">987</a>
+<a href="#988" id="988">988</a>
+<a href="#989" id="989">989</a>
+<a href="#990" id="990">990</a>
+<a href="#991" id="991">991</a>
+<a href="#992" id="992">992</a>
+<a href="#993" id="993">993</a>
+<a href="#994" id="994">994</a>
+<a href="#995" id="995">995</a>
+<a href="#996" id="996">996</a>
+<a href="#997" id="997">997</a>
+<a href="#998" id="998">998</a>
+<a href="#999" id="999">999</a>
+<a href="#1000" id="1000">1000</a>
+<a href="#1001" id="1001">1001</a>
+<a href="#1002" id="1002">1002</a>
+<a href="#1003" id="1003">1003</a>
+<a href="#1004" id="1004">1004</a>
+<a href="#1005" id="1005">1005</a>
+<a href="#1006" id="1006">1006</a>
+<a href="#1007" id="1007">1007</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Implementation of software buffering for X11.
 //!
 //! This module converts the input buffer into an XImage and then sends it over the wire to be
@@ -917,12 +1012,19 @@
 
 </span><span class="attr">#![allow(clippy::uninlined_format_args)]
 
-</span><span class="kw">use </span><span class="kw">crate</span>::error::SwResultExt;
+</span><span class="kw">use </span><span class="kw">crate</span>::error::{InitError, SwResultExt};
 <span class="kw">use crate</span>::{Rect, SoftBufferError};
-<span class="kw">use </span>raw_window_handle::{XcbDisplayHandle, XcbWindowHandle, XlibDisplayHandle, XlibWindowHandle};
-<span class="kw">use </span>rustix::{fd::{AsFd, BorrowedFd, OwnedFd}, mm, shm <span class="kw">as </span>posix_shm};
+<span class="kw">use </span>raw_window_handle::{
+    HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle, XcbDisplayHandle,
+    XcbWindowHandle,
+};
+<span class="kw">use </span>rustix::{
+    fd::{AsFd, BorrowedFd, OwnedFd},
+    mm, shm <span class="kw">as </span>posix_shm,
+};
 
 <span class="kw">use </span>std::{
+    collections::HashSet,
     fmt,
     fs::File,
     io, mem,
@@ -937,80 +1039,101 @@
 <span class="kw">use </span>x11rb::cookie::Cookie;
 <span class="kw">use </span>x11rb::errors::{ConnectionError, ReplyError, ReplyOrIdError};
 <span class="kw">use </span>x11rb::protocol::shm::{<span class="self">self</span>, ConnectionExt <span class="kw">as _</span>};
-<span class="kw">use </span>x11rb::protocol::xproto::{<span class="self">self</span>, ConnectionExt <span class="kw">as _</span>};
+<span class="kw">use </span>x11rb::protocol::xproto::{<span class="self">self</span>, ConnectionExt <span class="kw">as _</span>, ImageOrder, VisualClass, Visualid};
 <span class="kw">use </span>x11rb::xcb_ffi::XCBConnection;
 
-<span class="kw">pub struct </span>X11DisplayImpl {
+<span class="kw">pub struct </span>X11DisplayImpl&lt;D: <span class="question-mark">?</span>Sized&gt; {
     <span class="doccomment">/// The handle to the XCB connection.
-    </span>connection: XCBConnection,
+    </span>connection: <span class="prelude-ty">Option</span>&lt;XCBConnection&gt;,
 
     <span class="doccomment">/// SHM extension is available.
     </span>is_shm_available: bool,
+
+    <span class="doccomment">/// All visuals using softbuffer&#39;s pixel representation
+    </span>supported_visuals: HashSet&lt;Visualid&gt;,
+
+    <span class="doccomment">/// The generic display where the `connection` field comes from.
+    ///
+    /// Without `&amp;mut`, the underlying connection cannot be closed without other unsafe behavior.
+    /// With `&amp;mut`, the connection can be dropped without us knowing about it. Therefore, we
+    /// cannot provide `&amp;mut` access to this field.
+    </span>_display: D,
 }
 
-<span class="kw">impl </span>X11DisplayImpl {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>from_xlib(
-        display_handle: XlibDisplayHandle,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;X11DisplayImpl, SoftBufferError&gt; {
-        <span class="comment">// Validate the display handle to ensure we can use it.
-        </span><span class="kw">if </span>display_handle.display.is_null() {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::IncompleteDisplayHandle);
-        }
+<span class="kw">impl</span>&lt;D: HasDisplayHandle + <span class="question-mark">?</span>Sized&gt; X11DisplayImpl&lt;D&gt; {
+    <span class="doccomment">/// Create a new `X11DisplayImpl`.
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(display: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InitError&lt;D&gt;&gt;
+    <span class="kw">where
+        </span>D: Sized,
+    {
+        <span class="comment">// Get the underlying libxcb handle.
+        </span><span class="kw">let </span>raw = display.display_handle()<span class="question-mark">?</span>.as_raw();
+        <span class="kw">let </span>xcb_handle = <span class="kw">match </span>raw {
+            RawDisplayHandle::Xcb(xcb_handle) =&gt; xcb_handle,
+            RawDisplayHandle::Xlib(xlib) =&gt; {
+                <span class="comment">// Convert to an XCB handle.
+                </span><span class="kw">let </span>connection = xlib.display.map(|display| {
+                    <span class="comment">// Get the underlying XCB connection.
+                    // SAFETY: The user has asserted that the display handle is valid.
+                    </span><span class="kw">unsafe </span>{
+                        <span class="kw">let </span>display = tiny_xlib::Display::from_ptr(display.as_ptr());
+                        NonNull::new_unchecked(display.as_raw_xcb_connection()).cast()
+                    }
+                });
 
-        <span class="comment">// Get the underlying XCB connection.
-        // SAFETY: The user has asserted that the display handle is valid.
-        </span><span class="kw">let </span>connection = <span class="kw">unsafe </span>{
-            <span class="kw">let </span>display = tiny_xlib::Display::from_ptr(display_handle.display);
-            display.as_raw_xcb_connection()
+                <span class="comment">// Construct the equivalent XCB display and window handles.
+                </span>XcbDisplayHandle::new(connection, xlib.screen)
+            }
+            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(InitError::Unsupported(display)),
         };
 
-        <span class="comment">// Construct the equivalent XCB display and window handles.
-        </span><span class="kw">let </span><span class="kw-2">mut </span>xcb_display_handle = XcbDisplayHandle::empty();
-        xcb_display_handle.connection = connection.cast();
-        xcb_display_handle.screen = display_handle.screen;
+        <span class="comment">// Validate the display handle to ensure we can use it.
+        </span><span class="kw">let </span>connection = <span class="kw">match </span>xcb_handle.connection {
+            <span class="prelude-val">Some</span>(connection) =&gt; {
+                <span class="comment">// Wrap the display handle in an x11rb connection.
+                // SAFETY: We don&#39;t own the connection, so don&#39;t drop it. We also assert that the connection is valid.
+                </span><span class="kw">let </span>result =
+                    <span class="kw">unsafe </span>{ XCBConnection::from_raw_xcb_connection(connection.as_ptr(), <span class="bool-val">false</span>) };
 
-        <span class="comment">// SAFETY: If the user passed in valid Xlib handles, then these are valid XCB handles.
-        </span><span class="kw">unsafe </span>{ <span class="self">Self</span>::from_xcb(xcb_display_handle) }
-    }
-
-    <span class="doccomment">/// Create a new `X11Impl` from a `XcbWindowHandle` and `XcbDisplayHandle`.
-    ///
-    /// # Safety
-    ///
-    /// The `XcbWindowHandle` and `XcbDisplayHandle` must be valid.
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>from_xcb(
-        display_handle: XcbDisplayHandle,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="comment">// Check that the handle is valid.
-        </span><span class="kw">if </span>display_handle.connection.is_null() {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::IncompleteDisplayHandle);
-        }
-
-        <span class="comment">// Wrap the display handle in an x11rb connection.
-        // SAFETY: We don&#39;t own the connection, so don&#39;t drop it. We also assert that the connection is valid.
-        </span><span class="kw">let </span>connection = {
-            <span class="kw">let </span>result =
-                <span class="kw">unsafe </span>{ XCBConnection::from_raw_xcb_connection(display_handle.connection, <span class="bool-val">false</span>) };
-
-            result.swbuf_err(<span class="string">&quot;Failed to wrap XCB connection&quot;</span>)<span class="question-mark">?
-        </span>};
+                result.swbuf_err(<span class="string">&quot;Failed to wrap XCB connection&quot;</span>)<span class="question-mark">?
+            </span>}
+            <span class="prelude-val">None </span>=&gt; {
+                <span class="comment">// The user didn&#39;t provide an XCB connection, so create our own.
+                </span><span class="macro">log::info!</span>(<span class="string">&quot;no XCB connection provided by the user, so spawning our own&quot;</span>);
+                XCBConnection::connect(<span class="prelude-val">None</span>)
+                    .swbuf_err(<span class="string">&quot;Failed to spawn XCB connection&quot;</span>)<span class="question-mark">?
+                    </span>.<span class="number">0
+            </span>}
+        };
 
         <span class="kw">let </span>is_shm_available = is_shm_available(<span class="kw-2">&amp;</span>connection);
         <span class="kw">if </span>!is_shm_available {
             <span class="macro">log::warn!</span>(<span class="string">&quot;SHM extension is not available. Performance may be poor.&quot;</span>);
         }
 
+        <span class="kw">let </span>supported_visuals = supported_visuals(<span class="kw-2">&amp;</span>connection);
+
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-            connection,
+            connection: <span class="prelude-val">Some</span>(connection),
             is_shm_available,
+            supported_visuals,
+            _display: display,
         })
     }
 }
 
+<span class="kw">impl</span>&lt;D: <span class="question-mark">?</span>Sized&gt; X11DisplayImpl&lt;D&gt; {
+    <span class="kw">fn </span>connection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>XCBConnection {
+        <span class="self">self</span>.connection
+            .as_ref()
+            .expect(<span class="string">&quot;X11DisplayImpl::connection() called after X11DisplayImpl::drop()&quot;</span>)
+    }
+}
+
 <span class="doccomment">/// The handle to an X11 drawing context.
-</span><span class="kw">pub struct </span>X11Impl {
+</span><span class="kw">pub struct </span>X11Impl&lt;D: <span class="question-mark">?</span>Sized, W: <span class="question-mark">?</span>Sized&gt; {
     <span class="doccomment">/// X display this window belongs to.
-    </span>display: Rc&lt;X11DisplayImpl&gt;,
+    </span>display: Rc&lt;X11DisplayImpl&lt;D&gt;&gt;,
 
     <span class="doccomment">/// The window to draw to.
     </span>window: xproto::Window,
@@ -1032,6 +1155,9 @@
 
     <span class="doccomment">/// The current buffer width/height.
     </span>size: <span class="prelude-ty">Option</span>&lt;(NonZeroU16, NonZeroU16)&gt;,
+
+    <span class="doccomment">/// Keep the window alive.
+    </span>window_handle: W,
 }
 
 <span class="doccomment">/// The buffer that is being drawn to.
@@ -1062,53 +1188,41 @@
     </span>done_processing: <span class="prelude-ty">Option</span>&lt;SequenceNumber&gt;,
 }
 
-<span class="kw">impl </span>X11Impl {
-    <span class="doccomment">/// Create a new `X11Impl` from a `XlibWindowHandle` and `XlibDisplayHandle`.
-    ///
-    /// # Safety
-    ///
-    /// The `XlibWindowHandle` and `XlibDisplayHandle` must be valid.
-    </span><span class="kw">pub unsafe fn </span>from_xlib(
-        window_handle: XlibWindowHandle,
-        display: Rc&lt;X11DisplayImpl&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>xcb_window_handle = XcbWindowHandle::empty();
-        xcb_window_handle.window = window_handle.window <span class="kw">as _</span>;
-        xcb_window_handle.visual_id = window_handle.visual_id <span class="kw">as _</span>;
+<span class="kw">impl</span>&lt;D: HasDisplayHandle + <span class="question-mark">?</span>Sized, W: HasWindowHandle&gt; X11Impl&lt;D, W&gt; {
+    <span class="doccomment">/// Create a new `X11Impl` from a `HasWindowHandle`.
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(window_src: W, display: Rc&lt;X11DisplayImpl&lt;D&gt;&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InitError&lt;W&gt;&gt; {
+        <span class="comment">// Get the underlying raw window handle.
+        </span><span class="kw">let </span>raw = window_src.window_handle()<span class="question-mark">?</span>.as_raw();
+        <span class="kw">let </span>window_handle = <span class="kw">match </span>raw {
+            RawWindowHandle::Xcb(xcb) =&gt; xcb,
+            RawWindowHandle::Xlib(xlib) =&gt; {
+                <span class="kw">let </span>window = <span class="kw">match </span>NonZeroU32::new(xlib.window <span class="kw">as </span>u32) {
+                    <span class="prelude-val">Some</span>(window) =&gt; window,
+                    <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::IncompleteWindowHandle.into()),
+                };
+                <span class="kw">let </span><span class="kw-2">mut </span>xcb_window_handle = XcbWindowHandle::new(window);
+                xcb_window_handle.visual_id = NonZeroU32::new(xlib.visual_id <span class="kw">as </span>u32);
+                xcb_window_handle
+            }
+            <span class="kw">_ </span>=&gt; {
+                <span class="kw">return </span><span class="prelude-val">Err</span>(InitError::Unsupported(window_src));
+            }
+        };
 
-        <span class="comment">// SAFETY: If the user passed in valid Xlib handles, then these are valid XCB handles.
-        </span><span class="kw">unsafe </span>{ <span class="self">Self</span>::from_xcb(xcb_window_handle, display) }
-    }
-
-    <span class="doccomment">/// Create a new `X11Impl` from a `XcbWindowHandle` and `XcbDisplayHandle`.
-    ///
-    /// # Safety
-    ///
-    /// The `XcbWindowHandle` and `XcbDisplayHandle` must be valid.
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>from_xcb(
-        window_handle: XcbWindowHandle,
-        display: Rc&lt;X11DisplayImpl&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="macro">log::trace!</span>(<span class="string">&quot;new: window_handle={:X}&quot;</span>, window_handle.window,);
-
-        <span class="comment">// Check that the handle is valid.
-        </span><span class="kw">if </span>window_handle.window == <span class="number">0 </span>{
-            <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::IncompleteWindowHandle);
-        }
-
-        <span class="kw">let </span>window = window_handle.window;
+        <span class="macro">log::trace!</span>(<span class="string">&quot;new: window_handle={:X}&quot;</span>, window_handle.window);
+        <span class="kw">let </span>window = window_handle.window.get();
 
         <span class="comment">// Run in parallel: start getting the window depth and (if necessary) visual.
         </span><span class="kw">let </span>display2 = display.clone();
         <span class="kw">let </span>tokens = {
             <span class="kw">let </span>geometry_token = display2
-                .connection
+                .connection()
                 .get_geometry(window)
                 .swbuf_err(<span class="string">&quot;Failed to send geometry request&quot;</span>)<span class="question-mark">?</span>;
-            <span class="kw">let </span>window_attrs_token = <span class="kw">if </span>window_handle.visual_id == <span class="number">0 </span>{
+            <span class="kw">let </span>window_attrs_token = <span class="kw">if </span>window_handle.visual_id.is_none() {
                 <span class="prelude-val">Some</span>(
                     display2
-                        .connection
+                        .connection()
                         .get_window_attributes(window)
                         .swbuf_err(<span class="string">&quot;Failed to send window attributes request&quot;</span>)<span class="question-mark">?</span>,
                 )
@@ -1121,11 +1235,11 @@
 
         <span class="comment">// Create a new graphics context to draw to.
         </span><span class="kw">let </span>gc = display
-            .connection
+            .connection()
             .generate_id()
             .swbuf_err(<span class="string">&quot;Failed to generate GC ID&quot;</span>)<span class="question-mark">?</span>;
         display
-            .connection
+            .connection()
             .create_gc(
                 gc,
                 window,
@@ -1142,7 +1256,7 @@
                 .reply()
                 .swbuf_err(<span class="string">&quot;Failed to get geometry reply&quot;</span>)<span class="question-mark">?</span>;
             <span class="kw">let </span>visual_id = <span class="kw">match </span>window_attrs_token {
-                <span class="prelude-val">None </span>=&gt; window_handle.visual_id,
+                <span class="prelude-val">None </span>=&gt; window_handle.visual_id.unwrap().get(),
                 <span class="prelude-val">Some</span>(window_attrs) =&gt; {
                     window_attrs
                         .reply()
@@ -1153,6 +1267,16 @@
 
             (geometry_reply, visual_id)
         };
+
+        <span class="kw">if </span>!display.supported_visuals.contains(<span class="kw-2">&amp;</span>visual_id) {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::PlatformError(
+                <span class="prelude-val">Some</span>(<span class="macro">format!</span>(
+                    <span class="string">&quot;Visual 0x{visual_id:x} does not use softbuffer&#39;s pixel format and is unsupported&quot;
+                </span>)),
+                <span class="prelude-val">None</span>,
+            )
+            .into());
+        }
 
         <span class="comment">// See if SHM is available.
         </span><span class="kw">let </span>buffer = <span class="kw">if </span>display.is_shm_available {
@@ -1175,7 +1299,14 @@
             buffer,
             buffer_presented: <span class="bool-val">false</span>,
             size: <span class="prelude-val">None</span>,
+            window_handle: window_src,
         })
+    }
+
+    <span class="doccomment">/// Get the inner window handle.
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>W {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.window_handle
     }
 
     <span class="doccomment">/// Resize the internal buffer to the given width and height.
@@ -1203,7 +1334,7 @@
         <span class="kw">if </span><span class="self">self</span>.size != <span class="prelude-val">Some</span>((width, height)) {
             <span class="self">self</span>.buffer_presented = <span class="bool-val">false</span>;
             <span class="self">self</span>.buffer
-                .resize(<span class="kw-2">&amp;</span><span class="self">self</span>.display.connection, width.get(), height.get())
+                .resize(<span class="self">self</span>.display.connection(), width.get(), height.get())
                 .swbuf_err(<span class="string">&quot;Failed to resize X11 buffer&quot;</span>)<span class="question-mark">?</span>;
 
             <span class="comment">// We successfully resized the buffer.
@@ -1214,11 +1345,11 @@
     }
 
     <span class="doccomment">/// Get a mutable reference to the buffer.
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;BufferImpl, SoftBufferError&gt; {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;BufferImpl&lt;<span class="lifetime">&#39;_</span>, D, W&gt;, SoftBufferError&gt; {
         <span class="macro">log::trace!</span>(<span class="string">&quot;buffer_mut: window={:X}&quot;</span>, <span class="self">self</span>.window);
 
         <span class="comment">// Finish waiting on the previous `shm::PutImage` request, if any.
-        </span><span class="self">self</span>.buffer.finish_wait(<span class="kw-2">&amp;</span><span class="self">self</span>.display.connection)<span class="question-mark">?</span>;
+        </span><span class="self">self</span>.buffer.finish_wait(<span class="self">self</span>.display.connection())<span class="question-mark">?</span>;
 
         <span class="comment">// We can now safely call `buffer_mut` on the buffer.
         </span><span class="prelude-val">Ok</span>(BufferImpl(<span class="self">self</span>))
@@ -1235,7 +1366,7 @@
         <span class="comment">// TODO: Is it worth it to do SHM here? Probably not.
         </span><span class="kw">let </span>reply = <span class="self">self
             </span>.display
-            .connection
+            .connection()
             .get_image(
                 xproto::ImageFormat::Z_PIXMAP,
                 <span class="self">self</span>.window,
@@ -1262,9 +1393,9 @@
     }
 }
 
-<span class="kw">pub struct </span>BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>X11Impl);
+<span class="kw">pub struct </span>BufferImpl&lt;<span class="lifetime">&#39;a</span>, D: <span class="question-mark">?</span>Sized, W: <span class="question-mark">?</span>Sized&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>X11Impl&lt;D, W&gt;);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, D: HasDisplayHandle + <span class="question-mark">?</span>Sized, W: HasWindowHandle + <span class="question-mark">?</span>Sized&gt; BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>pixels(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u32] {
         <span class="comment">// SAFETY: We called `finish_wait` on the buffer, so it is safe to call `buffer()`.
@@ -1301,7 +1432,7 @@
                 </span><span class="macro">log::debug!</span>(<span class="string">&quot;Falling back to non-SHM method for window drawing.&quot;</span>);
 
                 imp.display
-                    .connection
+                    .connection()
                     .put_image(
                         xproto::ImageFormat::Z_PIXMAP,
                         imp.window,
@@ -1340,7 +1471,7 @@
                             )
                             .ok_or(SoftBufferError::DamageOutOfRange { rect: <span class="kw-2">*</span>rect })<span class="question-mark">?</span>;
                             imp.display
-                                .connection
+                                .connection()
                                 .shm_put_image(
                                     imp.window,
                                     imp.gc,
@@ -1364,7 +1495,7 @@
                         })
                         .and_then(|()| {
                             <span class="comment">// Send a short request to act as a notification for when the X server is done processing the image.
-                            </span>shm.begin_wait(<span class="kw-2">&amp;</span>imp.display.connection)
+                            </span>shm.begin_wait(imp.display.connection())
                                 .swbuf_err(<span class="string">&quot;Failed to draw image to window&quot;</span>)
                         })<span class="question-mark">?</span>;
                 }
@@ -1656,15 +1787,22 @@
     }
 }
 
-<span class="kw">impl </span>Drop <span class="kw">for </span>X11Impl {
+<span class="kw">impl</span>&lt;D: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>X11DisplayImpl&lt;D&gt; {
+    <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="comment">// Make sure that the x11rb connection is dropped before its source is.
+        </span><span class="self">self</span>.connection = <span class="prelude-val">None</span>;
+    }
+}
+
+<span class="kw">impl</span>&lt;D: <span class="question-mark">?</span>Sized, W: <span class="question-mark">?</span>Sized&gt; Drop <span class="kw">for </span>X11Impl&lt;D, W&gt; {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="comment">// If we used SHM, make sure it&#39;s detached from the server.
         </span><span class="kw">if let </span>Buffer::Shm(<span class="kw-2">mut </span>shm) = mem::replace(<span class="kw-2">&amp;mut </span><span class="self">self</span>.buffer, Buffer::Wire(Vec::new())) {
             <span class="comment">// If we were in the middle of processing a buffer, wait for it to finish.
-            </span>shm.finish_wait(<span class="kw-2">&amp;</span><span class="self">self</span>.display.connection).ok();
+            </span>shm.finish_wait(<span class="self">self</span>.display.connection()).ok();
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>((segment, seg_id)) = shm.seg.take() {
-                <span class="kw">if let </span><span class="prelude-val">Ok</span>(token) = <span class="self">self</span>.display.connection.shm_detach(seg_id) {
+                <span class="kw">if let </span><span class="prelude-val">Ok</span>(token) = <span class="self">self</span>.display.connection().shm_detach(seg_id) {
                     token.ignore_error();
                 }
 
@@ -1674,7 +1812,7 @@
         }
 
         <span class="comment">// Close the graphics context that we created.
-        </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(token) = <span class="self">self</span>.display.connection.free_gc(<span class="self">self</span>.gc) {
+        </span><span class="kw">if let </span><span class="prelude-val">Ok</span>(token) = <span class="self">self</span>.display.connection().free_gc(<span class="self">self</span>.gc) {
             token.ignore_error();
         }
     }
@@ -1745,6 +1883,58 @@
 
     <span class="comment">// Check the replies.
     </span><span class="macro">matches!</span>((attach.check(), detach.check()), (<span class="prelude-val">Ok</span>(()), <span class="prelude-val">Ok</span>(())))
+}
+
+<span class="doccomment">/// Collect all visuals that use softbuffer&#39;s pixel format
+</span><span class="kw">fn </span>supported_visuals(c: <span class="kw-2">&amp;</span><span class="kw">impl </span>Connection) -&gt; HashSet&lt;Visualid&gt; {
+    <span class="comment">// Check that depth 24 uses 32 bits per pixels
+    </span><span class="kw">if </span>!c
+        .setup()
+        .pixmap_formats
+        .iter()
+        .any(|f| f.depth == <span class="number">24 </span>&amp;&amp; f.bits_per_pixel == <span class="number">32</span>)
+    {
+        <span class="macro">log::warn!</span>(<span class="string">&quot;X11 server does not have a depth 24 format with 32 bits per pixel&quot;</span>);
+        <span class="kw">return </span>HashSet::new();
+    }
+
+    <span class="comment">// How does the server represent red, green, blue components of a pixel?
+    </span><span class="attr">#[cfg(target_endian = <span class="string">&quot;little&quot;</span>)]
+    </span><span class="kw">let </span>own_byte_order = ImageOrder::LSB_FIRST;
+    <span class="attr">#[cfg(target_endian = <span class="string">&quot;big&quot;</span>)]
+    </span><span class="kw">let </span>own_byte_order = ImageOrder::MSB_FIRST;
+    <span class="kw">let </span>expected_masks = <span class="kw">if </span>c.setup().image_byte_order == own_byte_order {
+        (<span class="number">0xff0000</span>, <span class="number">0xff00</span>, <span class="number">0xff</span>)
+    } <span class="kw">else </span>{
+        <span class="comment">// This is the byte-swapped version of our wished-for format
+        </span>(<span class="number">0xff00</span>, <span class="number">0xff0000</span>, <span class="number">0xff000000</span>)
+    };
+
+    c.setup()
+        .roots
+        .iter()
+        .flat_map(|screen| {
+            screen
+                .allowed_depths
+                .iter()
+                .filter(|depth| depth.depth == <span class="number">24</span>)
+                .flat_map(|depth| {
+                    depth
+                        .visuals
+                        .iter()
+                        .filter(|visual| {
+                            <span class="comment">// Ignore grayscale or indexes / color palette visuals
+                            </span>visual.class == VisualClass::TRUE_COLOR
+                                || visual.class == VisualClass::DIRECT_COLOR
+                        })
+                        .filter(|visual| {
+                            <span class="comment">// Colors must be laid out as softbuffer expects
+                            </span>expected_masks == (visual.red_mask, visual.green_mask, visual.blue_mask)
+                        })
+                        .map(|visual| visual.visual_id)
+                })
+        })
+        .collect()
 }
 
 <span class="doccomment">/// An error that can occur when pushing a buffer to the window.

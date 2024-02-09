@@ -1251,24 +1251,20 @@
 <a href="#1251" id="1251">1251</a>
 <a href="#1252" id="1252">1252</a>
 <a href="#1253" id="1253">1253</a>
-<a href="#1254" id="1254">1254</a>
-<a href="#1255" id="1255">1255</a>
-<a href="#1256" id="1256">1256</a>
-<a href="#1257" id="1257">1257</a>
-<a href="#1258" id="1258">1258</a>
 </pre></div><pre class="rust"><code><span class="comment">// From iced_aw, license MIT
 
 </span><span class="doccomment">//! Menu tree overlay
 </span><span class="kw">use super</span>::{menu_bar::MenuBarState, menu_tree::MenuTree};
 <span class="kw">use </span><span class="kw">crate</span>::style::menu_bar::StyleSheet;
 
+<span class="kw">use </span>iced_core::{Border, Shadow};
 <span class="kw">use </span>iced_widget::core::{
     event,
     layout::{Limits, Node},
     mouse::{<span class="self">self</span>, Cursor},
     overlay, renderer, touch,
     widget::Tree,
-    Clipboard, Color, Layout, Length, Padding, Point, Rectangle, Shell, Size, Vector,
+    Clipboard, Layout, Length, Padding, Point, Rectangle, Shell, Size, Vector,
 };
 
 <span class="doccomment">/// The condition of when to close a menu
@@ -1596,18 +1592,14 @@
 
                 <span class="kw">let </span>limits = Limits::new(Size::ZERO, size);
 
-                <span class="kw">let </span><span class="kw-2">mut </span>node = mt
-                    .item
+                mt.item
                     .as_widget()
-                    .layout(<span class="kw-2">&amp;mut </span>tree[mt.index], renderer, <span class="kw-2">&amp;</span>limits);
-                node.move_to(Point::new(<span class="number">0.0</span>, position + <span class="self">self</span>.scroll_offset));
-                node
+                    .layout(<span class="kw-2">&amp;mut </span>tree[mt.index], renderer, <span class="kw-2">&amp;</span>limits)
+                    .move_to(Point::new(<span class="number">0.0</span>, position + <span class="self">self</span>.scroll_offset))
             })
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
-        <span class="kw">let </span><span class="kw-2">mut </span>node = Node::with_children(children_bounds.size(), child_nodes);
-        node.move_to(children_bounds.position());
-        node
+        Node::with_children(children_bounds.size(), child_nodes).move_to(children_bounds.position())
     }
 
     <span class="kw">fn </span>layout_single&lt;Message, Renderer&gt;(
@@ -1627,12 +1619,11 @@
         <span class="kw">let </span>position = <span class="self">self</span>.menu_bounds.child_positions[index];
         <span class="kw">let </span>limits = Limits::new(Size::ZERO, <span class="self">self</span>.menu_bounds.child_sizes[index]);
         <span class="kw">let </span>parent_offset = children_bounds.position() - Point::ORIGIN;
-        <span class="kw">let </span><span class="kw-2">mut </span>node = menu_tree.item.as_widget().layout(tree, renderer, <span class="kw-2">&amp;</span>limits);
-        node.move_to(Point::new(
+        <span class="kw">let </span>node = menu_tree.item.as_widget().layout(tree, renderer, <span class="kw-2">&amp;</span>limits);
+        node.clone().move_to(Point::new(
             parent_offset.x,
             parent_offset.y + position + <span class="self">self</span>.scroll_offset,
-        ));
-        node
+        ))
     }
 
     <span class="kw">fn </span>slice(
@@ -1692,7 +1683,6 @@
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Menu&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt;
 <span class="kw">where
     </span>Renderer: renderer::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">pub</span>(<span class="kw">super</span>) tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
     <span class="kw">pub</span>(<span class="kw">super</span>) menu_roots: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Vec&lt;MenuTree&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
@@ -1705,22 +1695,20 @@
     <span class="kw">pub</span>(<span class="kw">super</span>) cross_offset: i32,
     <span class="kw">pub</span>(<span class="kw">super</span>) root_bounds_list: Vec&lt;Rectangle&gt;,
     <span class="kw">pub</span>(<span class="kw">super</span>) path_highlight: <span class="prelude-ty">Option</span>&lt;PathHighlight&gt;,
-    <span class="kw">pub</span>(<span class="kw">super</span>) style: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    <span class="kw">pub</span>(<span class="kw">super</span>) style: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>&lt;<span class="kw">crate</span>::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
 }
 <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt; Menu&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt;
 <span class="kw">where
     </span>Renderer: renderer::Renderer,
-    Renderer::Theme: StyleSheet,
 {
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>overlay(<span class="self">self</span>) -&gt; overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt; {
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>overlay(<span class="self">self</span>) -&gt; overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt; {
         overlay::Element::new(Point::ORIGIN, Box::new(<span class="self">self</span>))
     }
 }
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt; overlay::Overlay&lt;Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt; overlay::Overlay&lt;Message, <span class="kw">crate</span>::Theme, Renderer&gt;
     <span class="kw">for </span>Menu&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, Message, Renderer&gt;
 <span class="kw">where
     </span>Renderer: renderer::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">fn </span>layout(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
@@ -1891,7 +1879,7 @@
     </span><span class="kw">fn </span>draw(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         view_cursor: Cursor,
@@ -1947,9 +1935,12 @@
                     // println!(&quot;color: {:?}\n&quot;, styling.background);
                     </span><span class="kw">let </span>menu_quad = renderer::Quad {
                         bounds: pad_rectangle(children_bounds, styling.background_expand.into()),
-                        border_radius: styling.menu_border_radius.into(),
-                        border_width: styling.border_width,
-                        border_color: styling.border_color,
+                        border: Border {
+                            radius: styling.menu_border_radius.into(),
+                            width: styling.border_width,
+                            color: styling.border_color,
+                        },
+                        shadow: Shadow::default(),
                     };
                     <span class="kw">let </span>menu_color = styling.background;
                     r.fill_quad(menu_quad, menu_color);
@@ -1963,9 +1954,11 @@
                             .bounds();
                         <span class="kw">let </span>path_quad = renderer::Quad {
                             bounds: active_bounds,
-                            border_radius: styling.menu_border_radius.into(),
-                            border_width: <span class="number">0.0</span>,
-                            border_color: Color::TRANSPARENT,
+                            border: Border {
+                                radius: styling.menu_border_radius.into(),
+                                ..Default::default()
+                            },
+                            shadow: Shadow::default(),
                         };
                         <span class="kw">let </span>path_color = styling.path;
                         r.fill_quad(path_quad, path_color);
@@ -2017,7 +2010,6 @@
     main_offset: f32,
 ) <span class="kw">where
     </span>Renderer: renderer::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">let </span>state = menu.tree.state.downcast_mut::&lt;MenuBarState&gt;();
     <span class="kw">if </span>!(state.menu_states.is_empty() &amp;&amp; bar_bounds.contains(overlay_cursor)) {
@@ -2154,7 +2146,6 @@
 ) -&gt; event::Status
 <span class="kw">where
     </span>Renderer: renderer::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">use </span>event::Status::{Captured, Ignored};
     <span class="comment">/*
@@ -2344,7 +2335,6 @@
 ) -&gt; event::Status
 <span class="kw">where
     </span>Renderer: renderer::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">use </span>event::Status::{Captured, Ignored};
     <span class="kw">use </span>mouse::ScrollDelta;
@@ -2444,7 +2434,7 @@
             .iter()
             .map(|mt| {
                 <span class="kw">let </span>w = mt.item.as_widget();
-                <span class="kw">match </span>w.height() {
+                <span class="kw">match </span>w.size().height {
                     Length::Fixed(f) =&gt; Size::new(width, f),
                     Length::Shrink =&gt; {
                         <span class="kw">let </span>l_height = w

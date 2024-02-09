@@ -53,6 +53,10 @@
 <a href="#53" id="53">53</a>
 <a href="#54" id="54">54</a>
 <a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -65,7 +69,7 @@
     widget::{container, scrollable},
     Background, Length,
 };
-<span class="kw">use </span>iced_core::Color;
+<span class="kw">use </span>iced_core::{Border, Color, Shadow};
 
 <span class="kw">use crate</span>::{theme, widget::segmented_button, Theme};
 
@@ -78,7 +82,7 @@
 </span><span class="kw">pub fn </span>nav_bar&lt;Message&gt;(
     model: <span class="kw-2">&amp;</span>segmented_button::SingleSelectModel,
     on_activate: <span class="kw">fn</span>(segmented_button::Entity) -&gt; Message,
-) -&gt; iced::widget::Container&lt;Message, <span class="kw">crate</span>::Renderer&gt;
+) -&gt; iced::widget::Container&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
 <span class="kw">where
     </span>Message: Clone + <span class="lifetime">&#39;static</span>,
 {
@@ -90,6 +94,7 @@
         .spacing(<span class="number">8</span>)
         .style(<span class="kw">crate</span>::theme::SegmentedButton::ViewSwitcher)
         .apply(scrollable)
+        .height(Length::Fill)
         .apply(container)
         .height(Length::Fill)
         .padding(<span class="number">11</span>)
@@ -103,9 +108,12 @@
         icon_color: <span class="prelude-val">Some</span>(cosmic.on_bg_color().into()),
         text_color: <span class="prelude-val">Some</span>(cosmic.on_bg_color().into()),
         background: <span class="prelude-val">Some</span>(Background::Color(cosmic.primary.base.into())),
-        border_radius: cosmic.corner_radii.radius_s.into(),
-        border_width: <span class="number">0.0</span>,
-        border_color: Color::TRANSPARENT,
+        border: Border {
+            width: <span class="number">0.0</span>,
+            color: Color::TRANSPARENT,
+            radius: cosmic.corner_radii.radius_s.into(),
+        },
+        shadow: Shadow::default(),
     }
 }
 </code></pre></div></section></main></body></html>

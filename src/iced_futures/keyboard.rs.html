@@ -61,7 +61,7 @@
 <a href="#61" id="61">61</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Listen to keyboard events.
 </span><span class="kw">use </span><span class="kw">crate</span>::core;
-<span class="kw">use </span><span class="kw">crate</span>::core::keyboard::{Event, KeyCode, Modifiers};
+<span class="kw">use </span><span class="kw">crate</span>::core::keyboard::{Event, Key, Modifiers};
 <span class="kw">use </span><span class="kw">crate</span>::subscription::{<span class="self">self</span>, Subscription};
 <span class="kw">use </span><span class="kw">crate</span>::MaybeSend;
 
@@ -71,7 +71,7 @@
 /// If the function returns `None`, the key press will be simply
 /// ignored.
 </span><span class="kw">pub fn </span>on_key_press&lt;Message&gt;(
-    f: <span class="kw">fn</span>(KeyCode, Modifiers) -&gt; <span class="prelude-ty">Option</span>&lt;Message&gt;,
+    f: <span class="kw">fn</span>(Key, Modifiers) -&gt; <span class="prelude-ty">Option</span>&lt;Message&gt;,
 ) -&gt; Subscription&lt;Message&gt;
 <span class="kw">where
     </span>Message: MaybeSend + <span class="lifetime">&#39;static</span>,
@@ -83,11 +83,10 @@
         <span class="kw">match </span>(event, status) {
             (
                 core::Event::Keyboard(Event::KeyPressed {
-                    key_code,
-                    modifiers,
+                    key, modifiers, ..
                 }),
                 core::event::Status::Ignored,
-            ) =&gt; f(key_code, modifiers),
+            ) =&gt; f(key, modifiers),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
     })
@@ -99,7 +98,7 @@
 /// If the function returns `None`, the key release will be simply
 /// ignored.
 </span><span class="kw">pub fn </span>on_key_release&lt;Message&gt;(
-    f: <span class="kw">fn</span>(KeyCode, Modifiers) -&gt; <span class="prelude-ty">Option</span>&lt;Message&gt;,
+    f: <span class="kw">fn</span>(Key, Modifiers) -&gt; <span class="prelude-ty">Option</span>&lt;Message&gt;,
 ) -&gt; Subscription&lt;Message&gt;
 <span class="kw">where
     </span>Message: MaybeSend + <span class="lifetime">&#39;static</span>,
@@ -111,11 +110,12 @@
         <span class="kw">match </span>(event, status) {
             (
                 core::Event::Keyboard(Event::KeyReleased {
-                    key_code,
+                    key,
                     modifiers,
+                    ..
                 }),
                 core::event::Status::Ignored,
-            ) =&gt; f(key_code, modifiers),
+            ) =&gt; f(key, modifiers),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
     })

@@ -663,25 +663,6 @@
 <a href="#663" id="663">663</a>
 <a href="#664" id="664">664</a>
 <a href="#665" id="665">665</a>
-<a href="#666" id="666">666</a>
-<a href="#667" id="667">667</a>
-<a href="#668" id="668">668</a>
-<a href="#669" id="669">669</a>
-<a href="#670" id="670">670</a>
-<a href="#671" id="671">671</a>
-<a href="#672" id="672">672</a>
-<a href="#673" id="673">673</a>
-<a href="#674" id="674">674</a>
-<a href="#675" id="675">675</a>
-<a href="#676" id="676">676</a>
-<a href="#677" id="677">677</a>
-<a href="#678" id="678">678</a>
-<a href="#679" id="679">679</a>
-<a href="#680" id="680">680</a>
-<a href="#681" id="681">681</a>
-<a href="#682" id="682">682</a>
-<a href="#683" id="683">683</a>
-<a href="#684" id="684">684</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Allow your users to perform actions by pressing a button.
 //!
 //! A [`Button`] has some local [`State`].
@@ -699,8 +680,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::core::widget::tree::{<span class="self">self</span>, Tree};
 <span class="kw">use </span><span class="kw">crate</span>::core::widget::Operation;
 <span class="kw">use </span><span class="kw">crate</span>::core::{
-    Background, Clipboard, Color, Element, Layout, Length, Padding, Point,
-    Rectangle, Shell, Vector, Widget,
+    Background, Clipboard, Color, Element, Layout, Length, Padding, Rectangle,
+    Shell, Size, Widget,
 };
 
 <span class="kw">use </span>iced_renderer::core::widget::{operation, OperationOutputWrapper};
@@ -710,7 +691,7 @@
 ///
 /// ```no_run
 /// # type Button&lt;&#39;a, Message&gt; =
-/// #     iced_widget::Button&lt;&#39;a, Message, iced_widget::renderer::Renderer&lt;iced_widget::style::Theme&gt;&gt;;
+/// #     iced_widget::Button&lt;&#39;a, Message, iced_widget::style::Theme, iced_widget::renderer::Renderer&gt;;
 /// #
 /// #[derive(Clone)]
 /// enum Message {
@@ -725,7 +706,7 @@
 ///
 /// ```
 /// # type Button&lt;&#39;a, Message&gt; =
-/// #     iced_widget::Button&lt;&#39;a, Message, iced_widget::renderer::Renderer&lt;iced_widget::style::Theme&gt;&gt;;
+/// #     iced_widget::Button&lt;&#39;a, Message, iced_widget::style::Theme, iced_widget::renderer::Renderer&gt;;
 /// #
 /// #[derive(Clone)]
 /// enum Message {
@@ -741,11 +722,12 @@
 /// }
 /// ```
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt;
+</span><span class="kw">pub struct </span>Button&lt;<span class="lifetime">&#39;a</span>, Message, Theme = <span class="kw">crate</span>::Theme, Renderer = <span class="kw">crate</span>::Renderer&gt;
 <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
+    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
     id: Id,
     <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
     </span>name: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt;,
@@ -753,22 +735,27 @@
     </span>description: <span class="prelude-ty">Option</span>&lt;iced_accessibility::Description&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
     <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
     </span>label: <span class="prelude-ty">Option</span>&lt;Vec&lt;iced_accessibility::accesskit::NodeId&gt;&gt;,
-    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
     on_press: <span class="prelude-ty">Option</span>&lt;Message&gt;,
     width: Length,
     height: Length,
     padding: Padding,
-    style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    style: Theme::Style,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Button&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     <span class="doccomment">/// Creates a new [`Button`] with the given content.
-    </span><span class="kw">pub fn </span>new(content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new(
+        content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span>content = content.into();
+        <span class="kw">let </span>size = content.as_widget().size_hint();
+
         Button {
+            content,
             id: Id::unique(),
             <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
             </span>name: <span class="prelude-val">None</span>,
@@ -776,12 +763,11 @@
             </span>description: <span class="prelude-val">None</span>,
             <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
             </span>label: <span class="prelude-val">None</span>,
-            content: content.into(),
             on_press: <span class="prelude-val">None</span>,
-            width: Length::Shrink,
-            height: Length::Shrink,
+            width: size.width.fluid(),
+            height: size.height.fluid(),
             padding: Padding::new(<span class="number">5.0</span>),
-            style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style::default(),
+            style: Theme::Style::default(),
         }
     }
 
@@ -821,10 +807,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the style variant of this [`Button`].
-    </span><span class="kw">pub fn </span>style(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
-    ) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;Theme::Style&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.style = style.into();
         <span class="self">self
     </span>}
@@ -871,12 +854,12 @@
     </span>}
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Button&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;a </span>+ Clone,
+    Theme: StyleSheet,
     Renderer: <span class="lifetime">&#39;a </span>+ <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         tree::Tag::of::&lt;State&gt;()
@@ -894,12 +877,11 @@
         tree.diff_children(std::slice::from_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>.content))
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.height
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: <span class="self">self</span>.width,
+            height: <span class="self">self</span>.height,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -973,7 +955,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         renderer_style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -1025,7 +1007,7 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Theme, Renderer&gt;&gt; {
         <span class="self">self</span>.content.as_widget_mut().overlay(
             <span class="kw-2">&amp;mut </span>tree.children[<span class="number">0</span>],
             layout.children().next().unwrap(),
@@ -1118,14 +1100,14 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;Button&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: Clone + <span class="lifetime">&#39;a</span>,
+    Theme: StyleSheet + <span class="lifetime">&#39;a</span>,
     Renderer: <span class="kw">crate</span>::core::Renderer + <span class="lifetime">&#39;a</span>,
-    Renderer::Theme: StyleSheet,
 {
-    <span class="kw">fn </span>from(button: Button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">fn </span>from(button: Button&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(button)
     }
 }
@@ -1227,10 +1209,15 @@
             }
             <span class="kw">return </span>event::Status::Captured;
         }
-        Event::Keyboard(keyboard::Event::KeyPressed { key_code, .. }) =&gt; {
+        Event::Keyboard(keyboard::Event::KeyPressed { key, .. }) =&gt; {
             <span class="kw">if let </span><span class="prelude-val">Some</span>(on_press) = on_press.clone() {
                 <span class="kw">let </span>state = state();
-                <span class="kw">if </span>state.is_focused &amp;&amp; key_code == keyboard::KeyCode::Enter {
+                <span class="kw">if </span>state.is_focused
+                    &amp;&amp; <span class="macro">matches!</span>(
+                        key,
+                        keyboard::Key::Named(keyboard::key::Named::Enter)
+                    )
+                {
                     state.is_pressed = <span class="bool-val">true</span>;
                     shell.publish(on_press);
                     <span class="kw">return </span>event::Status::Captured;
@@ -1250,60 +1237,43 @@
 }
 
 <span class="doccomment">/// Draws a [`Button`].
-</span><span class="kw">pub fn </span>draw&lt;<span class="lifetime">&#39;a</span>, Renderer: <span class="kw">crate</span>::core::Renderer&gt;(
+</span><span class="kw">pub fn </span>draw&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer: <span class="kw">crate</span>::core::Renderer&gt;(
     renderer: <span class="kw-2">&amp;mut </span>Renderer,
     bounds: Rectangle,
     cursor: mouse::Cursor,
     is_enabled: bool,
-    style_sheet: <span class="kw-2">&amp;</span><span class="kw">dyn </span>StyleSheet&lt;
-        Style = &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
-    &gt;,
-    style: <span class="kw-2">&amp;</span>&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    theme: <span class="kw-2">&amp;</span>Theme,
+    style: <span class="kw-2">&amp;</span>Theme::Style,
     state: <span class="kw">impl </span>FnOnce() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>State,
 ) -&gt; Appearance
 <span class="kw">where
-    </span>Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
 {
     <span class="kw">let </span>is_mouse_over = cursor.is_over(bounds);
 
     <span class="kw">let </span>styling = <span class="kw">if </span>!is_enabled {
-        style_sheet.disabled(style)
+        theme.disabled(style)
     } <span class="kw">else if </span>is_mouse_over {
         <span class="kw">let </span>state = state();
 
         <span class="kw">if </span>state.is_pressed {
-            style_sheet.pressed(style)
+            theme.pressed(style)
         } <span class="kw">else </span>{
-            style_sheet.hovered(style)
+            theme.hovered(style)
         }
     } <span class="kw">else </span>{
-        style_sheet.active(style)
+        theme.active(style)
     };
 
-    <span class="kw">if </span>styling.background.is_some() || styling.border_width &gt; <span class="number">0.0 </span>{
-        <span class="kw">if </span>styling.shadow_offset != Vector::default() {
-            <span class="comment">// TODO: Implement proper shadow support
-            </span>renderer.fill_quad(
-                renderer::Quad {
-                    bounds: Rectangle {
-                        x: bounds.x + styling.shadow_offset.x,
-                        y: bounds.y + styling.shadow_offset.y,
-                        ..bounds
-                    },
-                    border_radius: styling.border_radius,
-                    border_width: <span class="number">0.0</span>,
-                    border_color: Color::TRANSPARENT,
-                },
-                Background::Color([<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.5</span>].into()),
-            );
-        }
-
+    <span class="kw">if </span>styling.background.is_some()
+        || styling.border.width &gt; <span class="number">0.0
+        </span>|| styling.shadow.color.a &gt; <span class="number">0.0
+    </span>{
         renderer.fill_quad(
             renderer::Quad {
                 bounds,
-                border_radius: styling.border_radius,
-                border_width: styling.border_width,
-                border_color: styling.border_color,
+                border: styling.border,
+                shadow: styling.shadow,
             },
             styling
                 .background
@@ -1322,15 +1292,7 @@
     padding: Padding,
     layout_content: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>layout::Limits) -&gt; layout::Node,
 ) -&gt; layout::Node {
-    <span class="kw">let </span>limits = limits.width(width).height(height);
-
-    <span class="kw">let </span><span class="kw-2">mut </span>content = layout_content(<span class="kw-2">&amp;</span>limits.pad(padding));
-    <span class="kw">let </span>padding = padding.fit(content.size(), limits.max());
-    <span class="kw">let </span>size = limits.pad(padding).resolve(content.size()).pad(padding);
-
-    content.move_to(Point::new(padding.left, padding.top));
-
-    layout::Node::with_children(size, <span class="macro">vec!</span>[content])
+    layout::padded(limits, width, height, padding, layout_content)
 }
 
 <span class="doccomment">/// Returns the [`mouse::Interaction`] of a [`Button`].

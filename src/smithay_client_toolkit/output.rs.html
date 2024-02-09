@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/client-toolkit-7d7953e59045198e/515820f/src/output.rs`."><title>output.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="smithay_client_toolkit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/smithay-client-toolkit-0.18.1/src/output.rs`."><title>output.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="smithay_client_toolkit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -696,124 +696,754 @@
 <a href="#696" id="696">696</a>
 <a href="#697" id="697">697</a>
 <a href="#698" id="698">698</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Types and functions related to graphical outputs
-//!
-//! This modules provides two main elements. The first is the
-//! [`OutputHandler`](struct.OutputHandler.html) type, which is a
-//! [`MultiGlobalHandler`](../environment/trait.MultiGlobalHandler.html) for
-//! use with the [`init_environment!`](../macro.init_environment.html) macro. It is automatically
-//! included if you use the [`new_default_environment!`](../macro.new_default_environment.html).
-//!
-//! The second is the [`with_output_info`](fn.with_output_info.html) with allows you to
-//! access the information associated to this output, as an [`OutputInfo`](struct.OutputInfo.html).
-
-</span><span class="kw">use </span>std::{
-    cell::RefCell,
-    fmt,
-    rc::{<span class="self">self</span>, Rc},
-    sync::{<span class="self">self</span>, Arc, Mutex},
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
+<a href="#740" id="740">740</a>
+<a href="#741" id="741">741</a>
+<a href="#742" id="742">742</a>
+<a href="#743" id="743">743</a>
+<a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a>
+<a href="#746" id="746">746</a>
+<a href="#747" id="747">747</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+    any::Any,
+    fmt::{<span class="self">self</span>, Display, Formatter},
+    sync::{Arc, Mutex, Weak},
 };
 
 <span class="kw">use </span>wayland_client::{
-    protocol::{
-        wl_output::{<span class="self">self</span>, Event, WlOutput},
-        wl_registry,
-    },
-    Attached, DispatchData, Main,
+    globals::GlobalList,
+    protocol::wl_output::{<span class="self">self</span>, Subpixel, Transform},
+    Connection, Dispatch, Proxy, QueueHandle, WEnum,
+};
+<span class="kw">use </span>wayland_protocols::xdg::xdg_output::zv1::client::{
+    zxdg_output_manager_v1::{<span class="self">self</span>, ZxdgOutputManagerV1},
+    zxdg_output_v1,
 };
 
-<span class="kw">use </span>wayland_protocols::unstable::xdg_output::v1::client::{
-    zxdg_output_manager_v1::ZxdgOutputManagerV1,
-    zxdg_output_v1::{<span class="self">self</span>, ZxdgOutputV1},
+<span class="kw">use crate</span>::{
+    globals::GlobalData,
+    registry::{GlobalProxy, ProvidesRegistryState, RegistryHandler},
 };
 
-<span class="kw">pub use </span>wayland_client::protocol::wl_output::{Subpixel, Transform};
+<span class="doccomment">/// Simplified event handler for [`wl_output::WlOutput`].
+/// See [`OutputState`].
+</span><span class="kw">pub trait </span>OutputHandler: Sized {
+    <span class="kw">fn </span>output_state(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>OutputState;
 
-<span class="doccomment">/// A possible mode for an output
-</span><span class="attr">#[derive(Copy, Clone, Debug)]
+    <span class="doccomment">/// A new output has been advertised.
+    </span><span class="kw">fn </span>new_output(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        output: wl_output::WlOutput,
+    );
+
+    <span class="doccomment">/// An existing output has changed.
+    </span><span class="kw">fn </span>update_output(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        output: wl_output::WlOutput,
+    );
+
+    <span class="doccomment">/// An output is no longer advertised.
+    ///
+    /// The info passed to this function was the state of the output before destruction.
+    </span><span class="kw">fn </span>output_destroyed(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        output: wl_output::WlOutput,
+    );
+}
+
+<span class="kw">type </span>ScaleWatcherFn =
+    <span class="kw">dyn </span>Fn(<span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Any, <span class="kw-2">&amp;</span>Connection, <span class="kw-2">&amp;</span><span class="kw">dyn </span>Any, <span class="kw-2">&amp;</span>wl_output::WlOutput) + Send + Sync;
+
+<span class="doccomment">/// A handler for delegating [`wl_output::WlOutput`](wayland_client::protocol::wl_output::WlOutput).
+///
+/// When implementing [`ProvidesRegistryState`],
+/// [`registry_handlers!`](crate::registry_handlers) may be used to delegate all
+/// output events to an instance of this type. It will internally store the internal state of all
+/// outputs and allow querying them via the `OutputState::outputs` and `OutputState::info` methods.
+///
+/// ## Example
+///
+/// ```
+/// use smithay_client_toolkit::output::{OutputHandler,OutputState};
+/// use smithay_client_toolkit::registry::{ProvidesRegistryState,RegistryHandler};
+/// # use smithay_client_toolkit::registry::RegistryState;
+/// use smithay_client_toolkit::{registry_handlers,delegate_output, delegate_registry};
+/// use wayland_client::{Connection,QueueHandle,protocol::wl_output};
+///
+/// struct ExampleState {
+/// #    registry_state: RegistryState,
+///     // The state is usually kept as an attribute of the application state.
+///     output_state: OutputState,
+/// }
+///
+/// // When using `OutputState`, an implementation of `OutputHandler` should be supplied:
+/// impl OutputHandler for ExampleState {
+///      // Custom implementation handling output events here ...
+/// #    fn output_state(&amp;mut self) -&gt; &amp;mut OutputState {
+/// #        &amp;mut self.output_state
+/// #    }
+/// #
+/// #    fn new_output(&amp;mut self, _: &amp;Connection, _: &amp;QueueHandle&lt;Self&gt;, _: wl_output::WlOutput) {
+/// #    }
+/// #
+/// #    fn update_output(&amp;mut self, _: &amp;Connection, _: &amp;QueueHandle&lt;Self&gt;, _: wl_output::WlOutput) {
+/// #    }
+/// #
+/// #    fn output_destroyed(&amp;mut self, _: &amp;Connection, _: &amp;QueueHandle&lt;Self&gt;, _: wl_output::WlOutput) {
+/// #    }
+/// }
+///
+/// // Delegating to the registry is required to use `OutputState`.
+/// delegate_registry!(ExampleState);
+/// delegate_output!(ExampleState);
+///
+/// impl ProvidesRegistryState for ExampleState {
+/// #    fn registry(&amp;mut self) -&gt; &amp;mut RegistryState {
+/// #        &amp;mut self.registry_state
+/// #    }
+///     // ...
+///
+///     registry_handlers!(OutputState);
+/// }
+/// ```
+</span><span class="kw">pub struct </span>OutputState {
+    xdg: GlobalProxy&lt;ZxdgOutputManagerV1&gt;,
+    outputs: Vec&lt;OutputInner&gt;,
+    callbacks: Vec&lt;Weak&lt;ScaleWatcherFn&gt;&gt;,
+}
+
+<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>OutputState {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+        fmt.debug_struct(<span class="string">&quot;OutputState&quot;</span>)
+            .field(<span class="string">&quot;xdg&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.xdg)
+            .field(<span class="string">&quot;outputs&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.outputs)
+            .field(<span class="string">&quot;callbacks&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.callbacks.len())
+            .finish()
+    }
+}
+
+<span class="kw">pub struct </span>ScaleWatcherHandle(Arc&lt;ScaleWatcherFn&gt;);
+
+<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>ScaleWatcherHandle {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, fmt: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+        fmt.debug_struct(<span class="string">&quot;ScaleWatcherHandle&quot;</span>).finish_non_exhaustive()
+    }
+}
+
+<span class="kw">impl </span>OutputState {
+    <span class="kw">pub fn </span>new&lt;
+        D: Dispatch&lt;wl_output::WlOutput, OutputData&gt;
+            + Dispatch&lt;zxdg_output_v1::ZxdgOutputV1, OutputData&gt;
+            + Dispatch&lt;zxdg_output_manager_v1::ZxdgOutputManagerV1, GlobalData&gt;
+            + <span class="lifetime">&#39;static</span>,
+    &gt;(
+        global_list: <span class="kw-2">&amp;</span>GlobalList,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+    ) -&gt; OutputState {
+        <span class="kw">let </span>(outputs, xdg) = global_list.contents().with_list(|globals| {
+            <span class="kw">let </span>outputs: Vec&lt;wl_output::WlOutput&gt; = <span class="kw">crate</span>::registry::bind_all(
+                global_list.registry(),
+                globals,
+                qh,
+                <span class="number">1</span>..=<span class="number">4</span>,
+                OutputData::new,
+            )
+            .expect(<span class="string">&quot;Failed to bind global&quot;</span>);
+            <span class="kw">let </span>xdg =
+                <span class="kw">crate</span>::registry::bind_one(global_list.registry(), globals, qh, <span class="number">1</span>..=<span class="number">3</span>, GlobalData)
+                    .into();
+            (outputs, xdg)
+        });
+
+        <span class="kw">let </span><span class="kw-2">mut </span>output_state = OutputState { xdg, outputs: <span class="macro">vec!</span>[], callbacks: <span class="macro">vec!</span>[] };
+        <span class="kw">for </span>wl_output <span class="kw">in </span>outputs {
+            output_state.setup(wl_output, qh);
+        }
+        output_state
+    }
+
+    <span class="doccomment">/// Returns an iterator over all outputs.
+    </span><span class="kw">pub fn </span>outputs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl </span>Iterator&lt;Item = wl_output::WlOutput&gt; {
+        <span class="self">self</span>.outputs.iter().map(|output| <span class="kw-2">&amp;</span>output.wl_output).cloned().collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;().into_iter()
+    }
+
+    <span class="doccomment">/// Returns information about an output.
+    ///
+    /// This may be none if the output has been destroyed or the compositor has not sent information about the
+    /// output yet.
+    </span><span class="kw">pub fn </span>info(<span class="kw-2">&amp;</span><span class="self">self</span>, output: <span class="kw-2">&amp;</span>wl_output::WlOutput) -&gt; <span class="prelude-ty">Option</span>&lt;OutputInfo&gt; {
+        <span class="self">self</span>.outputs
+            .iter()
+            .find(|inner| <span class="kw-2">&amp;</span>inner.wl_output == output)
+            .and_then(|inner| inner.current_info.clone())
+    }
+
+    <span class="kw">pub fn </span>add_scale_watcher&lt;F, D&gt;(data: <span class="kw-2">&amp;mut </span>D, f: F) -&gt; ScaleWatcherHandle
+    <span class="kw">where
+        </span>D: OutputHandler + <span class="lifetime">&#39;static</span>,
+        F: Fn(<span class="kw-2">&amp;mut </span>D, <span class="kw-2">&amp;</span>Connection, <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;, <span class="kw-2">&amp;</span>wl_output::WlOutput) + Send + Sync + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>state = data.output_state();
+        <span class="kw">let </span>rv = ScaleWatcherHandle(Arc::new(<span class="kw">move </span>|data, conn, qh, output| {
+            <span class="kw">if let </span>(<span class="prelude-val">Some</span>(data), <span class="prelude-val">Some</span>(qh)) = (data.downcast_mut(), qh.downcast_ref()) {
+                f(data, conn, qh, output);
+            }
+        }));
+        state.callbacks.retain(|f| f.upgrade().is_some());
+        state.callbacks.push(Arc::downgrade(<span class="kw-2">&amp;</span>rv.<span class="number">0</span>));
+        rv
+    }
+
+    <span class="kw">fn </span>setup&lt;D&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, wl_output: wl_output::WlOutput, qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;)
+    <span class="kw">where
+        </span>D: Dispatch&lt;zxdg_output_v1::ZxdgOutputV1, OutputData&gt; + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>data = wl_output.data::&lt;OutputData&gt;().unwrap().clone();
+
+        <span class="kw">let </span>pending_info = data.<span class="number">0</span>.lock().unwrap().clone();
+        <span class="kw">let </span>name = pending_info.id;
+
+        <span class="kw">let </span>version = wl_output.version();
+        <span class="kw">let </span>pending_xdg = <span class="self">self</span>.xdg.get().is_ok();
+
+        <span class="kw">let </span>xdg_output = <span class="kw">if </span>pending_xdg {
+            <span class="kw">let </span>xdg = <span class="self">self</span>.xdg.get().unwrap();
+
+            <span class="prelude-val">Some</span>(xdg.get_xdg_output(<span class="kw-2">&amp;</span>wl_output, qh, data))
+        } <span class="kw">else </span>{
+            <span class="prelude-val">None
+        </span>};
+
+        <span class="kw">let </span>inner = OutputInner {
+            name,
+            wl_output,
+            xdg_output,
+            just_created: <span class="bool-val">true</span>,
+            <span class="comment">// wl_output::done was added in version 2.
+            // If we have an output at version 1, assume the data was already sent.
+            </span>current_info: <span class="kw">if </span>version &gt; <span class="number">1 </span>{ <span class="prelude-val">None </span>} <span class="kw">else </span>{ <span class="prelude-val">Some</span>(OutputInfo::new(name)) },
+
+            pending_info,
+            pending_wl: <span class="bool-val">true</span>,
+            pending_xdg,
+        };
+
+        <span class="self">self</span>.outputs.push(inner);
+    }
+}
+
+<span class="attr">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>OutputData(Arc&lt;Mutex&lt;OutputInfo&gt;&gt;);
+
+<span class="kw">impl </span>OutputData {
+    <span class="kw">pub fn </span>new(name: u32) -&gt; OutputData {
+        OutputData(Arc::new(Mutex::new(OutputInfo::new(name))))
+    }
+
+    <span class="doccomment">/// Get the output scale factor.
+    </span><span class="kw">pub fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">let </span>guard = <span class="self">self</span>.<span class="number">0</span>.lock().unwrap();
+
+        guard.scale_factor
+    }
+
+    <span class="doccomment">/// Get the output transform.
+    </span><span class="kw">pub fn </span>transform(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; wl_output::Transform {
+        <span class="kw">let </span>guard = <span class="self">self</span>.<span class="number">0</span>.lock().unwrap();
+
+        guard.transform
+    }
+
+    <span class="doccomment">/// Access the underlying [`OutputInfo`].
+    ///
+    /// Reentrant calls within the `callback` will deadlock.
+    </span><span class="kw">pub fn </span>with_output_info&lt;T, F: FnOnce(<span class="kw-2">&amp;</span>OutputInfo) -&gt; T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, callback: F) -&gt; T {
+        <span class="kw">let </span>guard = <span class="self">self</span>.<span class="number">0</span>.lock().unwrap();
+        callback(<span class="kw-2">&amp;</span>guard)
+    }
+}
+
+<span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Mode {
     <span class="doccomment">/// Number of pixels of this mode in format `(width, height)`
     ///
     /// for example `(1920, 1080)`
     </span><span class="kw">pub </span>dimensions: (i32, i32),
-    <span class="doccomment">/// Refresh rate for this mode, in mHz
+
+    <span class="doccomment">/// Refresh rate for this mode.
+    ///
+    /// The refresh rate is specified in terms of millihertz (mHz). To convert approximately to Hertz,
+    /// divide the value by 1000.
+    ///
+    /// This value could be zero if an output has no correct refresh rate, such as a virtual output.
     </span><span class="kw">pub </span>refresh_rate: i32,
-    <span class="doccomment">/// Whether this is the current mode for this output
-    </span><span class="kw">pub </span>is_current: bool,
-    <span class="doccomment">/// Whether this is the preferred mode for this output
-    </span><span class="kw">pub </span>is_preferred: bool,
+
+    <span class="doccomment">/// Whether this is the current mode for this output.
+    ///
+    /// Per the Wayland protocol, non-current modes are deprecated and clients should not rely on deprecated
+    /// modes.
+    </span><span class="kw">pub </span>current: bool,
+
+    <span class="doccomment">/// Whether this is the preferred mode for this output.
+    </span><span class="kw">pub </span>preferred: bool,
 }
 
-<span class="attr">#[derive(Clone, Debug)]
+<span class="kw">impl </span>Display <span class="kw">for </span>Mode {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
+        <span class="kw">if </span><span class="self">self</span>.current {
+            <span class="macro">write!</span>(f, <span class="string">&quot;(current) &quot;</span>)<span class="question-mark">?</span>;
+        }
+
+        <span class="kw">if </span><span class="self">self</span>.preferred {
+            <span class="macro">write!</span>(f, <span class="string">&quot;(preferred) &quot;</span>)<span class="question-mark">?</span>;
+        }
+
+        <span class="macro">write!</span>(
+            f,
+            <span class="string">&quot;{}×{}px @ {}.{:03} Hz&quot;</span>,
+            <span class="self">self</span>.dimensions.<span class="number">0</span>,
+            <span class="self">self</span>.dimensions.<span class="number">1</span>,
+            <span class="comment">// Print the refresh rate in hertz since it is more familiar unit.
+            </span><span class="self">self</span>.refresh_rate / <span class="number">1000</span>,
+            <span class="self">self</span>.refresh_rate % <span class="number">1000
+        </span>)
+    }
+}
+
+<span class="doccomment">/// Information about an output.
+</span><span class="attr">#[derive(Debug, Clone)]
 #[non_exhaustive]
-</span><span class="doccomment">/// Compiled information about an output
 </span><span class="kw">pub struct </span>OutputInfo {
-    <span class="doccomment">/// The ID of this output as a global
+    <span class="doccomment">/// The id of the output.
+    ///
+    /// This corresponds to the global `name` of the wl_output.
     </span><span class="kw">pub </span>id: u32,
-    <span class="doccomment">/// The model name of this output as advertised by the server
+
+    <span class="doccomment">/// The model name of this output as advertised by the server.
     </span><span class="kw">pub </span>model: String,
-    <span class="doccomment">/// The make name of this output as advertised by the server
+
+    <span class="doccomment">/// The make name of this output as advertised by the server.
     </span><span class="kw">pub </span>make: String,
-    <span class="doccomment">/// The name of this output as advertised by the server
+
+    <span class="doccomment">/// Location of the top-left corner of this output in compositor space.
     ///
-    /// Each name is unique among all wl_output globals, but if a wl_output
-    /// global is destroyed the same name may be reused later. The names will
-    /// also remain consistent across sessions with the same hardware and
-    /// software configuration.
-    ///
-    /// Examples of names include &#39;HDMI-A-1&#39;, &#39;WL-1&#39;, &#39;X11-1&#39;, etc. However, do
-    /// not assume that the name is a reflection of an underlying DRM connector,
-    /// X11 connection, etc.
-    ///
-    /// Note that this is not filled in by version 3 of the wl_output protocol,
-    /// but it has been proposed for inclusion in version 4.  Until then, it is
-    /// only filled in if your environment has an [XdgOutputHandler] global
-    /// handler for [ZxdgOutputManagerV1].
-    </span><span class="kw">pub </span>name: String,
-    <span class="doccomment">/// The description of this output as advertised by the server
-    ///
-    /// The description is a UTF-8 string with no convention defined for its
-    /// contents. The description is not guaranteed to be unique among all
-    /// wl_output globals. Examples might include &#39;Foocorp 11&quot; Display&#39; or
-    /// &#39;Virtual X11 output via :1&#39;.
-    ///
-    /// Note that this is not filled in by version 3 of the wl_output protocol,
-    /// but it has been proposed for inclusion in version 4.  Until then, it is
-    /// only filled in if your environment has an [XdgOutputHandler] global
-    /// handler for [ZxdgOutputManagerV1].
-    </span><span class="kw">pub </span>description: String,
-    <span class="doccomment">/// Location of the top-left corner of this output in compositor
-    /// space
-    ///
-    /// Note that the compositor may decide to always report (0,0) if
-    /// it decides clients are not allowed to know this information.
+    /// Note that the compositor may decide to always report (0,0) if it decides clients are not allowed to
+    /// know this information.
     </span><span class="kw">pub </span>location: (i32, i32),
-    <span class="doccomment">/// Physical dimensions of this output, in unspecified units
+
+    <span class="doccomment">/// Physical dimensions of this output, in millimeters.
+    ///
+    /// This value may be set to (0, 0) if a physical size does not make sense for the output (e.g. projectors
+    /// and virtual outputs).
     </span><span class="kw">pub </span>physical_size: (i32, i32),
-    <span class="doccomment">/// The subpixel layout for this output
+
+    <span class="doccomment">/// The subpixel layout for this output.
     </span><span class="kw">pub </span>subpixel: Subpixel,
+
     <span class="doccomment">/// The current transformation applied to this output
     ///
-    /// You can pre-render your buffers taking this information
-    /// into account and advertising it via `wl_buffer.set_tranform`
-    /// for better performances.
+    /// You can pre-render your buffers taking this information into account and advertising it via
+    /// `wl_buffer.set_transform` for better performance.
     </span><span class="kw">pub </span>transform: Transform,
+
     <span class="doccomment">/// The scaling factor of this output
     ///
-    /// Any buffer whose scaling factor does not match the one
-    /// of the output it is displayed on will be rescaled accordingly.
+    /// Any buffer whose scaling factor does not match the one of the output it is displayed on will be
+    /// rescaled accordingly.
     ///
-    /// For example, a buffer of scaling factor 1 will be doubled in
-    /// size if the output scaling factor is 2.
+    /// For example, a buffer of scaling factor 1 will be doubled in size if the output scaling factor is 2.
+    ///
+    /// You can pre-render your buffers taking this information into account and advertising it via
+    /// `wl_surface.set_buffer_scale` so you may advertise a higher detail image.
     </span><span class="kw">pub </span>scale_factor: i32,
-    <span class="doccomment">/// Possible modes for an output
+
+    <span class="doccomment">/// Possible modes for an output.
     </span><span class="kw">pub </span>modes: Vec&lt;Mode&gt;,
-    <span class="doccomment">/// Has this output been unadvertized by the registry
+
+    <span class="doccomment">/// Logical position in global compositor space
+    </span><span class="kw">pub </span>logical_position: <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt;,
+
+    <span class="doccomment">/// Logical size in global compositor space
+    </span><span class="kw">pub </span>logical_size: <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt;,
+
+    <span class="doccomment">/// The name of the this output as advertised by the surface.
     ///
-    /// If this is the case, it has become inert, you might want to
-    /// call its `release()` method if you don&#39;t plan to use it any
-    /// longer.
-    </span><span class="kw">pub </span>obsolete: bool,
+    /// Examples of names include &#39;HDMI-A-1&#39;, &#39;WL-1&#39;, &#39;X11-1&#39;, etc. However, do not assume that the name is a
+    /// reflection of an underlying DRM connector, X11 connection, etc.
+    ///
+    /// Compositors are not required to provide a name for the output and the value may be [`None`].
+    ///
+    /// The name will be [`None`] if the compositor does not support version 4 of the wl-output protocol or
+    /// version 2 of the zxdg-output-v1 protocol.
+    </span><span class="kw">pub </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+
+    <span class="doccomment">/// The description of this output as advertised by the server
+    ///
+    /// The description is a UTF-8 string with no convention defined for its contents. The description is not
+    /// guaranteed to be unique among all wl_output globals. Examples might include &#39;Foocorp 11&quot; Display&#39; or
+    /// &#39;Virtual X11 output via :1&#39;.
+    ///
+    /// Compositors are not required to provide a description of the output and the value may be [`None`].
+    ///
+    /// The value will be [`None`] if the compositor does not support version 4 of the wl-output
+    /// protocol, version 2 of the zxdg-output-v1 protocol.
+    </span><span class="kw">pub </span>description: <span class="prelude-ty">Option</span>&lt;String&gt;,
+}
+
+<span class="attr">#[macro_export]
+</span><span class="macro">macro_rules! </span>delegate_output {
+    ($(@&lt;$( <span class="macro-nonterminal">$lt</span>:tt $( : <span class="macro-nonterminal">$clt</span>:tt $(+ <span class="macro-nonterminal">$dlt</span>:tt )* )<span class="question-mark">? </span>),+&gt;)<span class="question-mark">? </span><span class="macro-nonterminal">$ty</span>: ty) =&gt; {
+        <span class="macro-nonterminal">$</span><span class="macro">crate::reexports::client::delegate_dispatch!</span>($(@&lt; $( <span class="macro-nonterminal">$lt </span>$( : <span class="macro-nonterminal">$clt </span>$(+ <span class="macro-nonterminal">$dlt </span>)* )<span class="question-mark">? </span>),+ &gt;)<span class="question-mark">? </span><span class="macro-nonterminal">$ty</span>: [
+            <span class="macro-nonterminal">$crate::reexports::client::protocol::wl_output::WlOutput</span>: <span class="macro-nonterminal">$crate::output::OutputData
+        </span>] =&gt; <span class="macro-nonterminal">$crate::output::OutputState</span>);
+        <span class="macro-nonterminal">$</span><span class="macro">crate::reexports::client::delegate_dispatch!</span>($(@&lt; $( <span class="macro-nonterminal">$lt </span>$( : <span class="macro-nonterminal">$clt </span>$(+ <span class="macro-nonterminal">$dlt </span>)* )<span class="question-mark">? </span>),+ &gt;)<span class="question-mark">? </span><span class="macro-nonterminal">$ty</span>: [
+            <span class="macro-nonterminal">$crate::reexports::protocols::xdg::xdg_output::zv1::client::zxdg_output_manager_v1::ZxdgOutputManagerV1</span>: <span class="macro-nonterminal">$crate::globals::GlobalData
+        </span>] =&gt; <span class="macro-nonterminal">$crate::output::OutputState</span>);
+        <span class="macro-nonterminal">$</span><span class="macro">crate::reexports::client::delegate_dispatch!</span>($(@&lt; $( <span class="macro-nonterminal">$lt </span>$( : <span class="macro-nonterminal">$clt </span>$(+ <span class="macro-nonterminal">$dlt </span>)* )<span class="question-mark">? </span>),+ &gt;)<span class="question-mark">? </span><span class="macro-nonterminal">$ty</span>: [
+            <span class="macro-nonterminal">$crate::reexports::protocols::xdg::xdg_output::zv1::client::zxdg_output_v1::ZxdgOutputV1</span>: <span class="macro-nonterminal">$crate::output::OutputData
+        </span>] =&gt; <span class="macro-nonterminal">$crate::output::OutputState</span>);
+    };
+}
+
+<span class="kw">impl</span>&lt;D&gt; Dispatch&lt;wl_output::WlOutput, OutputData, D&gt; <span class="kw">for </span>OutputState
+<span class="kw">where
+    </span>D: Dispatch&lt;wl_output::WlOutput, OutputData&gt; + OutputHandler + <span class="lifetime">&#39;static</span>,
+{
+    <span class="kw">fn </span>event(
+        state: <span class="kw-2">&amp;mut </span>D,
+        output: <span class="kw-2">&amp;</span>wl_output::WlOutput,
+        event: wl_output::Event,
+        data: <span class="kw-2">&amp;</span>OutputData,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+    ) {
+        <span class="kw">let </span>inner = state
+            .output_state()
+            .outputs
+            .iter_mut()
+            .find(|inner| <span class="kw-2">&amp;</span>inner.wl_output == output)
+            .expect(<span class="string">&quot;Received event for dead output&quot;</span>);
+
+        <span class="kw">match </span>event {
+            wl_output::Event::Geometry {
+                x,
+                y,
+                physical_width,
+                physical_height,
+                subpixel,
+                make,
+                model,
+                transform,
+            } =&gt; {
+                inner.pending_info.location = (x, y);
+                inner.pending_info.physical_size = (physical_width, physical_height);
+                inner.pending_info.subpixel = <span class="kw">match </span>subpixel {
+                    WEnum::Value(subpixel) =&gt; subpixel,
+                    WEnum::Unknown(<span class="kw">_</span>) =&gt; <span class="macro">todo!</span>(<span class="string">&quot;Warn about invalid subpixel value&quot;</span>),
+                };
+                inner.pending_info.make = make;
+                inner.pending_info.model = model;
+                inner.pending_info.transform = <span class="kw">match </span>transform {
+                    WEnum::Value(subpixel) =&gt; subpixel,
+                    WEnum::Unknown(<span class="kw">_</span>) =&gt; <span class="macro">todo!</span>(<span class="string">&quot;Warn about invalid transform value&quot;</span>),
+                };
+                inner.pending_wl = <span class="bool-val">true</span>;
+            }
+
+            wl_output::Event::Mode { flags, width, height, refresh } =&gt; {
+                <span class="comment">// Remove the old mode
+                </span>inner.pending_info.modes.retain(|mode| {
+                    mode.dimensions != (width, height) || mode.refresh_rate != refresh
+                });
+
+                <span class="kw">let </span>flags = <span class="kw">match </span>flags {
+                    WEnum::Value(flags) =&gt; flags,
+                    WEnum::Unknown(<span class="kw">_</span>) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Invalid flags&quot;</span>),
+                };
+
+                <span class="kw">let </span>current = flags.contains(wl_output::Mode::Current);
+                <span class="kw">let </span>preferred = flags.contains(wl_output::Mode::Preferred);
+
+                <span class="comment">// Any mode that isn&#39;t current is deprecated, let&#39;s deprecate any existing modes that may be
+                // marked as current.
+                //
+                // If a new mode is advertised as preferred, then mark the existing preferred mode as not.
+                </span><span class="kw">for </span>mode <span class="kw">in </span><span class="kw-2">&amp;mut </span>inner.pending_info.modes {
+                    <span class="comment">// This mode is no longer preferred.
+                    </span><span class="kw">if </span>preferred {
+                        mode.preferred = <span class="bool-val">false</span>;
+                    }
+
+                    <span class="comment">// This mode is no longer current.
+                    </span><span class="kw">if </span>current {
+                        mode.current = <span class="bool-val">false</span>;
+                    }
+                }
+
+                <span class="comment">// Now create the new mode.
+                </span>inner.pending_info.modes.push(Mode {
+                    dimensions: (width, height),
+                    refresh_rate: refresh,
+                    current,
+                    preferred,
+                });
+
+                inner.pending_wl = <span class="bool-val">true</span>;
+            }
+
+            wl_output::Event::Scale { factor } =&gt; {
+                inner.pending_info.scale_factor = factor;
+                inner.pending_wl = <span class="bool-val">true</span>;
+            }
+
+            wl_output::Event::Name { name } =&gt; {
+                inner.pending_info.name = <span class="prelude-val">Some</span>(name);
+                inner.pending_wl = <span class="bool-val">true</span>;
+            }
+
+            wl_output::Event::Description { description } =&gt; {
+                inner.pending_info.description = <span class="prelude-val">Some</span>(description);
+                inner.pending_wl = <span class="bool-val">true</span>;
+            }
+
+            wl_output::Event::Done =&gt; {
+                <span class="kw">let </span>info = inner.pending_info.clone();
+                inner.current_info = <span class="prelude-val">Some</span>(info.clone());
+                inner.pending_wl = <span class="bool-val">false</span>;
+
+                <span class="comment">// Set the user data, see if we need to run scale callbacks
+                </span><span class="kw">let </span>run_callbacks = data.set(info);
+
+                <span class="comment">// Don&#39;t call `new_output` until we have xdg output info
+                </span><span class="kw">if </span>!inner.pending_xdg {
+                    <span class="kw">if </span>inner.just_created {
+                        inner.just_created = <span class="bool-val">false</span>;
+                        state.new_output(conn, qh, output.clone());
+                    } <span class="kw">else </span>{
+                        state.update_output(conn, qh, output.clone());
+                    }
+                }
+
+                <span class="kw">if </span>run_callbacks {
+                    <span class="kw">let </span>callbacks = state.output_state().callbacks.clone();
+                    <span class="kw">for </span>cb <span class="kw">in </span>callbacks {
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(cb) = cb.upgrade() {
+                            cb(state, conn, qh, output);
+                        }
+                    }
+                }
+            }
+
+            <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+        }
+    }
+}
+
+<span class="kw">impl</span>&lt;D&gt; Dispatch&lt;zxdg_output_manager_v1::ZxdgOutputManagerV1, GlobalData, D&gt; <span class="kw">for </span>OutputState
+<span class="kw">where
+    </span>D: Dispatch&lt;zxdg_output_manager_v1::ZxdgOutputManagerV1, GlobalData&gt; + OutputHandler,
+{
+    <span class="kw">fn </span>event(
+        <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>D,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>zxdg_output_manager_v1::ZxdgOutputManagerV1,
+        <span class="kw">_</span>: zxdg_output_manager_v1::Event,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>GlobalData,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>Connection,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+    ) {
+        <span class="macro">unreachable!</span>(<span class="string">&quot;zxdg_output_manager_v1 has no events&quot;</span>)
+    }
+}
+
+<span class="kw">impl</span>&lt;D&gt; Dispatch&lt;zxdg_output_v1::ZxdgOutputV1, OutputData, D&gt; <span class="kw">for </span>OutputState
+<span class="kw">where
+    </span>D: Dispatch&lt;zxdg_output_v1::ZxdgOutputV1, OutputData&gt; + OutputHandler,
+{
+    <span class="kw">fn </span>event(
+        state: <span class="kw-2">&amp;mut </span>D,
+        output: <span class="kw-2">&amp;</span>zxdg_output_v1::ZxdgOutputV1,
+        event: zxdg_output_v1::Event,
+        data: <span class="kw-2">&amp;</span>OutputData,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+    ) {
+        <span class="kw">let </span>inner = state
+            .output_state()
+            .outputs
+            .iter_mut()
+            .find(|inner| inner.xdg_output.as_ref() == <span class="prelude-val">Some</span>(output))
+            .expect(<span class="string">&quot;Received event for dead output&quot;</span>);
+
+        <span class="comment">// zxdg_output_v1::done is deprecated in version 3. So we only need
+        // to wait for wl_output::done, once we get any xdg output info.
+        </span><span class="kw">if </span>output.version() &gt;= <span class="number">3 </span>{
+            inner.pending_xdg = <span class="bool-val">false</span>;
+        }
+
+        <span class="kw">match </span>event {
+            zxdg_output_v1::Event::LogicalPosition { x, y } =&gt; {
+                inner.pending_info.logical_position = <span class="prelude-val">Some</span>((x, y));
+                <span class="kw">if </span>output.version() &lt; <span class="number">3 </span>{
+                    inner.pending_xdg = <span class="bool-val">true</span>;
+                }
+            }
+            zxdg_output_v1::Event::LogicalSize { width, height } =&gt; {
+                inner.pending_info.logical_size = <span class="prelude-val">Some</span>((width, height));
+                <span class="kw">if </span>output.version() &lt; <span class="number">3 </span>{
+                    inner.pending_xdg = <span class="bool-val">true</span>;
+                }
+            }
+            zxdg_output_v1::Event::Name { name } =&gt; {
+                <span class="kw">if </span>inner.wl_output.version() &lt; <span class="number">4 </span>{
+                    inner.pending_info.name = <span class="prelude-val">Some</span>(name);
+                }
+                <span class="kw">if </span>output.version() &lt; <span class="number">3 </span>{
+                    inner.pending_xdg = <span class="bool-val">true</span>;
+                }
+            }
+
+            zxdg_output_v1::Event::Description { description } =&gt; {
+                <span class="kw">if </span>inner.wl_output.version() &lt; <span class="number">4 </span>{
+                    inner.pending_info.description = <span class="prelude-val">Some</span>(description);
+                }
+                <span class="kw">if </span>output.version() &lt; <span class="number">3 </span>{
+                    inner.pending_xdg = <span class="bool-val">true</span>;
+                }
+            }
+
+            zxdg_output_v1::Event::Done =&gt; {
+                <span class="comment">// This event is deprecated starting in version 3, wl_output::done should be sent instead.
+                </span><span class="kw">if </span>output.version() &lt; <span class="number">3 </span>{
+                    <span class="kw">let </span>info = inner.pending_info.clone();
+                    inner.current_info = <span class="prelude-val">Some</span>(info.clone());
+                    inner.pending_xdg = <span class="bool-val">false</span>;
+
+                    <span class="comment">// Set the user data
+                    </span>data.set(info);
+
+                    <span class="kw">let </span>pending_wl = inner.pending_wl;
+                    <span class="kw">let </span>just_created = inner.just_created;
+                    <span class="kw">let </span>output = inner.wl_output.clone();
+
+                    <span class="kw">if </span>just_created {
+                        inner.just_created = <span class="bool-val">false</span>;
+                    }
+
+                    <span class="kw">if </span>!pending_wl {
+                        <span class="kw">if </span>just_created {
+                            state.new_output(conn, qh, output);
+                        } <span class="kw">else </span>{
+                            state.update_output(conn, qh, output);
+                        }
+                    }
+                }
+            }
+
+            <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+        }
+    }
+}
+
+<span class="kw">impl</span>&lt;D&gt; RegistryHandler&lt;D&gt; <span class="kw">for </span>OutputState
+<span class="kw">where
+    </span>D: Dispatch&lt;wl_output::WlOutput, OutputData&gt;
+        + Dispatch&lt;zxdg_output_v1::ZxdgOutputV1, OutputData&gt;
+        + Dispatch&lt;zxdg_output_manager_v1::ZxdgOutputManagerV1, GlobalData&gt;
+        + OutputHandler
+        + ProvidesRegistryState
+        + <span class="lifetime">&#39;static</span>,
+{
+    <span class="kw">fn </span>new_global(
+        data: <span class="kw-2">&amp;mut </span>D,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        name: u32,
+        interface: <span class="kw-2">&amp;</span>str,
+        _version: u32,
+    ) {
+        <span class="kw">if </span>interface == <span class="string">&quot;wl_output&quot; </span>{
+            <span class="kw">let </span>output = data
+                .registry()
+                .bind_specific(qh, name, <span class="number">1</span>..=<span class="number">4</span>, OutputData::new(name))
+                .expect(<span class="string">&quot;Failed to bind global&quot;</span>);
+            data.output_state().setup(output, qh);
+        }
+    }
+
+    <span class="kw">fn </span>remove_global(
+        data: <span class="kw-2">&amp;mut </span>D,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        name: u32,
+        interface: <span class="kw-2">&amp;</span>str,
+    ) {
+        <span class="kw">if </span>interface == <span class="string">&quot;wl_output&quot; </span>{
+            <span class="kw">let </span>output = data
+                .output_state()
+                .outputs
+                .iter()
+                .position(|o| o.name == name)
+                .expect(<span class="string">&quot;Removed non-existing output&quot;</span>);
+
+            <span class="kw">let </span>wl_output = data.output_state().outputs[output].wl_output.clone();
+            data.output_destroyed(conn, qh, wl_output);
+
+            <span class="kw">let </span>output = data.output_state().outputs.remove(output);
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(xdg_output) = <span class="kw-2">&amp;</span>output.xdg_output {
+                xdg_output.destroy();
+            }
+            <span class="kw">if </span>output.wl_output.version() &gt;= <span class="number">3 </span>{
+                output.wl_output.release();
+            }
+        }
+    }
 }
 
 <span class="kw">impl </span>OutputInfo {
@@ -822,576 +1452,44 @@
             id,
             model: String::new(),
             make: String::new(),
-            name: String::new(),
-            description: String::new(),
             location: (<span class="number">0</span>, <span class="number">0</span>),
             physical_size: (<span class="number">0</span>, <span class="number">0</span>),
             subpixel: Subpixel::Unknown,
             transform: Transform::Normal,
             scale_factor: <span class="number">1</span>,
-            modes: Vec::new(),
-            obsolete: <span class="bool-val">false</span>,
+            modes: <span class="macro">vec!</span>[],
+            logical_position: <span class="prelude-val">None</span>,
+            logical_size: <span class="prelude-val">None</span>,
+            name: <span class="prelude-val">None</span>,
+            description: <span class="prelude-val">None</span>,
         }
     }
 }
 
-<span class="kw">type </span>OutputCallback = <span class="kw">dyn </span>Fn(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + Send + Sync;
+<span class="kw">impl </span>OutputData {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set(<span class="kw-2">&amp;</span><span class="self">self</span>, info: OutputInfo) -&gt; bool {
+        <span class="kw">let </span><span class="kw-2">mut </span>guard = <span class="self">self</span>.<span class="number">0</span>.lock().unwrap();
 
-<span class="kw">enum </span>OutputData {
-    Ready {
-        info: OutputInfo,
-        callbacks: Vec&lt;sync::Weak&lt;OutputCallback&gt;&gt;,
-    },
-    Pending {
-        id: u32,
-        has_xdg: bool,
-        events: Vec&lt;Event&gt;,
-        callbacks: Vec&lt;sync::Weak&lt;OutputCallback&gt;&gt;,
-    },
-    PendingXDG {
-        info: OutputInfo,
-        callbacks: Vec&lt;sync::Weak&lt;OutputCallback&gt;&gt;,
-    },
-}
+        <span class="kw">let </span>rv = guard.scale_factor != info.scale_factor;
 
-<span class="kw">type </span>OutputStatusCallback = <span class="kw">dyn </span>FnMut(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + <span class="lifetime">&#39;static</span>;
+        <span class="kw-2">*</span>guard = info;
 
-<span class="doccomment">/// A handler for `wl_output`
-///
-/// This handler can be used for managing `wl_output` in the
-/// [`init_environment!`](../macro.init_environment.html) macro, and is automatically
-/// included in [`new_default_environment!`](../macro.new_default_environment.html).
-///
-/// It aggregates the output information and makes it available via the
-/// [`with_output_info`](fn.with_output_info.html) function.
-</span><span class="kw">pub struct </span>OutputHandler {
-    outputs: Vec&lt;(u32, Attached&lt;WlOutput&gt;)&gt;,
-    status_listeners: Rc&lt;RefCell&lt;Vec&lt;rc::Weak&lt;RefCell&lt;OutputStatusCallback&gt;&gt;&gt;&gt;&gt;,
-    xdg_listener: <span class="prelude-ty">Option</span>&lt;rc::Weak&lt;RefCell&lt;XdgOutputHandlerInner&gt;&gt;&gt;,
-}
-
-<span class="kw">impl </span>OutputHandler {
-    <span class="doccomment">/// Create a new instance of this handler
-    </span><span class="kw">pub fn </span>new() -&gt; OutputHandler {
-        OutputHandler {
-            outputs: Vec::new(),
-            status_listeners: Rc::new(RefCell::new(Vec::new())),
-            xdg_listener: <span class="prelude-val">None</span>,
-        }
+        rv
     }
-}
-
-<span class="kw">impl </span><span class="kw">crate</span>::environment::MultiGlobalHandler&lt;WlOutput&gt; <span class="kw">for </span>OutputHandler {
-    <span class="kw">fn </span>created(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        registry: Attached&lt;wl_registry::WlRegistry&gt;,
-        id: u32,
-        version: u32,
-        <span class="kw">_</span>: DispatchData,
-    ) {
-        <span class="comment">// We currently support wl_output up to version 4
-        </span><span class="kw">let </span>version = std::cmp::min(version, <span class="number">4</span>);
-        <span class="kw">let </span>output = registry.bind::&lt;WlOutput&gt;(version, id);
-        <span class="kw">let </span>has_xdg = <span class="kw">if let </span><span class="prelude-val">Some</span>(xdg) = <span class="self">self</span>.xdg_listener.as_ref().and_then(rc::Weak::upgrade) {
-            xdg.borrow_mut().new_xdg_output(<span class="kw-2">&amp;</span>output, <span class="kw-2">&amp;</span><span class="self">self</span>.status_listeners)
-        } <span class="kw">else </span>{
-            <span class="bool-val">false
-        </span>};
-        <span class="kw">if </span>version &gt; <span class="number">1 </span>{
-            <span class="comment">// wl_output.done event was only added at version 2
-            // In case of an old version 1, we just behave as if it was send at the start
-            </span>output.as_ref().user_data().set_threadsafe(|| {
-                Mutex::new(OutputData::Pending { id, has_xdg, events: <span class="macro">vec!</span>[], callbacks: <span class="macro">vec!</span>[] })
-            });
-        } <span class="kw">else </span>{
-            output.as_ref().user_data().set_threadsafe(|| {
-                Mutex::new(OutputData::Ready { info: OutputInfo::new(id), callbacks: <span class="macro">vec!</span>[] })
-            });
-        }
-        <span class="kw">let </span>status_listeners_handle = <span class="self">self</span>.status_listeners.clone();
-        <span class="kw">let </span>xdg_listener_handle = <span class="self">self</span>.xdg_listener.clone();
-        output.quick_assign(<span class="kw">move </span>|output, event, ddata| {
-            process_output_event(
-                output,
-                event,
-                ddata,
-                <span class="kw-2">&amp;</span>status_listeners_handle,
-                <span class="kw-2">&amp;</span>xdg_listener_handle,
-            )
-        });
-        <span class="self">self</span>.outputs.push((id, (<span class="kw-2">*</span>output).clone()));
-    }
-    <span class="kw">fn </span>removed(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: u32, <span class="kw-2">mut </span>ddata: DispatchData) {
-        <span class="kw">let </span>status_listeners_handle = <span class="kw-2">&amp;</span><span class="self">self</span>.status_listeners;
-        <span class="kw">let </span>xdg_listener_handle = <span class="kw-2">&amp;</span><span class="self">self</span>.xdg_listener;
-        <span class="self">self</span>.outputs.retain(|(i, o)| {
-            <span class="kw">if </span><span class="kw-2">*</span>i != id {
-                <span class="bool-val">true
-            </span>} <span class="kw">else </span>{
-                make_obsolete(o, ddata.reborrow(), status_listeners_handle, xdg_listener_handle);
-                <span class="bool-val">false
-            </span>}
-        });
-    }
-    <span class="kw">fn </span>get_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Attached&lt;WlOutput&gt;&gt; {
-        <span class="self">self</span>.outputs.iter().map(|(<span class="kw">_</span>, o)| o.clone()).collect()
-    }
-}
-
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>OutputHandler {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;OutputHandler&quot;</span>)
-            .field(<span class="string">&quot;outputs&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.outputs)
-            .field(<span class="string">&quot;status_listeners&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;Fn() -&gt; { ... }&quot;</span>)
-            .field(<span class="string">&quot;xdg_listener&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.xdg_listener)
-            .finish()
-    }
-}
-
-<span class="kw">fn </span>process_output_event(
-    output: Main&lt;WlOutput&gt;,
-    event: Event,
-    <span class="kw-2">mut </span>ddata: DispatchData,
-    listeners: <span class="kw-2">&amp;</span>Rc&lt;RefCell&lt;Vec&lt;rc::Weak&lt;RefCell&lt;OutputStatusCallback&gt;&gt;&gt;&gt;&gt;,
-    xdg_listener: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;rc::Weak&lt;RefCell&lt;XdgOutputHandlerInner&gt;&gt;&gt;,
-) {
-    <span class="kw">let </span>udata_mutex = output
-        .as_ref()
-        .user_data()
-        .get::&lt;Mutex&lt;OutputData&gt;&gt;()
-        .expect(<span class="string">&quot;SCTK: wl_output has invalid UserData&quot;</span>);
-    <span class="kw">let </span><span class="kw-2">mut </span>udata = udata_mutex.lock().unwrap();
-    <span class="kw">if let </span>Event::Done = event {
-        <span class="kw">let </span>(id, has_xdg, pending_events, <span class="kw-2">mut </span>callbacks) = <span class="kw">match </span><span class="kw-2">*</span>udata {
-            OutputData::Pending { id, has_xdg, events: <span class="kw-2">ref mut </span>v, callbacks: <span class="kw-2">ref mut </span>cb } =&gt; {
-                (id, has_xdg, std::mem::take(v), std::mem::take(cb))
-            }
-            OutputData::PendingXDG { <span class="kw-2">ref mut </span>info, <span class="kw-2">ref mut </span>callbacks } =&gt; {
-                notify(<span class="kw-2">&amp;</span>output, info, ddata.reborrow(), callbacks);
-                notify_status_listeners(<span class="kw-2">&amp;</span>output, info, ddata, listeners);
-                <span class="kw">let </span>info = info.clone();
-                <span class="kw">let </span>callbacks = std::mem::take(callbacks);
-                <span class="kw-2">*</span>udata = OutputData::Ready { info, callbacks };
-                <span class="kw">return</span>;
-            }
-            OutputData::Ready { <span class="kw-2">ref mut </span>info, <span class="kw-2">ref mut </span>callbacks } =&gt; {
-                <span class="comment">// a Done event on an output that is already ready was due to a
-                // status change (which was already merged)
-                </span>notify(<span class="kw-2">&amp;</span>output, info, ddata, callbacks);
-                <span class="kw">return</span>;
-            }
-        };
-        <span class="kw">let </span><span class="kw-2">mut </span>info = OutputInfo::new(id);
-        <span class="kw">for </span>evt <span class="kw">in </span>pending_events {
-            merge_event(<span class="kw-2">&amp;mut </span>info, evt);
-        }
-        notify(<span class="kw-2">&amp;</span>output, <span class="kw-2">&amp;</span>info, ddata.reborrow(), <span class="kw-2">&amp;mut </span>callbacks);
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(xdg) = xdg_listener.as_ref().and_then(rc::Weak::upgrade) {
-            <span class="kw">if </span>has_xdg || xdg.borrow_mut().new_xdg_output(<span class="kw-2">&amp;</span>output, listeners) {
-                <span class="kw-2">*</span>udata = OutputData::PendingXDG { info, callbacks };
-                <span class="kw">return</span>;
-            }
-        }
-        notify_status_listeners(<span class="kw-2">&amp;</span>output, <span class="kw-2">&amp;</span>info, ddata, listeners);
-        <span class="kw-2">*</span>udata = OutputData::Ready { info, callbacks };
-    } <span class="kw">else </span>{
-        <span class="kw">match </span><span class="kw-2">*</span>udata {
-            OutputData::Pending { events: <span class="kw-2">ref mut </span>v, .. } =&gt; v.push(event),
-            OutputData::PendingXDG { <span class="kw-2">ref mut </span>info, .. }
-            | OutputData::Ready { <span class="kw-2">ref mut </span>info, .. } =&gt; {
-                merge_event(info, event);
-            }
-        }
-    }
-}
-
-<span class="kw">fn </span>make_obsolete(
-    output: <span class="kw-2">&amp;</span>Attached&lt;WlOutput&gt;,
-    <span class="kw-2">mut </span>ddata: DispatchData,
-    listeners: <span class="kw-2">&amp;</span>RefCell&lt;Vec&lt;rc::Weak&lt;RefCell&lt;OutputStatusCallback&gt;&gt;&gt;&gt;,
-    xdg_listener: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;rc::Weak&lt;RefCell&lt;XdgOutputHandlerInner&gt;&gt;&gt;,
-) {
-    <span class="kw">let </span>udata_mutex = output
-        .as_ref()
-        .user_data()
-        .get::&lt;Mutex&lt;OutputData&gt;&gt;()
-        .expect(<span class="string">&quot;SCTK: wl_output has invalid UserData&quot;</span>);
-    <span class="kw">let </span><span class="kw-2">mut </span>udata = udata_mutex.lock().unwrap();
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(xdg) = xdg_listener.as_ref().and_then(rc::Weak::upgrade) {
-        xdg.borrow_mut().destroy_xdg_output(output);
-    }
-    <span class="kw">let </span>(id, <span class="kw-2">mut </span>callbacks) = <span class="kw">match </span><span class="kw-2">*</span>udata {
-        OutputData::PendingXDG { <span class="kw-2">ref mut </span>info, <span class="kw-2">ref mut </span>callbacks }
-        | OutputData::Ready { <span class="kw-2">ref mut </span>info, <span class="kw-2">ref mut </span>callbacks } =&gt; {
-            info.obsolete = <span class="bool-val">true</span>;
-            notify(output, info, ddata.reborrow(), callbacks);
-            notify_status_listeners(output, info, ddata, listeners);
-            <span class="kw">return</span>;
-        }
-        OutputData::Pending { id, callbacks: <span class="kw-2">ref mut </span>cb, .. } =&gt; (id, std::mem::take(cb)),
-    };
-    <span class="kw">let </span><span class="kw-2">mut </span>info = OutputInfo::new(id);
-    info.obsolete = <span class="bool-val">true</span>;
-    notify(output, <span class="kw-2">&amp;</span>info, ddata.reborrow(), <span class="kw-2">&amp;mut </span>callbacks);
-    notify_status_listeners(output, <span class="kw-2">&amp;</span>info, ddata, listeners);
-    <span class="kw-2">*</span>udata = OutputData::Ready { info, callbacks };
-}
-
-<span class="kw">fn </span>merge_event(info: <span class="kw-2">&amp;mut </span>OutputInfo, event: Event) {
-    <span class="kw">match </span>event {
-        Event::Geometry {
-            x,
-            y,
-            physical_width,
-            physical_height,
-            subpixel,
-            model,
-            make,
-            transform,
-        } =&gt; {
-            info.location = (x, y);
-            info.physical_size = (physical_width, physical_height);
-            info.subpixel = subpixel;
-            info.transform = transform;
-            info.model = model;
-            info.make = make;
-        }
-        Event::Scale { factor } =&gt; {
-            info.scale_factor = factor;
-        }
-        Event::Mode { width, height, refresh, flags } =&gt; {
-            <span class="kw">let </span><span class="kw-2">mut </span>found = <span class="bool-val">false</span>;
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(mode) = info
-                .modes
-                .iter_mut()
-                .find(|m| m.dimensions == (width, height) &amp;&amp; m.refresh_rate == refresh)
-            {
-                <span class="comment">// this mode already exists, update it
-                </span>mode.is_preferred = flags.contains(wl_output::Mode::Preferred);
-                mode.is_current = flags.contains(wl_output::Mode::Current);
-                found = <span class="bool-val">true</span>;
-            }
-            <span class="kw">if </span>!found {
-                <span class="comment">// otherwise, add it
-                </span>info.modes.push(Mode {
-                    dimensions: (width, height),
-                    refresh_rate: refresh,
-                    is_preferred: flags.contains(wl_output::Mode::Preferred),
-                    is_current: flags.contains(wl_output::Mode::Current),
-                })
-            }
-        }
-        Event::Name { name } =&gt; {
-            info.name = name;
-        }
-        Event::Description { description } =&gt; {
-            info.description = description;
-        }
-        <span class="comment">// ignore all other events
-        </span><span class="kw">_ </span>=&gt; (),
-    }
-}
-
-<span class="kw">fn </span>notify(
-    output: <span class="kw-2">&amp;</span>WlOutput,
-    info: <span class="kw-2">&amp;</span>OutputInfo,
-    <span class="kw-2">mut </span>ddata: DispatchData,
-    callbacks: <span class="kw-2">&amp;mut </span>Vec&lt;sync::Weak&lt;OutputCallback&gt;&gt;,
-) {
-    callbacks.retain(|weak| {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(arc) = sync::Weak::upgrade(weak) {
-            (<span class="kw-2">*</span>arc)(output.clone(), info, ddata.reborrow());
-            <span class="bool-val">true
-        </span>} <span class="kw">else </span>{
-            <span class="bool-val">false
-        </span>}
-    });
-}
-
-<span class="kw">fn </span>notify_status_listeners(
-    output: <span class="kw-2">&amp;</span>WlOutput,
-    info: <span class="kw-2">&amp;</span>OutputInfo,
-    <span class="kw-2">mut </span>ddata: DispatchData,
-    listeners: <span class="kw-2">&amp;</span>RefCell&lt;Vec&lt;rc::Weak&lt;RefCell&lt;OutputStatusCallback&gt;&gt;&gt;&gt;,
-) {
-    <span class="comment">// Notify the callbacks listening for new outputs
-    </span>listeners.borrow_mut().retain(|lst| {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(cb) = rc::Weak::upgrade(lst) {
-            (cb.borrow_mut())(output.clone(), info, ddata.reborrow());
-            <span class="bool-val">true
-        </span>} <span class="kw">else </span>{
-            <span class="bool-val">false
-        </span>}
-    })
-}
-
-<span class="doccomment">/// Access the info associated with this output
-///
-/// The provided closure is given the [`OutputInfo`](struct.OutputInfo.html) as argument,
-/// and its return value is returned from this function.
-///
-/// If the provided `WlOutput` has not yet been initialized or is not managed by SCTK, `None` is returned.
-///
-/// If the output has been removed by the compositor, the `obsolete` field of the `OutputInfo`
-/// will be set to `true`. This handler will not automatically detroy the output by calling its
-/// `release` method, to avoid interfering with your logic.
-</span><span class="kw">pub fn </span>with_output_info&lt;T, F: FnOnce(<span class="kw-2">&amp;</span>OutputInfo) -&gt; T&gt;(output: <span class="kw-2">&amp;</span>WlOutput, f: F) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(udata_mutex) = output.as_ref().user_data().get::&lt;Mutex&lt;OutputData&gt;&gt;() {
-        <span class="kw">let </span>udata = udata_mutex.lock().unwrap();
-        <span class="kw">match </span><span class="kw-2">*</span>udata {
-            OutputData::PendingXDG { <span class="kw-2">ref </span>info, .. } | OutputData::Ready { <span class="kw-2">ref </span>info, .. } =&gt; {
-                <span class="prelude-val">Some</span>(f(info))
-            }
-            OutputData::Pending { .. } =&gt; <span class="prelude-val">None</span>,
-        }
-    } <span class="kw">else </span>{
-        <span class="prelude-val">None
-    </span>}
-}
-
-<span class="doccomment">/// Add a listener to this output
-///
-/// The provided closure will be called whenever a property of the output changes,
-/// including when it is removed by the compositor (in this case it&#39;ll be marked as
-/// obsolete).
-///
-/// The returned [`OutputListener`](struct.OutputListener) keeps your callback alive,
-/// dropping it will disable the callback and free the closure.
-</span><span class="kw">pub fn </span>add_output_listener&lt;F: Fn(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + Send + Sync + <span class="lifetime">&#39;static</span>&gt;(
-    output: <span class="kw-2">&amp;</span>WlOutput,
-    f: F,
-) -&gt; OutputListener {
-    <span class="kw">let </span>arc = Arc::new(f) <span class="kw">as </span>Arc&lt;<span class="kw">_</span>&gt;;
-
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(udata_mutex) = output.as_ref().user_data().get::&lt;Mutex&lt;OutputData&gt;&gt;() {
-        <span class="kw">let </span><span class="kw-2">mut </span>udata = udata_mutex.lock().unwrap();
-
-        <span class="kw">match </span><span class="kw-2">*</span>udata {
-            OutputData::Pending { <span class="kw-2">ref mut </span>callbacks, .. }
-            | OutputData::PendingXDG { <span class="kw-2">ref mut </span>callbacks, .. }
-            | OutputData::Ready { <span class="kw-2">ref mut </span>callbacks, .. } =&gt; {
-                callbacks.push(Arc::downgrade(<span class="kw-2">&amp;</span>arc));
-            }
-        }
-    }
-
-    OutputListener { _cb: arc }
-}
-
-<span class="doccomment">/// A handle to an output listener callback
-///
-/// Dropping it disables the associated callback and frees the closure.
-</span><span class="kw">pub struct </span>OutputListener {
-    _cb: Arc&lt;<span class="kw">dyn </span>Fn(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + Send + Sync + <span class="lifetime">&#39;static</span>&gt;,
-}
-
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>OutputListener {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;OutputListener&quot;</span>).field(<span class="string">&quot;_cb&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;fn() -&gt; { ... }&quot;</span>).finish()
-    }
-}
-
-<span class="doccomment">/// A handle to an output status callback
-///
-/// Dropping it disables the associated callback and frees the closure.
-</span><span class="kw">pub struct </span>OutputStatusListener {
-    _cb: Rc&lt;RefCell&lt;OutputStatusCallback&gt;&gt;,
-}
-
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>OutputStatusListener {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;OutputStatusListener&quot;</span>).field(<span class="string">&quot;_cb&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;fn() -&gt; { ... }&quot;</span>).finish()
-    }
-}
-
-<span class="doccomment">/// Trait representing the OutputHandler functions
-///
-/// Implementing this trait on your inner environment struct used with the
-/// [`environment!`](../macro.environment.html) by delegating it to its
-/// [`OutputHandler`](struct.OutputHandler.html) field will make available the output-associated
-/// method on your [`Environment`](../environment/struct.Environment.html).
-</span><span class="kw">pub trait </span>OutputHandling {
-    <span class="doccomment">/// Insert a listener for output creation and removal events
-    </span><span class="kw">fn </span>listen&lt;F: FnMut(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: F,
-    ) -&gt; OutputStatusListener;
-}
-
-<span class="kw">impl </span>OutputHandling <span class="kw">for </span>OutputHandler {
-    <span class="kw">fn </span>listen&lt;F: FnMut(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: F,
-    ) -&gt; OutputStatusListener {
-        <span class="kw">let </span>rc = Rc::new(RefCell::new(f)) <span class="kw">as </span>Rc&lt;<span class="kw">_</span>&gt;;
-        <span class="self">self</span>.status_listeners.borrow_mut().push(Rc::downgrade(<span class="kw-2">&amp;</span>rc));
-        OutputStatusListener { _cb: rc }
-    }
-}
-
-<span class="kw">impl</span>&lt;E: OutputHandling&gt; <span class="kw">crate</span>::environment::Environment&lt;E&gt; {
-    <span class="doccomment">/// Insert a new listener for outputs
-    ///
-    /// The provided closure will be invoked whenever a `wl_output` is created or removed.
-    ///
-    /// Note that if outputs already exist when this callback is setup, it&#39;ll not be invoked on them.
-    /// For you to be notified of them as well, you need to first process them manually by calling
-    /// `.get_all_outputs()`.
-    ///
-    /// The returned [`OutputStatusListener`](../output/struct.OutputStatusListener.hmtl) keeps your
-    /// callback alive, dropping it will disable it.
-    </span><span class="attr">#[must_use = <span class="string">&quot;the returned OutputStatusListener keeps your callback alive, dropping it will disable it&quot;</span>]
-    </span><span class="kw">pub fn </span>listen_for_outputs&lt;F: FnMut(WlOutput, <span class="kw-2">&amp;</span>OutputInfo, DispatchData) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; OutputStatusListener {
-        <span class="self">self</span>.with_inner(<span class="kw">move </span>|inner| OutputHandling::listen(inner, f))
-    }
-}
-
-<span class="kw">impl</span>&lt;E: <span class="kw">crate</span>::environment::MultiGlobalHandler&lt;WlOutput&gt;&gt; <span class="kw">crate</span>::environment::Environment&lt;E&gt; {
-    <span class="doccomment">/// Shorthand method to retrieve the list of outputs
-    </span><span class="kw">pub fn </span>get_all_outputs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;WlOutput&gt; {
-        <span class="self">self</span>.get_all_globals::&lt;WlOutput&gt;().into_iter().map(|o| o.detach()).collect()
-    }
-}
-
-<span class="doccomment">/// A handler for `zxdg_output_manager_v1`
-///
-/// This handler adds additional information to the OutputInfo struct that is
-/// available through the xdg_output interface.  Because this requires binding
-/// the two handlers together when they are being created, it does not work with
-/// [`new_default_environment!`](../macro.new_default_environment.html); you
-/// must use [`default_environment!`](../macro.default_environment.html) and
-/// create the [OutputHandler] outside the constructor.
-///
-/// ```no_compile
-///  let (sctk_outputs, sctk_xdg_out) = smithay_client_toolkit::output::XdgOutputHandler::new_output_handlers();
-///
-///  let env = smithay_client_toolkit::environment::Environment::new(&amp;wl_display, &amp;mut wl_queue, Globals {
-///      sctk_compositor: SimpleGlobal::new(),
-///      sctk_shm: smithay_client_toolkit::shm::ShmHandler::new(),
-///      sctk_seats : smithay_client_toolkit::seat::SeatHandler::new(),
-///      sctk_shell : smithay_client_toolkit::shell::ShellHandler::new(),
-///      sctk_outputs,
-///      sctk_xdg_out,
-///      // ...
-///  })?;
-///
-/// ```
-</span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>XdgOutputHandler {
-    inner: Rc&lt;RefCell&lt;XdgOutputHandlerInner&gt;&gt;,
 }
 
 <span class="attr">#[derive(Debug)]
-</span><span class="kw">struct </span>XdgOutputHandlerInner {
-    xdg_manager: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZxdgOutputManagerV1&gt;&gt;,
-    outputs: Vec&lt;(WlOutput, Attached&lt;ZxdgOutputV1&gt;)&gt;,
-}
+</span><span class="kw">struct </span>OutputInner {
+    <span class="doccomment">/// The name of the wl_output global.
+    </span>name: u32,
+    wl_output: wl_output::WlOutput,
+    xdg_output: <span class="prelude-ty">Option</span>&lt;zxdg_output_v1::ZxdgOutputV1&gt;,
+    <span class="doccomment">/// Whether this output was just created and has not an event yet.
+    </span>just_created: bool,
 
-<span class="kw">impl </span>XdgOutputHandler {
-    <span class="doccomment">/// Create a new instance of this handler bound to the given OutputHandler.
-    </span><span class="kw">pub fn </span>new(output_handler: <span class="kw-2">&amp;mut </span>OutputHandler) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>inner =
-            Rc::new(RefCell::new(XdgOutputHandlerInner { xdg_manager: <span class="prelude-val">None</span>, outputs: Vec::new() }));
-        output_handler.xdg_listener = <span class="prelude-val">Some</span>(Rc::downgrade(<span class="kw-2">&amp;</span>inner));
-        XdgOutputHandler { inner }
-    }
-
-    <span class="doccomment">/// Helper function to create a bound pair of OutputHandler and XdgOutputHandler.
-    </span><span class="kw">pub fn </span>new_output_handlers() -&gt; (OutputHandler, <span class="self">Self</span>) {
-        <span class="kw">let </span><span class="kw-2">mut </span>oh = OutputHandler::new();
-        <span class="kw">let </span>xh = XdgOutputHandler::new(<span class="kw-2">&amp;mut </span>oh);
-        (oh, xh)
-    }
-}
-
-<span class="kw">impl </span>XdgOutputHandlerInner {
-    <span class="kw">fn </span>new_xdg_output(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        output: <span class="kw-2">&amp;</span>WlOutput,
-        listeners: <span class="kw-2">&amp;</span>Rc&lt;RefCell&lt;Vec&lt;rc::Weak&lt;RefCell&lt;OutputStatusCallback&gt;&gt;&gt;&gt;&gt;,
-    ) -&gt; bool {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(xdg_manager) = <span class="kw-2">&amp;</span><span class="self">self</span>.xdg_manager {
-            <span class="kw">let </span>xdg_main = xdg_manager.get_xdg_output(output);
-            <span class="kw">let </span>wl_out = output.clone();
-            <span class="kw">let </span>listeners = listeners.clone();
-            xdg_main.quick_assign(<span class="kw">move </span>|_xdg_out, event, ddata| {
-                process_xdg_event(<span class="kw-2">&amp;</span>wl_out, event, ddata, <span class="kw-2">&amp;</span>listeners)
-            });
-            <span class="self">self</span>.outputs.push((output.clone(), xdg_main.into()));
-            <span class="bool-val">true
-        </span>} <span class="kw">else </span>{
-            <span class="bool-val">false
-        </span>}
-    }
-    <span class="kw">fn </span>destroy_xdg_output(<span class="kw-2">&amp;mut </span><span class="self">self</span>, output: <span class="kw-2">&amp;</span>WlOutput) {
-        <span class="self">self</span>.outputs.retain(|(out, xdg_out)| {
-            <span class="kw">if </span>out.as_ref().is_alive() &amp;&amp; out != output {
-                <span class="bool-val">true
-            </span>} <span class="kw">else </span>{
-                xdg_out.destroy();
-                <span class="bool-val">false
-            </span>}
-        });
-    }
-}
-
-<span class="kw">fn </span>process_xdg_event(
-    wl_out: <span class="kw-2">&amp;</span>WlOutput,
-    event: zxdg_output_v1::Event,
-    <span class="kw-2">mut </span>ddata: DispatchData,
-    listeners: <span class="kw-2">&amp;</span>RefCell&lt;Vec&lt;rc::Weak&lt;RefCell&lt;OutputStatusCallback&gt;&gt;&gt;&gt;,
-) {
-    <span class="kw">use </span>zxdg_output_v1::Event;
-    <span class="kw">let </span>udata_mutex = wl_out
-        .as_ref()
-        .user_data()
-        .get::&lt;Mutex&lt;OutputData&gt;&gt;()
-        .expect(<span class="string">&quot;SCTK: wl_output has invalid UserData&quot;</span>);
-    <span class="kw">let </span><span class="kw-2">mut </span>udata = udata_mutex.lock().unwrap();
-    <span class="kw">let </span>(info, callbacks, pending) = <span class="kw">match </span><span class="kw-2">&amp;mut *</span>udata {
-        OutputData::Ready { info, callbacks } =&gt; (info, callbacks, <span class="bool-val">false</span>),
-        OutputData::PendingXDG { info, callbacks } =&gt; (info, callbacks, <span class="bool-val">true</span>),
-        OutputData::Pending { .. } =&gt; <span class="macro">unreachable!</span>(),
-    };
-    <span class="kw">match </span>event {
-        Event::Name { name } =&gt; {
-            info.name = name;
-        }
-        Event::Description { description } =&gt; {
-            info.description = description;
-        }
-        Event::Done =&gt; {
-            notify(wl_out, info, ddata.reborrow(), callbacks);
-            <span class="kw">if </span>pending {
-                notify_status_listeners(wl_out, info, ddata, listeners);
-                <span class="kw">let </span>info = info.clone();
-                <span class="kw">let </span>callbacks = std::mem::take(callbacks);
-                <span class="kw-2">*</span>udata = OutputData::Ready { info, callbacks };
-            }
-        }
-        <span class="kw">_ </span>=&gt; (),
-    }
-}
-
-<span class="kw">impl </span><span class="kw">crate</span>::environment::GlobalHandler&lt;ZxdgOutputManagerV1&gt; <span class="kw">for </span>XdgOutputHandler {
-    <span class="kw">fn </span>created(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        registry: Attached&lt;wl_registry::WlRegistry&gt;,
-        id: u32,
-        version: u32,
-        <span class="kw">_</span>: DispatchData,
-    ) {
-        <span class="kw">let </span>version = std::cmp::min(version, <span class="number">3</span>);
-        <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="self">self</span>.inner.borrow_mut();
-        <span class="kw">let </span>xdg_manager: Main&lt;ZxdgOutputManagerV1&gt; = registry.bind(version, id);
-        inner.xdg_manager = <span class="prelude-val">Some</span>(xdg_manager.into());
-    }
-    <span class="kw">fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Attached&lt;ZxdgOutputManagerV1&gt;&gt; {
-        <span class="kw">let </span>inner = <span class="self">self</span>.inner.borrow();
-        inner.xdg_manager.clone()
-    }
+    current_info: <span class="prelude-ty">Option</span>&lt;OutputInfo&gt;,
+    pending_info: OutputInfo,
+    pending_wl: bool,
+    pending_xdg: bool,
 }
 </code></pre></div></section></main></body></html>

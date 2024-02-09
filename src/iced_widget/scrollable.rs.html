@@ -1734,8 +1734,6 @@
 <a href="#1734" id="1734">1734</a>
 <a href="#1735" id="1735">1735</a>
 <a href="#1736" id="1736">1736</a>
-<a href="#1737" id="1737">1737</a>
-<a href="#1738" id="1738">1738</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Navigate an endless amount of content with a scrollbar.
 </span><span class="kw">use </span>iced_runtime::core::widget::Id;
 <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
@@ -1763,10 +1761,14 @@
 <span class="doccomment">/// A widget that can vertically display an infinite amount of content with a
 /// scrollbar.
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt;
-<span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+</span><span class="kw">pub struct </span>Scrollable&lt;
+    <span class="lifetime">&#39;a</span>,
+    Message,
+    Theme = <span class="kw">crate</span>::Theme,
+    Renderer = <span class="kw">crate</span>::Renderer,
+&gt; <span class="kw">where
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     id: Id,
     scrollbar_id: Id,
@@ -1779,18 +1781,20 @@
     width: Length,
     height: Length,
     direction: Direction,
-    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
+    content: Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
     on_scroll: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="kw">dyn </span>Fn(Viewport) -&gt; Message + <span class="lifetime">&#39;a</span>&gt;&gt;,
-    style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    style: Theme::Style,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     <span class="doccomment">/// Creates a new [`Scrollable`].
-    </span><span class="kw">pub fn </span>new(content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new(
+        content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+    ) -&gt; <span class="self">Self </span>{
         Scrollable {
             id: Id::unique(),
             scrollbar_id: Id::unique(),
@@ -1841,10 +1845,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the style of the [`Scrollable`] .
-    </span><span class="kw">pub fn </span>style(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
-    ) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;Theme::Style&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.style = style.into();
         <span class="self">self
     </span>}
@@ -1988,11 +1989,11 @@
     </span>End,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         tree::Tag::of::&lt;State&gt;()
@@ -2010,12 +2011,11 @@
         tree.diff_children(std::slice::from_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>.content))
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.height
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: <span class="self">self</span>.width,
+            height: <span class="self">self</span>.height,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -2106,7 +2106,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -2164,7 +2164,7 @@
         tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Theme, Renderer&gt;&gt; {
         <span class="self">self</span>.content
             .as_widget_mut()
             .overlay(
@@ -2326,16 +2326,17 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+    From&lt;Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;a</span>,
+    Theme: StyleSheet + <span class="lifetime">&#39;a</span>,
     Renderer: <span class="lifetime">&#39;a </span>+ <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
 {
     <span class="kw">fn </span>from(
-        text_input: Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
-    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+        text_input: Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
         Element::new(text_input)
     }
 }
@@ -2367,28 +2368,25 @@
     direction: <span class="kw-2">&amp;</span>Direction,
     layout_content: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;</span>Renderer, <span class="kw-2">&amp;</span>layout::Limits) -&gt; layout::Node,
 ) -&gt; layout::Node {
-    <span class="kw">let </span>limits = limits.width(width).height(height);
+    layout::contained(limits, width, height, |limits| {
+        <span class="kw">let </span>child_limits = layout::Limits::new(
+            Size::new(limits.min().width, limits.min().height),
+            Size::new(
+                <span class="kw">if </span>direction.horizontal().is_some() {
+                    f32::INFINITY
+                } <span class="kw">else </span>{
+                    limits.max().width
+                },
+                <span class="kw">if </span>direction.vertical().is_some() {
+                    f32::MAX
+                } <span class="kw">else </span>{
+                    limits.max().height
+                },
+            ),
+        );
 
-    <span class="kw">let </span>child_limits = layout::Limits::new(
-        Size::new(limits.min().width, limits.min().height),
-        Size::new(
-            <span class="kw">if </span>direction.horizontal().is_some() {
-                f32::INFINITY
-            } <span class="kw">else </span>{
-                limits.max().width
-            },
-            <span class="kw">if </span>direction.vertical().is_some() {
-                f32::MAX
-            } <span class="kw">else </span>{
-                limits.max().height
-            },
-        ),
-    );
-
-    <span class="kw">let </span>content = layout_content(renderer, <span class="kw-2">&amp;</span>child_limits);
-    <span class="kw">let </span>size = limits.resolve(content.size());
-
-    layout::Node::with_children(size, <span class="macro">vec!</span>[content])
+        layout_content(renderer, <span class="kw-2">&amp;</span>child_limits)
+    })
 }
 
 <span class="doccomment">/// Processes an [`Event`] and updates the [`State`] of a [`Scrollable`]
@@ -2750,18 +2748,18 @@
 }
 
 <span class="doccomment">/// Draws a [`Scrollable`].
-</span><span class="kw">pub fn </span>draw&lt;Renderer&gt;(
+</span><span class="kw">pub fn </span>draw&lt;Theme, Renderer&gt;(
     state: <span class="kw-2">&amp;</span>State,
     renderer: <span class="kw-2">&amp;mut </span>Renderer,
-    theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+    theme: <span class="kw-2">&amp;</span>Theme,
     layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
     cursor: mouse::Cursor,
     direction: Direction,
-    style: <span class="kw-2">&amp;</span>&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    style: <span class="kw-2">&amp;</span>Theme::Style,
     draw_content: <span class="kw">impl </span>FnOnce(<span class="kw-2">&amp;mut </span>Renderer, Layout&lt;<span class="lifetime">&#39;_</span>&gt;, mouse::Cursor, <span class="kw-2">&amp;</span>Rectangle),
 ) <span class="kw">where
-    </span>Renderer: <span class="kw">crate</span>::core::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: <span class="kw">crate</span>::core::Renderer,
 {
     <span class="kw">let </span>bounds = layout.bounds();
     <span class="kw">let </span>content_layout = layout.children().next().unwrap();
@@ -2812,15 +2810,14 @@
                 </span><span class="kw">if </span>scrollbar.bounds.width &gt; <span class="number">0.0
                     </span>&amp;&amp; scrollbar.bounds.height &gt; <span class="number">0.0
                     </span>&amp;&amp; (style.background.is_some()
-                        || (style.border_color != Color::TRANSPARENT
-                            &amp;&amp; style.border_width &gt; <span class="number">0.0</span>))
+                        || (style.border.color != Color::TRANSPARENT
+                            &amp;&amp; style.border.width &gt; <span class="number">0.0</span>))
                 {
                     renderer.fill_quad(
                         renderer::Quad {
                             bounds: scrollbar.bounds,
-                            border_radius: style.border_radius,
-                            border_width: style.border_width,
-                            border_color: style.border_color,
+                            border: style.border,
+                            ..renderer::Quad::default()
                         },
                         style
                             .background
@@ -2832,15 +2829,14 @@
                 </span><span class="kw">if </span>scrollbar.scroller.bounds.width &gt; <span class="number">0.0
                     </span>&amp;&amp; scrollbar.scroller.bounds.height &gt; <span class="number">0.0
                     </span>&amp;&amp; (style.scroller.color != Color::TRANSPARENT
-                        || (style.scroller.border_color != Color::TRANSPARENT
-                            &amp;&amp; style.scroller.border_width &gt; <span class="number">0.0</span>))
+                        || (style.scroller.border.color != Color::TRANSPARENT
+                            &amp;&amp; style.scroller.border.width &gt; <span class="number">0.0</span>))
                 {
                     renderer.fill_quad(
                         renderer::Quad {
                             bounds: scrollbar.scroller.bounds,
-                            border_radius: style.scroller.border_radius,
-                            border_width: style.scroller.border_width,
-                            border_color: style.scroller.border_color,
+                            border: style.scroller.border,
+                            ..renderer::Quad::default()
                         },
                         style.scroller.color,
                     );

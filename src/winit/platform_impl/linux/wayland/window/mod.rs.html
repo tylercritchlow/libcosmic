@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-40d7deb2b0c08730/c6ad672/src/platform_impl/linux/wayland/window/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="winit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../../src-files.js"></script><script defer src="../../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-40d7deb2b0c08730/8987daa/src/platform_impl/linux/wayland/window/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="winit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../../src-files.js"></script><script defer src="../../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -754,97 +754,91 @@
 <a href="#754" id="754">754</a>
 <a href="#755" id="755">755</a>
 <a href="#756" id="756">756</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::VecDeque;
-<span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! The Wayland window.
+
+</span><span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
 <span class="kw">use </span>std::sync::{Arc, Mutex};
 
-<span class="kw">use </span>sctk::reexports::client::protocol::wl_surface::WlSurface;
-<span class="kw">use </span>sctk::reexports::client::Display;
-
 <span class="kw">use </span>sctk::reexports::calloop;
+<span class="kw">use </span>sctk::reexports::client::protocol::wl_display::WlDisplay;
+<span class="kw">use </span>sctk::reexports::client::protocol::wl_surface::WlSurface;
+<span class="kw">use </span>sctk::reexports::client::Proxy;
+<span class="kw">use </span>sctk::reexports::client::QueueHandle;
 
-<span class="kw">use </span>raw_window_handle::{
-    RawDisplayHandle, RawWindowHandle, WaylandDisplayHandle, WaylandWindowHandle,
-};
-<span class="kw">use </span>sctk::window::Decorations;
-<span class="kw">use </span>wayland_protocols::viewporter::client::wp_viewporter::WpViewporter;
+<span class="kw">use </span>sctk::compositor::{CompositorState, Region, SurfaceData};
+<span class="kw">use </span>sctk::reexports::protocols::xdg::activation::v1::client::xdg_activation_v1::XdgActivationV1;
+<span class="kw">use </span>sctk::shell::xdg::window::Window <span class="kw">as </span>SctkWindow;
+<span class="kw">use </span>sctk::shell::xdg::window::WindowDecorations;
+<span class="kw">use </span>sctk::shell::WaylandSurface;
 
 <span class="kw">use </span><span class="kw">crate</span>::dpi::{LogicalSize, PhysicalPosition, PhysicalSize, Position, Size};
 <span class="kw">use </span><span class="kw">crate</span>::error::{ExternalError, NotSupportedError, OsError <span class="kw">as </span>RootOsError};
+<span class="kw">use </span><span class="kw">crate</span>::event::{Ime, WindowEvent};
+<span class="kw">use </span><span class="kw">crate</span>::event_loop::AsyncRequestSerial;
 <span class="kw">use </span><span class="kw">crate</span>::platform_impl::{
-    wayland::protocols::wp_fractional_scale_manager_v1::WpFractionalScaleManagerV1,
-    wayland::protocols::wp_fractional_scale_v1, Fullscreen, MonitorHandle <span class="kw">as </span>PlatformMonitorHandle,
-    OsError, PlatformSpecificWindowBuilderAttributes <span class="kw">as </span>PlatformAttributes,
+    Fullscreen, MonitorHandle <span class="kw">as </span>PlatformMonitorHandle, OsError, PlatformIcon,
+    PlatformSpecificWindowBuilderAttributes <span class="kw">as </span>PlatformAttributes,
 };
 <span class="kw">use </span><span class="kw">crate</span>::window::{
     CursorGrabMode, CursorIcon, ImePurpose, ResizeDirection, Theme, UserAttentionType,
-    WindowAttributes, WindowButtons,
+    WindowAttributes, WindowButtons, WindowLevel,
 };
 
-<span class="kw">use </span><span class="kw">super</span>::env::WindowingFeatures;
-<span class="kw">use </span><span class="kw">super</span>::event_loop::WinitState;
-<span class="kw">use </span><span class="kw">super</span>::output::{MonitorHandle, OutputManagerHandle};
-<span class="kw">use super</span>::{EventLoopWindowTarget, WindowId};
+<span class="kw">use </span><span class="kw">super</span>::event_loop::sink::EventSink;
+<span class="kw">use </span><span class="kw">super</span>::output::MonitorHandle;
+<span class="kw">use </span><span class="kw">super</span>::state::WinitState;
+<span class="kw">use </span><span class="kw">super</span>::types::xdg_activation::XdgActivationTokenData;
+<span class="kw">use super</span>::{EventLoopWindowTarget, WaylandError, WindowId};
 
-<span class="kw">pub mod </span>shim;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>state;
 
-<span class="kw">use </span>shim::{
-    FractionalScalingState, WindowCompositorUpdate, WindowHandle, WindowRequest, WindowUserRequest,
-};
+<span class="kw">pub use </span>state::WindowState;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;sctk-adwaita&quot;</span>)]
-</span><span class="kw">pub type </span>WinitFrame = sctk_adwaita::AdwaitaFrame;
-<span class="attr">#[cfg(not(feature = <span class="string">&quot;sctk-adwaita&quot;</span>))]
-</span><span class="kw">pub type </span>WinitFrame = sctk::window::FallbackFrame;
+<span class="doccomment">/// The Wayland window.
+</span><span class="kw">pub struct </span>Window {
+    <span class="doccomment">/// Reference to the underlying SCTK window.
+    </span>window: SctkWindow,
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;sctk-adwaita&quot;</span>)]
-</span><span class="kw">const </span>WAYLAND_CSD_THEME_ENV_VAR: <span class="kw-2">&amp;</span>str = <span class="string">&quot;WINIT_WAYLAND_CSD_THEME&quot;</span>;
-
-<span class="kw">pub struct </span>Window {
     <span class="doccomment">/// Window id.
     </span>window_id: WindowId,
 
-    <span class="doccomment">/// The Wayland display.
-    </span>display: Display,
+    <span class="doccomment">/// The state of the window.
+    </span>window_state: Arc&lt;Mutex&lt;WindowState&gt;&gt;,
 
-    <span class="doccomment">/// The underlying wl_surface.
-    </span>surface: WlSurface,
+    <span class="doccomment">/// Compositor to handle WlRegion stuff.
+    </span>compositor: Arc&lt;CompositorState&gt;,
 
-    <span class="doccomment">/// The scale factor.
-    </span>scale_factor: Arc&lt;Mutex&lt;f64&gt;&gt;,
+    <span class="doccomment">/// The wayland display used solely for raw window handle.
+    </span><span class="attr">#[allow(dead_code)]
+    </span>display: WlDisplay,
 
-    <span class="doccomment">/// The current window size.
-    </span>size: Arc&lt;Mutex&lt;LogicalSize&lt;u32&gt;&gt;&gt;,
+    <span class="doccomment">/// Xdg activation to request user attention.
+    </span>xdg_activation: <span class="prelude-ty">Option</span>&lt;XdgActivationV1&gt;,
 
-    <span class="doccomment">/// A handle to output manager.
-    </span>output_manager_handle: OutputManagerHandle,
+    <span class="doccomment">/// The state of the requested attention from the `xdg_activation`.
+    </span>attention_requested: Arc&lt;AtomicBool&gt;,
 
-    <span class="doccomment">/// Event loop proxy to wake it up.
+    <span class="doccomment">/// Handle to the main queue to perform requests.
+    </span>queue_handle: QueueHandle&lt;WinitState&gt;,
+
+    <span class="doccomment">/// Window requests to the event loop.
+    </span>window_requests: Arc&lt;WindowRequests&gt;,
+
+    <span class="doccomment">/// Observed monitors.
+    </span>monitors: Arc&lt;Mutex&lt;Vec&lt;MonitorHandle&gt;&gt;&gt;,
+
+    <span class="doccomment">/// Source to wake-up the event-loop for window requests.
     </span>event_loop_awakener: calloop::ping::Ping,
 
-    <span class="doccomment">/// Fullscreen state.
-    </span>fullscreen: Arc&lt;AtomicBool&gt;,
-
-    <span class="doccomment">/// Maximized state.
-    </span>maximized: Arc&lt;AtomicBool&gt;,
-
-    <span class="doccomment">/// Available windowing features.
-    </span>windowing_features: WindowingFeatures,
-
-    <span class="doccomment">/// Requests that SCTK window should perform.
-    </span>window_requests: Arc&lt;Mutex&lt;Vec&lt;WindowRequest&gt;&gt;&gt;,
-
-    <span class="doccomment">/// Whether the window is resizeable.
-    </span>resizeable: AtomicBool,
-
-    <span class="doccomment">/// Whether the window is decorated.
-    </span>decorated: AtomicBool,
-
-    <span class="doccomment">/// Grabbing mode.
-    </span>cursor_grab_mode: Mutex&lt;CursorGrabMode&gt;,
-
-    <span class="doccomment">/// Whether the window has keyboard focus.
-    </span>has_focus: Arc&lt;AtomicBool&gt;,
+    <span class="doccomment">/// The event sink to deliver sythetic events.
+    </span>window_events_sink: Arc&lt;Mutex&lt;EventSink&gt;&gt;,
 }
 
 <span class="kw">impl </span>Window {
@@ -853,269 +847,158 @@
         attributes: WindowAttributes,
         platform_attributes: PlatformAttributes,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, RootOsError&gt; {
-        <span class="kw">let </span>viewporter = event_loop_window_target.env.get_global::&lt;WpViewporter&gt;();
-        <span class="kw">let </span>fractional_scale_manager = event_loop_window_target
-            .env
-            .get_global::&lt;WpFractionalScaleManagerV1&gt;();
+        <span class="kw">let </span>queue_handle = event_loop_window_target.queue_handle.clone();
+        <span class="kw">let </span><span class="kw-2">mut </span>state = event_loop_window_target.state.borrow_mut();
 
-        <span class="comment">// Create surface and register callback for the scale factor changes.
-        </span><span class="kw">let </span><span class="kw-2">mut </span>scale_factor = <span class="number">1.</span>;
-        <span class="kw">let </span>(surface, fractional_scaling_state) =
-            <span class="kw">if let </span>(<span class="prelude-val">Some</span>(viewporter), <span class="prelude-val">Some</span>(fractional_scale_manager)) =
-                (viewporter, fractional_scale_manager)
-            {
-                <span class="kw">let </span>surface = event_loop_window_target.env.create_surface().detach();
-                <span class="kw">let </span>fractional_scale = fractional_scale_manager.get_fractional_scale(<span class="kw-2">&amp;</span>surface);
+        <span class="kw">let </span>monitors = state.monitors.clone();
 
-                <span class="kw">let </span>window_id = <span class="kw">super</span>::make_wid(<span class="kw-2">&amp;</span>surface);
-                fractional_scale.quick_assign(<span class="kw">move </span>|<span class="kw">_</span>, event, <span class="kw-2">mut </span>dispatch_data| {
-                    <span class="kw">let </span>wp_fractional_scale_v1::Event::PreferredScale { scale } = event;
-                    <span class="kw">let </span>winit_state = dispatch_data.get::&lt;WinitState&gt;().unwrap();
-                    apply_scale(window_id, scale <span class="kw">as </span>f64 / <span class="number">120.</span>, winit_state);
-                });
+        <span class="kw">let </span>surface = state.compositor_state.create_surface(<span class="kw-2">&amp;</span>queue_handle);
+        <span class="kw">let </span>compositor = state.compositor_state.clone();
+        <span class="kw">let </span>xdg_activation = state
+            .xdg_activation
+            .as_ref()
+            .map(|activation_state| activation_state.global().clone());
+        <span class="kw">let </span>display = event_loop_window_target.connection.display();
 
-                <span class="kw">let </span>fractional_scale = fractional_scale.detach();
-                <span class="kw">let </span>viewport = viewporter.get_viewport(<span class="kw-2">&amp;</span>surface).detach();
-                <span class="kw">let </span>fractional_scaling_state =
-                    FractionalScalingState::new(viewport, fractional_scale);
-
-                (surface, <span class="prelude-val">Some</span>(fractional_scaling_state))
-            } <span class="kw">else </span>{
-                <span class="kw">let </span>surface = event_loop_window_target
-                    .env
-                    .create_surface_with_scale_callback(<span class="kw">move </span>|scale, surface, <span class="kw-2">mut </span>dispatch_data| {
-                        <span class="comment">// While I&#39;m not sure how this could happen, we can safely ignore it
-                        // for now as a quickfix.
-                        </span><span class="kw">if </span>!surface.as_ref().is_alive() {
-                            <span class="kw">return</span>;
-                        }
-
-                        <span class="kw">let </span>winit_state = dispatch_data.get::&lt;WinitState&gt;().unwrap();
-
-                        <span class="comment">// Get the window that received the event.
-                        </span><span class="kw">let </span>window_id = <span class="kw">super</span>::make_wid(<span class="kw-2">&amp;</span>surface);
-                        apply_scale(window_id, scale <span class="kw">as </span>f64, winit_state);
-                        surface.set_buffer_scale(scale);
-                    })
-                    .detach();
-
-                scale_factor = sctk::get_surface_scale_factor(<span class="kw-2">&amp;</span>surface) <span class="kw">as _</span>;
-
-                (surface, <span class="prelude-val">None</span>)
-            };
-
-        <span class="kw">let </span>window_id = <span class="kw">super</span>::make_wid(<span class="kw-2">&amp;</span>surface);
-        <span class="kw">let </span>maximized = Arc::new(AtomicBool::new(<span class="bool-val">false</span>));
-        <span class="kw">let </span>maximized_clone = maximized.clone();
-        <span class="kw">let </span>fullscreen = Arc::new(AtomicBool::new(<span class="bool-val">false</span>));
-        <span class="kw">let </span>fullscreen_clone = fullscreen.clone();
-
-        <span class="kw">let </span>(width, height) = attributes
+        <span class="kw">let </span>size: Size = attributes
             .inner_size
-            .map(|size| size.to_logical::&lt;f64&gt;(scale_factor).into())
-            .unwrap_or((<span class="number">800</span>, <span class="number">600</span>));
+            .unwrap_or(LogicalSize::new(<span class="number">800.</span>, <span class="number">600.</span>).into());
 
-        <span class="kw">let </span>theme_manager = event_loop_window_target.theme_manager.clone();
-        <span class="kw">let </span><span class="kw-2">mut </span>window = event_loop_window_target
-            .env
-            .create_window::&lt;WinitFrame, <span class="kw">_</span>&gt;(
-                surface.clone(),
-                <span class="prelude-val">Some</span>(theme_manager),
-                (width, height),
-                <span class="kw">move </span>|event, <span class="kw-2">mut </span>dispatch_data| {
-                    <span class="kw">use </span>sctk::window::{Event, State};
-
-                    <span class="kw">let </span>winit_state = dispatch_data.get::&lt;WinitState&gt;().unwrap();
-                    <span class="kw">let </span>window_compositor_update = winit_state
-                        .window_compositor_updates
-                        .get_mut(<span class="kw-2">&amp;</span>window_id)
-                        .unwrap();
-
-                    <span class="kw">let </span>window_user_requests = winit_state
-                        .window_user_requests
-                        .get_mut(<span class="kw-2">&amp;</span>window_id)
-                        .unwrap();
-
-                    <span class="kw">match </span>event {
-                        Event::Refresh =&gt; {
-                            window_user_requests.refresh_frame = <span class="bool-val">true</span>;
-                        }
-                        Event::Configure { new_size, states } =&gt; {
-                            <span class="kw">let </span>is_maximized = states.contains(<span class="kw-2">&amp;</span>State::Maximized);
-                            maximized_clone.store(is_maximized, Ordering::Relaxed);
-                            <span class="kw">let </span>is_fullscreen = states.contains(<span class="kw-2">&amp;</span>State::Fullscreen);
-                            fullscreen_clone.store(is_fullscreen, Ordering::Relaxed);
-
-                            window_user_requests.refresh_frame = <span class="bool-val">true</span>;
-                            <span class="kw">if let </span><span class="prelude-val">Some</span>((w, h)) = new_size {
-                                window_compositor_update.size = <span class="prelude-val">Some</span>(LogicalSize::new(w, h));
-                            }
-                        }
-                        Event::Close =&gt; {
-                            window_compositor_update.close_window = <span class="bool-val">true</span>;
-                        }
-                    }
-                },
-            )
-            .map_err(|<span class="kw">_</span>| <span class="macro">os_error!</span>(OsError::WaylandMisc(<span class="string">&quot;failed to create window.&quot;</span>)))<span class="question-mark">?</span>;
-
-        <span class="comment">// Set CSD frame config from theme if specified,
-        // otherwise use upstream automatic selection.
-        </span><span class="attr">#[cfg(feature = <span class="string">&quot;sctk-adwaita&quot;</span>)]
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(theme) = attributes.preferred_theme.or_else(|| {
-            std::env::var(WAYLAND_CSD_THEME_ENV_VAR)
-                .ok()
-                .and_then(|s| s.as_str().try_into().ok())
-        }) {
-            window.set_frame_config(theme.into());
-        }
-
-        <span class="comment">// Set decorations.
-        </span><span class="kw">if </span>attributes.decorations {
-            window.set_decorate(Decorations::FollowServer);
+        <span class="comment">// We prefer server side decorations, however to not have decorations we ask for client
+        // side decorations instead.
+        </span><span class="kw">let </span>default_decorations = <span class="kw">if </span>attributes.decorations {
+            WindowDecorations::RequestServer
         } <span class="kw">else </span>{
-            window.set_decorate(Decorations::None);
+            WindowDecorations::RequestClient
+        };
+
+        <span class="kw">let </span>window =
+            state
+                .xdg_shell
+                .create_window(surface.clone(), default_decorations, <span class="kw-2">&amp;</span>queue_handle);
+
+        <span class="kw">let </span><span class="kw-2">mut </span>window_state = WindowState::new(
+            event_loop_window_target.connection.clone(),
+            <span class="kw-2">&amp;</span>event_loop_window_target.queue_handle,
+            <span class="kw-2">&amp;</span>state,
+            size,
+            window.clone(),
+            attributes.preferred_theme,
+        );
+
+        <span class="comment">// Set transparency hint.
+        </span>window_state.set_transparent(attributes.transparent);
+
+        window_state.set_blur(attributes.blur);
+
+        <span class="comment">// Set the decorations hint.
+        </span>window_state.set_decorate(attributes.decorations);
+
+        <span class="comment">// Set the app_id.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(name) = platform_attributes.name.map(|name| name.general) {
+            window.set_app_id(name);
         }
 
-        <span class="comment">// Min dimensions.
-        </span><span class="kw">let </span>min_size = attributes
-            .min_inner_size
-            .map(|size| size.to_logical::&lt;f64&gt;(scale_factor).into());
-        window.set_min_size(min_size);
+        <span class="comment">// Set the window title.
+        </span>window_state.set_title(attributes.title);
 
-        <span class="comment">// Max dimensions.
-        </span><span class="kw">let </span>max_size = attributes
-            .max_inner_size
-            .map(|size| size.to_logical::&lt;f64&gt;(scale_factor).into());
-        window.set_max_size(max_size);
+        <span class="comment">// Set the min and max sizes. We must set the hints upon creating a window, so
+        // we use the default `1.` scaling...
+        </span><span class="kw">let </span>min_size = attributes.min_inner_size.map(|size| size.to_logical(<span class="number">1.</span>));
+        <span class="kw">let </span>max_size = attributes.max_inner_size.map(|size| size.to_logical(<span class="number">1.</span>));
+        window_state.set_min_inner_size(min_size);
+        window_state.set_max_inner_size(max_size);
 
-        <span class="comment">// Set Wayland specific window attributes.
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(name) = platform_attributes.name {
-            window.set_app_id(name.general);
-        }
+        <span class="comment">// Non-resizable implies that the min and max sizes are set to the same value.
+        </span>window_state.set_resizable(attributes.resizable);
 
-        <span class="comment">// Set common window attributes.
-        //
-        // We set resizable after other attributes, since it touches min and max size under
-        // the hood.
-        </span>window.set_resizable(attributes.resizable);
-        window.set_title(attributes.title);
-
-        <span class="comment">// Set fullscreen/maximized if so was requested.
-        </span><span class="kw">match </span>attributes.fullscreen.map(Into::into) {
+        <span class="comment">// Set startup mode.
+        </span><span class="kw">match </span>attributes.fullscreen.<span class="number">0</span>.map(Into::into) {
             <span class="prelude-val">Some</span>(Fullscreen::Exclusive(<span class="kw">_</span>)) =&gt; {
-                <span class="macro">warn!</span>(<span class="string">&quot;`Fullscreen::Exclusive` is ignored on Wayland&quot;</span>)
+                <span class="macro">warn!</span>(<span class="string">&quot;`Fullscreen::Exclusive` is ignored on Wayland&quot;</span>);
             }
             <span class="prelude-val">Some</span>(Fullscreen::Borderless(monitor)) =&gt; {
-                <span class="kw">let </span>monitor = monitor.and_then(|monitor| <span class="kw">match </span>monitor {
+                <span class="kw">let </span>output = monitor.and_then(|monitor| <span class="kw">match </span>monitor {
                     PlatformMonitorHandle::Wayland(monitor) =&gt; <span class="prelude-val">Some</span>(monitor.proxy),
                     <span class="attr">#[cfg(x11_platform)]
                     </span>PlatformMonitorHandle::X(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
                 });
 
-                window.set_fullscreen(monitor.as_ref());
+                window.set_fullscreen(output.as_ref())
             }
-            <span class="prelude-val">None </span>=&gt; {
-                <span class="kw">if </span>attributes.maximized {
-                    window.set_maximized();
-                }
-            }
-        }
-
-        <span class="comment">// Without this commit here at least on kwin 5.23.3 the initial configure
-        // will have a size (1,1), the second configure including the decoration
-        // mode will have the min_size as its size. With this commit the initial
-        // configure will have no size, the application will draw it&#39;s content
-        // with the initial size and everything works as expected afterwards.
-        //
-        // The window commit must be after setting on top level properties, but right before any
-        // buffer attachments commits.
-        </span>window.surface().commit();
-
-        <span class="kw">let </span>size = Arc::new(Mutex::new(LogicalSize::new(width, height)));
-        <span class="kw">let </span>has_focus = Arc::new(AtomicBool::new(<span class="bool-val">true</span>));
-
-        <span class="comment">// We should trigger redraw and commit the surface for the newly created window.
-        </span><span class="kw">let </span><span class="kw-2">mut </span>window_user_request = WindowUserRequest::new();
-        window_user_request.refresh_frame = <span class="bool-val">true</span>;
-        window_user_request.redraw_requested = <span class="bool-val">true</span>;
-
-        <span class="kw">let </span>window_id = <span class="kw">super</span>::make_wid(<span class="kw-2">&amp;</span>surface);
-        <span class="kw">let </span>window_requests = Arc::new(Mutex::new(Vec::with_capacity(<span class="number">64</span>)));
-
-        <span class="comment">// Create a handle that performs all the requests on underlying sctk a window.
-        </span><span class="kw">let </span>window_handle = WindowHandle::new(
-            <span class="kw-2">&amp;</span>event_loop_window_target.env,
-            window,
-            size.clone(),
-            has_focus.clone(),
-            fractional_scaling_state,
-            scale_factor,
-            window_requests.clone(),
-        );
-
-        <span class="comment">// Set opaque region.
-        </span>window_handle.set_transparent(attributes.transparent);
-
-        <span class="comment">// Set resizable state, so we can determine how to handle `Window::set_inner_size`.
-        </span>window_handle.is_resizable.set(attributes.resizable);
-
-        <span class="kw">let </span><span class="kw-2">mut </span>winit_state = event_loop_window_target.state.borrow_mut();
-
-        winit_state.window_map.insert(window_id, window_handle);
-
-        <span class="comment">// On Wayland window doesn&#39;t have Focus by default and it&#39;ll get it later on. So be
-        // explicit here.
-        </span>winit_state
-            .event_sink
-            .push_window_event(<span class="kw">crate</span>::event::WindowEvent::Focused(<span class="bool-val">false</span>), window_id);
-
-        <span class="comment">// Add state for the window.
-        </span>winit_state
-            .window_user_requests
-            .insert(window_id, window_user_request);
-        winit_state
-            .window_compositor_updates
-            .insert(window_id, WindowCompositorUpdate::new());
-
-        <span class="kw">let </span>windowing_features = event_loop_window_target.windowing_features;
-
-        <span class="comment">// To make our window usable for drawing right away we must `ack` a `configure`
-        // from the server, the acking part here is done by SCTK window frame, so we just
-        // need to sync with server so it&#39;ll be done automatically for us.
-        </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>wayland_source = event_loop_window_target.wayland_dispatcher.as_source_mut();
-            <span class="kw">let </span>event_queue = wayland_source.queue();
-            <span class="kw">let _ </span>= event_queue.sync_roundtrip(<span class="kw-2">&amp;mut *</span>winit_state, |<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>| <span class="macro">unreachable!</span>());
-        }
-
-        <span class="comment">// We all praise GNOME for these 3 lines of pure magic. If we don&#39;t do that,
-        // GNOME will shrink our window a bit for the size of the decorations. I guess it
-        // happens because we haven&#39;t committed them with buffers to the server.
-        </span><span class="kw">let </span>window_handle = winit_state.window_map.get_mut(<span class="kw-2">&amp;</span>window_id).unwrap();
-        window_handle.window.refresh();
-
-        <span class="kw">let </span>output_manager_handle = event_loop_window_target.output_manager.handle();
-
-        <span class="kw">let </span>window = <span class="self">Self </span>{
-            window_id,
-            surface,
-            display: event_loop_window_target.display.clone(),
-            output_manager_handle,
-            size,
-            window_requests,
-            event_loop_awakener: event_loop_window_target.event_loop_awakener.clone(),
-            fullscreen,
-            maximized,
-            windowing_features,
-            resizeable: AtomicBool::new(attributes.resizable),
-            decorated: AtomicBool::new(attributes.decorations),
-            cursor_grab_mode: Mutex::new(CursorGrabMode::None),
-            has_focus,
-            scale_factor: window_handle.scale_factor.clone(),
+            <span class="kw">_ if </span>attributes.maximized =&gt; window.set_maximized(),
+            <span class="kw">_ </span>=&gt; (),
         };
 
-        <span class="prelude-val">Ok</span>(window)
+        <span class="comment">// Activate the window when the token is passed.
+        </span><span class="kw">if let </span>(<span class="prelude-val">Some</span>(xdg_activation), <span class="prelude-val">Some</span>(token)) = (
+            xdg_activation.as_ref(),
+            platform_attributes.activation_token,
+        ) {
+            xdg_activation.activate(token._token, <span class="kw-2">&amp;</span>surface);
+        }
+
+        <span class="comment">// XXX Do initial commit.
+        </span>window.commit();
+
+        <span class="comment">// Add the window and window requests into the state.
+        </span><span class="kw">let </span>window_state = Arc::new(Mutex::new(window_state));
+        <span class="kw">let </span>window_id = <span class="kw">super</span>::make_wid(<span class="kw-2">&amp;</span>surface);
+        state
+            .windows
+            .get_mut()
+            .insert(window_id, window_state.clone());
+
+        <span class="kw">let </span>window_requests = WindowRequests {
+            redraw_requested: AtomicBool::new(<span class="bool-val">true</span>),
+            closed: AtomicBool::new(<span class="bool-val">false</span>),
+        };
+        <span class="kw">let </span>window_requests = Arc::new(window_requests);
+        state
+            .window_requests
+            .get_mut()
+            .insert(window_id, window_requests.clone());
+
+        <span class="comment">// Setup the event sync to insert `WindowEvents` right from the window.
+        </span><span class="kw">let </span>window_events_sink = state.window_events_sink.clone();
+
+        <span class="kw">let </span><span class="kw-2">mut </span>wayland_source = event_loop_window_target.wayland_dispatcher.as_source_mut();
+        <span class="kw">let </span>event_queue = wayland_source.queue();
+
+        <span class="comment">// Do a roundtrip.
+        </span>event_queue.roundtrip(<span class="kw-2">&amp;mut </span>state).map_err(|error| {
+            <span class="macro">os_error!</span>(OsError::WaylandError(Arc::new(WaylandError::Dispatch(
+                error
+            ))))
+        })<span class="question-mark">?</span>;
+
+        <span class="comment">// XXX Wait for the initial configure to arrive.
+        </span><span class="kw">while </span>!window_state.lock().unwrap().is_configured() {
+            event_queue.blocking_dispatch(<span class="kw-2">&amp;mut </span>state).map_err(|error| {
+                <span class="macro">os_error!</span>(OsError::WaylandError(Arc::new(WaylandError::Dispatch(
+                    error
+                ))))
+            })<span class="question-mark">?</span>;
+        }
+
+        <span class="comment">// Wake-up event loop, so it&#39;ll send initial redraw requested.
+        </span><span class="kw">let </span>event_loop_awakener = event_loop_window_target.event_loop_awakener.clone();
+        event_loop_awakener.ping();
+
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            window,
+            display,
+            monitors,
+            window_id,
+            compositor,
+            window_state,
+            queue_handle,
+            xdg_activation,
+            attention_requested: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+            event_loop_awakener,
+            window_requests,
+            window_events_sink,
+        })
     }
 }
 
@@ -1126,13 +1009,9 @@
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) {
-        <span class="self">self</span>.send_request(WindowRequest::Title(title.to_owned()));
-    }
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_transparent(<span class="kw-2">&amp;</span><span class="self">self</span>, transparent: bool) {
-        <span class="self">self</span>.send_request(WindowRequest::Transparent(transparent));
+    </span><span class="kw">pub fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw">impl </span>ToString) {
+        <span class="kw">let </span>new_title = title.to_string();
+        <span class="self">self</span>.window_state.lock().unwrap().set_title(new_title);
     }
 
     <span class="attr">#[inline]
@@ -1160,44 +1039,69 @@
         <span class="comment">// Not possible on Wayland.
     </span>}
 
-    <span class="kw">pub fn </span>inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PhysicalSize&lt;u32&gt; {
-        <span class="self">self</span>.size.lock().unwrap().to_physical(<span class="self">self</span>.scale_factor())
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PhysicalSize&lt;u32&gt; {
+        <span class="kw">let </span>window_state = <span class="self">self</span>.window_state.lock().unwrap();
+        <span class="kw">let </span>scale_factor = window_state.scale_factor();
+        <span class="kw">super</span>::logical_to_physical_rounded(window_state.inner_size(), scale_factor)
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>request_redraw(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="self">self</span>.send_request(WindowRequest::Redraw);
+        <span class="comment">// NOTE: try to not wake up the loop when the event was already scheduled and not yet
+        // processed by the loop, because if at this point the value was `true` it could only
+        // mean that the loop still haven&#39;t dispatched the value to the client and will do
+        // eventually, resetting it to `false`.
+        </span><span class="kw">if </span><span class="self">self
+            </span>.window_requests
+            .redraw_requested
+            .compare_exchange(<span class="bool-val">false</span>, <span class="bool-val">true</span>, Ordering::Relaxed, Ordering::Relaxed)
+            .is_ok()
+        {
+            <span class="self">self</span>.event_loop_awakener.ping();
+        }
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>pre_present_notify(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.window_state.lock().unwrap().request_frame_callback();
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>outer_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PhysicalSize&lt;u32&gt; {
-        <span class="self">self</span>.size.lock().unwrap().to_physical(<span class="self">self</span>.scale_factor())
+        <span class="kw">let </span>window_state = <span class="self">self</span>.window_state.lock().unwrap();
+        <span class="kw">let </span>scale_factor = window_state.scale_factor();
+        <span class="kw">super</span>::logical_to_physical_rounded(window_state.outer_size(), scale_factor)
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>, size: Size) {
-        <span class="kw">let </span>scale_factor = <span class="self">self</span>.scale_factor();
-
-        <span class="kw">let </span>size = size.to_logical::&lt;u32&gt;(scale_factor);
-        <span class="kw-2">*</span><span class="self">self</span>.size.lock().unwrap() = size;
-
-        <span class="self">self</span>.send_request(WindowRequest::FrameSize(size));
+    </span><span class="kw">pub fn </span>request_inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>, size: Size) -&gt; <span class="prelude-ty">Option</span>&lt;PhysicalSize&lt;u32&gt;&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>window_state = <span class="self">self</span>.window_state.lock().unwrap();
+        <span class="kw">let </span>new_size = window_state.request_inner_size(size);
+        <span class="self">self</span>.request_redraw();
+        <span class="prelude-val">Some</span>(new_size)
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_min_inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>, dimensions: <span class="prelude-ty">Option</span>&lt;Size&gt;) {
+    <span class="doccomment">/// Set the minimum inner size for the window.
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_min_inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>, min_size: <span class="prelude-ty">Option</span>&lt;Size&gt;) {
         <span class="kw">let </span>scale_factor = <span class="self">self</span>.scale_factor();
-        <span class="kw">let </span>size = dimensions.map(|size| size.to_logical::&lt;u32&gt;(scale_factor));
-
-        <span class="self">self</span>.send_request(WindowRequest::MinSize(size));
+        <span class="kw">let </span>min_size = min_size.map(|size| size.to_logical(scale_factor));
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .set_min_inner_size(min_size)
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_max_inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>, dimensions: <span class="prelude-ty">Option</span>&lt;Size&gt;) {
+    <span class="doccomment">/// Set the maximum inner size for the window.
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_max_inner_size(<span class="kw-2">&amp;</span><span class="self">self</span>, max_size: <span class="prelude-ty">Option</span>&lt;Size&gt;) {
         <span class="kw">let </span>scale_factor = <span class="self">self</span>.scale_factor();
-        <span class="kw">let </span>size = dimensions.map(|size| size.to_logical::&lt;u32&gt;(scale_factor));
-
-        <span class="self">self</span>.send_request(WindowRequest::MaxSize(size));
+        <span class="kw">let </span>max_size = max_size.map(|size| size.to_logical(scale_factor));
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .set_max_inner_size(max_size)
     }
 
     <span class="attr">#[inline]
@@ -1211,70 +1115,130 @@
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>, resizable: bool) {
-        <span class="self">self</span>.resizeable.store(resizable, Ordering::Relaxed);
-        <span class="self">self</span>.send_request(WindowRequest::Resizeable(resizable));
+    </span><span class="kw">pub fn </span>set_transparent(<span class="kw-2">&amp;</span><span class="self">self</span>, transparent: bool) {
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .set_transparent(transparent);
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>is_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.resizeable.load(Ordering::Relaxed)
-    }
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_enabled_buttons(<span class="kw-2">&amp;</span><span class="self">self</span>, _buttons: WindowButtons) {}
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>enabled_buttons(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WindowButtons {
-        WindowButtons::all()
-    }
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        <span class="kw-2">*</span><span class="self">self</span>.scale_factor.lock().unwrap()
-    }
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_decorations(<span class="kw-2">&amp;</span><span class="self">self</span>, decorate: bool) {
-        <span class="self">self</span>.decorated.store(decorate, Ordering::Relaxed);
-        <span class="self">self</span>.send_request(WindowRequest::Decorate(decorate));
-    }
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>is_decorated(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.decorated.load(Ordering::Relaxed)
+    </span><span class="kw">pub fn </span>has_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.window_state.lock().unwrap().has_focus()
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_minimized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;bool&gt; {
-        <span class="prelude-val">None
+        <span class="comment">// XXX clients don&#39;t know whether they are minimized or not.
+        </span><span class="prelude-val">None
     </span>}
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>show_window_menu(<span class="kw-2">&amp;</span><span class="self">self</span>, position: Position) {
+        <span class="kw">let </span>scale_factor = <span class="self">self</span>.scale_factor();
+        <span class="kw">let </span>position = position.to_logical(scale_factor);
+        <span class="self">self</span>.window_state.lock().unwrap().show_window_menu(position);
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>drag_resize_window(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: ResizeDirection) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExternalError&gt; {
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .drag_resize_window(direction)
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>, resizable: bool) {
+        <span class="self">self</span>.window_state.lock().unwrap().set_resizable(resizable);
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>is_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.window_state.lock().unwrap().resizable()
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_enabled_buttons(<span class="kw-2">&amp;</span><span class="self">self</span>, _buttons: WindowButtons) {
+        <span class="comment">// TODO(kchibisov) v5 of the xdg_shell allows that.
+    </span>}
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>enabled_buttons(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WindowButtons {
+        <span class="comment">// TODO(kchibisov) v5 of the xdg_shell allows that.
+        </span>WindowButtons::all()
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+        <span class="self">self</span>.window_state.lock().unwrap().scale_factor()
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_blur(<span class="kw-2">&amp;</span><span class="self">self</span>, blur: bool) {
+        <span class="self">self</span>.window_state.lock().unwrap().set_blur(blur);
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_decorations(<span class="kw-2">&amp;</span><span class="self">self</span>, decorate: bool) {
+        <span class="self">self</span>.window_state.lock().unwrap().set_decorate(decorate)
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>is_decorated(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.window_state.lock().unwrap().is_decorated()
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>set_window_level(<span class="kw-2">&amp;</span><span class="self">self</span>, _level: WindowLevel) {}
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_window_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, _window_icon: <span class="prelude-ty">Option</span>&lt;PlatformIcon&gt;) {}
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_minimized(<span class="kw-2">&amp;</span><span class="self">self</span>, minimized: bool) {
         <span class="comment">// You can&#39;t unminimize the window on Wayland.
         </span><span class="kw">if </span>!minimized {
+            <span class="macro">warn!</span>(<span class="string">&quot;Unminimizing is ignored on Wayland.&quot;</span>);
             <span class="kw">return</span>;
         }
 
-        <span class="self">self</span>.send_request(WindowRequest::Minimize);
+        <span class="self">self</span>.window.set_minimized();
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>is_maximized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.maximized.load(Ordering::Relaxed)
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .last_configure
+            .as_ref()
+            .map(|last_configure| last_configure.is_maximized())
+            .unwrap_or_default()
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_maximized(<span class="kw-2">&amp;</span><span class="self">self</span>, maximized: bool) {
-        <span class="self">self</span>.send_request(WindowRequest::Maximize(maximized));
+        <span class="kw">if </span>maximized {
+            <span class="self">self</span>.window.set_maximized()
+        } <span class="kw">else </span>{
+            <span class="self">self</span>.window.unset_maximized()
+        }
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>fullscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Fullscreen&gt; {
-        <span class="kw">if </span><span class="self">self</span>.fullscreen.load(Ordering::Relaxed) {
-            <span class="kw">let </span>current_monitor = <span class="self">self</span>.current_monitor().map(PlatformMonitorHandle::Wayland);
+        <span class="kw">let </span>is_fullscreen = <span class="self">self
+            </span>.window_state
+            .lock()
+            .unwrap()
+            .last_configure
+            .as_ref()
+            .map(|last_configure| last_configure.is_fullscreen())
+            .unwrap_or_default();
 
+        <span class="kw">if </span>is_fullscreen {
+            <span class="kw">let </span>current_monitor = <span class="self">self</span>.current_monitor().map(PlatformMonitorHandle::Wayland);
             <span class="prelude-val">Some</span>(Fullscreen::Borderless(current_monitor))
         } <span class="kw">else </span>{
             <span class="prelude-val">None
@@ -1283,194 +1247,261 @@
 
     <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_fullscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, fullscreen: <span class="prelude-ty">Option</span>&lt;Fullscreen&gt;) {
-        <span class="kw">let </span>fullscreen_request = <span class="kw">match </span>fullscreen {
+        <span class="kw">match </span>fullscreen {
             <span class="prelude-val">Some</span>(Fullscreen::Exclusive(<span class="kw">_</span>)) =&gt; {
                 <span class="macro">warn!</span>(<span class="string">&quot;`Fullscreen::Exclusive` is ignored on Wayland&quot;</span>);
-                <span class="kw">return</span>;
             }
             <span class="prelude-val">Some</span>(Fullscreen::Borderless(monitor)) =&gt; {
-                <span class="kw">let </span>monitor = monitor.and_then(|monitor| <span class="kw">match </span>monitor {
+                <span class="kw">let </span>output = monitor.and_then(|monitor| <span class="kw">match </span>monitor {
                     PlatformMonitorHandle::Wayland(monitor) =&gt; <span class="prelude-val">Some</span>(monitor.proxy),
                     <span class="attr">#[cfg(x11_platform)]
                     </span>PlatformMonitorHandle::X(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
                 });
 
-                WindowRequest::Fullscreen(monitor)
+                <span class="self">self</span>.window.set_fullscreen(output.as_ref())
             }
-            <span class="prelude-val">None </span>=&gt; WindowRequest::UnsetFullscreen,
-        };
-
-        <span class="self">self</span>.send_request(fullscreen_request);
+            <span class="prelude-val">None </span>=&gt; <span class="self">self</span>.window.unset_fullscreen(),
+        }
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_cursor_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, cursor: CursorIcon) {
-        <span class="self">self</span>.send_request(WindowRequest::NewCursorIcon(cursor));
+        <span class="self">self</span>.window_state.lock().unwrap().set_cursor(cursor);
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool) {
-        <span class="self">self</span>.send_request(WindowRequest::ShowCursor(visible));
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .set_cursor_visible(visible);
+    }
+
+    <span class="kw">pub fn </span>request_user_attention(<span class="kw-2">&amp;</span><span class="self">self</span>, request_type: <span class="prelude-ty">Option</span>&lt;UserAttentionType&gt;) {
+        <span class="kw">let </span>xdg_activation = <span class="kw">match </span><span class="self">self</span>.xdg_activation.as_ref() {
+            <span class="prelude-val">Some</span>(xdg_activation) =&gt; xdg_activation,
+            <span class="prelude-val">None </span>=&gt; {
+                <span class="macro">warn!</span>(<span class="string">&quot;`request_user_attention` isn&#39;t supported&quot;</span>);
+                <span class="kw">return</span>;
+            }
+        };
+
+        <span class="comment">// Urgency is only removed by the compositor and there&#39;s no need to raise urgency when it
+        // was already raised.
+        </span><span class="kw">if </span>request_type.is_none() || <span class="self">self</span>.attention_requested.load(Ordering::Relaxed) {
+            <span class="kw">return</span>;
+        }
+
+        <span class="self">self</span>.attention_requested.store(<span class="bool-val">true</span>, Ordering::Relaxed);
+        <span class="kw">let </span>surface = <span class="self">self</span>.surface().clone();
+        <span class="kw">let </span>data = XdgActivationTokenData::Attention((
+            surface.clone(),
+            Arc::downgrade(<span class="kw-2">&amp;</span><span class="self">self</span>.attention_requested),
+        ));
+        <span class="kw">let </span>xdg_activation_token = xdg_activation.get_activation_token(<span class="kw-2">&amp;</span><span class="self">self</span>.queue_handle, data);
+        xdg_activation_token.set_surface(<span class="kw-2">&amp;</span>surface);
+        xdg_activation_token.commit();
+    }
+
+    <span class="kw">pub fn </span>request_activation_token(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;AsyncRequestSerial, NotSupportedError&gt; {
+        <span class="kw">let </span>xdg_activation = <span class="kw">match </span><span class="self">self</span>.xdg_activation.as_ref() {
+            <span class="prelude-val">Some</span>(xdg_activation) =&gt; xdg_activation,
+            <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(NotSupportedError::new()),
+        };
+
+        <span class="kw">let </span>serial = AsyncRequestSerial::get();
+
+        <span class="kw">let </span>data = XdgActivationTokenData::Obtain((<span class="self">self</span>.window_id, serial));
+        <span class="kw">let </span>xdg_activation_token = xdg_activation.get_activation_token(<span class="kw-2">&amp;</span><span class="self">self</span>.queue_handle, data);
+        xdg_activation_token.set_surface(<span class="self">self</span>.surface());
+        xdg_activation_token.commit();
+
+        <span class="prelude-val">Ok</span>(serial)
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_cursor_grab(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: CursorGrabMode) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExternalError&gt; {
-        <span class="kw">if </span>!<span class="self">self</span>.windowing_features.pointer_constraints() {
-            <span class="kw">if </span>mode == CursorGrabMode::None {
-                <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-            }
-
-            <span class="kw">return </span><span class="prelude-val">Err</span>(ExternalError::NotSupported(NotSupportedError::new()));
-        }
-
-        <span class="kw-2">*</span><span class="self">self</span>.cursor_grab_mode.lock().unwrap() = mode;
-        <span class="self">self</span>.send_request(WindowRequest::SetCursorGrabMode(mode));
-
-        <span class="prelude-val">Ok</span>(())
-    }
-
-    <span class="kw">pub fn </span>request_user_attention(<span class="kw-2">&amp;</span><span class="self">self</span>, request_type: <span class="prelude-ty">Option</span>&lt;UserAttentionType&gt;) {
-        <span class="kw">if </span>!<span class="self">self</span>.windowing_features.xdg_activation() {
-            <span class="macro">warn!</span>(<span class="string">&quot;`request_user_attention` isn&#39;t supported&quot;</span>);
-            <span class="kw">return</span>;
-        }
-
-        <span class="self">self</span>.send_request(WindowRequest::Attention(request_type));
+        <span class="self">self</span>.window_state.lock().unwrap().set_cursor_grab(mode)
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_cursor_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: Position) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExternalError&gt; {
-        <span class="comment">// Positon can be set only for locked cursor.
-        </span><span class="kw">if </span><span class="kw-2">*</span><span class="self">self</span>.cursor_grab_mode.lock().unwrap() != CursorGrabMode::Locked {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(ExternalError::Os(<span class="macro">os_error!</span>(OsError::WaylandMisc(
-                <span class="string">&quot;cursor position can be set only for locked cursor.&quot;
-            </span>))));
-        }
-
         <span class="kw">let </span>scale_factor = <span class="self">self</span>.scale_factor();
         <span class="kw">let </span>position = position.to_logical(scale_factor);
-        <span class="self">self</span>.send_request(WindowRequest::SetLockedCursorPosition(position));
-
-        <span class="prelude-val">Ok</span>(())
+        <span class="self">self</span>.window_state
+            .lock()
+            .unwrap()
+            .set_cursor_position(position)
+            <span class="comment">// Request redraw on success, since the state is double buffered.
+            </span>.map(|<span class="kw">_</span>| <span class="self">self</span>.request_redraw())
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>drag_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExternalError&gt; {
-        <span class="self">self</span>.send_request(WindowRequest::DragWindow);
-
-        <span class="prelude-val">Ok</span>(())
-    }
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>drag_resize_window(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: ResizeDirection) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExternalError&gt; {
-        <span class="self">self</span>.send_request(WindowRequest::DragResizeWindow(direction));
-
-        <span class="prelude-val">Ok</span>(())
+        <span class="self">self</span>.window_state.lock().unwrap().drag_window()
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_cursor_hittest(<span class="kw-2">&amp;</span><span class="self">self</span>, hittest: bool) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExternalError&gt; {
-        <span class="self">self</span>.send_request(WindowRequest::PassthroughMouseInput(!hittest));
+        <span class="kw">let </span>surface = <span class="self">self</span>.window.wl_surface();
 
-        <span class="prelude-val">Ok</span>(())
+        <span class="kw">if </span>hittest {
+            surface.set_input_region(<span class="prelude-val">None</span>);
+            <span class="prelude-val">Ok</span>(())
+        } <span class="kw">else </span>{
+            <span class="kw">let </span>region = Region::new(<span class="kw-2">&amp;*</span><span class="self">self</span>.compositor).map_err(|<span class="kw">_</span>| {
+                ExternalError::Os(<span class="macro">os_error!</span>(OsError::Misc(<span class="string">&quot;failed to set input region.&quot;</span>)))
+            })<span class="question-mark">?</span>;
+            region.add(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
+            surface.set_input_region(<span class="prelude-val">Some</span>(region.wl_region()));
+            <span class="prelude-val">Ok</span>(())
+        }
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>set_ime_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: Position) {
-        <span class="kw">let </span>scale_factor = <span class="self">self</span>.scale_factor();
-        <span class="kw">let </span>position = position.to_logical(scale_factor);
-        <span class="self">self</span>.send_request(WindowRequest::ImePosition(position));
+    </span><span class="kw">pub fn </span>set_ime_cursor_area(<span class="kw-2">&amp;</span><span class="self">self</span>, position: Position, size: Size) {
+        <span class="kw">let </span>window_state = <span class="self">self</span>.window_state.lock().unwrap();
+        <span class="kw">if </span>window_state.ime_allowed() {
+            <span class="kw">let </span>scale_factor = window_state.scale_factor();
+            <span class="kw">let </span>position = position.to_logical(scale_factor);
+            <span class="kw">let </span>size = size.to_logical(scale_factor);
+            window_state.set_ime_cursor_area(position, size);
+        }
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_ime_allowed(<span class="kw-2">&amp;</span><span class="self">self</span>, allowed: bool) {
-        <span class="self">self</span>.send_request(WindowRequest::AllowIme(allowed));
+        <span class="kw">let </span><span class="kw-2">mut </span>window_state = <span class="self">self</span>.window_state.lock().unwrap();
+
+        <span class="kw">if </span>window_state.ime_allowed() != allowed &amp;&amp; window_state.set_ime_allowed(allowed) {
+            <span class="kw">let </span>event = WindowEvent::Ime(<span class="kw">if </span>allowed { Ime::Enabled } <span class="kw">else </span>{ Ime::Disabled });
+            <span class="self">self</span>.window_events_sink
+                .lock()
+                .unwrap()
+                .push_window_event(event, <span class="self">self</span>.window_id);
+            <span class="self">self</span>.event_loop_awakener.ping();
+        }
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_ime_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, purpose: ImePurpose) {
-        <span class="self">self</span>.send_request(WindowRequest::ImePurpose(purpose));
+        <span class="self">self</span>.window_state.lock().unwrap().set_ime_purpose(purpose);
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Display {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.display
-    }
+    </span><span class="kw">pub fn </span>focus_window(<span class="kw-2">&amp;</span><span class="self">self</span>) {}
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>surface(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>WlSurface {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.surface
+        <span class="self">self</span>.window.wl_surface()
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>current_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;MonitorHandle&gt; {
-        <span class="kw">let </span>output = sctk::get_surface_outputs(<span class="kw-2">&amp;</span><span class="self">self</span>.surface).last()<span class="question-mark">?</span>.clone();
-        <span class="prelude-val">Some</span>(MonitorHandle::new(output))
+        <span class="kw">let </span>data = <span class="self">self</span>.window.wl_surface().data::&lt;SurfaceData&gt;()<span class="question-mark">?</span>;
+        data.outputs().next().map(MonitorHandle::new)
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>available_monitors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; VecDeque&lt;MonitorHandle&gt; {
-        <span class="self">self</span>.output_manager_handle.available_outputs()
+    </span><span class="kw">pub fn </span>available_monitors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;MonitorHandle&gt; {
+        <span class="self">self</span>.monitors.lock().unwrap().clone()
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>primary_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PlatformMonitorHandle&gt; {
-        <span class="prelude-val">None
+    </span><span class="kw">pub fn </span>primary_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;MonitorHandle&gt; {
+        <span class="comment">// XXX there&#39;s no such concept on Wayland.
+        </span><span class="prelude-val">None
     </span>}
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>raw_window_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawWindowHandle {
-        <span class="kw">let </span><span class="kw-2">mut </span>window_handle = WaylandWindowHandle::empty();
-        window_handle.surface = <span class="self">self</span>.surface.as_ref().c_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
-        RawWindowHandle::Wayland(window_handle)
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_04&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_window_handle_rwh_04(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; rwh_04::RawWindowHandle {
+        <span class="kw">let </span><span class="kw-2">mut </span>window_handle = rwh_04::WaylandHandle::empty();
+        window_handle.surface = <span class="self">self</span>.window.wl_surface().id().as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
+        window_handle.display = <span class="self">self</span>.display.id().as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
+        rwh_04::RawWindowHandle::Wayland(window_handle)
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>raw_display_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; RawDisplayHandle {
-        <span class="kw">let </span><span class="kw-2">mut </span>display_handle = WaylandDisplayHandle::empty();
-        display_handle.display = <span class="self">self</span>.display.get_display_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
-        RawDisplayHandle::Wayland(display_handle)
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_05&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_window_handle_rwh_05(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; rwh_05::RawWindowHandle {
+        <span class="kw">let </span><span class="kw-2">mut </span>window_handle = rwh_05::WaylandWindowHandle::empty();
+        window_handle.surface = <span class="self">self</span>.window.wl_surface().id().as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
+        rwh_05::RawWindowHandle::Wayland(window_handle)
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">fn </span>send_request(<span class="kw-2">&amp;</span><span class="self">self</span>, request: WindowRequest) {
-        <span class="self">self</span>.window_requests.lock().unwrap().push(request);
-        <span class="self">self</span>.event_loop_awakener.ping();
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_05&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_display_handle_rwh_05(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; rwh_05::RawDisplayHandle {
+        <span class="kw">let </span><span class="kw-2">mut </span>display_handle = rwh_05::WaylandDisplayHandle::empty();
+        display_handle.display = <span class="self">self</span>.display.id().as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>;
+        rwh_05::RawDisplayHandle::Wayland(display_handle)
+    }
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_06&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_window_handle_rwh_06(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;rwh_06::RawWindowHandle, rwh_06::HandleError&gt; {
+        <span class="prelude-val">Ok</span>(rwh_06::WaylandWindowHandle::new({
+            <span class="kw">let </span>ptr = <span class="self">self</span>.window.wl_surface().id().as_ptr();
+            std::ptr::NonNull::new(ptr <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>).expect(<span class="string">&quot;wl_surface will never be null&quot;</span>)
+        })
+        .into())
+    }
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;rwh_06&quot;</span>)]
+    #[inline]
+    </span><span class="kw">pub fn </span>raw_display_handle_rwh_06(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;rwh_06::RawDisplayHandle, rwh_06::HandleError&gt; {
+        <span class="prelude-val">Ok</span>(rwh_06::WaylandDisplayHandle::new({
+            <span class="kw">let </span>ptr = <span class="self">self</span>.display.id().as_ptr();
+            std::ptr::NonNull::new(ptr <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>).expect(<span class="string">&quot;wl_proxy should never be null&quot;</span>)
+        })
+        .into())
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>set_theme(<span class="kw-2">&amp;</span><span class="self">self</span>, theme: <span class="prelude-ty">Option</span>&lt;Theme&gt;) {
-        <span class="self">self</span>.send_request(WindowRequest::Theme(theme));
+        <span class="self">self</span>.window_state.lock().unwrap().set_theme(theme)
     }
 
     <span class="attr">#[inline]
     </span><span class="kw">pub fn </span>theme(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Theme&gt; {
-        <span class="prelude-val">None
-    </span>}
-
-    <span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>has_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.has_focus.load(Ordering::Relaxed)
+        <span class="self">self</span>.window_state.lock().unwrap().theme()
     }
 
-    <span class="kw">pub fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
-        String::new()
+    <span class="kw">pub fn </span>set_content_protected(<span class="kw-2">&amp;</span><span class="self">self</span>, _protected: bool) {}
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="self">self</span>.window_state.lock().unwrap().title().to_owned()
     }
 }
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>Window {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.send_request(WindowRequest::Close);
+        <span class="self">self</span>.window_requests.closed.store(<span class="bool-val">true</span>, Ordering::Relaxed);
+        <span class="self">self</span>.event_loop_awakener.ping();
     }
 }
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;sctk-adwaita&quot;</span>)]
-</span><span class="kw">impl </span>From&lt;Theme&gt; <span class="kw">for </span>sctk_adwaita::FrameConfig {
-    <span class="kw">fn </span>from(theme: Theme) -&gt; <span class="self">Self </span>{
-        <span class="kw">match </span>theme {
-            Theme::Light =&gt; sctk_adwaita::FrameConfig::light(),
-            Theme::Dark =&gt; sctk_adwaita::FrameConfig::dark(),
-        }
+<span class="doccomment">/// The request from the window to the event loop.
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>WindowRequests {
+    <span class="doccomment">/// The window was closed.
+    </span><span class="kw">pub </span>closed: AtomicBool,
+
+    <span class="doccomment">/// Redraw Requested.
+    </span><span class="kw">pub </span>redraw_requested: AtomicBool,
+}
+
+<span class="kw">impl </span>WindowRequests {
+    <span class="kw">pub fn </span>take_closed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.closed.swap(<span class="bool-val">false</span>, Ordering::Relaxed)
+    }
+
+    <span class="kw">pub fn </span>take_redraw_requested(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.redraw_requested.swap(<span class="bool-val">false</span>, Ordering::Relaxed)
     }
 }
 
@@ -1492,22 +1523,5 @@
             <span class="prelude-val">Err</span>(())
         }
     }
-}
-
-<span class="doccomment">/// Set pending scale for the provided `window_id`.
-</span><span class="kw">fn </span>apply_scale(window_id: WindowId, scale: f64, winit_state: <span class="kw-2">&amp;mut </span>WinitState) {
-    <span class="comment">// Set pending scale factor.
-    </span>winit_state
-        .window_compositor_updates
-        .get_mut(<span class="kw-2">&amp;</span>window_id)
-        .unwrap()
-        .scale_factor = <span class="prelude-val">Some</span>(scale);
-
-    <span class="comment">// Mark that we need a frame refresh on the DPI change.
-    </span>winit_state
-        .window_user_requests
-        .get_mut(<span class="kw-2">&amp;</span>window_id)
-        .unwrap()
-        .refresh_frame = <span class="bool-val">true</span>;
 }
 </code></pre></div></section></main></body></html>

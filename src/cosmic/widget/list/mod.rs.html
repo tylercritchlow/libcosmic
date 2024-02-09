@@ -33,6 +33,9 @@
 <a href="#33" id="33">33</a>
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -44,11 +47,12 @@
 
 </span><span class="kw">use </span><span class="kw">crate</span>::widget::Container;
 <span class="kw">use </span><span class="kw">crate</span>::Element;
-<span class="kw">use </span>iced::{Background, Color};
+<span class="kw">use </span>iced::Background;
+<span class="kw">use </span>iced_core::Shadow;
 
 <span class="kw">pub fn </span>container&lt;<span class="lifetime">&#39;a</span>, Message&gt;(
     content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt;,
-) -&gt; Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt; {
+) -&gt; Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt; {
     <span class="kw">super</span>::container(content)
         .padding([<span class="number">16</span>, <span class="number">6</span>])
         .style(<span class="kw">crate</span>::theme::Container::custom(style))
@@ -63,9 +67,11 @@
         icon_color: <span class="prelude-val">Some</span>(container.on.into()),
         text_color: <span class="prelude-val">Some</span>(container.on.into()),
         background: <span class="prelude-val">Some</span>(Background::Color(container.base.into())),
-        border_radius: theme.cosmic().corner_radii.radius_s.into(),
-        border_width: <span class="number">0.0</span>,
-        border_color: Color::TRANSPARENT,
+        border: iced::Border {
+            radius: theme.cosmic().corner_radii.radius_s.into(),
+            ..Default::default()
+        },
+        shadow: Shadow::default(),
     }
 }
 </code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/drm-ffi-0.6.0/src/mode.rs`."><title>mode.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="drm_ffi" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/drm-ffi-0.7.1/src/mode.rs`."><title>mode.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="drm_ffi" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -926,26 +926,35 @@
 <a href="#926" id="926">926</a>
 <a href="#927" id="927">927</a>
 <a href="#928" id="928">928</a>
+<a href="#929" id="929">929</a>
+<a href="#930" id="930">930</a>
+<a href="#931" id="931">931</a>
+<a href="#932" id="932">932</a>
+<a href="#933" id="933">933</a>
+<a href="#934" id="934">934</a>
+<a href="#935" id="935">935</a>
+<a href="#936" id="936">936</a>
+<a href="#937" id="937">937</a>
+<a href="#938" id="938">938</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//!
 //! Bindings to the DRM&#39;s modesetting capabilities.
 //!
 
 </span><span class="attr">#![allow(clippy::too_many_arguments)]
 
-</span><span class="kw">use </span>drm_sys::<span class="kw-2">*</span>;
-<span class="kw">use </span>ioctl;
+</span><span class="kw">use </span><span class="kw">crate</span>::ioctl;
+<span class="kw">use </span>drm_sys::<span class="kw-2">*</span>;
 
-<span class="kw">use </span>result::SystemError <span class="kw">as </span>Error;
-<span class="kw">use </span>std::os::unix::io::RawFd;
+<span class="kw">use </span>std::{io, os::unix::io::BorrowedFd};
 
 <span class="doccomment">/// Enumerate most card resources.
 </span><span class="kw">pub fn </span>get_resources(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     <span class="kw-2">mut </span>fbs: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
     <span class="kw-2">mut </span>crtcs: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
     <span class="kw-2">mut </span>connectors: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
     <span class="kw-2">mut </span>encoders: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_card_res, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_card_res&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_card_res::default();
     <span class="kw">unsafe </span>{
         ioctl::mode::get_resources(fd, <span class="kw-2">&amp;mut </span>sizes)<span class="question-mark">?</span>;
@@ -982,9 +991,9 @@
 
 <span class="doccomment">/// Enumerate plane resources.
 </span><span class="kw">pub fn </span>get_plane_resources(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     <span class="kw-2">mut </span>planes: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_plane_res, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_get_plane_res&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_get_plane_res::default();
     <span class="kw">unsafe </span>{
         ioctl::mode::get_plane_resources(fd, <span class="kw-2">&amp;mut </span>sizes)<span class="question-mark">?</span>;
@@ -1011,7 +1020,7 @@
 }
 
 <span class="doccomment">/// Get info about a framebuffer.
-</span><span class="kw">pub fn </span>get_framebuffer(fd: RawFd, fb_id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_fb_cmd, Error&gt; {
+</span><span class="kw">pub fn </span>get_framebuffer(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, fb_id: u32) -&gt; io::Result&lt;drm_mode_fb_cmd&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>info = drm_mode_fb_cmd {
         fb_id,
         ..Default::default()
@@ -1026,14 +1035,14 @@
 
 <span class="doccomment">/// Add a new framebuffer.
 </span><span class="kw">pub fn </span>add_fb(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     width: u32,
     height: u32,
     pitch: u32,
     bpp: u32,
     depth: u32,
     handle: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_fb_cmd, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_fb_cmd&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>fb = drm_mode_fb_cmd {
         width,
         height,
@@ -1052,7 +1061,7 @@
 }
 
 <span class="doccomment">/// Get info about a framebuffer (with modifiers).
-</span><span class="kw">pub fn </span>get_framebuffer2(fd: RawFd, fb_id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_fb_cmd2, Error&gt; {
+</span><span class="kw">pub fn </span>get_framebuffer2(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, fb_id: u32) -&gt; io::Result&lt;drm_mode_fb_cmd2&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>info = drm_mode_fb_cmd2 {
         fb_id,
         ..Default::default()
@@ -1067,7 +1076,7 @@
 
 <span class="doccomment">/// Add a new framebuffer (with modifiers)
 </span><span class="kw">pub fn </span>add_fb2(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     width: u32,
     height: u32,
     fmt: u32,
@@ -1076,7 +1085,7 @@
     offsets: <span class="kw-2">&amp;</span>[u32; <span class="number">4</span>],
     modifier: <span class="kw-2">&amp;</span>[u64; <span class="number">4</span>],
     flags: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_fb_cmd2, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_fb_cmd2&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>fb = drm_mode_fb_cmd2 {
         width,
         height,
@@ -1097,7 +1106,7 @@
 }
 
 <span class="doccomment">/// Remove a framebuffer.
-</span><span class="kw">pub fn </span>rm_fb(fd: RawFd, <span class="kw-2">mut </span>id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+</span><span class="kw">pub fn </span>rm_fb(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, <span class="kw-2">mut </span>id: u32) -&gt; io::Result&lt;()&gt; {
     <span class="kw">unsafe </span>{
         ioctl::mode::rm_fb(fd, <span class="kw-2">&amp;mut </span>id)<span class="question-mark">?</span>;
     }
@@ -1107,10 +1116,10 @@
 
 <span class="doccomment">/// Mark a framebuffer as dirty.
 </span><span class="kw">pub fn </span>dirty_fb(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     fb_id: u32,
     clips: <span class="kw-2">&amp;</span>[drm_clip_rect],
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_fb_dirty_cmd, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_fb_dirty_cmd&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>dirty = drm_mode_fb_dirty_cmd {
         fb_id,
         num_clips: clips.len() <span class="kw">as _</span>,
@@ -1126,7 +1135,7 @@
 }
 
 <span class="doccomment">/// Get info about a CRTC
-</span><span class="kw">pub fn </span>get_crtc(fd: RawFd, crtc_id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_crtc, Error&gt; {
+</span><span class="kw">pub fn </span>get_crtc(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, crtc_id: u32) -&gt; io::Result&lt;drm_mode_crtc&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>info = drm_mode_crtc {
         crtc_id,
         ..Default::default()
@@ -1141,14 +1150,14 @@
 
 <span class="doccomment">/// Set CRTC state
 </span><span class="kw">pub fn </span>set_crtc(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     crtc_id: u32,
     fb_id: u32,
     x: u32,
     y: u32,
     conns: <span class="kw-2">&amp;</span>[u32],
     mode: <span class="prelude-ty">Option</span>&lt;drm_mode_modeinfo&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_crtc, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_crtc&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>crtc = drm_mode_crtc {
         set_connectors_ptr: conns.as_ptr() <span class="kw">as _</span>,
         count_connectors: conns.len() <span class="kw">as _</span>,
@@ -1173,13 +1182,13 @@
 
 <span class="doccomment">/// Get CRTC gamma ramp
 </span><span class="kw">pub fn </span>get_gamma(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     crtc_id: u32,
     size: usize,
     red: <span class="kw-2">&amp;mut </span>[u16],
     green: <span class="kw-2">&amp;mut </span>[u16],
     blue: <span class="kw-2">&amp;mut </span>[u16],
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_crtc_lut, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_crtc_lut&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>lut = drm_mode_crtc_lut {
         crtc_id,
         gamma_size: size <span class="kw">as _</span>,
@@ -1197,13 +1206,13 @@
 
 <span class="doccomment">/// Set CRTC gamma ramp
 </span><span class="kw">pub fn </span>set_gamma(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     crtc_id: u32,
     size: usize,
     red: <span class="kw-2">&amp;</span>[u16],
     green: <span class="kw-2">&amp;</span>[u16],
     blue: <span class="kw-2">&amp;</span>[u16],
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_crtc_lut, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_crtc_lut&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>lut = drm_mode_crtc_lut {
         crtc_id,
         gamma_size: size <span class="kw">as _</span>,
@@ -1225,12 +1234,12 @@
 /// allowed to be a dumb buffer.
 </span><span class="attr">#[deprecated = <span class="string">&quot;use a cursor plane instead&quot;</span>]
 </span><span class="kw">pub fn </span>set_cursor(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     crtc_id: u32,
     buf_id: u32,
     width: u32,
     height: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_cursor, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_cursor&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>cursor = drm_mode_cursor {
         flags: DRM_MODE_CURSOR_BO,
         crtc_id,
@@ -1256,14 +1265,14 @@
 /// virtualization.
 </span><span class="attr">#[deprecated = <span class="string">&quot;use a cursor plane instead&quot;</span>]
 </span><span class="kw">pub fn </span>set_cursor2(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     crtc_id: u32,
     buf_id: u32,
     width: u32,
     height: u32,
     hot_x: i32,
     hot_y: i32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_cursor2, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_cursor2&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>cursor = drm_mode_cursor2 {
         flags: DRM_MODE_CURSOR_BO,
         crtc_id,
@@ -1284,7 +1293,12 @@
 
 <span class="doccomment">/// Move cursor
 </span><span class="attr">#[deprecated = <span class="string">&quot;use a cursor plane instead&quot;</span>]
-</span><span class="kw">pub fn </span>move_cursor(fd: RawFd, crtc_id: u32, x: i32, y: i32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_cursor, Error&gt; {
+</span><span class="kw">pub fn </span>move_cursor(
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
+    crtc_id: u32,
+    x: i32,
+    y: i32,
+) -&gt; io::Result&lt;drm_mode_cursor&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>cursor = drm_mode_cursor {
         flags: DRM_MODE_CURSOR_MOVE,
         crtc_id,
@@ -1302,14 +1316,14 @@
 
 <span class="doccomment">/// Get info about a connector
 </span><span class="kw">pub fn </span>get_connector(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     connector_id: u32,
     <span class="kw-2">mut </span>props: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
     <span class="kw-2">mut </span>prop_values: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u64&gt;&gt;,
     <span class="kw-2">mut </span>modes: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;drm_mode_modeinfo&gt;&gt;,
     <span class="kw-2">mut </span>encoders: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
     force_probe: bool,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_connector, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_get_connector&gt; {
     <span class="macro">assert_eq!</span>(props.is_some(), prop_values.is_some());
 
     <span class="kw">let </span>tmp_mode = drm_mode_modeinfo::default();
@@ -1387,7 +1401,7 @@
 }
 
 <span class="doccomment">/// Get info about an encoder
-</span><span class="kw">pub fn </span>get_encoder(fd: RawFd, encoder_id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_encoder, Error&gt; {
+</span><span class="kw">pub fn </span>get_encoder(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, encoder_id: u32) -&gt; io::Result&lt;drm_mode_get_encoder&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>info = drm_mode_get_encoder {
         encoder_id,
         ..Default::default()
@@ -1402,10 +1416,10 @@
 
 <span class="doccomment">/// Get info about a plane.
 </span><span class="kw">pub fn </span>get_plane(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     plane_id: u32,
     <span class="kw-2">mut </span>formats: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_plane, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_get_plane&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_get_plane {
         plane_id,
         ..Default::default()
@@ -1439,7 +1453,7 @@
 
 <span class="doccomment">/// Set plane state.
 </span><span class="kw">pub fn </span>set_plane(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     plane_id: u32,
     crtc_id: u32,
     fb_id: u32,
@@ -1452,7 +1466,7 @@
     src_y: u32,
     src_w: u32,
     src_h: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_set_plane, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_set_plane&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>plane = drm_mode_set_plane {
         plane_id,
         crtc_id,
@@ -1477,31 +1491,30 @@
 
 <span class="doccomment">/// Get property
 </span><span class="kw">pub fn </span>get_property(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     prop_id: u32,
     <span class="kw-2">mut </span>values: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u64&gt;&gt;,
     <span class="kw-2">mut </span>enums: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;drm_mode_property_enum&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_property, Error&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_get_property {
+) -&gt; io::Result&lt;drm_mode_get_property&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>prop = drm_mode_get_property {
         prop_id,
         ..Default::default()
     };
 
     <span class="kw">unsafe </span>{
-        ioctl::mode::get_property(fd, <span class="kw-2">&amp;mut </span>sizes)<span class="question-mark">?</span>;
+        ioctl::mode::get_property(fd, <span class="kw-2">&amp;mut </span>prop)<span class="question-mark">?</span>;
     }
 
-    <span class="macro">map_reserve!</span>(values, sizes.count_values <span class="kw">as </span>usize);
-    <span class="macro">map_reserve!</span>(enums, sizes.count_enum_blobs <span class="kw">as </span>usize);
+    <span class="comment">// There is no need to call get_property() twice if there is nothing else to retrieve.
+    </span><span class="kw">if </span>prop.count_values == <span class="number">0 </span>&amp;&amp; prop.count_enum_blobs == <span class="number">0 </span>{
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(prop);
+    }
 
-    <span class="kw">let </span><span class="kw-2">mut </span>prop = drm_mode_get_property {
-        prop_id,
-        values_ptr: <span class="macro">map_ptr!</span>(<span class="kw-2">&amp;</span>values),
-        enum_blob_ptr: <span class="macro">map_ptr!</span>(<span class="kw-2">&amp;</span>enums),
-        count_values: <span class="macro">map_len!</span>(<span class="kw-2">&amp;</span>values),
-        count_enum_blobs: <span class="macro">map_len!</span>(<span class="kw-2">&amp;</span>enums),
-        ..Default::default()
-    };
+    <span class="macro">map_reserve!</span>(values, prop.count_values <span class="kw">as </span>usize);
+    <span class="macro">map_reserve!</span>(enums, prop.count_enum_blobs <span class="kw">as </span>usize);
+
+    prop.values_ptr = <span class="macro">map_ptr!</span>(<span class="kw-2">&amp;</span>values);
+    prop.enum_blob_ptr = <span class="macro">map_ptr!</span>(<span class="kw-2">&amp;</span>enums);
 
     <span class="kw">unsafe </span>{
         ioctl::mode::get_property(fd, <span class="kw-2">&amp;mut </span>prop)<span class="question-mark">?</span>;
@@ -1515,11 +1528,11 @@
 
 <span class="doccomment">/// Set property
 </span><span class="kw">pub fn </span>set_connector_property(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     connector_id: u32,
     prop_id: u32,
     value: u64,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_connector_set_property, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_connector_set_property&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>prop = drm_mode_connector_set_property {
         value,
         prop_id,
@@ -1535,10 +1548,10 @@
 
 <span class="doccomment">/// Get the value of a property blob
 </span><span class="kw">pub fn </span>get_property_blob(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     blob_id: u32,
     <span class="kw-2">mut </span>data: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u8&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_blob, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_get_blob&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_get_blob {
         blob_id,
         ..Default::default()
@@ -1570,7 +1583,10 @@
 }
 
 <span class="doccomment">/// Create a property blob
-</span><span class="kw">pub fn </span>create_property_blob(fd: RawFd, data: <span class="kw-2">&amp;mut </span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_create_blob, Error&gt; {
+</span><span class="kw">pub fn </span>create_property_blob(
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
+    data: <span class="kw-2">&amp;mut </span>[u8],
+) -&gt; io::Result&lt;drm_mode_create_blob&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>blob = drm_mode_create_blob {
         data: data.as_mut_ptr() <span class="kw">as _</span>,
         length: data.len() <span class="kw">as _</span>,
@@ -1585,7 +1601,7 @@
 }
 
 <span class="doccomment">/// Destroy a property blob
-</span><span class="kw">pub fn </span>destroy_property_blob(fd: RawFd, id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_destroy_blob, Error&gt; {
+</span><span class="kw">pub fn </span>destroy_property_blob(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, id: u32) -&gt; io::Result&lt;drm_mode_destroy_blob&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>blob = drm_mode_destroy_blob { blob_id: id };
 
     <span class="kw">unsafe </span>{
@@ -1597,12 +1613,12 @@
 
 <span class="doccomment">/// Get properties from an object
 </span><span class="kw">pub fn </span>get_properties(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     obj_id: u32,
     obj_type: u32,
     <span class="kw-2">mut </span>props: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
     <span class="kw-2">mut </span>values: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u64&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_obj_get_properties, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_obj_get_properties&gt; {
     <span class="macro">assert_eq!</span>(props.is_some(), values.is_some());
 
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_obj_get_properties {
@@ -1638,12 +1654,12 @@
 
 <span class="doccomment">/// Set the properties of an object
 </span><span class="kw">pub fn </span>set_property(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     prop_id: u32,
     obj_id: u32,
     obj_type: u32,
     value: u64,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+) -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>prop = drm_mode_obj_set_property {
         value,
         prop_id,
@@ -1660,12 +1676,12 @@
 
 <span class="doccomment">/// Schedule a page flip
 </span><span class="kw">pub fn </span>page_flip(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     crtc_id: u32,
     fb_id: u32,
     flags: u32,
     sequence: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+) -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>flip = drm_mode_crtc_page_flip {
         crtc_id,
         fb_id,
@@ -1684,13 +1700,13 @@
 
 <span class="doccomment">/// Atomically set properties
 </span><span class="kw">pub fn </span>atomic_commit(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     flags: u32,
     objs: <span class="kw-2">&amp;mut </span>[u32],
     prop_counts: <span class="kw-2">&amp;mut </span>[u32],
     props: <span class="kw-2">&amp;mut </span>[u32],
     values: <span class="kw-2">&amp;mut </span>[u64],
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+) -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>atomic = drm_mode_atomic {
         flags,
         count_objs: objs.len() <span class="kw">as _</span>,
@@ -1710,10 +1726,10 @@
 
 <span class="doccomment">/// Create a drm lease
 </span><span class="kw">pub fn </span>create_lease(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     objects: <span class="kw-2">&amp;</span>[u32],
     flags: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_create_lease, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_create_lease&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>data = drm_mode_create_lease {
         object_ids: objects.as_ptr() <span class="kw">as _</span>,
         object_count: objects.len() <span class="kw">as </span>u32,
@@ -1730,9 +1746,9 @@
 
 <span class="doccomment">/// List all active drm leases
 </span><span class="kw">pub fn </span>list_lessees(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     <span class="kw-2">mut </span>lessees: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_list_lessees, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_list_lessees&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_list_lessees::default();
 
     <span class="kw">unsafe </span>{
@@ -1758,9 +1774,9 @@
 
 <span class="doccomment">/// Get leased objects for a lease file descriptor
 </span><span class="kw">pub fn </span>get_lease(
-    fd: RawFd,
+    fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
     <span class="kw-2">mut </span>objects: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Vec&lt;u32&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_get_lease, Error&gt; {
+) -&gt; io::Result&lt;drm_mode_get_lease&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>sizes = drm_mode_get_lease::default();
 
     <span class="kw">unsafe </span>{
@@ -1785,7 +1801,7 @@
 }
 
 <span class="doccomment">/// Revoke previously issued lease
-</span><span class="kw">pub fn </span>revoke_lease(fd: RawFd, lessee_id: u32) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+</span><span class="kw">pub fn </span>revoke_lease(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, lessee_id: u32) -&gt; io::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>data = drm_mode_revoke_lease { lessee_id };
 
     <span class="kw">unsafe </span>{
@@ -1799,20 +1815,19 @@
 /// Dumbbuffers are basic buffers that can be used for scanout.
 ///
 </span><span class="kw">pub mod </span>dumbbuffer {
+    <span class="kw">use </span><span class="kw">crate</span>::ioctl;
     <span class="kw">use </span>drm_sys::<span class="kw-2">*</span>;
-    <span class="kw">use </span>ioctl;
 
-    <span class="kw">use </span>result::SystemError <span class="kw">as </span>Error;
-    <span class="kw">use </span>std::os::unix::io::RawFd;
+    <span class="kw">use </span>std::{io, os::unix::io::BorrowedFd};
 
     <span class="doccomment">/// Create a dumb buffer
     </span><span class="kw">pub fn </span>create(
-        fd: RawFd,
+        fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
         width: u32,
         height: u32,
         bpp: u32,
         flags: u32,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_create_dumb, Error&gt; {
+    ) -&gt; io::Result&lt;drm_mode_create_dumb&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>db = drm_mode_create_dumb {
             height,
             width,
@@ -1829,7 +1844,7 @@
     }
 
     <span class="doccomment">/// Destroy a dumb buffer
-    </span><span class="kw">pub fn </span>destroy(fd: RawFd, handle: u32) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_destroy_dumb, Error&gt; {
+    </span><span class="kw">pub fn </span>destroy(fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;, handle: u32) -&gt; io::Result&lt;drm_mode_destroy_dumb&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>db = drm_mode_destroy_dumb { handle };
 
         <span class="kw">unsafe </span>{
@@ -1840,7 +1855,12 @@
     }
 
     <span class="doccomment">/// Map a dump buffer and prep it for an mmap
-    </span><span class="kw">pub fn </span>map(fd: RawFd, handle: u32, pad: u32, offset: u64) -&gt; <span class="prelude-ty">Result</span>&lt;drm_mode_map_dumb, Error&gt; {
+    </span><span class="kw">pub fn </span>map(
+        fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
+        handle: u32,
+        pad: u32,
+        offset: u64,
+    ) -&gt; io::Result&lt;drm_mode_map_dumb&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>map = drm_mode_map_dumb {
             handle,
             pad,

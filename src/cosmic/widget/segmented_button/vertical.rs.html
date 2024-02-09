@@ -95,6 +95,7 @@
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
 <a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -184,10 +185,11 @@
         <span class="kw">if </span>num != <span class="number">0 </span>{
             height = (num <span class="kw">as </span>f32 * height) + (num <span class="kw">as </span>f32 * spacing) - spacing;
         }
-
-        <span class="kw">let </span>size = limits
-            .height(Length::Fixed(height))
-            .resolve(Size::new(width, height));
+        <span class="kw">let </span>size = limits.height(Length::Fixed(height)).resolve(
+            <span class="self">self</span>.width,
+            <span class="self">self</span>.height,
+            Size::new(width, height),
+        );
 
         layout::Node::new(size)
     }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/sctk-adwaita-335b3838158c83d2/da85380/src/pointer.rs`."><title>pointer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sctk-adwaita-0.8.1/src/pointer.rs`."><title>pointer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -140,382 +140,146 @@
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-<a href="#144" id="144">144</a>
-<a href="#145" id="145">145</a>
-<a href="#146" id="146">146</a>
-<a href="#147" id="147">147</a>
-<a href="#148" id="148">148</a>
-<a href="#149" id="149">149</a>
-<a href="#150" id="150">150</a>
-<a href="#151" id="151">151</a>
-<a href="#152" id="152">152</a>
-<a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a>
-<a href="#155" id="155">155</a>
-<a href="#156" id="156">156</a>
-<a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a>
-<a href="#159" id="159">159</a>
-<a href="#160" id="160">160</a>
-<a href="#161" id="161">161</a>
-<a href="#162" id="162">162</a>
-<a href="#163" id="163">163</a>
-<a href="#164" id="164">164</a>
-<a href="#165" id="165">165</a>
-<a href="#166" id="166">166</a>
-<a href="#167" id="167">167</a>
-<a href="#168" id="168">168</a>
-<a href="#169" id="169">169</a>
-<a href="#170" id="170">170</a>
-<a href="#171" id="171">171</a>
-<a href="#172" id="172">172</a>
-<a href="#173" id="173">173</a>
-<a href="#174" id="174">174</a>
-<a href="#175" id="175">175</a>
-<a href="#176" id="176">176</a>
-<a href="#177" id="177">177</a>
-<a href="#178" id="178">178</a>
-<a href="#179" id="179">179</a>
-<a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a>
-<a href="#182" id="182">182</a>
-<a href="#183" id="183">183</a>
-<a href="#184" id="184">184</a>
-<a href="#185" id="185">185</a>
-<a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-<a href="#189" id="189">189</a>
-<a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
-<a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-<a href="#203" id="203">203</a>
-<a href="#204" id="204">204</a>
-<a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-<a href="#209" id="209">209</a>
-<a href="#210" id="210">210</a>
-<a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>log::error;
-<span class="kw">use </span>smithay_client_toolkit::{
-    reexports::{
-        client::{
-            protocol::{wl_pointer, wl_seat::WlSeat},
-            DispatchData,
-        },
-        protocols::xdg_shell::client::xdg_toplevel::ResizeEdge,
-    },
-    seat::pointer::ThemedPointer,
-    window::FrameRequest,
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::time::Duration;
+
+<span class="kw">use </span>smithay_client_toolkit::reexports::csd_frame::{
+    CursorIcon, FrameAction, ResizeEdge, WindowManagerCapabilities, WindowState,
 };
 
 <span class="kw">use crate</span>::{
-    buttons::{ButtonKind, Buttons},
-    parts::DecorationPartKind,
-    precise_location,
+    buttons::ButtonKind,
     theme::{BORDER_SIZE, HEADER_SIZE},
-    Inner, Location,
 };
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>PointerUserData {
+<span class="doccomment">/// Time to register the next click as a double click.
+///
+/// The value is the same as the default in gtk4.
+</span><span class="kw">const </span>DOUBLE_CLICK_DURATION: Duration = Duration::from_millis(<span class="number">400</span>);
+
+<span class="doccomment">/// The state of the mouse input inside the decorations frame.
+</span><span class="attr">#[derive(Debug, Default)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>MouseState {
     <span class="kw">pub </span>location: Location,
-    current_surface: DecorationPartKind,
 
-    position: (f64, f64),
-    <span class="kw">pub </span>seat: WlSeat,
-    last_click: <span class="prelude-ty">Option</span>&lt;std::time::Instant&gt;,
+    <span class="doccomment">/// The surface local location inside the surface.
+    </span>position: (f64, f64),
 
-    lpm_grab: <span class="prelude-ty">Option</span>&lt;ButtonKind&gt;,
+    <span class="doccomment">/// The instant of the last click.
+    </span>last_normal_click: <span class="prelude-ty">Option</span>&lt;Duration&gt;,
 }
 
-<span class="kw">impl </span>PointerUserData {
-    <span class="kw">pub fn </span>new(seat: WlSeat) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            location: Location::None,
-            current_surface: DecorationPartKind::None,
-            position: (<span class="number">0.0</span>, <span class="number">0.0</span>),
-            seat,
-            last_click: <span class="prelude-val">None</span>,
-            lpm_grab: <span class="prelude-val">None</span>,
-        }
-    }
-
-    <span class="kw">pub fn </span>event(
+<span class="kw">impl </span>MouseState {
+    <span class="doccomment">/// The normal click on decorations frame was made.
+    </span><span class="kw">pub fn </span>click(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        event: wl_pointer::Event,
-        inner: <span class="kw-2">&amp;mut </span>Inner,
-        buttons: <span class="kw-2">&amp;</span>Buttons,
-        pointer: <span class="kw-2">&amp;</span>ThemedPointer,
-        ddata: DispatchData&lt;<span class="lifetime">&#39;_</span>&gt;,
-    ) {
-        <span class="kw">use </span>wl_pointer::Event;
-        <span class="kw">match </span>event {
-            Event::Enter {
-                serial,
-                surface,
-                surface_x,
-                surface_y,
-            } =&gt; {
-                <span class="self">self</span>.location = precise_location(
-                    buttons,
-                    inner.parts.find_surface(<span class="kw-2">&amp;</span>surface),
-                    inner.size.<span class="number">0</span>,
-                    surface_x,
-                    surface_y,
-                );
-                <span class="self">self</span>.current_surface = inner.parts.find_decoration_part(<span class="kw-2">&amp;</span>surface);
-                <span class="self">self</span>.position = (surface_x, surface_y);
-                change_pointer(pointer, inner, <span class="self">self</span>.location, <span class="prelude-val">Some</span>(serial))
+        timestamp: Duration,
+        pressed: bool,
+        resizable: bool,
+        state: <span class="kw-2">&amp;</span>WindowState,
+        wm_capabilities: <span class="kw-2">&amp;</span>WindowManagerCapabilities,
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;FrameAction&gt; {
+        <span class="kw">let </span>maximized = state.contains(WindowState::MAXIMIZED);
+        <span class="kw">let </span>action = <span class="kw">match </span><span class="self">self</span>.location {
+            Location::Top <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::Top),
+            Location::TopLeft <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::TopLeft),
+            Location::Left <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::Left),
+            Location::BottomLeft <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::BottomLeft),
+            Location::Bottom <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::Bottom),
+            Location::BottomRight <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::BottomRight),
+            Location::Right <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::Right),
+            Location::TopRight <span class="kw">if </span>resizable =&gt; FrameAction::Resize(ResizeEdge::TopRight),
+            Location::Button(ButtonKind::Close) <span class="kw">if </span>!pressed =&gt; FrameAction::Close,
+            Location::Button(ButtonKind::Maximize) <span class="kw">if </span>!pressed &amp;&amp; !maximized =&gt; {
+                FrameAction::Maximize
             }
-            Event::Leave { serial, .. } =&gt; {
-                <span class="self">self</span>.current_surface = DecorationPartKind::None;
-
-                <span class="self">self</span>.location = Location::None;
-                change_pointer(pointer, inner, <span class="self">self</span>.location, <span class="prelude-val">Some</span>(serial));
-                (inner.implem)(FrameRequest::Refresh, <span class="number">0</span>, ddata);
+            Location::Button(ButtonKind::Maximize) <span class="kw">if </span>!pressed &amp;&amp; maximized =&gt; {
+                FrameAction::UnMaximize
             }
-            Event::Motion {
-                surface_x,
-                surface_y,
-                ..
-            } =&gt; {
-                <span class="self">self</span>.position = (surface_x, surface_y);
-                <span class="kw">let </span>newpos =
-                    precise_location(buttons, <span class="self">self</span>.location, inner.size.<span class="number">0</span>, surface_x, surface_y);
-                <span class="kw">if </span>newpos != <span class="self">self</span>.location {
-                    <span class="kw">match </span>(newpos, <span class="self">self</span>.location) {
-                        (Location::Button(<span class="kw">_</span>), <span class="kw">_</span>) | (<span class="kw">_</span>, Location::Button(<span class="kw">_</span>)) =&gt; {
-                            <span class="comment">// pointer movement involves a button, request refresh
-                            </span>(inner.implem)(FrameRequest::Refresh, <span class="number">0</span>, ddata);
-                        }
-                        <span class="kw">_ </span>=&gt; (),
-                    }
-                    <span class="comment">// we changed of part of the decoration, pointer image
-                    // may need to be changed
-                    </span><span class="self">self</span>.location = newpos;
-                    change_pointer(pointer, inner, <span class="self">self</span>.location, <span class="prelude-val">None</span>)
-                }
-            }
-            Event::Button {
-                serial,
-                button,
-                state,
-                ..
-            } =&gt; {
-                <span class="kw">let </span>request = <span class="kw">if </span>state == wl_pointer::ButtonState::Pressed {
-                    <span class="kw">match </span>button {
-                        <span class="comment">// Left mouse button.
-                        </span><span class="number">0x110 </span>=&gt; lmb_press(<span class="self">self</span>, inner.maximized, inner.resizable),
-                        <span class="comment">// Right mouse button.
-                        </span><span class="number">0x111 </span>=&gt; rmb_press(<span class="self">self</span>),
-                        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
-                    }
-                } <span class="kw">else </span>{
-                    <span class="comment">// Left mouse button.
-                    </span><span class="kw">if </span>button == <span class="number">0x110 </span>{
-                        lmb_release(<span class="self">self</span>, inner.maximized)
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">None
-                    </span>}
-                };
-
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(request) = request {
-                    (inner.implem)(request, serial, ddata);
-                }
-            }
-            <span class="kw">_ </span>=&gt; {}
-        }
-    }
-}
-
-<span class="kw">fn </span>lmb_press(
-    pointer_data: <span class="kw-2">&amp;mut </span>PointerUserData,
-    maximized: bool,
-    resizable: bool,
-) -&gt; <span class="prelude-ty">Option</span>&lt;FrameRequest&gt; {
-    <span class="kw">match </span>pointer_data.location {
-        Location::Top <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::Top,
-        )),
-        Location::TopLeft <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::TopLeft,
-        )),
-        Location::Left <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::Left,
-        )),
-        Location::BottomLeft <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::BottomLeft,
-        )),
-        Location::Bottom <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::Bottom,
-        )),
-        Location::BottomRight <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::BottomRight,
-        )),
-        Location::Right <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::Right,
-        )),
-        Location::TopRight <span class="kw">if </span>resizable =&gt; <span class="prelude-val">Some</span>(FrameRequest::Resize(
-            pointer_data.seat.clone(),
-            ResizeEdge::TopRight,
-        )),
-        Location::Head =&gt; {
-            <span class="kw">let </span>last_click = pointer_data.last_click.replace(std::time::Instant::now());
-
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(last) = last_click {
-                <span class="kw">if </span>last.elapsed() &lt; std::time::Duration::from_millis(<span class="number">400</span>) {
-                    pointer_data.last_click = <span class="prelude-val">None</span>;
-
-                    <span class="kw">if </span>maximized {
-                        <span class="prelude-val">Some</span>(FrameRequest::UnMaximize)
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Some</span>(FrameRequest::Maximize)
-                    }
-                } <span class="kw">else </span>{
-                    <span class="prelude-val">Some</span>(FrameRequest::Move(pointer_data.seat.clone()))
-                }
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Some</span>(FrameRequest::Move(pointer_data.seat.clone()))
-            }
-        }
-        Location::Button(btn) =&gt; {
-            pointer_data.lpm_grab = <span class="prelude-val">Some</span>(btn);
-            <span class="prelude-val">None
-        </span>}
-        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
-    }
-}
-
-<span class="kw">fn </span>lmb_release(pointer_data: <span class="kw-2">&amp;mut </span>PointerUserData, maximized: bool) -&gt; <span class="prelude-ty">Option</span>&lt;FrameRequest&gt; {
-    <span class="kw">let </span>lpm_grab = pointer_data.lpm_grab.take();
-
-    <span class="kw">match </span>pointer_data.location {
-        Location::Button(btn) =&gt; {
-            <span class="kw">if </span>lpm_grab == <span class="prelude-val">Some</span>(btn) {
-                <span class="kw">let </span>req = <span class="kw">match </span>btn {
-                    ButtonKind::Close =&gt; FrameRequest::Close,
-                    ButtonKind::Maximize =&gt; {
+            Location::Button(ButtonKind::Minimize) <span class="kw">if </span>!pressed =&gt; FrameAction::Minimize,
+            Location::Head
+                <span class="kw">if </span>pressed &amp;&amp; wm_capabilities.contains(WindowManagerCapabilities::MAXIMIZE) =&gt;
+            {
+                <span class="kw">match </span><span class="self">self</span>.last_normal_click.replace(timestamp) {
+                    <span class="prelude-val">Some</span>(last) <span class="kw">if </span>timestamp.saturating_sub(last) &lt; DOUBLE_CLICK_DURATION =&gt; {
                         <span class="kw">if </span>maximized {
-                            FrameRequest::UnMaximize
+                            FrameAction::UnMaximize
                         } <span class="kw">else </span>{
-                            FrameRequest::Maximize
+                            FrameAction::Maximize
                         }
                     }
-                    ButtonKind::Minimize =&gt; FrameRequest::Minimize,
-                };
+                    <span class="kw">_ </span>=&gt; FrameAction::Move,
+                }
+            }
+            Location::Head <span class="kw">if </span>pressed =&gt; FrameAction::Move,
+            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
+        };
 
-                <span class="prelude-val">Some</span>(req)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
+        <span class="prelude-val">Some</span>(action)
+    }
+
+    <span class="doccomment">/// Alternative click on decorations frame was made.
+    </span><span class="kw">pub fn </span>alternate_click(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        pressed: bool,
+        wm_capabilities: <span class="kw-2">&amp;</span>WindowManagerCapabilities,
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;FrameAction&gt; {
+        <span class="comment">// Invalidate the normal click.
+        </span><span class="self">self</span>.last_normal_click = <span class="prelude-val">None</span>;
+
+        <span class="kw">match </span><span class="self">self</span>.location {
+            Location::Head | Location::Button(<span class="kw">_</span>)
+                <span class="kw">if </span>pressed &amp;&amp; wm_capabilities.contains(WindowManagerCapabilities::WINDOW_MENU) =&gt;
+            {
+                <span class="prelude-val">Some</span>(FrameAction::ShowMenu(
+                    <span class="comment">// XXX this could be one 1pt off when the frame is not maximized, but it&#39;s not
+                    // like it really matters in the end.
+                    </span><span class="self">self</span>.position.<span class="number">0 </span><span class="kw">as </span>i32 - BORDER_SIZE <span class="kw">as </span>i32,
+                    <span class="comment">// We must offset it by header size for precise position.
+                    </span><span class="self">self</span>.position.<span class="number">1 </span><span class="kw">as </span>i32 - HEADER_SIZE <span class="kw">as </span>i32,
+                ))
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
-        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+    }
+
+    <span class="doccomment">/// The mouse moved inside the decorations frame.
+    </span><span class="kw">pub fn </span>moved(<span class="kw-2">&amp;mut </span><span class="self">self</span>, location: Location, x: f64, y: f64, resizable: bool) -&gt; CursorIcon {
+        <span class="self">self</span>.location = location;
+        <span class="self">self</span>.position = (x, y);
+        <span class="kw">match </span><span class="self">self</span>.location {
+            <span class="kw">_ if </span>!resizable =&gt; CursorIcon::Default,
+            Location::Top =&gt; CursorIcon::NResize,
+            Location::TopRight =&gt; CursorIcon::NeResize,
+            Location::Right =&gt; CursorIcon::EResize,
+            Location::BottomRight =&gt; CursorIcon::SeResize,
+            Location::Bottom =&gt; CursorIcon::SResize,
+            Location::BottomLeft =&gt; CursorIcon::SwResize,
+            Location::Left =&gt; CursorIcon::WResize,
+            Location::TopLeft =&gt; CursorIcon::NwResize,
+            <span class="kw">_ </span>=&gt; CursorIcon::Default,
+        }
+    }
+
+    <span class="doccomment">/// The mouse left the decorations frame.
+    </span><span class="kw">pub fn </span>left(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="comment">// Reset only the location.
+        </span><span class="self">self</span>.location = Location::None;
     }
 }
 
-<span class="kw">fn </span>rmb_press(pointer_data: <span class="kw-2">&amp;</span>PointerUserData) -&gt; <span class="prelude-ty">Option</span>&lt;FrameRequest&gt; {
-    <span class="kw">match </span>pointer_data.location {
-        Location::Head | Location::Button(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(FrameRequest::ShowMenu(
-            pointer_data.seat.clone(),
-            pointer_data.position.<span class="number">0 </span><span class="kw">as </span>i32 - BORDER_SIZE <span class="kw">as </span>i32,
-            <span class="comment">// We must offset it by header size for precise position.
-            </span>pointer_data.position.<span class="number">1 </span><span class="kw">as </span>i32 - (HEADER_SIZE <span class="kw">as </span>i32 + BORDER_SIZE <span class="kw">as </span>i32),
-        )),
-        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
-    }
-}
-
-<span class="kw">fn </span>change_pointer(pointer: <span class="kw-2">&amp;</span>ThemedPointer, inner: <span class="kw-2">&amp;</span>Inner, location: Location, serial: <span class="prelude-ty">Option</span>&lt;u32&gt;) {
-    <span class="comment">// Prevent theming of the surface if it was requested.
-    </span><span class="kw">if </span>!inner.theme_over_surface &amp;&amp; location == Location::None {
-        <span class="kw">return</span>;
-    }
-
-    <span class="kw">let </span>name = <span class="kw">match </span>location {
-        <span class="comment">// If we can&#39;t resize a frame we shouldn&#39;t show resize cursors.
-        </span><span class="kw">_ if </span>!inner.resizable =&gt; <span class="string">&quot;left_ptr&quot;</span>,
-        Location::Top =&gt; <span class="string">&quot;top_side&quot;</span>,
-        Location::TopRight =&gt; <span class="string">&quot;top_right_corner&quot;</span>,
-        Location::Right =&gt; <span class="string">&quot;right_side&quot;</span>,
-        Location::BottomRight =&gt; <span class="string">&quot;bottom_right_corner&quot;</span>,
-        Location::Bottom =&gt; <span class="string">&quot;bottom_side&quot;</span>,
-        Location::BottomLeft =&gt; <span class="string">&quot;bottom_left_corner&quot;</span>,
-        Location::Left =&gt; <span class="string">&quot;left_side&quot;</span>,
-        Location::TopLeft =&gt; <span class="string">&quot;top_left_corner&quot;</span>,
-        <span class="kw">_ </span>=&gt; <span class="string">&quot;left_ptr&quot;</span>,
-    };
-
-    <span class="kw">if </span>pointer.set_cursor(name, serial).is_err() {
-        <span class="macro">error!</span>(<span class="string">&quot;Failed to set cursor&quot;</span>);
-    }
+<span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq, Default)]
+</span><span class="kw">pub enum </span>Location {
+    <span class="attr">#[default]
+    </span><span class="prelude-val">None</span>,
+    Head,
+    Top,
+    TopRight,
+    Right,
+    BottomRight,
+    Bottom,
+    BottomLeft,
+    Left,
+    TopLeft,
+    Button(ButtonKind),
 }
 </code></pre></div></section></main></body></html>

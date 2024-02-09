@@ -407,6 +407,18 @@
 <a href="#407" id="407">407</a>
 <a href="#408" id="408">408</a>
 <a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -430,8 +442,7 @@
 <span class="kw">use </span>iced::window;
 <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
 </span><span class="kw">use </span>iced::Application <span class="kw">as </span>IcedApplication;
-<span class="kw">use </span>iced_futures::event::listen_raw;
-<span class="kw">use </span>iced_futures::futures::executor::block_on;
+<span class="kw">use </span>iced_futures::event::{listen_raw, listen_with};
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
 </span><span class="kw">use </span>iced_runtime::command::Action;
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
@@ -474,6 +485,9 @@
     <span class="doccomment">/// Capabilities the window manager supports
     </span><span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
     </span>WmCapabilities(window::Id, WindowManagerCapabilities),
+    <span class="doccomment">/// Notifies that a surface was closed.
+    /// Any data relating to the surface should be cleaned up.
+    </span>SurfaceClosed(window::Id),
     <span class="doccomment">/// Activate the application
     </span>Activate(String),
 }
@@ -495,6 +509,7 @@
     <span class="kw">fn </span>new((<span class="kw-2">mut </span>core, flags): <span class="self">Self</span>::Flags) -&gt; (<span class="self">Self</span>, iced::Command&lt;<span class="self">Self</span>::Message&gt;) {
         <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
         </span>{
+            <span class="kw">use </span>iced_futures::futures::executor::block_on;
             core.settings_daemon = block_on(cosmic_config::dbus::settings_daemon_proxy()).ok();
         }
 
@@ -548,18 +563,19 @@
     }
 
     <span class="kw">fn </span>subscription(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Subscription&lt;<span class="self">Self</span>::Message&gt; {
-        <span class="kw">let </span>window_events = listen_raw(|event, <span class="kw">_</span>| {
+        <span class="kw">let </span>window_events = listen_with(|event, <span class="kw">_</span>| {
             <span class="kw">match </span>event {
                 iced::Event::Window(id, window::Event::Resized { width, height }) =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Some</span>(Message::WindowResize(id, width, height));
                 }
-
+                iced::Event::Window(id, window::Event::Closed) =&gt; {
+                    <span class="kw">return </span><span class="prelude-val">Some</span>(Message::SurfaceClosed(id))
+                }
                 <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
                 </span>iced::Event::PlatformSpecific(PlatformSpecific::Wayland(event)) =&gt; <span class="kw">match </span>event {
                     wayland::Event::Window(WindowEvent::State(state), _surface, id) =&gt; {
                         <span class="kw">return </span><span class="prelude-val">Some</span>(Message::WindowState(id, state));
                     }
-
                     wayland::Event::Window(
                         WindowEvent::WmCapabilities(capabilities),
                         _surface,
@@ -567,7 +583,10 @@
                     ) =&gt; {
                         <span class="kw">return </span><span class="prelude-val">Some</span>(Message::WmCapabilities(id, capabilities));
                     }
-
+                    wayland::Event::Popup(wayland::PopupEvent::Done, <span class="kw">_</span>, id)
+                    | wayland::Event::Layer(wayland::LayerEvent::Done, <span class="kw">_</span>, id) =&gt; {
+                        <span class="kw">return </span><span class="prelude-val">Some</span>(Message::SurfaceClosed(id));
+                    }
                     <span class="kw">_ </span>=&gt; (),
                 },
                 <span class="kw">_ </span>=&gt; (),
@@ -804,6 +823,11 @@
                     <span class="attr">#[allow(clippy::used_underscore_binding)]
                     </span>_token,
                 );
+            }
+            Message::SurfaceClosed(id) =&gt; {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(msg) = <span class="self">self</span>.app.on_close_requested(id) {
+                    <span class="kw">return </span><span class="self">self</span>.app.update(msg);
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/sctk-adwaita-335b3838158c83d2/da85380/src/parts.rs`."><title>parts.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sctk-adwaita-0.8.1/src/parts.rs`."><title>parts.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -196,195 +196,319 @@
 <a href="#196" id="196">196</a>
 <a href="#197" id="197">197</a>
 <a href="#198" id="198">198</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::{cell::RefCell, rc::Rc};
-
-<span class="kw">use </span>smithay_client_toolkit::{
-    reexports::client::{
-        protocol::{
-            wl_compositor::WlCompositor, wl_subcompositor::WlSubcompositor,
-            wl_subsurface::WlSubsurface, wl_surface::WlSurface,
-        },
-        Attached, DispatchData,
-    },
-    window::FrameRequest,
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>smithay_client_toolkit::reexports::client::{
+    backend::ObjectId,
+    protocol::{wl_subsurface::WlSubsurface, wl_surface::WlSurface},
+    Dispatch, Proxy, QueueHandle,
 };
 
-<span class="kw">use crate</span>::{surface, Inner, Location};
+<span class="kw">use </span>smithay_client_toolkit::{
+    compositor::SurfaceData,
+    subcompositor::{SubcompositorState, SubsurfaceData},
+};
 
-<span class="kw">pub enum </span>DecorationPartKind {
-    Header,
-    Top,
-    Left,
-    Right,
-    Bottom,
-    <span class="prelude-val">None</span>,
+<span class="kw">use </span><span class="kw">crate</span>::theme::{BORDER_SIZE, HEADER_SIZE, RESIZE_HANDLE_SIZE};
+<span class="kw">use crate</span>::{pointer::Location, wl_typed::WlTyped};
+
+<span class="doccomment">/// The decoration&#39;s &#39;parts&#39;.
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>DecorationParts {
+    parts: [Part; <span class="number">5</span>],
 }
 
-<span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>Decoration {
-    <span class="kw">pub </span>header: Part,
+<span class="kw">impl </span>DecorationParts {
+    <span class="comment">// XXX keep in sync with `Self;:new`.
+    // Order is important. The lower the number, the earlier the part gets drawn.
+    // Because the header can overlap other parts, we draw it last.
+    </span><span class="kw">pub const </span>TOP: usize = <span class="number">0</span>;
+    <span class="kw">pub const </span>LEFT: usize = <span class="number">1</span>;
+    <span class="kw">pub const </span>RIGHT: usize = <span class="number">2</span>;
+    <span class="kw">pub const </span>BOTTOM: usize = <span class="number">3</span>;
+    <span class="kw">pub const </span>HEADER: usize = <span class="number">4</span>;
 
-    <span class="kw">pub </span>top: Part,
-    <span class="kw">pub </span>left: Part,
-    <span class="kw">pub </span>right: Part,
-    <span class="kw">pub </span>bottom: Part,
-}
+    <span class="kw">pub fn </span>new&lt;State&gt;(
+        base_surface: <span class="kw-2">&amp;</span>WlTyped&lt;WlSurface, SurfaceData&gt;,
+        subcompositor: <span class="kw-2">&amp;</span>SubcompositorState,
+        queue_handle: <span class="kw-2">&amp;</span>QueueHandle&lt;State&gt;,
+    ) -&gt; <span class="self">Self
+    </span><span class="kw">where
+        </span>State: Dispatch&lt;WlSurface, SurfaceData&gt; + Dispatch&lt;WlSubsurface, SubsurfaceData&gt; + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="comment">// XXX the order must be in sync with associated constants.
+        </span><span class="kw">let </span>parts = [
+            <span class="comment">// Top.
+            </span>Part::new(
+                base_surface,
+                subcompositor,
+                queue_handle,
+                Rect {
+                    x: -(BORDER_SIZE <span class="kw">as </span>i32),
+                    y: -(HEADER_SIZE <span class="kw">as </span>i32 + BORDER_SIZE <span class="kw">as </span>i32),
+                    width: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                    </span>height: BORDER_SIZE,
+                },
+                <span class="prelude-val">Some</span>(Rect {
+                    x: BORDER_SIZE <span class="kw">as </span>i32 - RESIZE_HANDLE_SIZE <span class="kw">as </span>i32,
+                    y: BORDER_SIZE <span class="kw">as </span>i32 - RESIZE_HANDLE_SIZE <span class="kw">as </span>i32,
+                    width: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                    </span>height: RESIZE_HANDLE_SIZE,
+                }),
+            ),
+            <span class="comment">// Left.
+            </span>Part::new(
+                base_surface,
+                subcompositor,
+                queue_handle,
+                Rect {
+                    x: -(BORDER_SIZE <span class="kw">as </span>i32),
+                    y: -(HEADER_SIZE <span class="kw">as </span>i32),
+                    width: BORDER_SIZE,
+                    height: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                </span>},
+                <span class="prelude-val">Some</span>(Rect {
+                    x: BORDER_SIZE <span class="kw">as </span>i32 - RESIZE_HANDLE_SIZE <span class="kw">as </span>i32,
+                    y: <span class="number">0</span>,
+                    width: RESIZE_HANDLE_SIZE,
+                    height: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                </span>}),
+            ),
+            <span class="comment">// Right.
+            </span>Part::new(
+                base_surface,
+                subcompositor,
+                queue_handle,
+                Rect {
+                    x: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                    </span>y: -(HEADER_SIZE <span class="kw">as </span>i32),
+                    width: BORDER_SIZE,
+                    height: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                </span>},
+                <span class="prelude-val">Some</span>(Rect {
+                    x: <span class="number">0</span>,
+                    y: <span class="number">0</span>,
+                    width: RESIZE_HANDLE_SIZE,
+                    height: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                </span>}),
+            ),
+            <span class="comment">// Bottom.
+            </span>Part::new(
+                base_surface,
+                subcompositor,
+                queue_handle,
+                Rect {
+                    x: -(BORDER_SIZE <span class="kw">as </span>i32),
+                    y: <span class="number">0</span>,     <span class="comment">// Defined by `Self::resize`.
+                    </span>width: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                    </span>height: BORDER_SIZE,
+                },
+                <span class="prelude-val">Some</span>(Rect {
+                    x: BORDER_SIZE <span class="kw">as </span>i32 - RESIZE_HANDLE_SIZE <span class="kw">as </span>i32,
+                    y: <span class="number">0</span>,
+                    width: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`,
+                    </span>height: RESIZE_HANDLE_SIZE,
+                }),
+            ),
+            <span class="comment">// Header.
+            </span>Part::new(
+                base_surface,
+                subcompositor,
+                queue_handle,
+                Rect {
+                    x: <span class="number">0</span>,
+                    y: -(HEADER_SIZE <span class="kw">as </span>i32),
+                    width: <span class="number">0</span>, <span class="comment">// Defined by `Self::resize`.
+                    </span>height: HEADER_SIZE,
+                },
+                <span class="prelude-val">None</span>,
+            ),
+        ];
 
-<span class="kw">impl </span>Decoration {
-    <span class="kw">pub fn </span>iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; [<span class="kw-2">&amp;</span>Part; <span class="number">5</span>] {
-        [
-            <span class="kw-2">&amp;</span><span class="self">self</span>.header,
-            <span class="kw-2">&amp;</span><span class="self">self</span>.top,
-            <span class="kw-2">&amp;</span><span class="self">self</span>.left,
-            <span class="kw-2">&amp;</span><span class="self">self</span>.right,
-            <span class="kw-2">&amp;</span><span class="self">self</span>.bottom,
-        ]
+        <span class="self">Self </span>{ parts }
     }
 
-    <span class="kw">pub fn </span>hide_decoration(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">for </span>p <span class="kw">in </span><span class="self">self</span>.iter() {
-            p.surface.attach(<span class="prelude-val">None</span>, <span class="number">0</span>, <span class="number">0</span>);
-            p.surface.commit();
+    <span class="kw">pub fn </span>parts(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::iter::Enumerate&lt;std::slice::Iter&lt;Part&gt;&gt; {
+        <span class="self">self</span>.parts.iter().enumerate()
+    }
+
+    <span class="kw">pub fn </span>hide(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">for </span>part <span class="kw">in </span><span class="self">self</span>.parts.iter() {
+            part.subsurface.set_sync();
+            part.surface.attach(<span class="prelude-val">None</span>, <span class="number">0</span>, <span class="number">0</span>);
+            part.surface.commit();
         }
     }
 
     <span class="kw">pub fn </span>hide_borders(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">for </span>p <span class="kw">in </span><span class="self">self</span>.iter().iter().skip(<span class="number">1</span>) {
-            p.surface.attach(<span class="prelude-val">None</span>, <span class="number">0</span>, <span class="number">0</span>);
-            p.surface.commit();
+        <span class="kw">for </span>(<span class="kw">_</span>, part) <span class="kw">in </span><span class="self">self</span>.parts().filter(|(idx, <span class="kw">_</span>)| <span class="kw-2">*</span>idx != <span class="self">Self</span>::HEADER) {
+            part.surface.attach(<span class="prelude-val">None</span>, <span class="number">0</span>, <span class="number">0</span>);
+            part.surface.commit();
+        }
+    }
+
+    <span class="comment">// These unwraps are guaranteed to succeed because the affected options are filled above
+    // and then never emptied afterwards.
+    </span><span class="attr">#[allow(clippy::unwrap_used)]
+    </span><span class="kw">pub fn </span>resize(<span class="kw-2">&amp;mut </span><span class="self">self</span>, width: u32, height: u32) {
+        <span class="self">self</span>.parts[<span class="self">Self</span>::HEADER].surface_rect.width = width;
+
+        <span class="self">self</span>.parts[<span class="self">Self</span>::BOTTOM].surface_rect.width = width + <span class="number">2 </span>* BORDER_SIZE;
+        <span class="self">self</span>.parts[<span class="self">Self</span>::BOTTOM].surface_rect.y = height <span class="kw">as </span>i32;
+        <span class="self">self</span>.parts[<span class="self">Self</span>::BOTTOM].input_rect.as_mut().unwrap().width =
+            <span class="self">self</span>.parts[<span class="self">Self</span>::BOTTOM].surface_rect.width - (BORDER_SIZE * <span class="number">2</span>)
+                + (RESIZE_HANDLE_SIZE * <span class="number">2</span>);
+
+        <span class="self">self</span>.parts[<span class="self">Self</span>::TOP].surface_rect.width = <span class="self">self</span>.parts[<span class="self">Self</span>::BOTTOM].surface_rect.width;
+        <span class="self">self</span>.parts[<span class="self">Self</span>::TOP].input_rect.as_mut().unwrap().width =
+            <span class="self">self</span>.parts[<span class="self">Self</span>::TOP].surface_rect.width - (BORDER_SIZE * <span class="number">2</span>) + (RESIZE_HANDLE_SIZE * <span class="number">2</span>);
+
+        <span class="self">self</span>.parts[<span class="self">Self</span>::LEFT].surface_rect.height = height + HEADER_SIZE;
+        <span class="self">self</span>.parts[<span class="self">Self</span>::LEFT].input_rect.as_mut().unwrap().height =
+            <span class="self">self</span>.parts[<span class="self">Self</span>::LEFT].surface_rect.height;
+
+        <span class="self">self</span>.parts[<span class="self">Self</span>::RIGHT].surface_rect.height = <span class="self">self</span>.parts[<span class="self">Self</span>::LEFT].surface_rect.height;
+        <span class="self">self</span>.parts[<span class="self">Self</span>::RIGHT].surface_rect.x = width <span class="kw">as </span>i32;
+        <span class="self">self</span>.parts[<span class="self">Self</span>::RIGHT].input_rect.as_mut().unwrap().height =
+            <span class="self">self</span>.parts[<span class="self">Self</span>::RIGHT].surface_rect.height;
+    }
+
+    <span class="kw">pub fn </span>header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Part {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.parts[<span class="self">Self</span>::HEADER]
+    }
+
+    <span class="kw">pub fn </span>side_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+        <span class="self">self</span>.parts[<span class="self">Self</span>::LEFT].surface_rect.height
+    }
+
+    <span class="kw">pub fn </span>find_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="kw-2">&amp;</span>ObjectId) -&gt; Location {
+        <span class="kw">let </span>pos = <span class="kw">match </span><span class="self">self
+            </span>.parts
+            .iter()
+            .position(|part| <span class="kw-2">&amp;</span>part.surface.id() == surface)
+        {
+            <span class="prelude-val">Some</span>(pos) =&gt; pos,
+            <span class="prelude-val">None </span>=&gt; <span class="kw">return </span>Location::None,
+        };
+
+        <span class="kw">match </span>pos {
+            <span class="self">Self</span>::HEADER =&gt; Location::Head,
+            <span class="self">Self</span>::TOP =&gt; Location::Top,
+            <span class="self">Self</span>::BOTTOM =&gt; Location::Bottom,
+            <span class="self">Self</span>::LEFT =&gt; Location::Left,
+            <span class="self">Self</span>::RIGHT =&gt; Location::Right,
+            <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
         }
     }
 }
 
-<span class="attr">#[derive(Default, Debug)]
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Parts {
-    decoration: <span class="prelude-ty">Option</span>&lt;Decoration&gt;,
-}
-
-<span class="kw">impl </span>Parts {
-    <span class="kw">pub fn </span>add_decorations(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        parent: <span class="kw-2">&amp;</span>WlSurface,
-        compositor: <span class="kw-2">&amp;</span>Attached&lt;WlCompositor&gt;,
-        subcompositor: <span class="kw-2">&amp;</span>Attached&lt;WlSubcompositor&gt;,
-        inner: Rc&lt;RefCell&lt;Inner&gt;&gt;,
-    ) {
-        <span class="kw">if </span><span class="self">self</span>.decoration.is_none() {
-            <span class="kw">let </span>header = Part::new(parent, compositor, subcompositor, <span class="prelude-val">Some</span>(inner));
-            <span class="kw">let </span>top = Part::new(parent, compositor, subcompositor, <span class="prelude-val">None</span>);
-            <span class="kw">let </span>left = Part::new(parent, compositor, subcompositor, <span class="prelude-val">None</span>);
-            <span class="kw">let </span>right = Part::new(parent, compositor, subcompositor, <span class="prelude-val">None</span>);
-            <span class="kw">let </span>bottom = Part::new(parent, compositor, subcompositor, <span class="prelude-val">None</span>);
-
-            <span class="self">self</span>.decoration = <span class="prelude-val">Some</span>(Decoration {
-                header,
-                top,
-                left,
-                right,
-                bottom,
-            });
-        }
-    }
-
-    <span class="kw">pub fn </span>remove_decorations(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.decoration = <span class="prelude-val">None</span>;
-    }
-
-    <span class="kw">pub fn </span>hide_decorations(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(decor) = <span class="self">self</span>.decoration.as_ref() {
-            decor.hide_decoration();
-        }
-    }
-
-    <span class="kw">pub fn </span>decoration(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Decoration&gt; {
-        <span class="self">self</span>.decoration.as_ref()
-    }
-
-    <span class="kw">pub fn </span>find_decoration_part(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="kw-2">&amp;</span>WlSurface) -&gt; DecorationPartKind {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(decor) = <span class="self">self</span>.decoration() {
-            <span class="kw">if </span>surface.as_ref().equals(decor.header.surface.as_ref()) {
-                DecorationPartKind::Header
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.top.surface.as_ref()) {
-                DecorationPartKind::Top
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.bottom.surface.as_ref()) {
-                DecorationPartKind::Bottom
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.left.surface.as_ref()) {
-                DecorationPartKind::Left
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.right.surface.as_ref()) {
-                DecorationPartKind::Right
-            } <span class="kw">else </span>{
-                DecorationPartKind::None
-            }
-        } <span class="kw">else </span>{
-            DecorationPartKind::None
-        }
-    }
-
-    <span class="kw">pub fn </span>find_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="kw-2">&amp;</span>WlSurface) -&gt; Location {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(decor) = <span class="self">self</span>.decoration() {
-            <span class="kw">if </span>surface.as_ref().equals(decor.header.surface.as_ref()) {
-                Location::Head
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.top.surface.as_ref()) {
-                Location::Top
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.bottom.surface.as_ref()) {
-                Location::Bottom
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.left.surface.as_ref()) {
-                Location::Left
-            } <span class="kw">else if </span>surface.as_ref().equals(decor.right.surface.as_ref()) {
-                Location::Right
-            } <span class="kw">else </span>{
-                Location::None
-            }
-        } <span class="kw">else </span>{
-            Location::None
-        }
-    }
+<span class="attr">#[derive(Debug, Clone, Copy)]
+</span><span class="kw">pub struct </span>Rect {
+    <span class="kw">pub </span>x: i32,
+    <span class="kw">pub </span>y: i32,
+    <span class="kw">pub </span>width: u32,
+    <span class="kw">pub </span>height: u32,
 }
 
 <span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Part {
-    <span class="kw">pub </span>surface: WlSurface,
-    <span class="kw">pub </span>subsurface: WlSubsurface,
+    <span class="kw">pub </span>surface: WlTyped&lt;WlSurface, SurfaceData&gt;,
+    <span class="kw">pub </span>subsurface: WlTyped&lt;WlSubsurface, SubsurfaceData&gt;,
+
+    <span class="doccomment">/// Positioned relative to the main surface.
+    </span><span class="kw">pub </span>surface_rect: Rect,
+    <span class="doccomment">/// Positioned relative to the local surface, aka. `surface_rect`.
+    ///
+    /// `None` if it fully covers `surface_rect`.
+    </span><span class="kw">pub </span>input_rect: <span class="prelude-ty">Option</span>&lt;Rect&gt;,
 }
 
 <span class="kw">impl </span>Part {
-    <span class="kw">fn </span>new(
-        parent: <span class="kw-2">&amp;</span>WlSurface,
-        compositor: <span class="kw-2">&amp;</span>Attached&lt;WlCompositor&gt;,
-        subcompositor: <span class="kw-2">&amp;</span>Attached&lt;WlSubcompositor&gt;,
-        inner: <span class="prelude-ty">Option</span>&lt;Rc&lt;RefCell&lt;Inner&gt;&gt;&gt;,
-    ) -&gt; Part {
-        <span class="kw">let </span>surface = <span class="kw">if let </span><span class="prelude-val">Some</span>(inner) = inner {
-            surface::setup_surface(
-                compositor.create_surface(),
-                <span class="prelude-val">Some</span>(<span class="kw">move </span>|dpi, surface: WlSurface, ddata: DispatchData| {
-                    surface.set_buffer_scale(dpi);
-                    surface.commit();
-                    (inner.borrow_mut().implem)(FrameRequest::Refresh, <span class="number">0</span>, ddata);
-                }),
-            )
-        } <span class="kw">else </span>{
-            surface::setup_surface(
-                compositor.create_surface(),
-                <span class="prelude-val">Some</span>(<span class="kw">move </span>|dpi, surface: WlSurface, _ddata: DispatchData| {
-                    surface.set_buffer_scale(dpi);
-                    surface.commit();
-                }),
-            )
-        };
+    <span class="kw">fn </span>new&lt;State&gt;(
+        parent: <span class="kw-2">&amp;</span>WlTyped&lt;WlSurface, SurfaceData&gt;,
+        subcompositor: <span class="kw-2">&amp;</span>SubcompositorState,
+        queue_handle: <span class="kw-2">&amp;</span>QueueHandle&lt;State&gt;,
+        surface_rect: Rect,
+        input_rect: <span class="prelude-ty">Option</span>&lt;Rect&gt;,
+    ) -&gt; Part
+    <span class="kw">where
+        </span>State: Dispatch&lt;WlSurface, SurfaceData&gt; + Dispatch&lt;WlSubsurface, SubsurfaceData&gt; + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>(subsurface, surface) =
+            subcompositor.create_subsurface(parent.inner().clone(), queue_handle);
 
-        <span class="kw">let </span>surface = surface.detach();
+        <span class="kw">let </span>subsurface = WlTyped::wrap::&lt;State&gt;(subsurface);
+        <span class="kw">let </span>surface = WlTyped::wrap::&lt;State&gt;(surface);
 
-        <span class="kw">let </span>subsurface = subcompositor.get_subsurface(<span class="kw-2">&amp;</span>surface, parent);
+        <span class="comment">// Sync with the parent surface.
+        </span>subsurface.set_sync();
 
         Part {
             surface,
-            subsurface: subsurface.detach(),
+            subsurface,
+            surface_rect,
+            input_rect,
         }
-    }
-
-    <span class="kw">pub fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
-        surface::get_surface_scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>.surface) <span class="kw">as </span>u32
     }
 }
 

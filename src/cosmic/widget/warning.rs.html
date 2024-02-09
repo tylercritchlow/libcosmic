@@ -67,6 +67,14 @@
 <a href="#67" id="67">67</a>
 <a href="#68" id="68">68</a>
 <a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -74,6 +82,7 @@
 <span class="kw">use crate</span>::{theme, widget, Element, Renderer, Theme};
 <span class="kw">use </span>apply::Apply;
 <span class="kw">use </span>iced::{alignment, Alignment, Background, Color, Length};
+<span class="kw">use </span>iced_core::{Border, Shadow};
 <span class="kw">use </span>std::borrow::Cow;
 
 <span class="attr">#[must_use]
@@ -98,7 +107,7 @@
     </span>}
 
     <span class="doccomment">/// A custom button that has the desired default spacing and padding.
-    </span><span class="kw">pub fn </span>into_widget(<span class="self">self</span>) -&gt; widget::Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+    </span><span class="kw">pub fn </span>into_widget(<span class="self">self</span>) -&gt; widget::Container&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt; {
         <span class="kw">let </span>label = widget::container(<span class="kw">crate</span>::widget::text(<span class="self">self</span>.message)).width(Length::Fill);
 
         <span class="kw">let </span>close_button = icon::from_name(<span class="string">&quot;window-close-symbolic&quot;</span>)
@@ -131,9 +140,16 @@
         icon_color: <span class="prelude-val">Some</span>(theme.cosmic().warning.on.into()),
         text_color: <span class="prelude-val">Some</span>(theme.cosmic().warning.on.into()),
         background: <span class="prelude-val">Some</span>(Background::Color(theme.cosmic().warning_color().into())),
-        border_radius: cosmic.corner_radii.radius_0.into(),
-        border_width: <span class="number">0.0</span>,
-        border_color: Color::TRANSPARENT,
+        border: Border {
+            color: Color::TRANSPARENT,
+            width: <span class="number">1.0</span>,
+            radius: cosmic.corner_radii.radius_0.into(),
+        },
+        shadow: Shadow {
+            color: Color::TRANSPARENT,
+            offset: iced::Vector::new(<span class="number">0.0</span>, <span class="number">0.0</span>),
+            blur_radius: <span class="number">0.0</span>,
+        },
     }
 }
 </code></pre></div></section></main></body></html>

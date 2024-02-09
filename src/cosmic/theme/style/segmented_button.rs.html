@@ -267,14 +267,6 @@
 <a href="#267" id="267">267</a>
 <a href="#268" id="268">268</a>
 <a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -282,7 +274,7 @@
 
 </span><span class="kw">use </span><span class="kw">crate</span>::widget::segmented_button::{Appearance, ItemAppearance, StyleSheet};
 <span class="kw">use crate</span>::{theme::Theme, widget::segmented_button::ItemStatusAppearance};
-<span class="kw">use </span>iced_core::{Background, BorderRadius};
+<span class="kw">use </span>iced_core::{border::Radius, Background};
 
 <span class="attr">#[derive(Default)]
 </span><span class="kw">pub enum </span>SegmentedButton {
@@ -343,9 +335,7 @@
                     inactive: ItemStatusAppearance {
                         background: <span class="prelude-val">Some</span>(Background::Color(neutral_5.into())),
                         first: ItemAppearance {
-                            border_radius: BorderRadius::from([
-                                rad_m[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_m[<span class="number">3</span>],
-                            ]),
+                            border_radius: Radius::from([rad_m[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
                             ..Default::default()
                         },
                         middle: ItemAppearance {
@@ -353,9 +343,7 @@
                             ..Default::default()
                         },
                         last: ItemAppearance {
-                            border_radius: BorderRadius::from([
-                                rad_0[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_0[<span class="number">3</span>],
-                            ]),
+                            border_radius: Radius::from([rad_0[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
                             ..Default::default()
                         },
                         text_color: cosmic.on_bg_color().into(),
@@ -400,9 +388,7 @@
                     inactive: ItemStatusAppearance {
                         background: <span class="prelude-val">Some</span>(Background::Color(neutral_5.into())),
                         first: ItemAppearance {
-                            border_radius: BorderRadius::from([
-                                rad_m[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_0[<span class="number">0</span>], rad_0[<span class="number">0</span>],
-                            ]),
+                            border_radius: Radius::from([rad_m[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_0[<span class="number">0</span>], rad_0[<span class="number">0</span>]]),
                             ..Default::default()
                         },
                         middle: ItemAppearance {
@@ -410,9 +396,7 @@
                             ..Default::default()
                         },
                         last: ItemAppearance {
-                            border_radius: BorderRadius::from([
-                                rad_0[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_m[<span class="number">3</span>],
-                            ]),
+                            border_radius: Radius::from([rad_0[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
                             ..Default::default()
                         },
                         text_color: cosmic.on_bg_color().into(),
@@ -430,7 +414,7 @@
 
 <span class="kw">mod </span>horizontal {
     <span class="kw">use </span><span class="kw">crate</span>::widget::segmented_button::{ItemAppearance, ItemStatusAppearance};
-    <span class="kw">use </span>iced_core::{Background, BorderRadius};
+    <span class="kw">use </span>iced_core::{border::Radius, Background};
 
     <span class="kw">pub fn </span>selection_active(cosmic: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; ItemStatusAppearance {
         <span class="kw">let </span><span class="kw-2">mut </span>neutral_5 = cosmic.palette.neutral_5;
@@ -440,7 +424,7 @@
         ItemStatusAppearance {
             background: <span class="prelude-val">Some</span>(Background::Color(neutral_5.into())),
             first: ItemAppearance {
-                border_radius: BorderRadius::from([rad_m[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_m[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
                 ..Default::default()
             },
             middle: ItemAppearance {
@@ -448,7 +432,7 @@
                 ..Default::default()
             },
             last: ItemAppearance {
-                border_radius: BorderRadius::from([rad_0[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_0[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
                 ..Default::default()
             },
             text_color: cosmic.accent.base.into(),
@@ -463,17 +447,17 @@
         ItemStatusAppearance {
             background: <span class="prelude-val">Some</span>(Background::Color(neutral_5.into())),
             first: ItemAppearance {
-                border_radius: BorderRadius::from([rad_s[<span class="number">0</span>], rad_s[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_s[<span class="number">0</span>], rad_s[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
                 border_bottom: <span class="prelude-val">Some</span>((<span class="number">4.0</span>, cosmic.accent.base.into())),
                 ..Default::default()
             },
             middle: ItemAppearance {
-                border_radius: BorderRadius::from([rad_s[<span class="number">0</span>], rad_s[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_s[<span class="number">0</span>], rad_s[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
                 border_bottom: <span class="prelude-val">Some</span>((<span class="number">4.0</span>, cosmic.accent.base.into())),
                 ..Default::default()
             },
             last: ItemAppearance {
-                border_radius: BorderRadius::from([rad_s[<span class="number">0</span>], rad_s[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_s[<span class="number">0</span>], rad_s[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
                 border_bottom: <span class="prelude-val">Some</span>((<span class="number">4.0</span>, cosmic.accent.base.into())),
                 ..Default::default()
             },
@@ -506,7 +490,7 @@
 
 <span class="kw">mod </span>vertical {
     <span class="kw">use </span><span class="kw">crate</span>::widget::segmented_button::{ItemAppearance, ItemStatusAppearance};
-    <span class="kw">use </span>iced_core::{Background, BorderRadius};
+    <span class="kw">use </span>iced_core::{border::Radius, Background};
 
     <span class="kw">pub fn </span>selection_active(cosmic: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; ItemStatusAppearance {
         <span class="kw">let </span><span class="kw-2">mut </span>neutral_5 = cosmic.palette.neutral_5;
@@ -516,7 +500,7 @@
         ItemStatusAppearance {
             background: <span class="prelude-val">Some</span>(Background::Color(neutral_5.into())),
             first: ItemAppearance {
-                border_radius: BorderRadius::from([rad_m[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_m[<span class="number">0</span>], rad_m[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_0[<span class="number">3</span>]]),
                 ..Default::default()
             },
             middle: ItemAppearance {
@@ -524,7 +508,7 @@
                 ..Default::default()
             },
             last: ItemAppearance {
-                border_radius: BorderRadius::from([rad_0[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
+                border_radius: Radius::from([rad_0[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_m[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
                 ..Default::default()
             },
             text_color: cosmic.accent.base.into(),

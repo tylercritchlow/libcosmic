@@ -452,6 +452,18 @@
 <a href="#452" id="452">452</a>
 <a href="#453" id="453">453</a>
 <a href="#454" id="454">454</a>
+<a href="#455" id="455">455</a>
+<a href="#456" id="456">456</a>
+<a href="#457" id="457">457</a>
+<a href="#458" id="458">458</a>
+<a href="#459" id="459">459</a>
+<a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
+<a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Helper functions to create pure widgets.
 </span><span class="kw">use </span><span class="kw">crate</span>::button::{<span class="self">self</span>, Button};
 <span class="kw">use </span><span class="kw">crate</span>::checkbox::{<span class="self">self</span>, Checkbox};
@@ -474,7 +486,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::text_input::{<span class="self">self</span>, TextInput};
 <span class="kw">use </span><span class="kw">crate</span>::toggler::{<span class="self">self</span>, Toggler};
 <span class="kw">use </span><span class="kw">crate</span>::tooltip::{<span class="self">self</span>, Tooltip};
-<span class="kw">use crate</span>::{Column, MouseArea, Row, Space, VerticalSlider};
+<span class="kw">use crate</span>::{Column, MouseArea, Row, Space, Themer, VerticalSlider};
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::dnd_listener::DndListener;
@@ -493,7 +505,7 @@
         <span class="macro-nonterminal">$crate::Column::new</span>()
     );
     ($(<span class="macro-nonterminal">$x</span>:expr),+ $(,)<span class="question-mark">?</span>) =&gt; (
-        <span class="macro-nonterminal">$crate::Column::with_children</span>(<span class="macro">vec!</span>[$(<span class="macro-nonterminal">$crate::core::Element::from</span>(<span class="macro-nonterminal">$x</span>)),+])
+        <span class="macro-nonterminal">$crate::Column::with_children</span>([$(<span class="macro-nonterminal">$crate::core::Element::from</span>(<span class="macro-nonterminal">$x</span>)),+])
     );
 }
 
@@ -506,36 +518,40 @@
         <span class="macro-nonterminal">$crate::Row::new</span>()
     );
     ($(<span class="macro-nonterminal">$x</span>:expr),+ $(,)<span class="question-mark">?</span>) =&gt; (
-        <span class="macro-nonterminal">$crate::Row::with_children</span>(<span class="macro">vec!</span>[$(<span class="macro-nonterminal">$crate::core::Element::from</span>(<span class="macro-nonterminal">$x</span>)),+])
+        <span class="macro-nonterminal">$crate::Row::with_children</span>([$(<span class="macro-nonterminal">$crate::core::Element::from</span>(<span class="macro-nonterminal">$x</span>)),+])
     );
 }
 
 <span class="doccomment">/// Creates a new [`Container`] with the provided content.
 ///
 /// [`Container`]: crate::Container
-</span><span class="kw">pub fn </span>container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-) -&gt; Container&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; Container&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: core::Renderer,
-    Renderer::Theme: container::StyleSheet,
+    </span>Theme: container::StyleSheet,
+    Renderer: core::Renderer,
 {
     Container::new(content)
 }
 
 <span class="doccomment">/// Creates a new [`Column`] with the given children.
-</span><span class="kw">pub fn </span>column&lt;Message, Renderer&gt;(
-    children: Vec&lt;Element&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;&gt;,
-) -&gt; Column&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt; {
+</span><span class="kw">pub fn </span>column&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    children: <span class="kw">impl </span>IntoIterator&lt;Item = Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; Column&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+<span class="kw">where
+    </span>Renderer: core::Renderer,
+{
     Column::with_children(children)
 }
 
 <span class="doccomment">/// Creates a new [`keyed::Column`] with the given children.
-</span><span class="kw">pub fn </span>keyed_column&lt;<span class="lifetime">&#39;a</span>, Key, Message, Renderer&gt;(
-    children: <span class="kw">impl </span>IntoIterator&lt;Item = (Key, Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;)&gt;,
-) -&gt; keyed::Column&lt;<span class="lifetime">&#39;a</span>, Key, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>keyed_column&lt;<span class="lifetime">&#39;a</span>, Key, Message, Theme, Renderer&gt;(
+    children: <span class="kw">impl </span>IntoIterator&lt;Item = (Key, Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;)&gt;,
+) -&gt; keyed::Column&lt;<span class="lifetime">&#39;a</span>, Key, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Key: Copy + PartialEq,
+    Renderer: core::Renderer,
 {
     keyed::Column::with_children(children)
 }
@@ -543,21 +559,24 @@
 <span class="doccomment">/// Creates a new [`Row`] with the given children.
 ///
 /// [`Row`]: crate::Row
-</span><span class="kw">pub fn </span>row&lt;Message, Renderer&gt;(
-    children: Vec&lt;Element&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt;&gt;,
-) -&gt; Row&lt;<span class="lifetime">&#39;_</span>, Message, Renderer&gt; {
+</span><span class="kw">pub fn </span>row&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    children: <span class="kw">impl </span>IntoIterator&lt;Item = Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; Row&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+<span class="kw">where
+    </span>Renderer: core::Renderer,
+{
     Row::with_children(children)
 }
 
 <span class="doccomment">/// Creates a new [`Scrollable`] with the provided content.
 ///
 /// [`Scrollable`]: crate::Scrollable
-</span><span class="kw">pub fn </span>scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-) -&gt; Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; Scrollable&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: core::Renderer,
-    Renderer::Theme: scrollable::StyleSheet,
+    </span>Theme: scrollable::StyleSheet,
+    Renderer: core::Renderer,
 {
     Scrollable::new(content)
 }
@@ -565,13 +584,12 @@
 <span class="doccomment">/// Creates a new [`Button`] with the provided content.
 ///
 /// [`Button`]: crate::Button
-</span><span class="kw">pub fn </span>button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-) -&gt; Button&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>button&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; Button&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: core::Renderer,
-    Renderer::Theme: button::StyleSheet,
-    &lt;Renderer::Theme <span class="kw">as </span>button::StyleSheet&gt;::Style: Default,
+    Theme: button::StyleSheet,
 {
     Button::new(content)
 }
@@ -580,14 +598,14 @@
 ///
 /// [`Tooltip`]: crate::Tooltip
 /// [`tooltip::Position`]: crate::tooltip::Position
-</span><span class="kw">pub fn </span>tooltip&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+</span><span class="kw">pub fn </span>tooltip&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
     tooltip: <span class="kw">impl </span>ToString,
     position: tooltip::Position,
-) -&gt; <span class="kw">crate</span>::Tooltip&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+) -&gt; <span class="kw">crate</span>::Tooltip&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: core::text::Renderer,
-    Renderer::Theme: container::StyleSheet + text::StyleSheet,
+    </span>Theme: container::StyleSheet + text::StyleSheet,
+    Renderer: core::text::Renderer,
 {
     Tooltip::new(content, tooltip.to_string(), position)
 }
@@ -595,10 +613,12 @@
 <span class="doccomment">/// Creates a new [`Text`] widget with the provided content.
 ///
 /// [`Text`]: core::widget::Text
-</span><span class="kw">pub fn </span>text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;(text: <span class="kw">impl </span>ToString) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+</span><span class="kw">pub fn </span>text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;(
+    text: <span class="kw">impl </span>ToString,
+) -&gt; Text&lt;<span class="lifetime">&#39;a</span>, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: core::text::Renderer,
-    Renderer::Theme: text::StyleSheet,
+    </span>Theme: text::StyleSheet,
+    Renderer: core::text::Renderer,
 {
     Text::new(text.to_string())
 }
@@ -606,14 +626,14 @@
 <span class="doccomment">/// Creates a new [`Checkbox`].
 ///
 /// [`Checkbox`]: crate::Checkbox
-</span><span class="kw">pub fn </span>checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
     label: <span class="kw">impl </span>Into&lt;String&gt;,
     is_checked: bool,
     f: <span class="kw">impl </span>Fn(bool) -&gt; Message + <span class="lifetime">&#39;a</span>,
-) -&gt; Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+) -&gt; Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: core::text::Renderer,
-    Renderer::Theme: checkbox::StyleSheet + text::StyleSheet,
+    </span>Theme: checkbox::StyleSheet + text::StyleSheet,
+    Renderer: core::text::Renderer,
 {
     Checkbox::new(label, is_checked, f)
 }
@@ -621,16 +641,16 @@
 <span class="doccomment">/// Creates a new [`Radio`].
 ///
 /// [`Radio`]: crate::Radio
-</span><span class="kw">pub fn </span>radio&lt;Message, Renderer, V&gt;(
+</span><span class="kw">pub fn </span>radio&lt;Message, Theme, Renderer, V&gt;(
     label: <span class="kw">impl </span>Into&lt;String&gt;,
     value: V,
     selected: <span class="prelude-ty">Option</span>&lt;V&gt;,
     on_click: <span class="kw">impl </span>FnOnce(V) -&gt; Message,
-) -&gt; Radio&lt;Message, Renderer&gt;
+) -&gt; Radio&lt;Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: Clone,
+    Theme: radio::StyleSheet,
     Renderer: core::text::Renderer,
-    Renderer::Theme: radio::StyleSheet,
     V: Copy + Eq,
 {
     Radio::new(label, value, selected, on_click)
@@ -639,14 +659,14 @@
 <span class="doccomment">/// Creates a new [`Toggler`].
 ///
 /// [`Toggler`]: crate::Toggler
-</span><span class="kw">pub fn </span>toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
     label: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
     is_checked: bool,
     f: <span class="kw">impl </span>Fn(bool) -&gt; Message + <span class="lifetime">&#39;a</span>,
-) -&gt; Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+) -&gt; Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: core::text::Renderer,
-    Renderer::Theme: toggler::StyleSheet,
+    Theme: toggler::StyleSheet,
 {
     Toggler::new(label, is_checked, f)
 }
@@ -654,14 +674,14 @@
 <span class="doccomment">/// Creates a new [`TextInput`].
 ///
 /// [`TextInput`]: crate::TextInput
-</span><span class="kw">pub fn </span>text_input&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>text_input&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
     placeholder: <span class="kw-2">&amp;</span>str,
     value: <span class="kw-2">&amp;</span>str,
-) -&gt; TextInput&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+) -&gt; TextInput&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: Clone,
+    Theme: text_input::StyleSheet,
     Renderer: core::text::Renderer,
-    Renderer::Theme: text_input::StyleSheet,
 {
     TextInput::new(placeholder, value)
 }
@@ -669,13 +689,13 @@
 <span class="doccomment">/// Creates a new [`TextEditor`].
 ///
 /// [`TextEditor`]: crate::TextEditor
-</span><span class="kw">pub fn </span>text_editor&lt;Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>text_editor&lt;Message, Theme, Renderer&gt;(
     content: <span class="kw-2">&amp;</span>text_editor::Content&lt;Renderer&gt;,
-) -&gt; TextEditor&lt;<span class="lifetime">&#39;_</span>, core::text::highlighter::PlainText, Message, Renderer&gt;
+) -&gt; TextEditor&lt;<span class="lifetime">&#39;_</span>, core::text::highlighter::PlainText, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: Clone,
+    Theme: text_editor::StyleSheet,
     Renderer: core::text::Renderer,
-    Renderer::Theme: text_editor::StyleSheet,
 {
     TextEditor::new(content)
 }
@@ -683,16 +703,15 @@
 <span class="doccomment">/// Creates a new [`Slider`].
 ///
 /// [`Slider`]: crate::Slider
-</span><span class="kw">pub fn </span>slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;(
     range: std::ops::RangeInclusive&lt;T&gt;,
     value: T,
     on_change: <span class="kw">impl </span>Fn(T) -&gt; Message + <span class="lifetime">&#39;a</span>,
-) -&gt; Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;
+) -&gt; Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;
 <span class="kw">where
     </span>T: Copy + From&lt;u8&gt; + std::cmp::PartialOrd,
     Message: Clone,
-    Renderer: core::Renderer,
-    Renderer::Theme: slider::StyleSheet,
+    Theme: slider::StyleSheet,
 {
     Slider::new(range, value, on_change)
 }
@@ -700,16 +719,15 @@
 <span class="doccomment">/// Creates a new [`VerticalSlider`].
 ///
 /// [`VerticalSlider`]: crate::VerticalSlider
-</span><span class="kw">pub fn </span>vertical_slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>vertical_slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;(
     range: std::ops::RangeInclusive&lt;T&gt;,
     value: T,
     on_change: <span class="kw">impl </span>Fn(T) -&gt; Message + <span class="lifetime">&#39;a</span>,
-) -&gt; VerticalSlider&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;
+) -&gt; VerticalSlider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;
 <span class="kw">where
     </span>T: Copy + From&lt;u8&gt; + std::cmp::PartialOrd,
     Message: Clone,
-    Renderer: core::Renderer,
-    Renderer::Theme: slider::StyleSheet,
+    Theme: slider::StyleSheet,
 {
     VerticalSlider::new(range, value, on_change)
 }
@@ -717,21 +735,21 @@
 <span class="doccomment">/// Creates a new [`PickList`].
 ///
 /// [`PickList`]: crate::PickList
-</span><span class="kw">pub fn </span>pick_list&lt;<span class="lifetime">&#39;a</span>, Message, Renderer, T&gt;(
+</span><span class="kw">pub fn </span>pick_list&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer, T&gt;(
     options: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, [T]&gt;&gt;,
     selected: <span class="prelude-ty">Option</span>&lt;T&gt;,
     on_selected: <span class="kw">impl </span>Fn(T) -&gt; Message + <span class="lifetime">&#39;a</span>,
-) -&gt; PickList&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;
+) -&gt; PickList&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>T: ToString + Eq + <span class="lifetime">&#39;static</span>,
+    </span>T: ToString + PartialEq + <span class="lifetime">&#39;static</span>,
     [T]: ToOwned&lt;Owned = Vec&lt;T&gt;&gt;,
     Renderer: core::text::Renderer,
-    Renderer::Theme: pick_list::StyleSheet
+    Theme: pick_list::StyleSheet
         + scrollable::StyleSheet
         + overlay::menu::StyleSheet
         + container::StyleSheet,
-    &lt;Renderer::Theme <span class="kw">as </span>overlay::menu::StyleSheet&gt;::Style:
-        From&lt;&lt;Renderer::Theme <span class="kw">as </span>pick_list::StyleSheet&gt;::Style&gt;,
+    &lt;Theme <span class="kw">as </span>overlay::menu::StyleSheet&gt;::Style:
+        From&lt;&lt;Theme <span class="kw">as </span>pick_list::StyleSheet&gt;::Style&gt;,
 {
     PickList::new(options, selected, on_selected)
 }
@@ -739,16 +757,16 @@
 <span class="doccomment">/// Creates a new [`ComboBox`].
 ///
 /// [`ComboBox`]: crate::ComboBox
-</span><span class="kw">pub fn </span>combo_box&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>combo_box&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme, Renderer&gt;(
     state: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>combo_box::State&lt;T&gt;,
     placeholder: <span class="kw-2">&amp;</span>str,
     selection: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>T&gt;,
     on_selected: <span class="kw">impl </span>Fn(T) -&gt; Message + <span class="lifetime">&#39;static</span>,
-) -&gt; ComboBox&lt;<span class="lifetime">&#39;a</span>, T, Message, Renderer&gt;
+) -&gt; ComboBox&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>T: std::fmt::Display + Clone,
+    Theme: text_input::StyleSheet + overlay::menu::StyleSheet,
     Renderer: core::text::Renderer,
-    Renderer::Theme: text_input::StyleSheet + overlay::menu::StyleSheet,
 {
     ComboBox::new(state, placeholder, selection, on_selected)
 }
@@ -770,10 +788,9 @@
 <span class="doccomment">/// Creates a horizontal [`Rule`] with the given height.
 ///
 /// [`Rule`]: crate::Rule
-</span><span class="kw">pub fn </span>horizontal_rule&lt;Renderer&gt;(height: <span class="kw">impl </span>Into&lt;Pixels&gt;) -&gt; Rule&lt;Renderer&gt;
+</span><span class="kw">pub fn </span>horizontal_rule&lt;Theme&gt;(height: <span class="kw">impl </span>Into&lt;Pixels&gt;) -&gt; Rule&lt;Theme&gt;
 <span class="kw">where
-    </span>Renderer: core::Renderer,
-    Renderer::Theme: rule::StyleSheet,
+    </span>Theme: rule::StyleSheet,
 {
     Rule::horizontal(height)
 }
@@ -781,10 +798,9 @@
 <span class="doccomment">/// Creates a vertical [`Rule`] with the given width.
 ///
 /// [`Rule`]: crate::Rule
-</span><span class="kw">pub fn </span>vertical_rule&lt;Renderer&gt;(width: <span class="kw">impl </span>Into&lt;Pixels&gt;) -&gt; Rule&lt;Renderer&gt;
+</span><span class="kw">pub fn </span>vertical_rule&lt;Theme&gt;(width: <span class="kw">impl </span>Into&lt;Pixels&gt;) -&gt; Rule&lt;Theme&gt;
 <span class="kw">where
-    </span>Renderer: core::Renderer,
-    Renderer::Theme: rule::StyleSheet,
+    </span>Theme: rule::StyleSheet,
 {
     Rule::vertical(width)
 }
@@ -796,13 +812,12 @@
 ///   * the current value of the [`ProgressBar`].
 ///
 /// [`ProgressBar`]: crate::ProgressBar
-</span><span class="kw">pub fn </span>progress_bar&lt;Renderer&gt;(
+</span><span class="kw">pub fn </span>progress_bar&lt;Theme&gt;(
     range: RangeInclusive&lt;f32&gt;,
     value: f32,
-) -&gt; ProgressBar&lt;Renderer&gt;
+) -&gt; ProgressBar&lt;Theme&gt;
 <span class="kw">where
-    </span>Renderer: core::Renderer,
-    Renderer::Theme: progress_bar::StyleSheet,
+    </span>Theme: progress_bar::StyleSheet,
 {
     ProgressBar::new(range, value)
 }
@@ -823,13 +838,11 @@
 /// [`Svg`]: crate::Svg
 /// [`Handle`]: crate::svg::Handle
 </span><span class="attr">#[cfg(feature = <span class="string">&quot;svg&quot;</span>)]
-#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;svg&quot;</span>)))]
-</span><span class="kw">pub fn </span>svg&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;(
+</span><span class="kw">pub fn </span>svg&lt;<span class="lifetime">&#39;a</span>, Theme&gt;(
     handle: <span class="kw">impl </span>Into&lt;core::svg::Handle&gt;,
-) -&gt; <span class="kw">crate</span>::Svg&lt;<span class="lifetime">&#39;a</span>, Renderer&gt;
+) -&gt; <span class="kw">crate</span>::Svg&lt;<span class="lifetime">&#39;a</span>, Theme&gt;
 <span class="kw">where
-    </span>Renderer: core::svg::Renderer,
-    Renderer::Theme: <span class="kw">crate</span>::svg::StyleSheet,
+    </span>Theme: <span class="kw">crate</span>::svg::StyleSheet,
 {
     <span class="kw">crate</span>::Svg::new(handle)
 }
@@ -838,12 +851,12 @@
 ///
 /// [`Canvas`]: crate::Canvas
 </span><span class="attr">#[cfg(feature = <span class="string">&quot;canvas&quot;</span>)]
-</span><span class="kw">pub fn </span>canvas&lt;P, Message, Renderer&gt;(
+</span><span class="kw">pub fn </span>canvas&lt;P, Message, Theme, Renderer&gt;(
     program: P,
-) -&gt; <span class="kw">crate</span>::Canvas&lt;P, Message, Renderer&gt;
+) -&gt; <span class="kw">crate</span>::Canvas&lt;P, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: <span class="kw">crate</span>::graphics::geometry::Renderer,
-    P: <span class="kw">crate</span>::canvas::Program&lt;Message, Renderer&gt;,
+    P: <span class="kw">crate</span>::canvas::Program&lt;Message, Theme, Renderer&gt;,
 {
     <span class="kw">crate</span>::Canvas::new(program)
 }
@@ -876,20 +889,31 @@
 }
 
 <span class="doccomment">/// A container intercepting mouse events.
-</span><span class="kw">pub fn </span>mouse_area&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-) -&gt; MouseArea&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>mouse_area&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; MouseArea&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: core::Renderer,
 {
     MouseArea::new(widget)
 }
 
+<span class="doccomment">/// A widget that applies any `Theme` to its contents.
+</span><span class="kw">pub fn </span>themer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    theme: Theme,
+    content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; Themer&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+<span class="kw">where
+    </span>Renderer: core::Renderer,
+{
+    Themer::new(theme, content)
+}
+
 <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
 </span><span class="doccomment">/// A container for a dnd source
-</span><span class="kw">pub fn </span>dnd_source&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-) -&gt; DndSource&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>dnd_source&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; DndSource&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: core::Renderer,
 {
@@ -898,9 +922,9 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
 </span><span class="doccomment">/// A container for a dnd target
-</span><span class="kw">pub fn </span>dnd_listener&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-    widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
-) -&gt; DndListener&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+</span><span class="kw">pub fn </span>dnd_listener&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+    widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;,
+) -&gt; DndListener&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: core::Renderer,
 {

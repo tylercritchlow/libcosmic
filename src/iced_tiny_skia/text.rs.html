@@ -356,6 +356,8 @@
 <a href="#356" id="356">356</a>
 <a href="#357" id="357">357</a>
 <a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::core::alignment;
 <span class="kw">use </span><span class="kw">crate</span>::core::text::{LineHeight, Shaping};
 <span class="kw">use </span><span class="kw">crate</span>::core::{Color, Font, Pixels, Point, Rectangle, Size};
@@ -440,18 +442,20 @@
 
         <span class="kw">let </span><span class="kw-2">mut </span>font_system = font_system().write().expect(<span class="string">&quot;Write font system&quot;</span>);
 
-        draw(
-            font_system.raw(),
-            <span class="kw-2">&amp;mut </span><span class="self">self</span>.glyph_cache,
-            editor.buffer(),
-            Rectangle::new(position, editor.bounds()),
-            color,
-            alignment::Horizontal::Left,
-            alignment::Vertical::Top,
-            scale_factor,
-            pixels,
-            clip_mask,
-        );
+        editor.with_buffer(|buffer| {
+            draw(
+                font_system.raw(),
+                <span class="kw-2">&amp;mut </span><span class="self">self</span>.glyph_cache,
+                buffer,
+                Rectangle::new(position, editor.bounds()),
+                color,
+                alignment::Horizontal::Left,
+                alignment::Vertical::Top,
+                scale_factor,
+                pixels,
+                clip_mask,
+            );
+        });
     }
 
     <span class="kw">pub fn </span>draw_cached(

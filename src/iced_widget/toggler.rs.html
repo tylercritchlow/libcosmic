@@ -538,8 +538,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::core::widget::tree::{<span class="self">self</span>, Tree};
 <span class="kw">use </span><span class="kw">crate</span>::core::widget::{<span class="self">self</span>, Id};
 <span class="kw">use </span><span class="kw">crate</span>::core::{
-    id, Clipboard, Element, Event, Layout, Length, Pixels, Rectangle, Shell,
-    Widget,
+    id, Border, Clipboard, Element, Event, Layout, Length, Pixels, Rectangle,
+    Shell, Size, Widget,
 };
 
 <span class="kw">pub use </span><span class="kw">crate</span>::style::toggler::{Appearance, StyleSheet};
@@ -550,7 +550,7 @@
 ///
 /// ```no_run
 /// # type Toggler&lt;&#39;a, Message&gt; =
-/// #     iced_widget::Toggler&lt;&#39;a, Message, iced_widget::renderer::Renderer&lt;iced_widget::style::Theme&gt;&gt;;
+/// #     iced_widget::Toggler&lt;&#39;a, Message, iced_widget::style::Theme, iced_widget::renderer::Renderer&gt;;
 /// #
 /// pub enum Message {
 ///     TogglerToggled(bool),
@@ -561,10 +561,14 @@
 /// Toggler::new(String::from(&quot;Toggle me!&quot;), is_toggled, |b| Message::TogglerToggled(b));
 /// ```
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt;
-<span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+</span><span class="kw">pub struct </span>Toggler&lt;
+    <span class="lifetime">&#39;a</span>,
+    Message,
+    Theme = <span class="kw">crate</span>::Theme,
+    Renderer = <span class="kw">crate</span>::Renderer,
+&gt; <span class="kw">where
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     id: Id,
     label_id: <span class="prelude-ty">Option</span>&lt;Id&gt;,
@@ -585,13 +589,13 @@
     text_shaping: text::Shaping,
     spacing: f32,
     font: <span class="prelude-ty">Option</span>&lt;Renderer::Font&gt;,
-    style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    style: Theme::Style,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet,
+    </span>Theme: StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="doccomment">/// The default size of a [`Toggler`].
     </span><span class="kw">pub const </span>DEFAULT_SIZE: f32 = <span class="number">20.0</span>;
@@ -692,10 +696,7 @@
     </span>}
 
     <span class="doccomment">/// Sets the style of the [`Toggler`].
-    </span><span class="kw">pub fn </span>style(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
-    ) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: <span class="kw">impl </span>Into&lt;Theme::Style&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.style = style.into();
         <span class="self">self
     </span>}
@@ -736,11 +737,11 @@
     </span>}
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    </span>Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         tree::Tag::of::&lt;widget::text::State&lt;Renderer::Paragraph&gt;&gt;()
@@ -750,12 +751,11 @@
         tree::State::new(widget::text::State::&lt;Renderer::Paragraph&gt;::default())
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Shrink
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: <span class="self">self</span>.width,
+            height: Length::Shrink,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -849,7 +849,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -900,11 +900,12 @@
         renderer.fill_quad(
             renderer::Quad {
                 bounds: toggler_background_bounds,
-                border_radius: border_radius.into(),
-                border_width: <span class="number">1.0</span>,
-                border_color: style
-                    .background_border
-                    .unwrap_or(style.background),
+                border: Border {
+                    radius: border_radius.into(),
+                    width: <span class="number">1.0</span>,
+                    color: style.background_border.unwrap_or(style.background),
+                },
+                ..renderer::Quad::default()
             },
             style.background,
         );
@@ -924,11 +925,12 @@
         renderer.fill_quad(
             renderer::Quad {
                 bounds: toggler_foreground_bounds,
-                border_radius: border_radius.into(),
-                border_width: <span class="number">1.0</span>,
-                border_color: style
-                    .foreground_border
-                    .unwrap_or(style.foreground),
+                border: Border {
+                    radius: border_radius.into(),
+                    width: <span class="number">1.0</span>,
+                    color: style.foreground_border.unwrap_or(style.foreground),
+                },
+                ..renderer::Quad::default()
             },
             style.foreground,
         );
@@ -943,9 +945,7 @@
         cursor: mouse::Cursor,
     ) -&gt; iced_accessibility::A11yTree {
         <span class="kw">use </span>iced_accessibility::{
-            accesskit::{
-                Action, CheckedState, NodeBuilder, NodeId, Rect, Role,
-            },
+            accesskit::{Action, Checked, NodeBuilder, NodeId, Rect, Role},
             A11yNode, A11yTree,
         };
 
@@ -986,10 +986,10 @@
             }
             <span class="prelude-val">None </span>=&gt; {}
         }
-        node.set_checked_state(<span class="kw">if </span><span class="self">self</span>.is_toggled {
-            CheckedState::True
+        node.set_checked(<span class="kw">if </span><span class="self">self</span>.is_toggled {
+            Checked::True
         } <span class="kw">else </span>{
-            CheckedState::False
+            Checked::False
         });
         <span class="kw">if </span>is_hovered {
             node.set_hovered();
@@ -1037,16 +1037,16 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;a</span>,
-    Renderer: <span class="lifetime">&#39;a </span>+ text::Renderer,
-    Renderer::Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet + <span class="lifetime">&#39;a</span>,
+    Renderer: text::Renderer + <span class="lifetime">&#39;a</span>,
 {
     <span class="kw">fn </span>from(
-        toggler: Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
-    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+        toggler: Toggler&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
         Element::new(toggler)
     }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/sctk-adwaita-335b3838158c83d2/da85380/src/theme.rs`."><title>theme.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sctk-adwaita-0.8.1/src/theme.rs`."><title>theme.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -131,15 +131,103 @@
 <a href="#131" id="131">131</a>
 <a href="#132" id="132">132</a>
 <a href="#133" id="133">133</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>smithay_client_toolkit::window::WindowState;
-
-<span class="kw">pub use </span>tiny_skia::Color;
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+</pre></div><pre class="rust"><code><span class="kw">pub use </span>tiny_skia::Color;
 <span class="kw">use </span>tiny_skia::{Paint, Shader};
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>BORDER_SIZE: u32 = <span class="number">10</span>;
+<span class="comment">// https://gitlab.gnome.org/GNOME/gtk/-/blob/1bf88f1d81043fd99740e2f91e56ade7ede7303b/gtk/gtkwindow.c#L165
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>RESIZE_HANDLE_SIZE: u32 = <span class="number">12</span>;
+<span class="comment">// https://gitlab.gnome.org/GNOME/gtk/-/blob/1bf88f1d81043fd99740e2f91e56ade7ede7303b/gtk/gtkwindow.c#L166
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>RESIZE_HANDLE_CORNER_SIZE: u32 = <span class="number">24</span>;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>BORDER_SIZE: u32 = <span class="kw">crate</span>::shadow::SHADOW_SIZE + VISIBLE_BORDER_SIZE;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>HEADER_SIZE: u32 = <span class="number">35</span>;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>CORNER_RADIUS: u32 = <span class="number">10</span>;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>VISIBLE_BORDER_SIZE: u32 = <span class="number">1</span>;
 
-<span class="attr">#[derive(Debug, Clone)]
+<span class="doccomment">/// The color theme to use with the decorations frame.
+</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>ColorTheme {
+    <span class="kw">pub </span>active: ColorMap,
+    <span class="kw">pub </span>inactive: ColorMap,
+}
+
+<span class="kw">impl </span>ColorTheme {
+    <span class="doccomment">/// Automatically choose between light &amp; dark themes based on:
+    /// * dbus org.freedesktop.portal.Settings
+    ///   &lt;https://flatpak.github.io/xdg-desktop-portal/#gdbus-interface-org-freedesktop-portal-Settings&gt;
+    </span><span class="kw">pub fn </span>auto() -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span><span class="kw">crate</span>::config::prefer_dark() {
+            <span class="bool-val">true </span>=&gt; <span class="self">Self</span>::dark(),
+            <span class="bool-val">false </span>=&gt; <span class="self">Self</span>::light(),
+        }
+    }
+
+    <span class="doccomment">/// Predefined light variant, which aims to replecate Adwaita theme.
+    </span><span class="kw">pub fn </span>light() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            active: ColorMap {
+                headerbar: Color::from_rgba8(<span class="number">235</span>, <span class="number">235</span>, <span class="number">235</span>, <span class="number">255</span>),
+                button_idle: Color::from_rgba8(<span class="number">216</span>, <span class="number">216</span>, <span class="number">216</span>, <span class="number">255</span>),
+                button_hover: Color::from_rgba8(<span class="number">207</span>, <span class="number">207</span>, <span class="number">207</span>, <span class="number">255</span>),
+                button_icon: Color::from_rgba8(<span class="number">42</span>, <span class="number">42</span>, <span class="number">42</span>, <span class="number">255</span>),
+                border_color: Color::from_rgba8(<span class="number">220</span>, <span class="number">220</span>, <span class="number">220</span>, <span class="number">255</span>),
+                font_color: Color::from_rgba8(<span class="number">47</span>, <span class="number">47</span>, <span class="number">47</span>, <span class="number">255</span>),
+            },
+            inactive: ColorMap {
+                headerbar: Color::from_rgba8(<span class="number">250</span>, <span class="number">250</span>, <span class="number">250</span>, <span class="number">255</span>),
+                button_idle: Color::from_rgba8(<span class="number">240</span>, <span class="number">240</span>, <span class="number">240</span>, <span class="number">255</span>),
+                button_hover: Color::from_rgba8(<span class="number">216</span>, <span class="number">216</span>, <span class="number">216</span>, <span class="number">255</span>),
+                button_icon: Color::from_rgba8(<span class="number">148</span>, <span class="number">148</span>, <span class="number">148</span>, <span class="number">255</span>),
+                border_color: Color::from_rgba8(<span class="number">220</span>, <span class="number">220</span>, <span class="number">220</span>, <span class="number">255</span>),
+                font_color: Color::from_rgba8(<span class="number">150</span>, <span class="number">150</span>, <span class="number">150</span>, <span class="number">255</span>),
+            },
+        }
+    }
+
+    <span class="doccomment">/// Predefined dark variant, which aims to replecate Adwaita-dark theme.
+    </span><span class="kw">pub fn </span>dark() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            active: ColorMap {
+                headerbar: Color::from_rgba8(<span class="number">48</span>, <span class="number">48</span>, <span class="number">48</span>, <span class="number">255</span>),
+                button_idle: Color::from_rgba8(<span class="number">69</span>, <span class="number">69</span>, <span class="number">69</span>, <span class="number">255</span>),
+                button_hover: Color::from_rgba8(<span class="number">79</span>, <span class="number">79</span>, <span class="number">79</span>, <span class="number">255</span>),
+                button_icon: Color::from_rgba8(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),
+                border_color: Color::from_rgba8(<span class="number">58</span>, <span class="number">58</span>, <span class="number">58</span>, <span class="number">255</span>),
+                font_color: Color::from_rgba8(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),
+            },
+            inactive: ColorMap {
+                headerbar: Color::from_rgba8(<span class="number">36</span>, <span class="number">36</span>, <span class="number">36</span>, <span class="number">255</span>),
+                button_idle: Color::from_rgba8(<span class="number">47</span>, <span class="number">47</span>, <span class="number">47</span>, <span class="number">255</span>),
+                button_hover: Color::from_rgba8(<span class="number">57</span>, <span class="number">57</span>, <span class="number">57</span>, <span class="number">255</span>),
+                button_icon: Color::from_rgba8(<span class="number">144</span>, <span class="number">144</span>, <span class="number">144</span>, <span class="number">255</span>),
+                border_color: Color::from_rgba8(<span class="number">58</span>, <span class="number">58</span>, <span class="number">58</span>, <span class="number">255</span>),
+                font_color: Color::from_rgba8(<span class="number">144</span>, <span class="number">144</span>, <span class="number">144</span>, <span class="number">255</span>),
+            },
+        }
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, active: bool) -&gt; <span class="kw-2">&amp;</span>ColorMap {
+        <span class="kw">if </span>active {
+            <span class="kw-2">&amp;</span><span class="self">self</span>.active
+        } <span class="kw">else </span>{
+            <span class="kw-2">&amp;</span><span class="self">self</span>.inactive
+        }
+    }
+}
+
+<span class="kw">impl </span>Default <span class="kw">for </span>ColorTheme {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::auto()
+    }
+}
+
+<span class="doccomment">/// The color map for various decorcation parts.
+</span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>ColorMap {
     <span class="kw">pub </span>headerbar: Color,
     <span class="kw">pub </span>button_idle: Color,
@@ -185,82 +273,6 @@
         Paint {
             shader: Shader::SolidColor(<span class="self">self</span>.border_color),
             ..Default::default()
-        }
-    }
-}
-
-<span class="attr">#[derive(Debug, Clone)]
-</span><span class="kw">pub struct </span>ColorTheme {
-    <span class="kw">pub </span>active: ColorMap,
-    <span class="kw">pub </span>inactive: ColorMap,
-}
-
-<span class="kw">impl </span>Default <span class="kw">for </span>ColorTheme {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::light()
-    }
-}
-
-<span class="kw">impl </span>ColorTheme {
-    <span class="doccomment">/// Automatically choose between light &amp; dark themes based on:
-    /// * dbus org.freedesktop.portal.Settings
-    ///   &lt;https://flatpak.github.io/xdg-desktop-portal/#gdbus-interface-org-freedesktop-portal-Settings&gt;
-    </span><span class="kw">pub fn </span>auto() -&gt; <span class="self">Self </span>{
-        <span class="kw">match </span><span class="kw">crate</span>::config::prefer_dark() {
-            <span class="bool-val">true </span>=&gt; <span class="self">Self</span>::dark(),
-            <span class="bool-val">false </span>=&gt; <span class="self">Self</span>::light(),
-        }
-    }
-
-    <span class="kw">pub fn </span>light() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            active: ColorMap {
-                headerbar: Color::from_rgba8(<span class="number">235</span>, <span class="number">235</span>, <span class="number">235</span>, <span class="number">255</span>),
-                button_idle: Color::from_rgba8(<span class="number">216</span>, <span class="number">216</span>, <span class="number">216</span>, <span class="number">255</span>),
-                button_hover: Color::from_rgba8(<span class="number">207</span>, <span class="number">207</span>, <span class="number">207</span>, <span class="number">255</span>),
-                button_icon: Color::from_rgba8(<span class="number">42</span>, <span class="number">42</span>, <span class="number">42</span>, <span class="number">255</span>),
-                border_color: Color::from_rgba8(<span class="number">220</span>, <span class="number">220</span>, <span class="number">220</span>, <span class="number">255</span>),
-                font_color: Color::from_rgba8(<span class="number">47</span>, <span class="number">47</span>, <span class="number">47</span>, <span class="number">255</span>),
-            },
-            inactive: ColorMap {
-                headerbar: Color::from_rgba8(<span class="number">250</span>, <span class="number">250</span>, <span class="number">250</span>, <span class="number">255</span>),
-                button_idle: Color::from_rgba8(<span class="number">240</span>, <span class="number">240</span>, <span class="number">240</span>, <span class="number">255</span>),
-                button_hover: Color::from_rgba8(<span class="number">216</span>, <span class="number">216</span>, <span class="number">216</span>, <span class="number">255</span>),
-                button_icon: Color::from_rgba8(<span class="number">148</span>, <span class="number">148</span>, <span class="number">148</span>, <span class="number">255</span>),
-                border_color: Color::from_rgba8(<span class="number">220</span>, <span class="number">220</span>, <span class="number">220</span>, <span class="number">255</span>),
-                font_color: Color::from_rgba8(<span class="number">150</span>, <span class="number">150</span>, <span class="number">150</span>, <span class="number">255</span>),
-            },
-        }
-    }
-
-    <span class="kw">pub fn </span>dark() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            active: ColorMap {
-                headerbar: Color::from_rgba8(<span class="number">48</span>, <span class="number">48</span>, <span class="number">48</span>, <span class="number">255</span>),
-                button_idle: Color::from_rgba8(<span class="number">69</span>, <span class="number">69</span>, <span class="number">69</span>, <span class="number">255</span>),
-                button_hover: Color::from_rgba8(<span class="number">79</span>, <span class="number">79</span>, <span class="number">79</span>, <span class="number">255</span>),
-                button_icon: Color::from_rgba8(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),
-                border_color: Color::from_rgba8(<span class="number">58</span>, <span class="number">58</span>, <span class="number">58</span>, <span class="number">255</span>),
-                font_color: Color::from_rgba8(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),
-            },
-            inactive: ColorMap {
-                headerbar: Color::from_rgba8(<span class="number">36</span>, <span class="number">36</span>, <span class="number">36</span>, <span class="number">255</span>),
-                button_idle: Color::from_rgba8(<span class="number">47</span>, <span class="number">47</span>, <span class="number">47</span>, <span class="number">255</span>),
-                button_hover: Color::from_rgba8(<span class="number">57</span>, <span class="number">57</span>, <span class="number">57</span>, <span class="number">255</span>),
-                button_icon: Color::from_rgba8(<span class="number">144</span>, <span class="number">144</span>, <span class="number">144</span>, <span class="number">255</span>),
-                border_color: Color::from_rgba8(<span class="number">58</span>, <span class="number">58</span>, <span class="number">58</span>, <span class="number">255</span>),
-                font_color: Color::from_rgba8(<span class="number">144</span>, <span class="number">144</span>, <span class="number">144</span>, <span class="number">255</span>),
-            },
-        }
-    }
-}
-
-<span class="kw">impl </span>ColorTheme {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, state: WindowState) -&gt; <span class="kw-2">&amp;</span>ColorMap {
-        <span class="kw">if </span>state == WindowState::Active {
-            <span class="kw-2">&amp;</span><span class="self">self</span>.active
-        } <span class="kw">else </span>{
-            <span class="kw-2">&amp;</span><span class="self">self</span>.inactive
         }
     }
 }

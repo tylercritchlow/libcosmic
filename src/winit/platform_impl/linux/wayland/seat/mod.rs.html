@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-40d7deb2b0c08730/c6ad672/src/platform_impl/linux/wayland/seat/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="winit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../../src-files.js"></script><script defer src="../../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-40d7deb2b0c08730/8987daa/src/platform_impl/linux/wayland/seat/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="winit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../../../../src-files.js"></script><script defer src="../../../../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -203,215 +203,209 @@
 <a href="#203" id="203">203</a>
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Seat handling and managing.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Seat handling.
 
-</span><span class="kw">use </span>std::cell::RefCell;
-<span class="kw">use </span>std::rc::Rc;
+</span><span class="kw">use </span>std::sync::Arc;
 
-<span class="kw">use </span>sctk::reexports::protocols::unstable::relative_pointer::v1::client::zwp_relative_pointer_manager_v1::ZwpRelativePointerManagerV1;
-<span class="kw">use </span>sctk::reexports::protocols::unstable::pointer_constraints::v1::client::zwp_pointer_constraints_v1::ZwpPointerConstraintsV1;
-<span class="kw">use </span>sctk::reexports::protocols::unstable::text_input::v3::client::zwp_text_input_manager_v3::ZwpTextInputManagerV3;
+<span class="kw">use </span>ahash::AHashMap;
 
 <span class="kw">use </span>sctk::reexports::client::protocol::wl_seat::WlSeat;
-<span class="kw">use </span>sctk::reexports::client::Attached;
+<span class="kw">use </span>sctk::reexports::client::protocol::wl_touch::WlTouch;
+<span class="kw">use </span>sctk::reexports::client::{Connection, Proxy, QueueHandle};
+<span class="kw">use </span>sctk::reexports::protocols::wp::relative_pointer::zv1::client::zwp_relative_pointer_v1::ZwpRelativePointerV1;
+<span class="kw">use </span>sctk::reexports::protocols::wp::text_input::zv3::client::zwp_text_input_v3::ZwpTextInputV3;
 
-<span class="kw">use </span>sctk::environment::Environment;
-<span class="kw">use </span>sctk::reexports::calloop::LoopHandle;
-<span class="kw">use </span>sctk::seat::pointer::ThemeManager;
-<span class="kw">use </span>sctk::seat::{SeatData, SeatListener};
+<span class="kw">use </span>sctk::seat::pointer::{ThemeSpec, ThemedPointer};
+<span class="kw">use </span>sctk::seat::{Capability <span class="kw">as </span>SeatCapability, SeatHandler, SeatState};
 
-<span class="kw">use </span><span class="kw">super</span>::env::WinitEnv;
-<span class="kw">use </span><span class="kw">super</span>::event_loop::WinitState;
-<span class="kw">use </span><span class="kw">crate</span>::event::ModifiersState;
+<span class="kw">use </span><span class="kw">crate</span>::keyboard::ModifiersState;
+<span class="kw">use </span><span class="kw">crate</span>::platform_impl::wayland::state::WinitState;
 
 <span class="kw">mod </span>keyboard;
-<span class="kw">pub mod </span>pointer;
-<span class="kw">pub mod </span>text_input;
+<span class="kw">mod </span>pointer;
+<span class="kw">mod </span>text_input;
 <span class="kw">mod </span>touch;
 
-<span class="kw">use </span>keyboard::Keyboard;
-<span class="kw">use </span>pointer::Pointers;
-<span class="kw">use </span>text_input::TextInput;
-<span class="kw">use </span>touch::Touch;
+<span class="kw">pub use </span>pointer::relative_pointer::RelativePointerState;
+<span class="kw">pub use </span>pointer::{PointerConstraintsState, WinitPointerData, WinitPointerDataExt};
+<span class="kw">pub use </span>text_input::{TextInputState, ZwpTextInputV3Ext};
 
-<span class="kw">pub struct </span>SeatManager {
-    <span class="doccomment">/// Listener for seats.
-    </span>_seat_listener: SeatListener,
+<span class="kw">use </span>keyboard::{KeyboardData, KeyboardState};
+<span class="kw">use </span>text_input::TextInputData;
+<span class="kw">use </span>touch::TouchPoint;
+
+<span class="attr">#[derive(Debug, Default)]
+</span><span class="kw">pub struct </span>WinitSeatState {
+    <span class="doccomment">/// The pointer bound on the seat.
+    </span>pointer: <span class="prelude-ty">Option</span>&lt;Arc&lt;ThemedPointer&lt;WinitPointerData&gt;&gt;&gt;,
+
+    <span class="doccomment">/// The touch bound on the seat.
+    </span>touch: <span class="prelude-ty">Option</span>&lt;WlTouch&gt;,
+
+    <span class="doccomment">/// The mapping from touched points to the surfaces they&#39;re present.
+    </span>touch_map: AHashMap&lt;i32, TouchPoint&gt;,
+
+    <span class="doccomment">/// The text input bound on the seat.
+    </span>text_input: <span class="prelude-ty">Option</span>&lt;Arc&lt;ZwpTextInputV3&gt;&gt;,
+
+    <span class="doccomment">/// The relative pointer bound on the seat.
+    </span>relative_pointer: <span class="prelude-ty">Option</span>&lt;ZwpRelativePointerV1&gt;,
+
+    <span class="doccomment">/// The keyboard bound on the seat.
+    </span>keyboard_state: <span class="prelude-ty">Option</span>&lt;KeyboardState&gt;,
+
+    <span class="doccomment">/// The current modifiers state on the seat.
+    </span>modifiers: ModifiersState,
+
+    <span class="doccomment">/// Wether we have pending modifiers.
+    </span>modifiers_pending: bool,
 }
 
-<span class="kw">impl </span>SeatManager {
-    <span class="kw">pub fn </span>new(
-        env: <span class="kw-2">&amp;</span>Environment&lt;WinitEnv&gt;,
-        loop_handle: LoopHandle&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;,
-        theme_manager: ThemeManager,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>relative_pointer_manager = env.get_global::&lt;ZwpRelativePointerManagerV1&gt;();
-        <span class="kw">let </span>pointer_constraints = env.get_global::&lt;ZwpPointerConstraintsV1&gt;();
-        <span class="kw">let </span>text_input_manager = env.get_global::&lt;ZwpTextInputManagerV3&gt;();
-
-        <span class="kw">let </span><span class="kw-2">mut </span>inner = SeatManagerInner::new(
-            theme_manager,
-            relative_pointer_manager,
-            pointer_constraints,
-            text_input_manager,
-            loop_handle,
-        );
-
-        <span class="comment">// Handle existing seats.
-        </span><span class="kw">for </span>seat <span class="kw">in </span>env.get_all_seats() {
-            <span class="kw">let </span>seat_data = <span class="kw">match </span>sctk::seat::clone_seat_data(<span class="kw-2">&amp;</span>seat) {
-                <span class="prelude-val">Some</span>(seat_data) =&gt; seat_data,
-                <span class="prelude-val">None </span>=&gt; <span class="kw">continue</span>,
-            };
-
-            inner.process_seat_update(<span class="kw-2">&amp;</span>seat, <span class="kw-2">&amp;</span>seat_data);
-        }
-
-        <span class="kw">let </span>seat_listener = env.listen_for_seats(<span class="kw">move </span>|seat, seat_data, <span class="kw">_</span>| {
-            inner.process_seat_update(<span class="kw-2">&amp;</span>seat, seat_data);
-        });
-
-        <span class="self">Self </span>{
-            _seat_listener: seat_listener,
-        }
+<span class="kw">impl </span>WinitSeatState {
+    <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        Default::default()
     }
 }
 
-<span class="doccomment">/// Inner state of the seat manager.
-</span><span class="kw">struct </span>SeatManagerInner {
-    <span class="doccomment">/// Currently observed seats.
-    </span>seats: Vec&lt;SeatInfo&gt;,
+<span class="kw">impl </span>SeatHandler <span class="kw">for </span>WinitState {
+    <span class="kw">fn </span>seat_state(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>SeatState {
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>.seat_state
+    }
 
-    <span class="doccomment">/// Loop handle.
-    </span>loop_handle: LoopHandle&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;,
+    <span class="kw">fn </span>new_capability(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>Connection,
+        queue_handle: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        seat: WlSeat,
+        capability: SeatCapability,
+    ) {
+        <span class="kw">let </span>seat_state = <span class="self">self</span>.seats.get_mut(<span class="kw-2">&amp;</span>seat.id()).unwrap();
 
-    <span class="doccomment">/// Relative pointer manager.
-    </span>relative_pointer_manager: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZwpRelativePointerManagerV1&gt;&gt;,
+        <span class="kw">match </span>capability {
+            SeatCapability::Touch <span class="kw">if </span>seat_state.touch.is_none() =&gt; {
+                seat_state.touch = <span class="self">self</span>.seat_state.get_touch(queue_handle, <span class="kw-2">&amp;</span>seat).ok();
+            }
+            SeatCapability::Keyboard <span class="kw">if </span>seat_state.keyboard_state.is_none() =&gt; {
+                <span class="kw">let </span>keyboard = seat.get_keyboard(queue_handle, KeyboardData::new(seat.clone()));
+                seat_state.keyboard_state =
+                    <span class="prelude-val">Some</span>(KeyboardState::new(keyboard, <span class="self">self</span>.loop_handle.clone()));
+            }
+            SeatCapability::Pointer <span class="kw">if </span>seat_state.pointer.is_none() =&gt; {
+                <span class="kw">let </span>surface = <span class="self">self</span>.compositor_state.create_surface(queue_handle);
+                <span class="kw">let </span>surface_id = surface.id();
+                <span class="kw">let </span>pointer_data = WinitPointerData::new(seat.clone());
+                <span class="kw">let </span>themed_pointer = <span class="self">self
+                    </span>.seat_state
+                    .get_pointer_with_theme_and_data(
+                        queue_handle,
+                        <span class="kw-2">&amp;</span>seat,
+                        <span class="self">self</span>.shm.wl_shm(),
+                        surface,
+                        ThemeSpec::System,
+                        pointer_data,
+                    )
+                    .expect(<span class="string">&quot;failed to create pointer with present capability.&quot;</span>);
 
-    <span class="doccomment">/// Pointer constraints.
-    </span>pointer_constraints: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZwpPointerConstraintsV1&gt;&gt;,
+                seat_state.relative_pointer = <span class="self">self</span>.relative_pointer.as_ref().map(|manager| {
+                    manager.get_relative_pointer(
+                        themed_pointer.pointer(),
+                        queue_handle,
+                        sctk::globals::GlobalData,
+                    )
+                });
 
-    <span class="doccomment">/// Text input manager.
-    </span>text_input_manager: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZwpTextInputManagerV3&gt;&gt;,
+                <span class="kw">let </span>themed_pointer = Arc::new(themed_pointer);
 
-    <span class="doccomment">/// A theme manager.
-    </span>theme_manager: ThemeManager,
-}
+                <span class="comment">// Register cursor surface.
+                </span><span class="self">self</span>.pointer_surfaces
+                    .insert(surface_id, themed_pointer.clone());
 
-<span class="kw">impl </span>SeatManagerInner {
-    <span class="kw">fn </span>new(
-        theme_manager: ThemeManager,
-        relative_pointer_manager: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZwpRelativePointerManagerV1&gt;&gt;,
-        pointer_constraints: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZwpPointerConstraintsV1&gt;&gt;,
-        text_input_manager: <span class="prelude-ty">Option</span>&lt;Attached&lt;ZwpTextInputManagerV3&gt;&gt;,
-        loop_handle: LoopHandle&lt;<span class="lifetime">&#39;static</span>, WinitState&gt;,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            seats: Vec::new(),
-            loop_handle,
-            relative_pointer_manager,
-            pointer_constraints,
-            text_input_manager,
-            theme_manager,
+                seat_state.pointer = <span class="prelude-val">Some</span>(themed_pointer);
+            }
+            <span class="kw">_ </span>=&gt; (),
+        }
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(text_input_state) = seat_state
+            .text_input
+            .is_none()
+            .then_some(<span class="self">self</span>.text_input_state.as_ref())
+            .flatten()
+        {
+            seat_state.text_input = <span class="prelude-val">Some</span>(Arc::new(text_input_state.get_text_input(
+                <span class="kw-2">&amp;</span>seat,
+                queue_handle,
+                TextInputData::default(),
+            )));
         }
     }
 
-    <span class="doccomment">/// Handle seats update from the `SeatListener`.
-    </span><span class="kw">pub fn </span>process_seat_update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, seat: <span class="kw-2">&amp;</span>Attached&lt;WlSeat&gt;, seat_data: <span class="kw-2">&amp;</span>SeatData) {
-        <span class="kw">let </span>detached_seat = seat.detach();
+    <span class="kw">fn </span>remove_capability(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        <span class="kw">_</span>: <span class="kw-2">&amp;</span>Connection,
+        _queue_handle: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        seat: WlSeat,
+        capability: SeatCapability,
+    ) {
+        <span class="kw">let </span>seat_state = <span class="self">self</span>.seats.get_mut(<span class="kw-2">&amp;</span>seat.id()).unwrap();
 
-        <span class="kw">let </span>position = <span class="self">self</span>.seats.iter().position(|si| si.seat == detached_seat);
-        <span class="kw">let </span>index = position.unwrap_or_else(|| {
-            <span class="self">self</span>.seats.push(SeatInfo::new(detached_seat));
-            <span class="self">self</span>.seats.len() - <span class="number">1
-        </span>});
-
-        <span class="kw">let </span>seat_info = <span class="kw-2">&amp;mut </span><span class="self">self</span>.seats[index];
-
-        <span class="comment">// Pointer handling.
-        </span><span class="kw">if </span>seat_data.has_pointer &amp;&amp; !seat_data.defunct {
-            <span class="kw">if </span>seat_info.pointer.is_none() {
-                seat_info.pointer = <span class="prelude-val">Some</span>(Pointers::new(
-                    seat,
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.theme_manager,
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.relative_pointer_manager,
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.pointer_constraints,
-                    seat_info.modifiers_state.clone(),
-                ));
+        <span class="kw">match </span>capability {
+            SeatCapability::Touch =&gt; {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(touch) = seat_state.touch.take() {
+                    <span class="kw">if </span>touch.version() &gt;= <span class="number">3 </span>{
+                        touch.release();
+                    }
+                }
             }
-        } <span class="kw">else </span>{
-            seat_info.pointer = <span class="prelude-val">None</span>;
+            SeatCapability::Pointer =&gt; {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(relative_pointer) = seat_state.relative_pointer.take() {
+                    relative_pointer.destroy();
+                }
+
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(pointer) = seat_state.pointer.take() {
+                    <span class="kw">let </span>pointer_data = pointer.pointer().winit_data();
+
+                    <span class="comment">// Remove the cursor from the mapping.
+                    </span><span class="kw">let </span>surface_id = pointer.surface().id();
+                    <span class="kw">let _ </span>= <span class="self">self</span>.pointer_surfaces.remove(<span class="kw-2">&amp;</span>surface_id);
+
+                    <span class="comment">// Remove the inner locks/confines before dropping the pointer.
+                    </span>pointer_data.unlock_pointer();
+                    pointer_data.unconfine_pointer();
+
+                    <span class="kw">if </span>pointer.pointer().version() &gt;= <span class="number">3 </span>{
+                        pointer.pointer().release();
+                    }
+                }
+            }
+            SeatCapability::Keyboard =&gt; {
+                seat_state.keyboard_state = <span class="prelude-val">None</span>;
+            }
+            <span class="kw">_ </span>=&gt; (),
         }
 
-        <span class="comment">// Handle keyboard.
-        </span><span class="kw">if </span>seat_data.has_keyboard &amp;&amp; !seat_data.defunct {
-            <span class="kw">if </span>seat_info.keyboard.is_none() {
-                seat_info.keyboard = Keyboard::new(
-                    seat,
-                    <span class="self">self</span>.loop_handle.clone(),
-                    seat_info.modifiers_state.clone(),
-                );
-            }
-        } <span class="kw">else </span>{
-            seat_info.keyboard = <span class="prelude-val">None</span>;
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(text_input) = seat_state.text_input.take() {
+            text_input.destroy();
         }
+    }
 
-        <span class="comment">// Handle touch.
-        </span><span class="kw">if </span>seat_data.has_touch &amp;&amp; !seat_data.defunct {
-            <span class="kw">if </span>seat_info.touch.is_none() {
-                seat_info.touch = <span class="prelude-val">Some</span>(Touch::new(seat));
-            }
-        } <span class="kw">else </span>{
-            seat_info.touch = <span class="prelude-val">None</span>;
-        }
+    <span class="kw">fn </span>new_seat(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        _connection: <span class="kw-2">&amp;</span>Connection,
+        _queue_handle: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        seat: WlSeat,
+    ) {
+        <span class="self">self</span>.seats.insert(seat.id(), WinitSeatState::new());
+    }
 
-        <span class="comment">// Handle text input.
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(text_input_manager) = <span class="self">self</span>.text_input_manager.as_ref() {
-            <span class="kw">if </span>seat_data.defunct {
-                seat_info.text_input = <span class="prelude-val">None</span>;
-            } <span class="kw">else if </span>seat_info.text_input.is_none() {
-                seat_info.text_input = <span class="prelude-val">Some</span>(TextInput::new(seat, text_input_manager));
-            }
-        }
+    <span class="kw">fn </span>remove_seat(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        _connection: <span class="kw-2">&amp;</span>Connection,
+        _queue_handle: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        seat: WlSeat,
+    ) {
+        <span class="kw">let _ </span>= <span class="self">self</span>.seats.remove(<span class="kw-2">&amp;</span>seat.id());
     }
 }
 
-<span class="doccomment">/// Resources associtated with a given seat.
-</span><span class="kw">struct </span>SeatInfo {
-    <span class="doccomment">/// Seat to which this `SeatInfo` belongs.
-    </span>seat: WlSeat,
-
-    <span class="doccomment">/// A keyboard handle with its repeat rate handling.
-    </span>keyboard: <span class="prelude-ty">Option</span>&lt;Keyboard&gt;,
-
-    <span class="doccomment">/// All pointers we&#39;re using on a seat.
-    </span>pointer: <span class="prelude-ty">Option</span>&lt;Pointers&gt;,
-
-    <span class="doccomment">/// Touch handling.
-    </span>touch: <span class="prelude-ty">Option</span>&lt;Touch&gt;,
-
-    <span class="doccomment">/// Text input handling aka IME.
-    </span>text_input: <span class="prelude-ty">Option</span>&lt;TextInput&gt;,
-
-    <span class="doccomment">/// The current state of modifiers observed in keyboard handler.
-    ///
-    /// We keep modifiers state on a seat, since it&#39;s being used by pointer events as well.
-    </span>modifiers_state: Rc&lt;RefCell&lt;ModifiersState&gt;&gt;,
-}
-
-<span class="kw">impl </span>SeatInfo {
-    <span class="kw">pub fn </span>new(seat: WlSeat) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            seat,
-            keyboard: <span class="prelude-val">None</span>,
-            pointer: <span class="prelude-val">None</span>,
-            touch: <span class="prelude-val">None</span>,
-            text_input: <span class="prelude-val">None</span>,
-            modifiers_state: Rc::new(RefCell::new(ModifiersState::default())),
-        }
-    }
-}
+<span class="macro">sctk::delegate_seat!</span>(WinitState);
 </code></pre></div></section></main></body></html>

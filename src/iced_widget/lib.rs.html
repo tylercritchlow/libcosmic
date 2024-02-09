@@ -138,6 +138,9 @@
 <a href="#138" id="138">138</a>
 <a href="#139" id="139">139</a>
 <a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Use the built-in widgets or create your own.
 </span><span class="attr">#![doc(
     html_logo_url = <span class="string">&quot;https://raw.githubusercontent.com/iced-rs/iced/9ab6923e943f784985e9ef9ca28b10278297225d/docs/logo.svg&quot;
@@ -159,6 +162,7 @@
 <span class="kw">mod </span>column;
 <span class="kw">mod </span>mouse_area;
 <span class="kw">mod </span>row;
+<span class="kw">mod </span>themer;
 
 <span class="kw">pub mod </span>button;
 <span class="kw">pub mod </span>checkbox;
@@ -231,6 +235,8 @@
 <span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>text_input::TextInput;
 <span class="attr">#[doc(no_inline)]
+</span><span class="kw">pub use </span>themer::Themer;
+<span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>toggler::Toggler;
 <span class="attr">#[doc(no_inline)]
 </span><span class="kw">pub use </span>tooltip::Tooltip;
@@ -272,10 +278,10 @@
 #[doc(no_inline)]
 </span><span class="kw">pub use </span>qr_code::QRCode;
 
+<span class="kw">pub use </span>renderer::Renderer;
+<span class="kw">pub use </span>style::theme::{<span class="self">self</span>, Theme};
 <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
 </span><span class="kw">pub mod </span>dnd_listener;
 <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
 </span><span class="kw">pub mod </span>dnd_source;
-
-<span class="kw">type </span>Renderer&lt;Theme = style::Theme&gt; = renderer::Renderer&lt;Theme&gt;;
 </code></pre></div></section></main></body></html>

@@ -139,7 +139,7 @@
 <span class="kw">mod </span>handle;
 <span class="kw">pub use </span>handle::{from_path, from_raster_bytes, from_raster_pixels, from_svg_bytes, Data, Handle};
 
-<span class="kw">use crate</span>::{Element, Renderer};
+<span class="kw">use </span><span class="kw">crate</span>::Element;
 <span class="kw">use </span>derive_setters::Setters;
 <span class="kw">use </span>iced::widget::{Image, Svg};
 <span class="kw">use </span>iced::{ContentFit, Length};
@@ -212,7 +212,7 @@
         };
 
         <span class="kw">let </span>from_svg = |handle| {
-            Svg::&lt;Renderer&gt;::new(handle)
+            Svg::&lt;<span class="kw">crate</span>::Theme&gt;::new(handle)
                 .style(<span class="self">self</span>.style.clone())
                 .width(
                     <span class="self">self</span>.width

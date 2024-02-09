@@ -497,8 +497,10 @@
 <a href="#497" id="497">497</a>
 <a href="#498" id="498">498</a>
 <a href="#499" id="499">499</a>
+<a href="#500" id="500">500</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Show toggle controls using checkboxes.
-</span><span class="kw">use </span>iced_runtime::core::widget::Id;
+</span><span class="kw">use </span>iced_renderer::core::Size;
+<span class="kw">use </span>iced_runtime::core::widget::Id;
 <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
 </span><span class="kw">use </span>std::borrow::Cow;
 
@@ -516,7 +518,7 @@
     Widget,
 };
 
-<span class="kw">pub use </span>iced_style::checkbox::{Appearance, StyleSheet};
+<span class="kw">pub use </span><span class="kw">crate</span>::style::checkbox::{Appearance, StyleSheet};
 
 <span class="doccomment">/// A box that can be checked.
 ///
@@ -524,7 +526,7 @@
 ///
 /// ```no_run
 /// # type Checkbox&lt;&#39;a, Message&gt; =
-/// #     iced_widget::Checkbox&lt;&#39;a, Message, iced_widget::renderer::Renderer&lt;iced_widget::style::Theme&gt;&gt;;
+/// #     iced_widget::Checkbox&lt;&#39;a, Message, iced_widget::style::Theme, iced_widget::renderer::Renderer&gt;;
 /// #
 /// pub enum Message {
 ///     CheckboxToggled(bool),
@@ -537,10 +539,14 @@
 ///
 /// ![Checkbox drawn by `iced_wgpu`](https://github.com/iced-rs/iced/blob/7760618fb112074bc40b148944521f312152012a/docs/images/checkbox.png?raw=true)
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt;
-<span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+</span><span class="kw">pub struct </span>Checkbox&lt;
+    <span class="lifetime">&#39;a</span>,
+    Message,
+    Theme = <span class="kw">crate</span>::Theme,
+    Renderer = <span class="kw">crate</span>::Renderer,
+&gt; <span class="kw">where
+    </span>Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    Renderer: text::Renderer,
 {
     id: Id,
     label_id: Id,
@@ -559,13 +565,13 @@
     text_shaping: text::Shaping,
     font: <span class="prelude-ty">Option</span>&lt;Renderer::Font&gt;,
     icon: Icon&lt;Renderer::Font&gt;,
-    style: &lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style,
+    style: &lt;Theme <span class="kw">as </span>StyleSheet&gt;::Style,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
 {
     <span class="doccomment">/// The default size of a [`Checkbox`].
     </span><span class="kw">const </span>DEFAULT_SIZE: f32 = <span class="number">20.0</span>;
@@ -669,7 +675,7 @@
     <span class="doccomment">/// Sets the style of the [`Checkbox`].
     </span><span class="kw">pub fn </span>style(
         <span class="kw-2">mut </span><span class="self">self</span>,
-        style: <span class="kw">impl </span>Into&lt;&lt;Renderer::Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
+        style: <span class="kw">impl </span>Into&lt;&lt;Theme <span class="kw">as </span>StyleSheet&gt;::Style&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.style = style.into();
         <span class="self">self
@@ -703,11 +709,11 @@
     </span>}
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; Widget&lt;Message, Renderer&gt;
-    <span class="kw">for </span>Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>Renderer: text::Renderer,
-    Renderer::Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    </span>Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
+    Renderer: text::Renderer,
 {
     <span class="kw">fn </span>tag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; tree::Tag {
         tree::Tag::of::&lt;widget::text::State&lt;Renderer::Paragraph&gt;&gt;()
@@ -717,12 +723,11 @@
         tree::State::new(widget::text::State::&lt;Renderer::Paragraph&gt;::default())
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        Length::Shrink
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size {
+            width: <span class="self">self</span>.width,
+            height: Length::Shrink,
+        }
     }
 
     <span class="kw">fn </span>layout(
@@ -805,7 +810,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
-        theme: <span class="kw-2">&amp;</span>Renderer::Theme,
+        theme: <span class="kw-2">&amp;</span>Theme,
         style: <span class="kw-2">&amp;</span>renderer::Style,
         layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         cursor: mouse::Cursor,
@@ -828,9 +833,8 @@
             renderer.fill_quad(
                 renderer::Quad {
                     bounds,
-                    border_radius: custom_style.border_radius,
-                    border_width: custom_style.border_width,
-                    border_color: custom_style.border_color,
+                    border: custom_style.border,
+                    ..renderer::Quad::default()
                 },
                 custom_style.background,
             );
@@ -888,9 +892,7 @@
         cursor: mouse::Cursor,
     ) -&gt; iced_accessibility::A11yTree {
         <span class="kw">use </span>iced_accessibility::{
-            accesskit::{
-                Action, CheckedState, NodeBuilder, NodeId, Rect, Role,
-            },
+            accesskit::{Action, Checked, NodeBuilder, NodeId, Rect, Role},
             A11yNode, A11yTree,
         };
 
@@ -931,10 +933,10 @@
             }
             <span class="prelude-val">None </span>=&gt; {}
         }
-        node.set_checked_state(<span class="kw">if </span><span class="self">self</span>.is_checked {
-            CheckedState::True
+        node.set_checked(<span class="kw">if </span><span class="self">self</span>.is_checked {
+            Checked::True
         } <span class="kw">else </span>{
-            CheckedState::False
+            Checked::False
         });
         <span class="kw">if </span>is_hovered {
             node.set_hovered();
@@ -968,16 +970,16 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; From&lt;Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
     </span>Message: <span class="lifetime">&#39;a</span>,
+    Theme: <span class="lifetime">&#39;a </span>+ StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
     Renderer: <span class="lifetime">&#39;a </span>+ text::Renderer,
-    Renderer::Theme: StyleSheet + <span class="kw">crate</span>::text::StyleSheet,
 {
     <span class="kw">fn </span>from(
-        checkbox: Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
-    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; {
+        checkbox: Checkbox&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
         Element::new(checkbox)
     }
 }

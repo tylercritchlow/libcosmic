@@ -128,6 +128,7 @@
 <a href="#128" id="128">128</a>
 <a href="#129" id="129">129</a>
 <a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
 </pre></div><pre class="rust"><code><span class="comment">// From iced_aw, license MIT
 
 </span><span class="doccomment">//! A tree structure for constructing a hierarchical menu
@@ -148,7 +149,7 @@
     </span><span class="kw">pub</span>(<span class="kw">super</span>) index: usize,
 
     <span class="doccomment">/// The item of the menu tree
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) item: Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;,
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) item: Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;,
     <span class="doccomment">/// The children of the menu tree
     </span><span class="kw">pub</span>(<span class="kw">super</span>) children: Vec&lt;MenuTree&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
     <span class="doccomment">/// The width of the menu tree
@@ -161,7 +162,7 @@
     </span>Renderer: renderer::Renderer,
 {
     <span class="doccomment">/// Create a new menu tree from a widget
-    </span><span class="kw">pub fn </span>new(item: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new(item: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             index: <span class="number">0</span>,
             item: item.into(),
@@ -173,7 +174,7 @@
 
     <span class="doccomment">/// Create a menu tree from a widget and a vector of sub trees
     </span><span class="kw">pub fn </span>with_children(
-        item: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+        item: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
         children: Vec&lt;<span class="kw">impl </span>Into&lt;MenuTree&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
@@ -250,11 +251,12 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt; <span class="kw">for </span>MenuTree&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt; From&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;
+    <span class="kw">for </span>MenuTree&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;
 <span class="kw">where
     </span>Renderer: renderer::Renderer,
 {
-    <span class="kw">fn </span>from(value: Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">fn </span>from(value: Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new(value)
     }
 }

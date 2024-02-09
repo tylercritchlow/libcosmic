@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Format"],"struct":["AutoMemPool","DoubleMemPool","MemPool","ShmHandler"],"trait":["ShmHandling"]};
+window.SIDEBAR_ITEMS = {"enum":["CreatePoolError"],"mod":["multi","raw","slot"],"struct":["Shm"],"trait":["ShmHandler"]};

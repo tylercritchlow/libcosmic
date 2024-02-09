@@ -346,6 +346,14 @@
 <a href="#346" id="346">346</a>
 <a href="#347" id="347">347</a>
 <a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Iced is a cross-platform GUI library focused on simplicity and type-safety.
 //! Inspired by [Elm].
 //!
@@ -491,7 +499,7 @@
 //!   1. Draw the resulting user interface.
 //!
 //! # Usage
-//! The [`Application`] trait should get you started quickly,
+//! The `Application` trait should get you started quickly,
 //! streamlining all the process described above!
 //!
 //! [Elm]: https://elm-lang.org/
@@ -562,11 +570,12 @@
 <span class="kw">pub use </span>style::theme;
 
 <span class="kw">pub use </span><span class="kw">crate</span>::core::alignment;
+<span class="kw">pub use </span><span class="kw">crate</span>::core::border::{<span class="self">self</span>, Border, Radius};
+<span class="kw">pub use </span><span class="kw">crate</span>::core::color;
 <span class="kw">pub use </span><span class="kw">crate</span>::core::gradient;
 <span class="kw">pub use </span><span class="kw">crate</span>::core::{
-    color, id, layout::Limits, Alignment, Background, BorderRadius, Color,
-    ContentFit, Degrees, Gradient, Length, Padding, Pixels, Point, Radians,
-    Rectangle, Size, Vector,
+    id, layout::Limits, Alignment, Background, Color, ContentFit, Degrees,
+    Gradient, Length, Padding, Pixels, Point, Radians, Rectangle, Size, Vector,
 };
 
 <span class="kw">pub mod </span>clipboard {
@@ -607,7 +616,8 @@
 
 <span class="kw">pub mod </span>keyboard {
     <span class="doccomment">//! Listen and react to keyboard events.
-    </span><span class="kw">pub use </span><span class="kw">crate</span>::core::keyboard::{Event, KeyCode, Modifiers};
+    </span><span class="kw">pub use </span><span class="kw">crate</span>::core::keyboard::key;
+    <span class="kw">pub use </span><span class="kw">crate</span>::core::keyboard::{Event, Key, Location, Modifiers};
     <span class="kw">pub use </span>iced_futures::keyboard::{on_key_press, on_key_release};
 }
 
@@ -645,8 +655,12 @@
     /// This is an alias of an [`overlay::Element`] with a default `Renderer`.
     ///
     /// [`overlay::Element`]: crate::core::overlay::Element
-    </span><span class="kw">pub type </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt; =
-        <span class="kw">crate</span>::core::overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;;
+    </span><span class="kw">pub type </span>Element&lt;
+        <span class="lifetime">&#39;a</span>,
+        Message,
+        Theme = <span class="kw">crate</span>::Renderer,
+        Renderer = <span class="kw">crate</span>::Renderer,
+    &gt; = <span class="kw">crate</span>::core::overlay::Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;;
 
     <span class="kw">pub use </span>iced_widget::overlay::<span class="kw-2">*</span>;
 }
@@ -676,21 +690,23 @@
 <span class="kw">pub use </span>error::Error;
 <span class="kw">pub use </span>event::Event;
 <span class="kw">pub use </span>executor::Executor;
-<span class="kw">pub use </span>iced_core::Font;
+<span class="kw">pub use </span>font::Font;
+<span class="kw">pub use </span>renderer::Renderer;
 <span class="attr">#[cfg(any(feature = <span class="string">&quot;winit&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>))]
 </span><span class="kw">pub use </span>sandbox::Sandbox;
 <span class="kw">pub use </span>settings::Settings;
 <span class="kw">pub use </span>subscription::Subscription;
 <span class="kw">pub use </span>theme::Theme;
 
-<span class="doccomment">/// The default renderer.
-</span><span class="kw">pub type </span>Renderer&lt;Theme = style::Theme&gt; = renderer::Renderer&lt;Theme&gt;;
-
 <span class="doccomment">/// A generic widget.
 ///
 /// This is an alias of an `iced_native` element with a default `Renderer`.
-</span><span class="kw">pub type </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer = <span class="kw">crate</span>::Renderer&gt; =
-    <span class="kw">crate</span>::core::Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;;
+</span><span class="kw">pub type </span>Element&lt;
+    <span class="lifetime">&#39;a</span>,
+    Message,
+    Theme = <span class="kw">crate</span>::Theme,
+    Renderer = <span class="kw">crate</span>::Renderer,
+&gt; = <span class="kw">crate</span>::core::Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;;
 
 <span class="doccomment">/// The result of running an application.
 </span><span class="kw">pub type </span><span class="prelude-ty">Result </span>= std::result::Result&lt;(), Error&gt;;

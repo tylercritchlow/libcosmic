@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/drm-0.10.0/src/control/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="drm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/drm-0.11.1/src/control/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="drm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1559,6 +1559,12 @@
 <a href="#1559" id="1559">1559</a>
 <a href="#1560" id="1560">1560</a>
 <a href="#1561" id="1561">1561</a>
+<a href="#1562" id="1562">1562</a>
+<a href="#1563" id="1563">1563</a>
+<a href="#1564" id="1564">1564</a>
+<a href="#1565" id="1565">1565</a>
+<a href="#1566" id="1566">1566</a>
+<a href="#1567" id="1567">1567</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Modesetting operations that the DRM subsystem exposes.
 //!
 //! # Summary
@@ -1590,10 +1596,10 @@
 //! must be implemented on top of the basic [`super::Device`] trait.
 
 </span><span class="kw">use </span>drm_ffi <span class="kw">as </span>ffi;
-<span class="kw">use </span>drm_ffi::result::SystemError;
 <span class="kw">use </span>drm_fourcc::{DrmFourcc, DrmModifier, UnrecognizedFourcc};
 
 <span class="kw">use </span>bytemuck::allocation::TransparentWrapperAlloc;
+<span class="kw">use </span>rustix::io::Errno;
 
 <span class="kw">pub mod </span>atomic;
 <span class="kw">pub mod </span>connector;
@@ -1607,21 +1613,22 @@
 <span class="kw">pub mod </span>property;
 
 <span class="kw">use </span><span class="self">self</span>::dumbbuffer::<span class="kw-2">*</span>;
-<span class="kw">use </span>buffer;
+<span class="kw">use </span><span class="kw">crate</span>::buffer;
 
 <span class="kw">use </span><span class="kw">super</span>::util::<span class="kw-2">*</span>;
 
+<span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::convert::TryFrom;
+<span class="kw">use </span>std::error;
+<span class="kw">use </span>std::fmt;
+<span class="kw">use </span>std::io;
 <span class="kw">use </span>std::iter::Zip;
 <span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::num::NonZeroUsize;
 <span class="kw">use </span>std::ops::RangeBounds;
-<span class="kw">use </span>std::os::unix::io::{AsFd, AsRawFd, FromRawFd, OwnedFd, RawFd};
+<span class="kw">use </span>std::os::unix::io::{AsFd, BorrowedFd, FromRawFd, OwnedFd, RawFd};
 <span class="kw">use </span>std::time::Duration;
 
 <span class="kw">use </span>core::num::NonZeroU32;
-
-<span class="kw">pub use </span>nix::fcntl::OFlag;
 
 <span class="doccomment">/// Raw handle for a drm resource
 </span><span class="kw">pub type </span>RawResourceHandle = NonZeroU32;
@@ -1644,6 +1651,45 @@
     RawResourceHandle::new(raw).map(T::from)
 }
 
+<span class="doccomment">/// Error from [`Device::get_planar_framebuffer`]
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub enum </span>GetPlanarFramebufferError {
+    <span class="doccomment">/// IO error
+    </span>Io(io::Error),
+    <span class="doccomment">/// Unrecognized fourcc format
+    </span>UnrecognizedFourcc(drm_fourcc::UnrecognizedFourcc),
+}
+
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>GetPlanarFramebufferError {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Io(err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;{}&quot;</span>, err),
+            <span class="self">Self</span>::UnrecognizedFourcc(err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;{}&quot;</span>, err),
+        }
+    }
+}
+
+<span class="kw">impl </span>error::Error <span class="kw">for </span>GetPlanarFramebufferError {
+    <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span>error::Error + <span class="lifetime">&#39;static</span>)&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Io(err) =&gt; <span class="prelude-val">Some</span>(err),
+            <span class="self">Self</span>::UnrecognizedFourcc(err) =&gt; <span class="prelude-val">Some</span>(err),
+        }
+    }
+}
+
+<span class="kw">impl </span>From&lt;io::Error&gt; <span class="kw">for </span>GetPlanarFramebufferError {
+    <span class="kw">fn </span>from(err: io::Error) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::Io(err)
+    }
+}
+
+<span class="kw">impl </span>From&lt;UnrecognizedFourcc&gt; <span class="kw">for </span>GetPlanarFramebufferError {
+    <span class="kw">fn </span>from(err: UnrecognizedFourcc) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::UnrecognizedFourcc(err)
+    }
+}
+
 <span class="doccomment">/// This trait should be implemented by any object that acts as a DRM device and
 /// provides modesetting functionality.
 ///
@@ -1659,14 +1705,14 @@
 /// ```
 </span><span class="kw">pub trait </span>Device: <span class="kw">super</span>::Device {
     <span class="doccomment">/// Gets the set of resource handles that this device currently controls
-    </span><span class="kw">fn </span>resource_handles(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;ResourceHandles, SystemError&gt; {
+    </span><span class="kw">fn </span>resource_handles(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; io::Result&lt;ResourceHandles&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>fbs = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>crtcs = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>connectors = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>encoders = Vec::new();
 
         <span class="kw">let </span>ffi_res = ffi::mode::get_resources(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>fbs),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>crtcs),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>connectors),
@@ -1688,9 +1734,9 @@
     }
 
     <span class="doccomment">/// Gets the set of plane handles that this device currently has
-    </span><span class="kw">fn </span>plane_handles(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;plane::Handle&gt;, SystemError&gt; {
+    </span><span class="kw">fn </span>plane_handles(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; io::Result&lt;Vec&lt;plane::Handle&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>planes = Vec::new();
-        <span class="kw">let _ </span>= ffi::mode::get_plane_resources(<span class="self">self</span>.as_fd().as_raw_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>planes))<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= ffi::mode::get_plane_resources(<span class="self">self</span>.as_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>planes))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="kw">unsafe </span>{ transmute_vec_from_u32(planes) })
     }
 
@@ -1709,13 +1755,13 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         handle: connector::Handle,
         force_probe: bool,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;connector::Info, SystemError&gt; {
+    ) -&gt; io::Result&lt;connector::Info&gt; {
         <span class="comment">// Maximum number of encoders is 3 due to kernel restrictions
         </span><span class="kw">let </span><span class="kw-2">mut </span>encoders = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>modes = Vec::new();
 
         <span class="kw">let </span>ffi_info = ffi::mode::get_connector(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             <span class="prelude-val">None</span>,
             <span class="prelude-val">None</span>,
@@ -1743,8 +1789,8 @@
     }
 
     <span class="doccomment">/// Returns information about a specific encoder
-    </span><span class="kw">fn </span>get_encoder(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: encoder::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;encoder::Info, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::mode::get_encoder(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>get_encoder(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: encoder::Handle) -&gt; io::Result&lt;encoder::Info&gt; {
+        <span class="kw">let </span>info = ffi::mode::get_encoder(<span class="self">self</span>.as_fd(), handle.into())<span class="question-mark">?</span>;
 
         <span class="kw">let </span>enc = encoder::Info {
             handle,
@@ -1758,8 +1804,8 @@
     }
 
     <span class="doccomment">/// Returns information about a specific CRTC
-    </span><span class="kw">fn </span>get_crtc(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: crtc::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;crtc::Info, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::mode::get_crtc(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>get_crtc(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: crtc::Handle) -&gt; io::Result&lt;crtc::Info&gt; {
+        <span class="kw">let </span>info = ffi::mode::get_crtc(<span class="self">self</span>.as_fd(), handle.into())<span class="question-mark">?</span>;
 
         <span class="kw">let </span>crtc = crtc::Info {
             handle,
@@ -1783,9 +1829,9 @@
         pos: (u32, u32),
         conns: <span class="kw-2">&amp;</span>[connector::Handle],
         mode: <span class="prelude-ty">Option</span>&lt;Mode&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         <span class="kw">let </span>_info = ffi::mode::set_crtc(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             framebuffer.map(Into::into).unwrap_or(<span class="number">0</span>),
             pos.<span class="number">0</span>,
@@ -1798,11 +1844,8 @@
     }
 
     <span class="doccomment">/// Returns information about a specific framebuffer
-    </span><span class="kw">fn </span>get_framebuffer(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        handle: framebuffer::Handle,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;framebuffer::Info, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::mode::get_framebuffer(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>get_framebuffer(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: framebuffer::Handle) -&gt; io::Result&lt;framebuffer::Info&gt; {
+        <span class="kw">let </span>info = ffi::mode::get_framebuffer(<span class="self">self</span>.as_fd(), handle.into())<span class="question-mark">?</span>;
 
         <span class="kw">let </span>fb = framebuffer::Info {
             handle,
@@ -1820,13 +1863,10 @@
     </span><span class="kw">fn </span>get_planar_framebuffer(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         handle: framebuffer::Handle,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;framebuffer::PlanarInfo, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::mode::get_framebuffer2(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())<span class="question-mark">?</span>;
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;framebuffer::PlanarInfo, GetPlanarFramebufferError&gt; {
+        <span class="kw">let </span>info = ffi::mode::get_framebuffer2(<span class="self">self</span>.as_fd(), handle.into())<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>pixel_format = <span class="kw">match </span>DrmFourcc::try_from(info.pixel_format) {
-            <span class="prelude-val">Ok</span>(pixel_format) =&gt; pixel_format,
-            <span class="prelude-val">Err</span>(UnrecognizedFourcc(<span class="kw">_</span>)) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(SystemError::UnknownFourcc),
-        };
+        <span class="kw">let </span>pixel_format = DrmFourcc::try_from(info.pixel_format)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>flags = FbCmd2Flags::from_bits_truncate(info.flags);
         <span class="kw">let </span>modifier = flags
@@ -1853,13 +1893,13 @@
         buffer: <span class="kw-2">&amp;</span>B,
         depth: u32,
         bpp: u32,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;framebuffer::Handle, SystemError&gt;
+    ) -&gt; io::Result&lt;framebuffer::Handle&gt;
     <span class="kw">where
         </span>B: buffer::Buffer + <span class="question-mark">?</span>Sized,
     {
         <span class="kw">let </span>(w, h) = buffer.size();
         <span class="kw">let </span>info = ffi::mode::add_fb(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             w,
             h,
             buffer.pitch(),
@@ -1876,7 +1916,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         planar_buffer: <span class="kw-2">&amp;</span>B,
         flags: FbCmd2Flags,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;framebuffer::Handle, SystemError&gt;
+    ) -&gt; io::Result&lt;framebuffer::Handle&gt;
     <span class="kw">where
         </span>B: buffer::PlanarBuffer + <span class="question-mark">?</span>Sized,
     {
@@ -1901,7 +1941,7 @@
         ];
 
         <span class="kw">let </span>info = ffi::mode::add_fb2(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             w,
             h,
             planar_buffer.format() <span class="kw">as </span>u32,
@@ -1916,12 +1956,8 @@
     }
 
     <span class="doccomment">/// Mark parts of a framebuffer dirty
-    </span><span class="kw">fn </span>dirty_framebuffer(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        handle: framebuffer::Handle,
-        clips: <span class="kw-2">&amp;</span>[ClipRect],
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::mode::dirty_fb(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into(), <span class="kw">unsafe </span>{
+    </span><span class="kw">fn </span>dirty_framebuffer(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: framebuffer::Handle, clips: <span class="kw-2">&amp;</span>[ClipRect]) -&gt; io::Result&lt;()&gt; {
+        ffi::mode::dirty_fb(<span class="self">self</span>.as_fd(), handle.into(), <span class="kw">unsafe </span>{
             <span class="comment">// SAFETY: ClipRect is repr(transparent) for drm_clip_rect
             </span>core::slice::from_raw_parts(clips.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>ffi::drm_clip_rect, clips.len())
         })<span class="question-mark">?</span>;
@@ -1929,16 +1965,15 @@
     }
 
     <span class="doccomment">/// Destroy a framebuffer
-    </span><span class="kw">fn </span>destroy_framebuffer(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: framebuffer::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::mode::rm_fb(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())
+    </span><span class="kw">fn </span>destroy_framebuffer(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: framebuffer::Handle) -&gt; io::Result&lt;()&gt; {
+        ffi::mode::rm_fb(<span class="self">self</span>.as_fd(), handle.into())
     }
 
     <span class="doccomment">/// Returns information about a specific plane
-    </span><span class="kw">fn </span>get_plane(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: plane::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;plane::Info, SystemError&gt; {
+    </span><span class="kw">fn </span>get_plane(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: plane::Handle) -&gt; io::Result&lt;plane::Info&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>formats = Vec::new();
 
-        <span class="kw">let </span>info =
-            ffi::mode::get_plane(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>formats))<span class="question-mark">?</span>;
+        <span class="kw">let </span>info = ffi::mode::get_plane(<span class="self">self</span>.as_fd(), handle.into(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>formats))<span class="question-mark">?</span>;
 
         <span class="kw">let </span>plane = plane::Info {
             handle,
@@ -1962,9 +1997,9 @@
         flags: u32,
         crtc_rect: (i32, i32, u32, u32),
         src_rect: (u32, u32, u32, u32),
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         <span class="kw">let </span>_info = ffi::mode::set_plane(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             crtc.into(),
             framebuffer.map(Into::into).unwrap_or(<span class="number">0</span>),
@@ -1983,12 +2018,12 @@
     }
 
     <span class="doccomment">/// Returns information about a specific property.
-    </span><span class="kw">fn </span>get_property(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: property::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;property::Info, SystemError&gt; {
+    </span><span class="kw">fn </span>get_property(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: property::Handle) -&gt; io::Result&lt;property::Info&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>values = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>enums = Vec::new();
 
         <span class="kw">let </span>info = ffi::mode::get_property(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>values),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>enums),
@@ -2057,49 +2092,42 @@
         handle: T,
         prop: property::Handle,
         value: property::RawValue,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::mode::set_property(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
-            prop.into(),
-            handle.into(),
-            T::FFI_TYPE,
-            value,
-        )<span class="question-mark">?</span>;
+    ) -&gt; io::Result&lt;()&gt; {
+        ffi::mode::set_property(<span class="self">self</span>.as_fd(), prop.into(), handle.into(), T::FFI_TYPE, value)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="doccomment">/// Create a property blob value from a given data blob
-    </span><span class="kw">fn </span>create_property_blob&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Result</span>&lt;property::Value&lt;<span class="lifetime">&#39;static</span>&gt;, SystemError&gt; {
+    </span><span class="kw">fn </span>create_property_blob&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;</span>T) -&gt; io::Result&lt;property::Value&lt;<span class="lifetime">&#39;static</span>&gt;&gt; {
         <span class="kw">let </span>data = <span class="kw">unsafe </span>{
             std::slice::from_raw_parts_mut(data <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><span class="kw-2">*mut </span>u8, mem::size_of::&lt;T&gt;())
         };
-        <span class="kw">let </span>blob = ffi::mode::create_property_blob(<span class="self">self</span>.as_fd().as_raw_fd(), data)<span class="question-mark">?</span>;
+        <span class="kw">let </span>blob = ffi::mode::create_property_blob(<span class="self">self</span>.as_fd(), data)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(property::Value::Blob(blob.blob_id.into()))
     }
 
     <span class="doccomment">/// Get a property blob&#39;s data
-    </span><span class="kw">fn </span>get_property_blob(<span class="kw-2">&amp;</span><span class="self">self</span>, blob: u64) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;, SystemError&gt; {
+    </span><span class="kw">fn </span>get_property_blob(<span class="kw-2">&amp;</span><span class="self">self</span>, blob: u64) -&gt; io::Result&lt;Vec&lt;u8&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>data = Vec::new();
-        <span class="kw">let _ </span>=
-            ffi::mode::get_property_blob(<span class="self">self</span>.as_fd().as_raw_fd(), blob <span class="kw">as </span>u32, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>data))<span class="question-mark">?</span>;
+        <span class="kw">let _ </span>= ffi::mode::get_property_blob(<span class="self">self</span>.as_fd(), blob <span class="kw">as </span>u32, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>data))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(data)
     }
 
     <span class="doccomment">/// Destroy a given property blob value
-    </span><span class="kw">fn </span>destroy_property_blob(<span class="kw-2">&amp;</span><span class="self">self</span>, blob: u64) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::mode::destroy_property_blob(<span class="self">self</span>.as_fd().as_raw_fd(), blob <span class="kw">as </span>u32)<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>destroy_property_blob(<span class="kw-2">&amp;</span><span class="self">self</span>, blob: u64) -&gt; io::Result&lt;()&gt; {
+        ffi::mode::destroy_property_blob(<span class="self">self</span>.as_fd(), blob <span class="kw">as </span>u32)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="doccomment">/// Returns the set of [`Mode`]s that a particular connector supports.
-    </span><span class="kw">fn </span>get_modes(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: connector::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Mode&gt;, SystemError&gt; {
+    </span><span class="kw">fn </span>get_modes(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: connector::Handle) -&gt; io::Result&lt;Vec&lt;Mode&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>modes = Vec::new();
 
         <span class="kw">let </span>_ffi_info = ffi::mode::get_connector(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             <span class="prelude-val">None</span>,
             <span class="prelude-val">None</span>,
@@ -2112,15 +2140,12 @@
     }
 
     <span class="doccomment">/// Gets a list of property handles and values for this resource.
-    </span><span class="kw">fn </span>get_properties&lt;T: ResourceHandle&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        handle: T,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;PropertyValueSet, SystemError&gt; {
+    </span><span class="kw">fn </span>get_properties&lt;T: ResourceHandle&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: T) -&gt; io::Result&lt;PropertyValueSet&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>prop_ids = Vec::new();
         <span class="kw">let </span><span class="kw-2">mut </span>prop_vals = Vec::new();
 
         ffi::mode::get_properties(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             T::FFI_TYPE,
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>prop_ids),
@@ -2142,17 +2167,17 @@
         red: <span class="kw-2">&amp;mut </span>[u16],
         green: <span class="kw-2">&amp;mut </span>[u16],
         blue: <span class="kw-2">&amp;mut </span>[u16],
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         <span class="kw">let </span>crtc_info = <span class="self">self</span>.get_crtc(crtc)<span class="question-mark">?</span>;
         <span class="kw">if </span>crtc_info.gamma_length <span class="kw">as </span>usize &gt; red.len()
             || crtc_info.gamma_length <span class="kw">as </span>usize &gt; green.len()
             || crtc_info.gamma_length <span class="kw">as </span>usize &gt; blue.len()
         {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(SystemError::InvalidArgument);
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Errno::INVAL.into());
         }
 
         ffi::mode::get_gamma(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             crtc.into(),
             crtc_info.gamma_length <span class="kw">as </span>usize,
             red,
@@ -2170,17 +2195,17 @@
         red: <span class="kw-2">&amp;</span>[u16],
         green: <span class="kw-2">&amp;</span>[u16],
         blue: <span class="kw-2">&amp;</span>[u16],
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         <span class="kw">let </span>crtc_info = <span class="self">self</span>.get_crtc(crtc)<span class="question-mark">?</span>;
         <span class="kw">if </span>crtc_info.gamma_length <span class="kw">as </span>usize &gt; red.len()
             || crtc_info.gamma_length <span class="kw">as </span>usize &gt; green.len()
             || crtc_info.gamma_length <span class="kw">as </span>usize &gt; blue.len()
         {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(SystemError::InvalidArgument);
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Errno::INVAL.into());
         }
 
         ffi::mode::set_gamma(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             crtc.into(),
             crtc_info.gamma_length <span class="kw">as </span>usize,
             red,
@@ -2192,14 +2217,14 @@
     }
 
     <span class="doccomment">/// Open a GEM buffer handle by name
-    </span><span class="kw">fn </span>open_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, name: buffer::Name) -&gt; <span class="prelude-ty">Result</span>&lt;buffer::Handle, SystemError&gt; {
-        <span class="kw">let </span>info = drm_ffi::gem::open(<span class="self">self</span>.as_fd().as_raw_fd(), name.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>open_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, name: buffer::Name) -&gt; io::Result&lt;buffer::Handle&gt; {
+        <span class="kw">let </span>info = drm_ffi::gem::open(<span class="self">self</span>.as_fd(), name.into())<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(from_u32(info.handle).unwrap())
     }
 
     <span class="doccomment">/// Close a GEM buffer handle
-    </span><span class="kw">fn </span>close_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: buffer::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        <span class="kw">let </span>_info = drm_ffi::gem::close(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>close_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: buffer::Handle) -&gt; io::Result&lt;()&gt; {
+        <span class="kw">let </span>_info = drm_ffi::gem::close(<span class="self">self</span>.as_fd(), handle.into())<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -2209,9 +2234,8 @@
         size: (u32, u32),
         format: buffer::DrmFourcc,
         bpp: u32,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;DumbBuffer, SystemError&gt; {
-        <span class="kw">let </span>info =
-            drm_ffi::mode::dumbbuffer::create(<span class="self">self</span>.as_fd().as_raw_fd(), size.<span class="number">0</span>, size.<span class="number">1</span>, bpp, <span class="number">0</span>)<span class="question-mark">?</span>;
+    ) -&gt; io::Result&lt;DumbBuffer&gt; {
+        <span class="kw">let </span>info = drm_ffi::mode::dumbbuffer::create(<span class="self">self</span>.as_fd(), size.<span class="number">0</span>, size.<span class="number">1</span>, bpp, <span class="number">0</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>dumb = DumbBuffer {
             size: (info.width, info.height),
@@ -2224,35 +2248,29 @@
         <span class="prelude-val">Ok</span>(dumb)
     }
     <span class="doccomment">/// Map the buffer for access
-    </span><span class="kw">fn </span>map_dumb_buffer&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        buffer: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>DumbBuffer,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;DumbMapping&lt;<span class="lifetime">&#39;a</span>&gt;, SystemError&gt; {
-        <span class="kw">let </span>info =
-            drm_ffi::mode::dumbbuffer::map(<span class="self">self</span>.as_fd().as_raw_fd(), buffer.handle.into(), <span class="number">0</span>, <span class="number">0</span>)<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>map_dumb_buffer&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>DumbBuffer) -&gt; io::Result&lt;DumbMapping&lt;<span class="lifetime">&#39;a</span>&gt;&gt; {
+        <span class="kw">let </span>info = drm_ffi::mode::dumbbuffer::map(<span class="self">self</span>.as_fd(), buffer.handle.into(), <span class="number">0</span>, <span class="number">0</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>map = {
-            <span class="kw">use </span>nix::sys::mman;
-            <span class="kw">let </span>prot = mman::ProtFlags::PROT_READ | mman::ProtFlags::PROT_WRITE;
-            <span class="kw">let </span>flags = mman::MapFlags::MAP_SHARED;
-            <span class="kw">let </span>length = NonZeroUsize::new(buffer.length).ok_or(SystemError::InvalidArgument)<span class="question-mark">?</span>;
+            <span class="kw">use </span>rustix::mm;
+            <span class="kw">let </span>prot = mm::ProtFlags::READ | mm::ProtFlags::WRITE;
+            <span class="kw">let </span>flags = mm::MapFlags::SHARED;
             <span class="kw">let </span>fd = <span class="self">self</span>.as_fd();
             <span class="kw">let </span>offset = info.offset <span class="kw">as _</span>;
-            <span class="kw">unsafe </span>{ mman::mmap(<span class="prelude-val">None</span>, length, prot, flags, <span class="prelude-val">Some</span>(fd), offset)<span class="question-mark">? </span>}
+            <span class="kw">unsafe </span>{ mm::mmap(std::ptr::null_mut(), buffer.length, prot, flags, fd, offset)<span class="question-mark">? </span>}
         };
 
         <span class="kw">let </span>mapping = DumbMapping {
-            _phantom: ::std::marker::PhantomData,
-            map: <span class="kw">unsafe </span>{ ::std::slice::from_raw_parts_mut(map <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>, buffer.length) },
+            _phantom: std::marker::PhantomData,
+            map: <span class="kw">unsafe </span>{ std::slice::from_raw_parts_mut(map <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>, buffer.length) },
         };
 
         <span class="prelude-val">Ok</span>(mapping)
     }
 
     <span class="doccomment">/// Free the memory resources of a dumb buffer
-    </span><span class="kw">fn </span>destroy_dumb_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: DumbBuffer) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        <span class="kw">let </span>_info =
-            drm_ffi::mode::dumbbuffer::destroy(<span class="self">self</span>.as_fd().as_raw_fd(), buffer.handle.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>destroy_dumb_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: DumbBuffer) -&gt; io::Result&lt;()&gt; {
+        <span class="kw">let </span>_info = drm_ffi::mode::dumbbuffer::destroy(<span class="self">self</span>.as_fd(), buffer.handle.into())<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -2262,7 +2280,7 @@
     /// A buffer argument of [`None`] will clear the cursor.
     </span><span class="attr">#[deprecated(note = <span class="string">&quot;Usage of deprecated ioctl set_cursor: use a cursor plane instead&quot;</span>)]
     #[allow(deprecated)]
-    </span><span class="kw">fn </span>set_cursor&lt;B&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, crtc: crtc::Handle, buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>B&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt;
+    </span><span class="kw">fn </span>set_cursor&lt;B&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, crtc: crtc::Handle, buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>B&gt;) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>B: buffer::Buffer + <span class="question-mark">?</span>Sized,
     {
@@ -2272,7 +2290,7 @@
                 (buf.handle().into(), w, h)
             })
             .unwrap_or((<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));
-        drm_ffi::mode::set_cursor(<span class="self">self</span>.as_fd().as_raw_fd(), crtc.into(), id, w, h)<span class="question-mark">?</span>;
+        drm_ffi::mode::set_cursor(<span class="self">self</span>.as_fd(), crtc.into(), id, w, h)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -2288,7 +2306,7 @@
         crtc: crtc::Handle,
         buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>B&gt;,
         hotspot: (i32, i32),
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt;
+    ) -&gt; io::Result&lt;()&gt;
     <span class="kw">where
         </span>B: buffer::Buffer + <span class="question-mark">?</span>Sized,
     {
@@ -2298,15 +2316,7 @@
                 (buf.handle().into(), w, h)
             })
             .unwrap_or((<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));
-        drm_ffi::mode::set_cursor2(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
-            crtc.into(),
-            id,
-            w,
-            h,
-            hotspot.<span class="number">0</span>,
-            hotspot.<span class="number">1</span>,
-        )<span class="question-mark">?</span>;
+        drm_ffi::mode::set_cursor2(<span class="self">self</span>.as_fd(), crtc.into(), id, w, h, hotspot.<span class="number">0</span>, hotspot.<span class="number">1</span>)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -2314,8 +2324,8 @@
     <span class="doccomment">/// Moves a set cursor on a given crtc
     </span><span class="attr">#[deprecated(note = <span class="string">&quot;Usage of deprecated ioctl move_cursor: use a cursor plane instead&quot;</span>)]
     #[allow(deprecated)]
-    </span><span class="kw">fn </span>move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, crtc: crtc::Handle, pos: (i32, i32)) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        drm_ffi::mode::move_cursor(<span class="self">self</span>.as_fd().as_raw_fd(), crtc.into(), pos.<span class="number">0</span>, pos.<span class="number">1</span>)<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, crtc: crtc::Handle, pos: (i32, i32)) -&gt; io::Result&lt;()&gt; {
+        drm_ffi::mode::move_cursor(<span class="self">self</span>.as_fd(), crtc.into(), pos.<span class="number">0</span>, pos.<span class="number">1</span>)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -2325,9 +2335,9 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         flags: AtomicCommitFlags,
         <span class="kw-2">mut </span>req: atomic::AtomicModeReq,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         drm_ffi::mode::atomic_commit(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             flags.bits(),
             <span class="kw">unsafe </span>{ <span class="kw-2">&amp;mut *</span>(<span class="kw-2">&amp;mut *</span>req.objects <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_ as </span><span class="kw-2">*mut </span>[u32]) },
             <span class="kw-2">&amp;mut </span>req.count_props_per_object,
@@ -2337,15 +2347,15 @@
     }
 
     <span class="doccomment">/// Convert a prime file descriptor to a GEM buffer handle
-    </span><span class="kw">fn </span>prime_fd_to_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, fd: RawFd) -&gt; <span class="prelude-ty">Result</span>&lt;buffer::Handle, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::gem::fd_to_handle(<span class="self">self</span>.as_fd().as_raw_fd(), fd)<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>prime_fd_to_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; io::Result&lt;buffer::Handle&gt; {
+        <span class="kw">let </span>info = ffi::gem::fd_to_handle(<span class="self">self</span>.as_fd(), fd)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(from_u32(info.handle).unwrap())
     }
 
     <span class="doccomment">/// Convert a GEM buffer handle to a prime file descriptor
-    </span><span class="kw">fn </span>buffer_to_prime_fd(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: buffer::Handle, flags: u32) -&gt; <span class="prelude-ty">Result</span>&lt;RawFd, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::gem::handle_to_fd(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into(), flags)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(info.fd)
+    </span><span class="kw">fn </span>buffer_to_prime_fd(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: buffer::Handle, flags: u32) -&gt; io::Result&lt;OwnedFd&gt; {
+        <span class="kw">let </span>info = ffi::gem::handle_to_fd(<span class="self">self</span>.as_fd(), handle.into(), flags)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="kw">unsafe </span>{ OwnedFd::from_raw_fd(info.fd) })
     }
 
     <span class="doccomment">/// Queue a page flip on the given crtc
@@ -2355,7 +2365,7 @@
         framebuffer: framebuffer::Handle,
         flags: PageFlipFlags,
         target_sequence: <span class="prelude-ty">Option</span>&lt;PageFlipTarget&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>flags = flags.bits();
 
         <span class="kw">let </span>sequence = <span class="kw">match </span>target_sequence {
@@ -2371,7 +2381,7 @@
         };
 
         ffi::mode::page_flip(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             handle.into(),
             framebuffer.into(),
             flags,
@@ -2382,14 +2392,14 @@
     }
 
     <span class="doccomment">/// Creates a syncobj.
-    </span><span class="kw">fn </span>create_syncobj(<span class="kw-2">&amp;</span><span class="self">self</span>, signalled: bool) -&gt; <span class="prelude-ty">Result</span>&lt;syncobj::Handle, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::syncobj::create(<span class="self">self</span>.as_fd().as_raw_fd(), signalled)<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>create_syncobj(<span class="kw-2">&amp;</span><span class="self">self</span>, signalled: bool) -&gt; io::Result&lt;syncobj::Handle&gt; {
+        <span class="kw">let </span>info = ffi::syncobj::create(<span class="self">self</span>.as_fd(), signalled)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(from_u32(info.handle).unwrap())
     }
 
     <span class="doccomment">/// Destroys a syncobj.
-    </span><span class="kw">fn </span>destroy_syncobj(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: syncobj::Handle) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::syncobj::destroy(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into())<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>destroy_syncobj(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: syncobj::Handle) -&gt; io::Result&lt;()&gt; {
+        ffi::syncobj::destroy(<span class="self">self</span>.as_fd(), handle.into())<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -2398,19 +2408,18 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         handle: syncobj::Handle,
         export_sync_file: bool,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;syncobj::SyncFile, SystemError&gt; {
-        <span class="kw">let </span>info =
-            ffi::syncobj::handle_to_fd(<span class="self">self</span>.as_fd().as_raw_fd(), handle.into(), export_sync_file)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="kw">unsafe </span>{ syncobj::SyncFile::from_raw_fd(info.fd) })
+    ) -&gt; io::Result&lt;OwnedFd&gt; {
+        <span class="kw">let </span>info = ffi::syncobj::handle_to_fd(<span class="self">self</span>.as_fd(), handle.into(), export_sync_file)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="kw">unsafe </span>{ OwnedFd::from_raw_fd(info.fd) })
     }
 
     <span class="doccomment">/// Imports a file descriptor exported by [`Self::syncobj_to_fd`] back into a process-local handle.
     </span><span class="kw">fn </span>fd_to_syncobj(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        fd: RawFd,
+        fd: BorrowedFd&lt;<span class="lifetime">&#39;_</span>&gt;,
         import_sync_file: bool,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;syncobj::Handle, SystemError&gt; {
-        <span class="kw">let </span>info = ffi::syncobj::fd_to_handle(<span class="self">self</span>.as_fd().as_raw_fd(), fd, import_sync_file)<span class="question-mark">?</span>;
+    ) -&gt; io::Result&lt;syncobj::Handle&gt; {
+        <span class="kw">let </span>info = ffi::syncobj::fd_to_handle(<span class="self">self</span>.as_fd(), fd, import_sync_file)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(from_u32(info.handle).unwrap())
     }
 
@@ -2421,9 +2430,9 @@
         timeout_nsec: i64,
         wait_all: bool,
         wait_for_submit: bool,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;u32, SystemError&gt; {
+    ) -&gt; io::Result&lt;u32&gt; {
         <span class="kw">let </span>info = ffi::syncobj::wait(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             bytemuck::cast_slice(handles),
             timeout_nsec,
             wait_all,
@@ -2433,14 +2442,14 @@
     }
 
     <span class="doccomment">/// Resets (un-signals) one or more syncobjs.
-    </span><span class="kw">fn </span>syncobj_reset(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;</span>[syncobj::Handle]) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::syncobj::reset(<span class="self">self</span>.as_fd().as_raw_fd(), bytemuck::cast_slice(handles))<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>syncobj_reset(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;</span>[syncobj::Handle]) -&gt; io::Result&lt;()&gt; {
+        ffi::syncobj::reset(<span class="self">self</span>.as_fd(), bytemuck::cast_slice(handles))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="doccomment">/// Signals one or more syncobjs.
-    </span><span class="kw">fn </span>syncobj_signal(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;</span>[syncobj::Handle]) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::syncobj::signal(<span class="self">self</span>.as_fd().as_raw_fd(), bytemuck::cast_slice(handles))<span class="question-mark">?</span>;
+    </span><span class="kw">fn </span>syncobj_signal(<span class="kw-2">&amp;</span><span class="self">self</span>, handles: <span class="kw-2">&amp;</span>[syncobj::Handle]) -&gt; io::Result&lt;()&gt; {
+        ffi::syncobj::signal(<span class="self">self</span>.as_fd(), bytemuck::cast_slice(handles))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -2453,9 +2462,9 @@
         wait_all: bool,
         wait_for_submit: bool,
         wait_available: bool,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;u32, SystemError&gt; {
+    ) -&gt; io::Result&lt;u32&gt; {
         <span class="kw">let </span>info = ffi::syncobj::timeline_wait(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             bytemuck::cast_slice(handles),
             points,
             timeout_nsec,
@@ -2472,9 +2481,9 @@
         handles: <span class="kw-2">&amp;</span>[syncobj::Handle],
         points: <span class="kw-2">&amp;mut </span>[u64],
         last_submitted: bool,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         ffi::syncobj::query(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             bytemuck::cast_slice(handles),
             points,
             last_submitted,
@@ -2489,9 +2498,9 @@
         dst_handle: syncobj::Handle,
         src_point: u64,
         dst_point: u64,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
+    ) -&gt; io::Result&lt;()&gt; {
         ffi::syncobj::transfer(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
+            <span class="self">self</span>.as_fd(),
             src_handle.into(),
             dst_handle.into(),
             src_point,
@@ -2505,12 +2514,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         handles: <span class="kw-2">&amp;</span>[syncobj::Handle],
         points: <span class="kw-2">&amp;</span>[u64],
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::syncobj::timeline_signal(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
-            bytemuck::cast_slice(handles),
-            points,
-        )<span class="question-mark">?</span>;
+    ) -&gt; io::Result&lt;()&gt; {
+        ffi::syncobj::timeline_signal(<span class="self">self</span>.as_fd(), bytemuck::cast_slice(handles), points)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -2518,13 +2523,9 @@
     </span><span class="kw">fn </span>create_lease(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         objects: <span class="kw-2">&amp;</span>[RawResourceHandle],
-        flags: OFlag,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(LeaseId, OwnedFd), SystemError&gt; {
-        <span class="kw">let </span>lease = ffi::mode::create_lease(
-            <span class="self">self</span>.as_fd().as_raw_fd(),
-            bytemuck::cast_slice(objects),
-            flags.bits() <span class="kw">as </span>u32,
-        )<span class="question-mark">?</span>;
+        flags: u32,
+    ) -&gt; io::Result&lt;(LeaseId, OwnedFd)&gt; {
+        <span class="kw">let </span>lease = ffi::mode::create_lease(<span class="self">self</span>.as_fd(), bytemuck::cast_slice(objects), flags)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>((
             <span class="kw">unsafe </span>{ NonZeroU32::new_unchecked(lease.lessee_id) },
             <span class="kw">unsafe </span>{ OwnedFd::from_raw_fd(lease.fd <span class="kw">as </span>RawFd) },
@@ -2532,24 +2533,24 @@
     }
 
     <span class="doccomment">/// List active lessees
-    </span><span class="kw">fn </span>list_lessees(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;LeaseId&gt;, SystemError&gt; {
+    </span><span class="kw">fn </span>list_lessees(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; io::Result&lt;Vec&lt;LeaseId&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>lessees = Vec::new();
-        ffi::mode::list_lessees(<span class="self">self</span>.as_fd().as_raw_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>lessees))<span class="question-mark">?</span>;
+        ffi::mode::list_lessees(<span class="self">self</span>.as_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>lessees))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="kw">unsafe </span>{ transmute_vec_from_u32(lessees) })
     }
 
     <span class="doccomment">/// Revoke a previously issued drm lease
-    </span><span class="kw">fn </span>revoke_lease(<span class="kw-2">&amp;</span><span class="self">self</span>, lessee_id: LeaseId) -&gt; <span class="prelude-ty">Result</span>&lt;(), SystemError&gt; {
-        ffi::mode::revoke_lease(<span class="self">self</span>.as_fd().as_raw_fd(), lessee_id.get())
+    </span><span class="kw">fn </span>revoke_lease(<span class="kw-2">&amp;</span><span class="self">self</span>, lessee_id: LeaseId) -&gt; io::Result&lt;()&gt; {
+        ffi::mode::revoke_lease(<span class="self">self</span>.as_fd(), lessee_id.get())
     }
 
     <span class="doccomment">/// Receive pending events
-    </span><span class="kw">fn </span>receive_events(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Events, SystemError&gt;
+    </span><span class="kw">fn </span>receive_events(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; io::Result&lt;Events&gt;
     <span class="kw">where
         </span><span class="self">Self</span>: Sized,
     {
         <span class="kw">let </span><span class="kw-2">mut </span>event_buf: [u8; <span class="number">1024</span>] = [<span class="number">0</span>; <span class="number">1024</span>];
-        <span class="kw">let </span>amount = ::nix::unistd::read(<span class="self">self</span>.as_fd().as_raw_fd(), <span class="kw-2">&amp;mut </span>event_buf)<span class="question-mark">?</span>;
+        <span class="kw">let </span>amount = rustix::io::read(<span class="self">self</span>.as_fd(), <span class="kw-2">&amp;mut </span>event_buf)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(Events::with_event_buf(event_buf, amount))
     }
@@ -2566,22 +2567,22 @@
 }
 
 <span class="doccomment">/// Query lease resources
-</span><span class="kw">pub fn </span>get_lease&lt;D: AsFd&gt;(lease: D) -&gt; <span class="prelude-ty">Result</span>&lt;LeaseResources, SystemError&gt; {
+</span><span class="kw">pub fn </span>get_lease&lt;D: AsFd&gt;(lease: D) -&gt; io::Result&lt;LeaseResources&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>crtcs = Vec::new();
     <span class="kw">let </span><span class="kw-2">mut </span>connectors = Vec::new();
     <span class="kw">let </span><span class="kw-2">mut </span>planes = Vec::new();
     <span class="kw">let </span><span class="kw-2">mut </span>objects = Vec::new();
 
-    ffi::mode::get_lease(lease.as_fd().as_raw_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>objects))<span class="question-mark">?</span>;
+    ffi::mode::get_lease(lease.as_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>objects))<span class="question-mark">?</span>;
 
     <span class="kw">let _ </span>= ffi::mode::get_resources(
-        lease.as_fd().as_raw_fd(),
+        lease.as_fd(),
         <span class="prelude-val">None</span>,
         <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>crtcs),
         <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>connectors),
         <span class="prelude-val">None</span>,
     )<span class="question-mark">?</span>;
-    <span class="kw">let _ </span>= ffi::mode::get_plane_resources(lease.as_fd().as_raw_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>planes))<span class="question-mark">?</span>;
+    <span class="kw">let _ </span>= ffi::mode::get_plane_resources(lease.as_fd(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut </span>planes))<span class="question-mark">?</span>;
 
     <span class="kw">unsafe </span>{
         <span class="prelude-val">Ok</span>(LeaseResources {
@@ -2872,8 +2873,8 @@
     }
 }
 
-<span class="kw">impl </span>std::fmt::Debug <span class="kw">for </span>Mode {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter) -&gt; std::fmt::Result {
+<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Mode {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         f.debug_struct(<span class="string">&quot;Mode&quot;</span>)
             .field(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.name())
             .field(<span class="string">&quot;clock&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.clock())
@@ -2988,6 +2989,17 @@
 }
 
 <span class="kw">impl </span>PropertyValueSet {
+    <span class="doccomment">/// Returns a HashMap mapping property names to info
+    </span><span class="kw">pub fn </span>as_hashmap(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span><span class="kw">impl </span>Device) -&gt; io::Result&lt;HashMap&lt;String, property::Info&gt;&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>map = HashMap::new();
+        <span class="kw">for </span>id <span class="kw">in </span><span class="self">self</span>.prop_ids.iter() {
+            <span class="kw">let </span>info = device.get_property(<span class="kw-2">*</span>id)<span class="question-mark">?</span>;
+            <span class="kw">let </span>name = info.name().to_str().unwrap().to_owned();
+            map.insert(name, info);
+        }
+        <span class="prelude-val">Ok</span>(map)
+    }
+
     <span class="doccomment">/// Returns a pair representing a set of [`property::Handle`] and their raw values
     </span><span class="kw">pub fn </span>as_props_and_values(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="kw-2">&amp;</span>[property::Handle], <span class="kw-2">&amp;</span>[property::RawValue]) {
         (<span class="kw-2">&amp;</span><span class="self">self</span>.prop_ids, <span class="kw-2">&amp;</span><span class="self">self</span>.prop_vals)

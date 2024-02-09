@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Event","Shell","State"],"struct":["ShellHandler"],"trait":["ShellHandling","ShellSurface"]};
+window.SIDEBAR_ITEMS = {"mod":["wlr_layer","xdg"],"struct":["Unsupported"],"trait":["WaylandSurface"]};

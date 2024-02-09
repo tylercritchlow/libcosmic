@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/client-toolkit-7d7953e59045198e/515820f/src/seat/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="smithay_client_toolkit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/smithay-client-toolkit-0.18.1/src/seat/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="smithay_client_toolkit" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -306,312 +306,806 @@
 <a href="#306" id="306">306</a>
 <a href="#307" id="307">307</a>
 <a href="#308" id="308">308</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Types for automatically handling seats
-//!
-//! This modules provides a `SeatHandler` for use with the
-//! [`environment!`](../macro.environment.html) macro. It is automatically inserted
-//! in the [`default_environment!`](../macro.default_environment.html).
-//!
-//! This handler tracks the capability of the seats declared by the compositor,
-//! and gives you the possibility to register callbacks that will be invoked whenever
-//! a new seat is created of the state of a seat changes, via the
-//! [`Environment::listen_for_seats`](../environment/struct.Environment.html) method.
-//!
-//! **Note:** if you don&#39;t use the [`default_environment!`](../macro.default_environment.html),
-//! you&#39;ll need to implement the [`SeatHandling`](trait.SeatHandling.hmtl) on your
-//! environment struct to access the added methods on
-//! [`Environment`](../environment/struct.Environment.html).
-
-</span><span class="kw">use </span>std::{
-    cell::RefCell,
-    fmt::{<span class="self">self</span>, Debug, Formatter},
-    rc::{Rc, Weak},
-    sync::Mutex,
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
+<a href="#453" id="453">453</a>
+<a href="#454" id="454">454</a>
+<a href="#455" id="455">455</a>
+<a href="#456" id="456">456</a>
+<a href="#457" id="457">457</a>
+<a href="#458" id="458">458</a>
+<a href="#459" id="459">459</a>
+<a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
+<a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
+<a href="#469" id="469">469</a>
+<a href="#470" id="470">470</a>
+<a href="#471" id="471">471</a>
+<a href="#472" id="472">472</a>
+<a href="#473" id="473">473</a>
+<a href="#474" id="474">474</a>
+<a href="#475" id="475">475</a>
+<a href="#476" id="476">476</a>
+<a href="#477" id="477">477</a>
+<a href="#478" id="478">478</a>
+<a href="#479" id="479">479</a>
+<a href="#480" id="480">480</a>
+<a href="#481" id="481">481</a>
+<a href="#482" id="482">482</a>
+<a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a>
+<a href="#489" id="489">489</a>
+<a href="#490" id="490">490</a>
+<a href="#491" id="491">491</a>
+<a href="#492" id="492">492</a>
+<a href="#493" id="493">493</a>
+<a href="#494" id="494">494</a>
+<a href="#495" id="495">495</a>
+<a href="#496" id="496">496</a>
+<a href="#497" id="497">497</a>
+<a href="#498" id="498">498</a>
+<a href="#499" id="499">499</a>
+<a href="#500" id="500">500</a>
+<a href="#501" id="501">501</a>
+<a href="#502" id="502">502</a>
+<a href="#503" id="503">503</a>
+<a href="#504" id="504">504</a>
+<a href="#505" id="505">505</a>
+<a href="#506" id="506">506</a>
+<a href="#507" id="507">507</a>
+<a href="#508" id="508">508</a>
+<a href="#509" id="509">509</a>
+<a href="#510" id="510">510</a>
+<a href="#511" id="511">511</a>
+<a href="#512" id="512">512</a>
+<a href="#513" id="513">513</a>
+<a href="#514" id="514">514</a>
+<a href="#515" id="515">515</a>
+<a href="#516" id="516">516</a>
+<a href="#517" id="517">517</a>
+<a href="#518" id="518">518</a>
+<a href="#519" id="519">519</a>
+<a href="#520" id="520">520</a>
+<a href="#521" id="521">521</a>
+<a href="#522" id="522">522</a>
+<a href="#523" id="523">523</a>
+<a href="#524" id="524">524</a>
+<a href="#525" id="525">525</a>
+<a href="#526" id="526">526</a>
+<a href="#527" id="527">527</a>
+<a href="#528" id="528">528</a>
+<a href="#529" id="529">529</a>
+<a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
+<a href="#544" id="544">544</a>
+<a href="#545" id="545">545</a>
+<a href="#546" id="546">546</a>
+<a href="#547" id="547">547</a>
+<a href="#548" id="548">548</a>
+<a href="#549" id="549">549</a>
+<a href="#550" id="550">550</a>
+<a href="#551" id="551">551</a>
+<a href="#552" id="552">552</a>
+<a href="#553" id="553">553</a>
+<a href="#554" id="554">554</a>
+<a href="#555" id="555">555</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+    fmt::{<span class="self">self</span>, Display, Formatter},
+    sync::{
+        atomic::{AtomicBool, Ordering},
+        Arc, Mutex,
+    },
 };
 
-<span class="kw">use </span>bitflags::bitflags;
-
-<span class="kw">use </span>wayland_client::{
-    protocol::{wl_registry, wl_seat},
-    Attached, DispatchData, Main,
+<span class="kw">use </span><span class="kw">crate</span>::reexports::client::{
+    globals::{Global, GlobalList},
+    protocol::{wl_pointer, wl_registry::WlRegistry, wl_seat, wl_shm, wl_surface, wl_touch},
+    Connection, Dispatch, Proxy, QueueHandle,
+};
+<span class="kw">use </span><span class="kw">crate</span>::reexports::protocols::wp::cursor_shape::v1::client::wp_cursor_shape_device_v1::WpCursorShapeDeviceV1;
+<span class="kw">use </span><span class="kw">crate</span>::reexports::protocols::wp::cursor_shape::v1::client::wp_cursor_shape_manager_v1::WpCursorShapeManagerV1;
+<span class="kw">use crate</span>::{
+    compositor::SurfaceDataExt,
+    globals::GlobalData,
+    registry::{ProvidesRegistryState, RegistryHandler},
 };
 
-<span class="kw">pub mod </span>keyboard;
+<span class="attr">#[cfg(feature = <span class="string">&quot;xkbcommon&quot;</span>)]
+</span><span class="kw">pub mod </span>keyboard;
 <span class="kw">pub mod </span>pointer;
+<span class="kw">pub mod </span>pointer_constraints;
+<span class="kw">pub mod </span>relative_pointer;
+<span class="kw">pub mod </span>touch;
 
-<span class="kw">type </span>SeatCallback = <span class="kw">dyn </span>FnMut(Attached&lt;wl_seat::WlSeat&gt;, <span class="kw-2">&amp;</span>SeatData, DispatchData) + <span class="lifetime">&#39;static</span>;
+<span class="kw">use </span>pointer::cursor_shape::CursorShapeManager;
+<span class="kw">use </span>pointer::{PointerData, PointerDataExt, PointerHandler, ThemeSpec, ThemedPointer, Themes};
+<span class="kw">use </span>touch::{TouchData, TouchDataExt, TouchHandler};
 
-<span class="doccomment">/// The metadata associated with a seat
-</span><span class="attr">#[derive(Clone)]
-</span><span class="kw">pub struct </span>SeatData {
-    <span class="doccomment">/// The name of this seat
-    ///
-    /// It can be used as an identifier for the seat
-    </span><span class="kw">pub </span>name: String,
-    <span class="doccomment">/// Whether this seat has a pointer available
-    </span><span class="kw">pub </span>has_pointer: bool,
-    <span class="doccomment">/// Whether this seat has a keyboard available
-    </span><span class="kw">pub </span>has_keyboard: bool,
-    <span class="doccomment">/// Whether this seat has a touchscreen available
-    </span><span class="kw">pub </span>has_touch: bool,
-    <span class="doccomment">/// Whether this seat has been removed from the registry
-    ///
-    /// Once a seat is removed, you will no longer receive any
-    /// event on any of its associated devices (pointer, keyboard or touch).
-    ///
-    /// You can thus cleanup all your state associated with this seat.
-    </span><span class="kw">pub </span>defunct: bool,
+<span class="attr">#[non_exhaustive]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+</span><span class="kw">pub enum </span>Capability {
+    Keyboard,
 
-    <span class="doccomment">/// State of readiness of the data.
-    </span>state: SeatDataState,
+    Pointer,
+
+    Touch,
 }
 
-<span class="macro">bitflags! </span>{
-    <span class="kw">struct </span>SeatDataState: u8 {
-        <span class="kw">const </span>NEW              = <span class="number">0b00000000</span>;
-        <span class="kw">const </span>GOT_NAME         = <span class="number">0b00000001</span>;
-        <span class="kw">const </span>GOT_CAPABILITIES = <span class="number">0b00000010</span>;
-        <span class="kw">const </span>READY            = <span class="self">Self</span>::GOT_NAME.bits | <span class="self">Self</span>::GOT_CAPABILITIES.bits;
-    }
-}
-
-<span class="kw">impl </span>Debug <span class="kw">for </span>SeatData {
+<span class="kw">impl </span>Display <span class="kw">for </span>Capability {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;SeatData&quot;</span>)
-            .field(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.name)
-            .field(<span class="string">&quot;has_pointer&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.has_pointer)
-            .field(<span class="string">&quot;has_keyboard&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.has_keyboard)
-            .field(<span class="string">&quot;has_touch&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.has_touch)
-            .field(<span class="string">&quot;defunct&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.defunct)
-            .finish()
-    }
-}
-
-<span class="kw">impl </span>SeatData {
-    <span class="kw">fn </span>new() -&gt; SeatData {
-        SeatData {
-            name: String::new(),
-            has_pointer: <span class="bool-val">false</span>,
-            has_keyboard: <span class="bool-val">false</span>,
-            has_touch: <span class="bool-val">false</span>,
-            defunct: <span class="bool-val">false</span>,
-            state: SeatDataState::NEW,
+        <span class="kw">match </span><span class="self">self </span>{
+            Capability::Keyboard =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;keyboard&quot;</span>),
+            Capability::Pointer =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;pointer&quot;</span>),
+            Capability::Touch =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;touch&quot;</span>),
         }
     }
 }
 
-<span class="doccomment">/// A simple handler for seats
-///
-/// This handler will manage seats and track their capabilities.
-///
-/// You can register callbacks using the [`SeatHandling::listen`](trait.SeatHandling.html)
-/// to be notified whenever a seat is created, destroyed, or its capabilities change.
-</span><span class="kw">pub struct </span>SeatHandler {
-    seats: Vec&lt;(u32, Attached&lt;wl_seat::WlSeat&gt;)&gt;,
-    listeners: Rc&lt;RefCell&lt;Vec&lt;Weak&lt;RefCell&lt;SeatCallback&gt;&gt;&gt;&gt;&gt;,
+<span class="attr">#[derive(Debug, thiserror::Error)]
+</span><span class="kw">pub enum </span>SeatError {
+    <span class="attr">#[error(<span class="string">&quot;the capability \&quot;{0}\&quot; is not supported&quot;</span>)]
+    </span><span class="doccomment">/// The capability is not supported.
+    </span>UnsupportedCapability(Capability),
+
+    <span class="doccomment">/// The seat is dead.
+    </span><span class="attr">#[error(<span class="string">&quot;the seat is dead&quot;</span>)]
+    </span>DeadObject,
 }
 
-<span class="kw">impl </span>SeatHandler {
-    <span class="doccomment">/// Create a new SeatHandler
-    </span><span class="kw">pub fn </span>new() -&gt; SeatHandler {
-        SeatHandler { seats: Vec::new(), listeners: Rc::new(RefCell::new(Vec::new())) }
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>SeatState {
+    <span class="comment">// (name, seat)
+    </span>seats: Vec&lt;SeatInner&gt;,
+    cursor_shape_manager_state: CursorShapeManagerState,
+}
+
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">enum </span>CursorShapeManagerState {
+    NotPresent,
+    Pending { registry: WlRegistry, global: Global },
+    Bound(CursorShapeManager),
+}
+
+<span class="kw">impl </span>SeatState {
+    <span class="kw">pub fn </span>new&lt;D: Dispatch&lt;wl_seat::WlSeat, SeatData&gt; + <span class="lifetime">&#39;static</span>&gt;(
+        global_list: <span class="kw-2">&amp;</span>GlobalList,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+    ) -&gt; SeatState {
+        <span class="kw">let </span>(seats, cursor_shape_manager) = global_list.contents().with_list(|globals| {
+            <span class="kw">let </span>global = globals
+                .iter()
+                .find(|global| global.interface == WpCursorShapeManagerV1::interface().name)
+                .map(|global| CursorShapeManagerState::Pending {
+                    registry: global_list.registry().clone(),
+                    global: global.clone(),
+                })
+                .unwrap_or(CursorShapeManagerState::NotPresent);
+
+            (
+                <span class="kw">crate</span>::registry::bind_all(global_list.registry(), globals, qh, <span class="number">1</span>..=<span class="number">7</span>, |id| {
+                    SeatData {
+                        has_keyboard: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+                        has_pointer: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+                        has_touch: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+                        name: Arc::new(Mutex::new(<span class="prelude-val">None</span>)),
+                        id,
+                    }
+                })
+                .expect(<span class="string">&quot;failed to bind global&quot;</span>),
+                global,
+            )
+        });
+
+        <span class="kw">let </span><span class="kw-2">mut </span>state =
+            SeatState { seats: <span class="macro">vec!</span>[], cursor_shape_manager_state: cursor_shape_manager };
+
+        <span class="kw">for </span>seat <span class="kw">in </span>seats {
+            <span class="kw">let </span>data = seat.data::&lt;SeatData&gt;().unwrap().clone();
+
+            state.seats.push(SeatInner { seat: seat.clone(), data });
+        }
+        state
     }
-}
 
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>SeatHandler {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;SeatHandler&quot;</span>)
-            .field(<span class="string">&quot;seats&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.seats)
-            .field(<span class="string">&quot;listeners&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;Fn(..) -&gt; { ... }&quot;</span>)
-            .finish()
+    <span class="doccomment">/// Returns an iterator over all the seats.
+    </span><span class="kw">pub fn </span>seats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl </span>Iterator&lt;Item = wl_seat::WlSeat&gt; {
+        <span class="self">self</span>.seats.iter().map(|inner| inner.seat.clone()).collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;().into_iter()
     }
-}
 
-<span class="doccomment">/// A handle to an seat listener callback
-///
-/// Dropping it disables the associated callback and frees the closure.
-</span><span class="kw">pub struct </span>SeatListener {
-    _cb: Rc&lt;RefCell&lt;SeatCallback&gt;&gt;,
-}
+    <span class="doccomment">/// Returns information about a seat.
+    ///
+    /// This will return [`None`] if the seat is dead.
+    </span><span class="kw">pub fn </span>info(<span class="kw-2">&amp;</span><span class="self">self</span>, seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat) -&gt; <span class="prelude-ty">Option</span>&lt;SeatInfo&gt; {
+        <span class="self">self</span>.seats.iter().find(|inner| <span class="kw-2">&amp;</span>inner.seat == seat).map(|inner| {
+            <span class="kw">let </span>name = inner.data.name.lock().unwrap().clone();
 
-<span class="kw">impl </span><span class="kw">crate</span>::environment::MultiGlobalHandler&lt;wl_seat::WlSeat&gt; <span class="kw">for </span>SeatHandler {
-    <span class="kw">fn </span>created(
+            SeatInfo {
+                name,
+                has_keyboard: inner.data.has_keyboard.load(Ordering::SeqCst),
+                has_pointer: inner.data.has_pointer.load(Ordering::SeqCst),
+                has_touch: inner.data.has_touch.load(Ordering::SeqCst),
+            }
+        })
+    }
+
+    <span class="doccomment">/// Creates a pointer from a seat.
+    ///
+    /// ## Errors
+    ///
+    /// This will return [`SeatError::UnsupportedCapability`] if the seat does not support a pointer.
+    </span><span class="kw">pub fn </span>get_pointer&lt;D&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        registry: Attached&lt;wl_registry::WlRegistry&gt;,
-        id: u32,
-        version: u32,
-        <span class="kw">_</span>: DispatchData,
-    ) {
-        <span class="comment">// Seat is supported up to version 6
-        </span><span class="kw">let </span>version = std::cmp::min(version, <span class="number">6</span>);
-        <span class="kw">let </span>seat = registry.bind::&lt;wl_seat::WlSeat&gt;(version, id);
-        seat.as_ref().user_data().set_threadsafe(|| Mutex::new(SeatData::new()));
-        <span class="kw">let </span>cb_listeners = <span class="self">self</span>.listeners.clone();
-        seat.quick_assign(<span class="kw">move </span>|seat, event, ddata| {
-            process_seat_event(seat, event, <span class="kw-2">&amp;</span>cb_listeners, ddata)
-        });
-        <span class="self">self</span>.seats.push((id, (<span class="kw-2">*</span>seat).clone()));
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;wl_pointer::WlPointer, SeatError&gt;
+    <span class="kw">where
+        </span>D: Dispatch&lt;wl_pointer::WlPointer, PointerData&gt; + PointerHandler + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="self">self</span>.get_pointer_with_data(qh, seat, PointerData::new(seat.clone()))
     }
-    <span class="kw">fn </span>removed(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: u32, <span class="kw-2">mut </span>ddata: DispatchData) {
-        <span class="kw">let </span><span class="kw-2">mut </span>listeners = <span class="self">self</span>.listeners.borrow_mut();
-        <span class="self">self</span>.seats.retain(|<span class="kw-2">&amp;</span>(i, <span class="kw-2">ref </span>seat)| {
-            <span class="kw">if </span>i != id {
-                <span class="bool-val">true
-            </span>} <span class="kw">else </span>{
-                <span class="comment">// This data must be `Mutex&lt;SeatData&gt;` if this seat is in our vec
-                </span><span class="kw">let </span>data = seat.as_ref().user_data().get::&lt;Mutex&lt;SeatData&gt;&gt;().unwrap();
-                <span class="kw">let </span><span class="kw-2">mut </span>guard = data.lock().unwrap();
-                guard.defunct = <span class="bool-val">true</span>;
-                <span class="comment">// notify the listeners that the seat is dead
-                </span>listeners.retain(|lst| {
-                    <span class="kw">if let </span><span class="prelude-val">Some</span>(cb) = Weak::upgrade(lst) {
-                        (cb.borrow_mut())(seat.clone(), <span class="kw-2">&amp;*</span>guard, ddata.reborrow());
-                        <span class="bool-val">true
-                    </span>} <span class="kw">else </span>{
-                        <span class="bool-val">false
-                    </span>}
-                });
-                <span class="bool-val">false
-            </span>}
-        });
+
+    <span class="doccomment">/// Creates a pointer from a seat with the provided theme.
+    ///
+    /// This will use [`CursorShapeManager`] under the hood when it&#39;s available.
+    ///
+    /// ## Errors
+    ///
+    /// This will return [`SeatError::UnsupportedCapability`] if the seat does not support a pointer.
+    </span><span class="kw">pub fn </span>get_pointer_with_theme&lt;D, S&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+        shm: <span class="kw-2">&amp;</span>wl_shm::WlShm,
+        surface: wl_surface::WlSurface,
+        theme: ThemeSpec,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;ThemedPointer&lt;PointerData&gt;, SeatError&gt;
+    <span class="kw">where
+        </span>D: Dispatch&lt;wl_pointer::WlPointer, PointerData&gt;
+            + Dispatch&lt;wl_surface::WlSurface, S&gt;
+            + Dispatch&lt;WpCursorShapeManagerV1, GlobalData&gt;
+            + Dispatch&lt;WpCursorShapeDeviceV1, GlobalData&gt;
+            + PointerHandler
+            + <span class="lifetime">&#39;static</span>,
+        S: SurfaceDataExt + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="self">self</span>.get_pointer_with_theme_and_data(
+            qh,
+            seat,
+            shm,
+            surface,
+            theme,
+            PointerData::new(seat.clone()),
+        )
     }
-    <span class="kw">fn </span>get_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Attached&lt;wl_seat::WlSeat&gt;&gt; {
-        <span class="self">self</span>.seats.iter().map(|(<span class="kw">_</span>, s)| s.clone()).collect()
+
+    <span class="doccomment">/// Creates a pointer from a seat.
+    ///
+    /// ## Errors
+    ///
+    /// This will return [`SeatError::UnsupportedCapability`] if the seat does not support a pointer.
+    </span><span class="kw">pub fn </span>get_pointer_with_data&lt;D, U&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+        pointer_data: U,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;wl_pointer::WlPointer, SeatError&gt;
+    <span class="kw">where
+        </span>D: Dispatch&lt;wl_pointer::WlPointer, U&gt; + PointerHandler + <span class="lifetime">&#39;static</span>,
+        U: PointerDataExt + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>inner =
+            <span class="self">self</span>.seats.iter().find(|inner| <span class="kw-2">&amp;</span>inner.seat == seat).ok_or(SeatError::DeadObject)<span class="question-mark">?</span>;
+
+        <span class="kw">if </span>!inner.data.has_pointer.load(Ordering::SeqCst) {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(SeatError::UnsupportedCapability(Capability::Pointer));
+        }
+
+        <span class="prelude-val">Ok</span>(seat.get_pointer(qh, pointer_data))
+    }
+
+    <span class="doccomment">/// Creates a pointer from a seat with the provided theme and data.
+    ///
+    /// ## Errors
+    ///
+    /// This will return [`SeatError::UnsupportedCapability`] if the seat does not support a pointer.
+    </span><span class="kw">pub fn </span>get_pointer_with_theme_and_data&lt;D, S, U&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+        shm: <span class="kw-2">&amp;</span>wl_shm::WlShm,
+        surface: wl_surface::WlSurface,
+        theme: ThemeSpec,
+        pointer_data: U,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;ThemedPointer&lt;U&gt;, SeatError&gt;
+    <span class="kw">where
+        </span>D: Dispatch&lt;wl_pointer::WlPointer, U&gt;
+            + Dispatch&lt;wl_surface::WlSurface, S&gt;
+            + Dispatch&lt;WpCursorShapeManagerV1, GlobalData&gt;
+            + Dispatch&lt;WpCursorShapeDeviceV1, GlobalData&gt;
+            + PointerHandler
+            + <span class="lifetime">&#39;static</span>,
+        S: SurfaceDataExt + <span class="lifetime">&#39;static</span>,
+        U: PointerDataExt + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>inner =
+            <span class="self">self</span>.seats.iter().find(|inner| <span class="kw-2">&amp;</span>inner.seat == seat).ok_or(SeatError::DeadObject)<span class="question-mark">?</span>;
+
+        <span class="kw">if </span>!inner.data.has_pointer.load(Ordering::SeqCst) {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(SeatError::UnsupportedCapability(Capability::Pointer));
+        }
+
+        <span class="kw">let </span>wl_ptr = seat.get_pointer(qh, pointer_data);
+
+        <span class="kw">if let </span>CursorShapeManagerState::Pending { registry, global } =
+            <span class="kw-2">&amp;</span><span class="self">self</span>.cursor_shape_manager_state
+        {
+            <span class="self">self</span>.cursor_shape_manager_state =
+                <span class="kw">match </span><span class="kw">crate</span>::registry::bind_one(registry, <span class="kw-2">&amp;</span>[global.clone()], qh, <span class="number">1</span>..=<span class="number">1</span>, GlobalData)
+                {
+                    <span class="prelude-val">Ok</span>(bound) =&gt; {
+                        CursorShapeManagerState::Bound(CursorShapeManager::from_existing(bound))
+                    }
+                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; CursorShapeManagerState::NotPresent,
+                }
+        }
+
+        <span class="kw">let </span>shape_device =
+            <span class="kw">if let </span>CursorShapeManagerState::Bound(<span class="kw-2">ref </span>bound) = <span class="self">self</span>.cursor_shape_manager_state {
+                <span class="prelude-val">Some</span>(bound.get_shape_device(<span class="kw-2">&amp;</span>wl_ptr, qh))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>};
+
+        <span class="prelude-val">Ok</span>(ThemedPointer {
+            themes: Arc::new(Mutex::new(Themes::new(theme))),
+            pointer: wl_ptr,
+            shm: shm.clone(),
+            surface,
+            shape_device,
+            _marker: std::marker::PhantomData,
+            _surface_data: std::marker::PhantomData,
+        })
+    }
+
+    <span class="doccomment">/// Creates a touch handle from a seat.
+    ///
+    /// ## Errors
+    ///
+    /// This will return [`SeatError::UnsupportedCapability`] if the seat does not support touch.
+    </span><span class="kw">pub fn </span>get_touch&lt;D&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;wl_touch::WlTouch, SeatError&gt;
+    <span class="kw">where
+        </span>D: Dispatch&lt;wl_touch::WlTouch, TouchData&gt; + TouchHandler + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="self">self</span>.get_touch_with_data(qh, seat, TouchData::new(seat.clone()))
+    }
+
+    <span class="doccomment">/// Creates a touch handle from a seat.
+    ///
+    /// ## Errors
+    ///
+    /// This will return [`SeatError::UnsupportedCapability`] if the seat does not support touch.
+    </span><span class="kw">pub fn </span>get_touch_with_data&lt;D, U&gt;(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+        udata: U,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;wl_touch::WlTouch, SeatError&gt;
+    <span class="kw">where
+        </span>D: Dispatch&lt;wl_touch::WlTouch, U&gt; + TouchHandler + <span class="lifetime">&#39;static</span>,
+        U: TouchDataExt + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">let </span>inner =
+            <span class="self">self</span>.seats.iter().find(|inner| <span class="kw-2">&amp;</span>inner.seat == seat).ok_or(SeatError::DeadObject)<span class="question-mark">?</span>;
+
+        <span class="kw">if </span>!inner.data.has_touch.load(Ordering::SeqCst) {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(SeatError::UnsupportedCapability(Capability::Touch));
+        }
+
+        <span class="prelude-val">Ok</span>(seat.get_touch(qh, udata))
     }
 }
 
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>SeatListener {
+<span class="kw">pub trait </span>SeatHandler: Sized {
+    <span class="kw">fn </span>seat_state(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>SeatState;
+
+    <span class="doccomment">/// A new seat has been created.
+    ///
+    /// This function only indicates that a seat has been created, you will need to wait for [`new_capability`](SeatHandler::new_capability)
+    /// to be called before creating any keyboards,
+    </span><span class="kw">fn </span>new_seat(<span class="kw-2">&amp;mut </span><span class="self">self</span>, conn: <span class="kw-2">&amp;</span>Connection, qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;, seat: wl_seat::WlSeat);
+
+    <span class="doccomment">/// A new capability is available on the seat.
+    ///
+    /// This allows you to create the corresponding object related to the capability.
+    </span><span class="kw">fn </span>new_capability(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        seat: wl_seat::WlSeat,
+        capability: Capability,
+    );
+
+    <span class="doccomment">/// A capability has been removed from the seat.
+    ///
+    /// If an object has been created from the capability, it should be destroyed.
+    </span><span class="kw">fn </span>remove_capability(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;,
+        seat: wl_seat::WlSeat,
+        capability: Capability,
+    );
+
+    <span class="doccomment">/// A seat has been removed.
+    ///
+    /// The seat is destroyed and all capability objects created from it are invalid.
+    </span><span class="kw">fn </span>remove_seat(<span class="kw-2">&amp;mut </span><span class="self">self</span>, conn: <span class="kw-2">&amp;</span>Connection, qh: <span class="kw-2">&amp;</span>QueueHandle&lt;<span class="self">Self</span>&gt;, seat: wl_seat::WlSeat);
+}
+
+<span class="doccomment">/// Description of a seat.
+</span><span class="attr">#[non_exhaustive]
+#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>SeatInfo {
+    <span class="doccomment">/// The name of the seat.
+    </span><span class="kw">pub </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+
+    <span class="doccomment">/// Does the seat support a keyboard.
+    </span><span class="kw">pub </span>has_keyboard: bool,
+
+    <span class="doccomment">/// Does the seat support a pointer.
+    </span><span class="kw">pub </span>has_pointer: bool,
+
+    <span class="doccomment">/// Does the seat support touch input.
+    </span><span class="kw">pub </span>has_touch: bool,
+}
+
+<span class="kw">impl </span>Display <span class="kw">for </span>SeatInfo {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;SeatListener&quot;</span>).field(<span class="string">&quot;_cb&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;Fn(..) -&gt; { ... }&quot;</span>).finish()
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>name) = <span class="self">self</span>.name {
+            <span class="macro">write!</span>(f, <span class="string">&quot;name: \&quot;{name}\&quot; &quot;</span>)<span class="question-mark">?</span>;
+        }
+
+        <span class="macro">write!</span>(f, <span class="string">&quot;capabilities: (&quot;</span>)<span class="question-mark">?</span>;
+
+        <span class="kw">if </span>!<span class="self">self</span>.has_keyboard &amp;&amp; !<span class="self">self</span>.has_pointer &amp;&amp; !<span class="self">self</span>.has_touch {
+            <span class="macro">write!</span>(f, <span class="string">&quot;none&quot;</span>)<span class="question-mark">?</span>;
+        } <span class="kw">else </span>{
+            <span class="kw">if </span><span class="self">self</span>.has_keyboard {
+                <span class="macro">write!</span>(f, <span class="string">&quot;keyboard&quot;</span>)<span class="question-mark">?</span>;
+
+                <span class="kw">if </span><span class="self">self</span>.has_pointer || <span class="self">self</span>.has_touch {
+                    <span class="macro">write!</span>(f, <span class="string">&quot;, &quot;</span>)<span class="question-mark">?</span>;
+                }
+            }
+
+            <span class="kw">if </span><span class="self">self</span>.has_pointer {
+                <span class="macro">write!</span>(f, <span class="string">&quot;pointer&quot;</span>)<span class="question-mark">?</span>;
+
+                <span class="kw">if </span><span class="self">self</span>.has_touch {
+                    <span class="macro">write!</span>(f, <span class="string">&quot;, &quot;</span>)<span class="question-mark">?</span>;
+                }
+            }
+
+            <span class="kw">if </span><span class="self">self</span>.has_touch {
+                <span class="macro">write!</span>(f, <span class="string">&quot;touch&quot;</span>)<span class="question-mark">?</span>;
+            }
+        }
+
+        <span class="macro">write!</span>(f, <span class="string">&quot;)&quot;</span>)
     }
 }
 
-<span class="kw">fn </span>process_seat_event(
-    seat: Main&lt;wl_seat::WlSeat&gt;,
-    event: wl_seat::Event,
-    listeners: <span class="kw-2">&amp;</span>RefCell&lt;Vec&lt;Weak&lt;RefCell&lt;SeatCallback&gt;&gt;&gt;&gt;,
-    <span class="kw-2">mut </span>ddata: DispatchData,
-) {
-    <span class="kw">let </span>new_data = {
-        <span class="kw">let </span>data = seat.as_ref().user_data().get::&lt;Mutex&lt;SeatData&gt;&gt;().unwrap();
-        <span class="kw">let </span><span class="kw-2">mut </span>guard = data.lock().unwrap();
+<span class="attr">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>SeatData {
+    has_keyboard: Arc&lt;AtomicBool&gt;,
+    has_pointer: Arc&lt;AtomicBool&gt;,
+    has_touch: Arc&lt;AtomicBool&gt;,
+    name: Arc&lt;Mutex&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;&gt;,
+    id: u32,
+}
+
+<span class="attr">#[macro_export]
+</span><span class="macro">macro_rules! </span>delegate_seat {
+    ($(@&lt;$( <span class="macro-nonterminal">$lt</span>:tt $( : <span class="macro-nonterminal">$clt</span>:tt $(+ <span class="macro-nonterminal">$dlt</span>:tt )* )<span class="question-mark">? </span>),+&gt;)<span class="question-mark">? </span><span class="macro-nonterminal">$ty</span>: ty) =&gt; {
+        <span class="macro-nonterminal">$</span><span class="macro">crate::reexports::client::delegate_dispatch!</span>($(@&lt; $( <span class="macro-nonterminal">$lt </span>$( : <span class="macro-nonterminal">$clt </span>$(+ <span class="macro-nonterminal">$dlt </span>)* )<span class="question-mark">? </span>),+ &gt;)<span class="question-mark">? </span><span class="macro-nonterminal">$ty</span>:
+            [
+                <span class="macro-nonterminal">$crate::reexports::client::protocol::wl_seat::WlSeat</span>: <span class="macro-nonterminal">$crate::seat::SeatData
+            </span>] =&gt; <span class="macro-nonterminal">$crate::seat::SeatState
+        </span>);
+    };
+}
+
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">struct </span>SeatInner {
+    seat: wl_seat::WlSeat,
+    data: SeatData,
+}
+
+<span class="kw">impl</span>&lt;D&gt; Dispatch&lt;wl_seat::WlSeat, SeatData, D&gt; <span class="kw">for </span>SeatState
+<span class="kw">where
+    </span>D: Dispatch&lt;wl_seat::WlSeat, SeatData&gt; + SeatHandler,
+{
+    <span class="kw">fn </span>event(
+        state: <span class="kw-2">&amp;mut </span>D,
+        seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat,
+        event: wl_seat::Event,
+        data: <span class="kw-2">&amp;</span>SeatData,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+    ) {
         <span class="kw">match </span>event {
-            wl_seat::Event::Name { name } =&gt; {
-                guard.state.set(SeatDataState::GOT_NAME, <span class="bool-val">true</span>);
-                guard.name = name;
-            }
             wl_seat::Event::Capabilities { capabilities } =&gt; {
-                guard.state.set(SeatDataState::GOT_CAPABILITIES, <span class="bool-val">true</span>);
-                guard.has_pointer = capabilities.contains(wl_seat::Capability::Pointer);
-                guard.has_keyboard = capabilities.contains(wl_seat::Capability::Keyboard);
-                guard.has_touch = capabilities.contains(wl_seat::Capability::Touch);
+                <span class="kw">let </span>capabilities = wl_seat::Capability::from_bits_truncate(capabilities.into());
+
+                <span class="kw">let </span>keyboard = capabilities.contains(wl_seat::Capability::Keyboard);
+                <span class="kw">let </span>has_keyboard = data.has_keyboard.load(Ordering::SeqCst);
+                <span class="kw">let </span>pointer = capabilities.contains(wl_seat::Capability::Pointer);
+                <span class="kw">let </span>has_pointer = data.has_pointer.load(Ordering::SeqCst);
+                <span class="kw">let </span>touch = capabilities.contains(wl_seat::Capability::Touch);
+                <span class="kw">let </span>has_touch = data.has_touch.load(Ordering::SeqCst);
+
+                <span class="comment">// Update capabilities as necessary
+                </span><span class="kw">if </span>keyboard != has_keyboard {
+                    data.has_keyboard.store(keyboard, Ordering::SeqCst);
+
+                    <span class="kw">match </span>keyboard {
+                        <span class="bool-val">true </span>=&gt; state.new_capability(conn, qh, seat.clone(), Capability::Keyboard),
+                        <span class="bool-val">false </span>=&gt; {
+                            state.remove_capability(conn, qh, seat.clone(), Capability::Keyboard)
+                        }
+                    }
+                }
+
+                <span class="kw">if </span>pointer != has_pointer {
+                    data.has_pointer.store(pointer, Ordering::SeqCst);
+
+                    <span class="kw">match </span>pointer {
+                        <span class="bool-val">true </span>=&gt; state.new_capability(conn, qh, seat.clone(), Capability::Pointer),
+                        <span class="bool-val">false </span>=&gt; {
+                            state.remove_capability(conn, qh, seat.clone(), Capability::Pointer)
+                        }
+                    }
+                }
+
+                <span class="kw">if </span>touch != has_touch {
+                    data.has_touch.store(touch, Ordering::SeqCst);
+
+                    <span class="kw">match </span>touch {
+                        <span class="bool-val">true </span>=&gt; state.new_capability(conn, qh, seat.clone(), Capability::Touch),
+                        <span class="bool-val">false </span>=&gt; state.remove_capability(conn, qh, seat.clone(), Capability::Touch),
+                    }
+                }
             }
+
+            wl_seat::Event::Name { name } =&gt; {
+                <span class="kw-2">*</span>data.name.lock().unwrap() = <span class="prelude-val">Some</span>(name);
+            }
+
             <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
         }
-        guard.clone()
-    };
-
-    <span class="kw">if </span>new_data.state.contains(SeatDataState::READY) {
-        listeners.borrow_mut().retain(|lst| {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(cb) = Weak::upgrade(lst) {
-                (cb.borrow_mut())((<span class="kw-2">*</span>seat).clone(), <span class="kw-2">&amp;</span>new_data, ddata.reborrow());
-                <span class="bool-val">true
-            </span>} <span class="kw">else </span>{
-                <span class="bool-val">false
-            </span>}
-        });
     }
 }
 
-<span class="doccomment">/// Get the copy of the data associated with this seat
-///
-/// If the provided `WlSeat` has not yet been initialized or is not managed by SCTK, `None` is returned.
-///
-/// If the seat has been removed by the compositor, the `defunct` field of the `SeatData`
-/// will be set to `true`. This handler will not automatically detroy the output by calling its
-/// `release` method, to avoid interfering with your logic.
-</span><span class="kw">pub fn </span>clone_seat_data(seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat) -&gt; <span class="prelude-ty">Option</span>&lt;SeatData&gt; {
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(udata_mutex) = seat.as_ref().user_data().get::&lt;Mutex&lt;SeatData&gt;&gt;() {
-        <span class="kw">let </span>udata = udata_mutex.lock().unwrap();
-        <span class="prelude-val">Some</span>(udata.clone())
-    } <span class="kw">else </span>{
-        <span class="prelude-val">None
-    </span>}
-}
-
-<span class="doccomment">/// Access the data associated with this seat
-///
-/// The provided closure is given the [`SeatData`](struct.SeatData.html) as argument,
-/// and its return value is returned from this function.
-///
-/// If the provided `WlSeat` has not yet been initialized or is not managed by SCTK, `None` is returned.
-///
-/// If the seat has been removed by the compositor, the `defunct` field of the `SeatData`
-/// will be set to `true`. This handler will not automatically detroy the output by calling its
-/// `release` method, to avoid interfering with your logic.
-</span><span class="kw">pub fn </span>with_seat_data&lt;T, F: FnOnce(<span class="kw-2">&amp;</span>SeatData) -&gt; T&gt;(seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat, f: F) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(udata_mutex) = seat.as_ref().user_data().get::&lt;Mutex&lt;SeatData&gt;&gt;() {
-        <span class="kw">let </span>udata = udata_mutex.lock().unwrap();
-        <span class="prelude-val">Some</span>(f(<span class="kw-2">&amp;*</span>udata))
-    } <span class="kw">else </span>{
-        <span class="prelude-val">None
-    </span>}
-}
-
-<span class="doccomment">/// Trait representing the SeatHandler functions
-///
-/// Implementing this trait on your inner environment struct used with the
-/// [`environment!`](../macro.environment.html) by delegating it to its
-/// [`SeatHandler`](struct.SeatHandler.html) field will make available the seat-associated
-/// method on your [`Environment`](../environment/struct.Environment.html).
-</span><span class="kw">pub trait </span>SeatHandling {
-    <span class="doccomment">/// Insert a listener for seat events
-    </span><span class="kw">fn </span>listen&lt;F: FnMut(Attached&lt;wl_seat::WlSeat&gt;, <span class="kw-2">&amp;</span>SeatData, DispatchData) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SeatListener;
-}
-
-<span class="kw">impl </span>SeatHandling <span class="kw">for </span>SeatHandler {
-    <span class="kw">fn </span>listen&lt;F: FnMut(Attached&lt;wl_seat::WlSeat&gt;, <span class="kw-2">&amp;</span>SeatData, DispatchData) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SeatListener {
-        <span class="kw">let </span>rc = Rc::new(RefCell::new(f)) <span class="kw">as </span>Rc&lt;<span class="kw">_</span>&gt;;
-        <span class="self">self</span>.listeners.borrow_mut().push(Rc::downgrade(<span class="kw-2">&amp;</span>rc));
-        SeatListener { _cb: rc }
-    }
-}
-
-<span class="kw">impl</span>&lt;E: SeatHandling&gt; <span class="kw">crate</span>::environment::Environment&lt;E&gt; {
-    <span class="doccomment">/// Insert a new listener for seats
-    ///
-    /// The provided closure will be invoked whenever a `wl_seat` is made available,
-    /// removed, or see its capabilities changed.
-    ///
-    /// Note that if seats already exist when this callback is setup, it&#39;ll not be invoked on them.
-    /// For you to be notified of them as well, you need to first process them manually by calling
-    /// `.get_all_seats()`.
-    ///
-    /// The returned [`SeatListener`](../seat/struct.SeatListener.hmtl) keeps your callback alive,
-    /// dropping it will disable it.
-    </span><span class="attr">#[must_use = <span class="string">&quot;the returned SeatListener keeps your callback alive, dropping it will disable it&quot;</span>]
-    </span><span class="kw">pub fn </span>listen_for_seats&lt;
-        F: FnMut(Attached&lt;wl_seat::WlSeat&gt;, <span class="kw-2">&amp;</span>SeatData, DispatchData) + <span class="lifetime">&#39;static</span>,
-    &gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SeatListener {
-        <span class="self">self</span>.with_inner(<span class="kw">move </span>|inner| SeatHandling::listen(inner, f))
-    }
-}
-
-<span class="kw">impl</span>&lt;E: <span class="kw">crate</span>::environment::MultiGlobalHandler&lt;wl_seat::WlSeat&gt;&gt;
-    <span class="kw">crate</span>::environment::Environment&lt;E&gt;
+<span class="kw">impl</span>&lt;D&gt; RegistryHandler&lt;D&gt; <span class="kw">for </span>SeatState
+<span class="kw">where
+    </span>D: Dispatch&lt;wl_seat::WlSeat, SeatData&gt; + SeatHandler + ProvidesRegistryState + <span class="lifetime">&#39;static</span>,
 {
-    <span class="doccomment">/// Shorthand method to retrieve the list of seats
-    </span><span class="kw">pub fn </span>get_all_seats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Attached&lt;wl_seat::WlSeat&gt;&gt; {
-        <span class="self">self</span>.get_all_globals::&lt;wl_seat::WlSeat&gt;().into_iter().collect()
+    <span class="kw">fn </span>new_global(
+        state: <span class="kw-2">&amp;mut </span>D,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        name: u32,
+        interface: <span class="kw-2">&amp;</span>str,
+        <span class="kw">_</span>: u32,
+    ) {
+        <span class="kw">if </span>interface == wl_seat::WlSeat::interface().name {
+            <span class="kw">let </span>seat = state
+                .registry()
+                .bind_specific(
+                    qh,
+                    name,
+                    <span class="number">1</span>..=<span class="number">7</span>,
+                    SeatData {
+                        has_keyboard: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+                        has_pointer: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+                        has_touch: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
+                        name: Arc::new(Mutex::new(<span class="prelude-val">None</span>)),
+                        id: name,
+                    },
+                )
+                .expect(<span class="string">&quot;failed to bind global&quot;</span>);
+
+            <span class="kw">let </span>data = seat.data::&lt;SeatData&gt;().unwrap().clone();
+
+            state.seat_state().seats.push(SeatInner { seat: seat.clone(), data });
+            state.new_seat(conn, qh, seat);
+        }
+    }
+
+    <span class="kw">fn </span>remove_global(
+        state: <span class="kw-2">&amp;mut </span>D,
+        conn: <span class="kw-2">&amp;</span>Connection,
+        qh: <span class="kw-2">&amp;</span>QueueHandle&lt;D&gt;,
+        name: u32,
+        interface: <span class="kw-2">&amp;</span>str,
+    ) {
+        <span class="kw">if </span>interface == wl_seat::WlSeat::interface().name {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(seat) = state.seat_state().seats.iter().find(|inner| inner.data.id == name)
+            {
+                <span class="kw">let </span>seat = seat.seat.clone();
+
+                state.remove_seat(conn, qh, seat);
+                state.seat_state().seats.retain(|inner| inner.data.id != name);
+            }
+        }
     }
 }
 </code></pre></div></section></main></body></html>

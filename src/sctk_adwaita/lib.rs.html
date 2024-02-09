@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/sctk-adwaita-335b3838158c83d2/da85380/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sctk-adwaita-0.8.1/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sctk_adwaita" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -778,794 +778,698 @@
 <a href="#778" id="778">778</a>
 <a href="#779" id="779">779</a>
 <a href="#780" id="780">780</a>
-<a href="#781" id="781">781</a>
-<a href="#782" id="782">782</a>
-<a href="#783" id="783">783</a>
-<a href="#784" id="784">784</a>
-<a href="#785" id="785">785</a>
-<a href="#786" id="786">786</a>
-<a href="#787" id="787">787</a>
-<a href="#788" id="788">788</a>
-<a href="#789" id="789">789</a>
-<a href="#790" id="790">790</a>
-<a href="#791" id="791">791</a>
-<a href="#792" id="792">792</a>
-<a href="#793" id="793">793</a>
-<a href="#794" id="794">794</a>
-<a href="#795" id="795">795</a>
-<a href="#796" id="796">796</a>
-<a href="#797" id="797">797</a>
-<a href="#798" id="798">798</a>
-<a href="#799" id="799">799</a>
-<a href="#800" id="800">800</a>
-<a href="#801" id="801">801</a>
-<a href="#802" id="802">802</a>
-<a href="#803" id="803">803</a>
-<a href="#804" id="804">804</a>
-<a href="#805" id="805">805</a>
-<a href="#806" id="806">806</a>
-<a href="#807" id="807">807</a>
-<a href="#808" id="808">808</a>
-<a href="#809" id="809">809</a>
-<a href="#810" id="810">810</a>
-<a href="#811" id="811">811</a>
-<a href="#812" id="812">812</a>
-<a href="#813" id="813">813</a>
-<a href="#814" id="814">814</a>
-<a href="#815" id="815">815</a>
-<a href="#816" id="816">816</a>
-<a href="#817" id="817">817</a>
-<a href="#818" id="818">818</a>
-<a href="#819" id="819">819</a>
-<a href="#820" id="820">820</a>
-<a href="#821" id="821">821</a>
-<a href="#822" id="822">822</a>
-<a href="#823" id="823">823</a>
-<a href="#824" id="824">824</a>
-<a href="#825" id="825">825</a>
-<a href="#826" id="826">826</a>
-<a href="#827" id="827">827</a>
-</pre></div><pre class="rust"><code><span class="kw">mod </span>buttons;
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::error::Error;
+<span class="kw">use </span>std::mem;
+<span class="kw">use </span>std::num::NonZeroU32;
+<span class="kw">use </span>std::sync::Arc;
+<span class="kw">use </span>std::time::Duration;
+
+<span class="kw">use </span>tiny_skia::{
+    Color, FillRule, Mask, Path, PathBuilder, Pixmap, PixmapMut, PixmapPaint, Point, Rect,
+    Transform,
+};
+
+<span class="kw">use </span>smithay_client_toolkit::reexports::client::backend::ObjectId;
+<span class="kw">use </span>smithay_client_toolkit::reexports::client::protocol::wl_shm;
+<span class="kw">use </span>smithay_client_toolkit::reexports::client::protocol::wl_subsurface::WlSubsurface;
+<span class="kw">use </span>smithay_client_toolkit::reexports::client::protocol::wl_surface::WlSurface;
+<span class="kw">use </span>smithay_client_toolkit::reexports::client::{Dispatch, Proxy, QueueHandle};
+<span class="kw">use </span>smithay_client_toolkit::reexports::csd_frame::{
+    CursorIcon, DecorationsFrame, FrameAction, FrameClick, WindowManagerCapabilities, WindowState,
+};
+
+<span class="kw">use </span>smithay_client_toolkit::compositor::{CompositorState, Region, SurfaceData};
+<span class="kw">use </span>smithay_client_toolkit::shell::WaylandSurface;
+<span class="kw">use </span>smithay_client_toolkit::shm::{slot::SlotPool, Shm};
+<span class="kw">use </span>smithay_client_toolkit::subcompositor::SubcompositorState;
+<span class="kw">use </span>smithay_client_toolkit::subcompositor::SubsurfaceData;
+
+<span class="kw">mod </span>buttons;
 <span class="kw">mod </span>config;
 <span class="kw">mod </span>parts;
 <span class="kw">mod </span>pointer;
-<span class="kw">mod </span>surface;
+<span class="kw">mod </span>shadow;
 <span class="kw">pub mod </span>theme;
 <span class="kw">mod </span>title;
+<span class="kw">mod </span>wl_typed;
 
-<span class="kw">use </span><span class="kw">crate</span>::theme::ColorMap;
-<span class="kw">use </span>buttons::{ButtonKind, Buttons};
-<span class="kw">use </span>client::{
-    protocol::{wl_compositor, wl_seat, wl_shm, wl_subcompositor, wl_surface},
-    Attached, DispatchData,
+<span class="kw">use </span><span class="kw">crate</span>::theme::{
+    ColorMap, ColorTheme, BORDER_SIZE, CORNER_RADIUS, HEADER_SIZE, RESIZE_HANDLE_CORNER_SIZE,
+    VISIBLE_BORDER_SIZE,
 };
-<span class="kw">use </span>parts::Parts;
-<span class="kw">use </span>pointer::PointerUserData;
-<span class="kw">use </span>smithay_client_toolkit::{
-    reexports::client,
-    seat::pointer::{ThemeManager, ThemeSpec, ThemedPointer},
-    shm::AutoMemPool,
-    window::{Frame, FrameRequest, State, WindowState},
-};
-<span class="kw">use </span>std::{cell::RefCell, fmt, rc::Rc};
-<span class="kw">use </span>theme::{ColorTheme, BORDER_SIZE, HEADER_SIZE};
-<span class="kw">use </span>tiny_skia::{
-    ClipMask, Color, FillRule, Paint, Path, PathBuilder, Pixmap, PixmapMut, PixmapPaint, Point,
-    Rect, Transform,
-};
+
+<span class="kw">use </span>buttons::Buttons;
+<span class="kw">use </span>config::get_button_layout_config;
+<span class="kw">use </span>parts::DecorationParts;
+<span class="kw">use </span>pointer::{Location, MouseState};
+<span class="kw">use </span>shadow::Shadow;
 <span class="kw">use </span>title::TitleText;
+<span class="kw">use </span>wl_typed::WlTyped;
 
-<span class="kw">type </span>SkiaResult = <span class="prelude-ty">Option</span>&lt;()&gt;;
-
-<span class="comment">/*
- * Utilities
- */
-
-</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-</span><span class="kw">enum </span>Location {
-    <span class="prelude-val">None</span>,
-    Head,
-    Top,
-    TopRight,
-    Right,
-    BottomRight,
-    Bottom,
-    BottomLeft,
-    Left,
-    TopLeft,
-    Button(ButtonKind),
-}
-
-<span class="comment">/*
- * The core frame
- */
-
-</span><span class="kw">struct </span>Inner {
-    parts: Parts,
-    size: (u32, u32),
-    resizable: bool,
-    theme_over_surface: bool,
-    implem: Box&lt;<span class="kw">dyn </span>FnMut(FrameRequest, u32, DispatchData)&gt;,
-    maximized: bool,
-    fullscreened: bool,
-    tiled: bool,
-}
-
-<span class="kw">impl </span>fmt::Debug <span class="kw">for </span>Inner {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; fmt::Result {
-        f.debug_struct(<span class="string">&quot;Inner&quot;</span>)
-            .field(<span class="string">&quot;parts&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parts)
-            .field(<span class="string">&quot;size&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.size)
-            .field(<span class="string">&quot;resizable&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.resizable)
-            .field(<span class="string">&quot;theme_over_surface&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.theme_over_surface)
-            .field(
-                <span class="string">&quot;implem&quot;</span>,
-                <span class="kw-2">&amp;</span><span class="string">&quot;FnMut(FrameRequest, u32, DispatchData) -&gt; { ... }&quot;</span>,
-            )
-            .field(<span class="string">&quot;maximized&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.maximized)
-            .field(<span class="string">&quot;fullscreened&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.fullscreened)
-            .finish()
-    }
-}
-
-<span class="kw">fn </span>precise_location(buttons: <span class="kw-2">&amp;</span>Buttons, old: Location, width: u32, x: f64, y: f64) -&gt; Location {
-    <span class="kw">match </span>old {
-        Location::Head
-        | Location::Button(<span class="kw">_</span>)
-        | Location::Top
-        | Location::TopLeft
-        | Location::TopRight =&gt; <span class="kw">match </span>buttons.find_button(x, y) {
-            Location::Head =&gt; {
-                <span class="kw">if </span>y &lt;= f64::from(BORDER_SIZE) {
-                    <span class="kw">if </span>x &lt;= f64::from(BORDER_SIZE) {
-                        Location::TopLeft
-                    } <span class="kw">else if </span>x &gt;= f64::from(width + BORDER_SIZE) {
-                        Location::TopRight
-                    } <span class="kw">else </span>{
-                        Location::Top
-                    }
-                } <span class="kw">else if </span>x &lt; f64::from(BORDER_SIZE) {
-                    Location::TopLeft
-                } <span class="kw">else if </span>x &gt; f64::from(width) {
-                    Location::TopRight
-                } <span class="kw">else </span>{
-                    Location::Head
-                }
-            }
-            other =&gt; other,
-        },
-
-        Location::Bottom | Location::BottomLeft | Location::BottomRight =&gt; {
-            <span class="kw">if </span>x &lt;= f64::from(BORDER_SIZE) {
-                Location::BottomLeft
-            } <span class="kw">else if </span>x &gt;= f64::from(width + BORDER_SIZE) {
-                Location::BottomRight
-            } <span class="kw">else </span>{
-                Location::Bottom
-            }
-        }
-
-        other =&gt; other,
-    }
-}
-
-<span class="attr">#[derive(Debug, Clone)]
-</span><span class="kw">pub struct </span>FrameConfig {
-    <span class="kw">pub </span>theme: ColorTheme,
-}
-
-<span class="kw">impl </span>FrameConfig {
-    <span class="kw">pub fn </span>auto() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            theme: ColorTheme::auto(),
-        }
-    }
-
-    <span class="kw">pub fn </span>light() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            theme: ColorTheme::light(),
-        }
-    }
-
-    <span class="kw">pub fn </span>dark() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            theme: ColorTheme::dark(),
-        }
-    }
-}
+<span class="doccomment">/// XXX this is not result, so `must_use` when needed.
+</span><span class="kw">type </span>SkiaResult = <span class="prelude-ty">Option</span>&lt;()&gt;;
 
 <span class="doccomment">/// A simple set of decorations
 </span><span class="attr">#[derive(Debug)]
-</span><span class="kw">pub struct </span>AdwaitaFrame {
-    base_surface: wl_surface::WlSurface,
-    compositor: Attached&lt;wl_compositor::WlCompositor&gt;,
-    subcompositor: Attached&lt;wl_subcompositor::WlSubcompositor&gt;,
-    inner: Rc&lt;RefCell&lt;Inner&gt;&gt;,
-    pool: AutoMemPool,
-    active: WindowState,
-    hidden: bool,
-    pointers: Vec&lt;ThemedPointer&gt;,
-    themer: ThemeManager,
-    surface_version: u32,
+</span><span class="kw">pub struct </span>AdwaitaFrame&lt;State&gt; {
+    <span class="doccomment">/// The base surface used to create the window.
+    </span>base_surface: WlTyped&lt;WlSurface, SurfaceData&gt;,
 
-    buttons: Rc&lt;RefCell&lt;Buttons&gt;&gt;,
-    colors: ColorTheme,
+    compositor: Arc&lt;CompositorState&gt;,
+
+    <span class="doccomment">/// Subcompositor to create/drop subsurfaces ondemand.
+    </span>subcompositor: Arc&lt;SubcompositorState&gt;,
+
+    <span class="doccomment">/// Queue handle to perform object creation.
+    </span>queue_handle: QueueHandle&lt;State&gt;,
+
+    <span class="doccomment">/// The drawable decorations, `None` when hidden.
+    </span>decorations: <span class="prelude-ty">Option</span>&lt;DecorationParts&gt;,
+
+    <span class="doccomment">/// Memory pool to allocate the buffers for the decorations.
+    </span>pool: SlotPool,
+
+    <span class="doccomment">/// Whether the frame should be redrawn.
+    </span>dirty: bool,
+
+    <span class="doccomment">/// Whether the drawing should be synced with the main surface.
+    </span>should_sync: bool,
+
+    <span class="doccomment">/// Scale factor used for the surface.
+    </span>scale_factor: u32,
+
+    <span class="doccomment">/// Wether the frame is resizable.
+    </span>resizable: bool,
+
+    buttons: Buttons,
+    state: WindowState,
+    wm_capabilities: WindowManagerCapabilities,
+    mouse: MouseState,
+    theme: ColorTheme,
     title: <span class="prelude-ty">Option</span>&lt;String&gt;,
     title_text: <span class="prelude-ty">Option</span>&lt;TitleText&gt;,
+    shadow: Shadow,
 }
 
-<span class="kw">impl </span>Frame <span class="kw">for </span>AdwaitaFrame {
-    <span class="kw">type </span>Error = ::std::io::Error;
-    <span class="kw">type </span>Config = FrameConfig;
-    <span class="kw">fn </span>init(
-        base_surface: <span class="kw-2">&amp;</span>wl_surface::WlSurface,
-        compositor: <span class="kw-2">&amp;</span>Attached&lt;wl_compositor::WlCompositor&gt;,
-        subcompositor: <span class="kw-2">&amp;</span>Attached&lt;wl_subcompositor::WlSubcompositor&gt;,
-        shm: <span class="kw-2">&amp;</span>Attached&lt;wl_shm::WlShm&gt;,
-        theme_manager: <span class="prelude-ty">Option</span>&lt;ThemeManager&gt;,
-        implementation: Box&lt;<span class="kw">dyn </span>FnMut(FrameRequest, u32, DispatchData)&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;AdwaitaFrame, ::std::io::Error&gt; {
-        <span class="kw">let </span>(themer, theme_over_surface) = <span class="kw">if let </span><span class="prelude-val">Some</span>(theme_manager) = theme_manager {
-            (theme_manager, <span class="bool-val">false</span>)
-        } <span class="kw">else </span>{
-            (
-                ThemeManager::init(ThemeSpec::System, compositor.clone(), shm.clone()),
-                <span class="bool-val">true</span>,
-            )
-        };
+<span class="kw">impl</span>&lt;State&gt; AdwaitaFrame&lt;State&gt;
+<span class="kw">where
+    </span>State: Dispatch&lt;WlSurface, SurfaceData&gt; + Dispatch&lt;WlSubsurface, SubsurfaceData&gt; + <span class="lifetime">&#39;static</span>,
+{
+    <span class="kw">pub fn </span>new(
+        base_surface: <span class="kw-2">&amp;</span><span class="kw">impl </span>WaylandSurface,
+        shm: <span class="kw-2">&amp;</span>Shm,
+        compositor: Arc&lt;CompositorState&gt;,
+        subcompositor: Arc&lt;SubcompositorState&gt;,
+        queue_handle: QueueHandle&lt;State&gt;,
+        frame_config: FrameConfig,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Box&lt;<span class="kw">dyn </span>Error&gt;&gt; {
+        <span class="kw">let </span>base_surface = WlTyped::wrap::&lt;State&gt;(base_surface.wl_surface().clone());
 
-        <span class="kw">let </span>inner = Rc::new(RefCell::new(Inner {
-            parts: Parts::default(),
-            size: (<span class="number">1</span>, <span class="number">1</span>),
-            resizable: <span class="bool-val">true</span>,
-            implem: implementation,
-            theme_over_surface,
-            maximized: <span class="bool-val">false</span>,
-            fullscreened: <span class="bool-val">false</span>,
-            tiled: <span class="bool-val">false</span>,
-        }));
+        <span class="kw">let </span>pool = SlotPool::new(<span class="number">1</span>, shm)<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>pool = AutoMemPool::new(shm.clone())<span class="question-mark">?</span>;
+        <span class="kw">let </span>decorations = <span class="prelude-val">Some</span>(DecorationParts::new(
+            <span class="kw-2">&amp;</span>base_surface,
+            <span class="kw-2">&amp;</span>subcompositor,
+            <span class="kw-2">&amp;</span>queue_handle,
+        ));
 
-        <span class="kw">let </span>colors = ColorTheme::auto();
+        <span class="kw">let </span>theme = frame_config.theme;
 
         <span class="prelude-val">Ok</span>(AdwaitaFrame {
-            base_surface: base_surface.clone(),
-            compositor: compositor.clone(),
-            subcompositor: subcompositor.clone(),
-            inner,
+            base_surface,
+            decorations,
             pool,
-            active: WindowState::Inactive,
-            hidden: <span class="bool-val">true</span>,
-            pointers: Vec::new(),
-            themer,
-            surface_version: compositor.as_ref().version(),
-            buttons: Default::default(),
+            compositor,
+            subcompositor,
+            queue_handle,
+            dirty: <span class="bool-val">true</span>,
+            scale_factor: <span class="number">1</span>,
+            should_sync: <span class="bool-val">true</span>,
             title: <span class="prelude-val">None</span>,
-            title_text: TitleText::new(colors.active.font_color),
-            colors,
+            title_text: TitleText::new(theme.active.font_color),
+            theme,
+            buttons: Buttons::new(get_button_layout_config()),
+            mouse: Default::default(),
+            state: WindowState::empty(),
+            wm_capabilities: WindowManagerCapabilities::all(),
+            resizable: <span class="bool-val">true</span>,
+            shadow: Shadow::default(),
         })
     }
 
-    <span class="kw">fn </span>new_seat(<span class="kw-2">&amp;mut </span><span class="self">self</span>, seat: <span class="kw-2">&amp;</span>Attached&lt;wl_seat::WlSeat&gt;) {
-        <span class="kw">let </span>inner = <span class="self">self</span>.inner.clone();
+    <span class="doccomment">/// Update the current frame config.
+    </span><span class="kw">pub fn </span>set_config(<span class="kw-2">&amp;mut </span><span class="self">self</span>, config: FrameConfig) {
+        <span class="self">self</span>.theme = config.theme;
+        <span class="self">self</span>.dirty = <span class="bool-val">true</span>;
+    }
 
-        <span class="kw">let </span>buttons = <span class="self">self</span>.buttons.clone();
-        <span class="kw">let </span>pointer = <span class="self">self</span>.themer.theme_pointer_with_impl(
-            seat,
-            <span class="kw">move </span>|event, pointer: ThemedPointer, ddata: DispatchData| {
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = pointer
-                    .as_ref()
-                    .user_data()
-                    .get::&lt;RefCell&lt;PointerUserData&gt;&gt;()
-                {
-                    <span class="kw">let </span><span class="kw-2">mut </span>data = data.borrow_mut();
-                    <span class="kw">let </span><span class="kw-2">mut </span>inner = inner.borrow_mut();
-                    data.event(event, <span class="kw-2">&amp;mut </span>inner, <span class="kw-2">&amp;</span>buttons.borrow(), <span class="kw-2">&amp;</span>pointer, ddata);
+    <span class="kw">fn </span>precise_location(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        location: Location,
+        decoration: <span class="kw-2">&amp;</span>DecorationParts,
+        x: f64,
+        y: f64,
+    ) -&gt; Location {
+        <span class="kw">let </span>header_width = decoration.header().surface_rect.width;
+        <span class="kw">let </span>side_height = decoration.side_height();
+
+        <span class="kw">let </span>left_corner_x = BORDER_SIZE + RESIZE_HANDLE_CORNER_SIZE;
+        <span class="kw">let </span>right_corner_x = (header_width + BORDER_SIZE).saturating_sub(RESIZE_HANDLE_CORNER_SIZE);
+        <span class="kw">let </span>top_corner_y = RESIZE_HANDLE_CORNER_SIZE;
+        <span class="kw">let </span>bottom_corner_y = side_height.saturating_sub(RESIZE_HANDLE_CORNER_SIZE);
+        <span class="kw">match </span>location {
+            Location::Head | Location::Button(<span class="kw">_</span>) =&gt; <span class="self">self</span>.buttons.find_button(x, y),
+            Location::Top | Location::TopLeft | Location::TopRight =&gt; {
+                <span class="kw">if </span>x &lt;= f64::from(left_corner_x) {
+                    Location::TopLeft
+                } <span class="kw">else if </span>x &gt;= f64::from(right_corner_x) {
+                    Location::TopRight
+                } <span class="kw">else </span>{
+                    Location::Top
                 }
-            },
-        );
-        pointer
-            .as_ref()
-            .user_data()
-            .set(|| RefCell::new(PointerUserData::new(seat.detach())));
-        <span class="self">self</span>.pointers.push(pointer);
+            }
+            Location::Bottom | Location::BottomLeft | Location::BottomRight =&gt; {
+                <span class="kw">if </span>x &lt;= f64::from(left_corner_x) {
+                    Location::BottomLeft
+                } <span class="kw">else if </span>x &gt;= f64::from(right_corner_x) {
+                    Location::BottomRight
+                } <span class="kw">else </span>{
+                    Location::Bottom
+                }
+            }
+            Location::Left =&gt; {
+                <span class="kw">if </span>y &lt;= f64::from(top_corner_y) {
+                    Location::TopLeft
+                } <span class="kw">else if </span>y &gt;= f64::from(bottom_corner_y) {
+                    Location::BottomLeft
+                } <span class="kw">else </span>{
+                    Location::Left
+                }
+            }
+            Location::Right =&gt; {
+                <span class="kw">if </span>y &lt;= f64::from(top_corner_y) {
+                    Location::TopRight
+                } <span class="kw">else if </span>y &gt;= f64::from(bottom_corner_y) {
+                    Location::BottomRight
+                } <span class="kw">else </span>{
+                    Location::Right
+                }
+            }
+            other =&gt; other,
+        }
     }
 
-    <span class="kw">fn </span>remove_seat(<span class="kw-2">&amp;mut </span><span class="self">self</span>, seat: <span class="kw-2">&amp;</span>wl_seat::WlSeat) {
-        <span class="self">self</span>.pointers.retain(|pointer| {
-            pointer
-                .as_ref()
-                .user_data()
-                .get::&lt;RefCell&lt;PointerUserData&gt;&gt;()
-                .map(|user_data| {
-                    <span class="kw">let </span>guard = user_data.borrow_mut();
-                    <span class="kw">if </span><span class="kw-2">&amp;</span>guard.seat == seat {
-                        pointer.release();
-                        <span class="bool-val">false
-                    </span>} <span class="kw">else </span>{
-                        <span class="bool-val">true
-                    </span>}
-                })
-                .unwrap_or(<span class="bool-val">false</span>)
-        });
-    }
+    <span class="kw">fn </span>redraw_inner(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;bool&gt; {
+        <span class="kw">let </span>decorations = <span class="self">self</span>.decorations.as_mut()<span class="question-mark">?</span>;
 
-    <span class="kw">fn </span>set_states(<span class="kw-2">&amp;mut </span><span class="self">self</span>, states: <span class="kw-2">&amp;</span>[State]) -&gt; bool {
-        <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="self">self</span>.inner.borrow_mut();
-        <span class="kw">let </span><span class="kw-2">mut </span>need_redraw = <span class="bool-val">false</span>;
+        <span class="comment">// Reset the dirty bit.
+        </span><span class="self">self</span>.dirty = <span class="bool-val">false</span>;
+        <span class="kw">let </span>should_sync = mem::take(<span class="kw-2">&amp;mut </span><span class="self">self</span>.should_sync);
 
-        <span class="comment">// Process active.
-        </span><span class="kw">let </span>new_active = <span class="kw">if </span>states.contains(<span class="kw-2">&amp;</span>State::Activated) {
-            WindowState::Active
+        <span class="comment">// Don&#39;t draw borders if the frame explicitly hidden or fullscreened.
+        </span><span class="kw">if </span><span class="self">self</span>.state.contains(WindowState::FULLSCREEN) {
+            decorations.hide();
+            <span class="kw">return </span><span class="prelude-val">Some</span>(<span class="bool-val">true</span>);
+        }
+
+        <span class="kw">let </span>colors = <span class="kw">if </span><span class="self">self</span>.state.contains(WindowState::ACTIVATED) {
+            <span class="kw-2">&amp;</span><span class="self">self</span>.theme.active
         } <span class="kw">else </span>{
-            WindowState::Inactive
+            <span class="kw-2">&amp;</span><span class="self">self</span>.theme.inactive
         };
-        need_redraw |= new_active != <span class="self">self</span>.active;
-        <span class="self">self</span>.active = new_active;
 
-        <span class="comment">// Process maximized.
-        </span><span class="kw">let </span>new_maximized = states.contains(<span class="kw-2">&amp;</span>State::Maximized);
-        need_redraw |= new_maximized != inner.maximized;
-        inner.maximized = new_maximized;
+        <span class="kw">let </span>draw_borders = <span class="kw">if </span><span class="self">self</span>.state.contains(WindowState::MAXIMIZED) {
+            <span class="comment">// Don&#39;t draw the borders.
+            </span>decorations.hide_borders();
+            <span class="bool-val">false
+        </span>} <span class="kw">else </span>{
+            <span class="bool-val">true
+        </span>};
+        <span class="kw">let </span>border_paint = colors.border_paint();
 
-        <span class="comment">// Process fullscreened.
-        </span><span class="kw">let </span>new_fullscreened = states.contains(<span class="kw-2">&amp;</span>State::Fullscreen);
-        need_redraw |= new_fullscreened != inner.fullscreened;
-        inner.fullscreened = new_fullscreened;
+        <span class="comment">// Draw the borders.
+        </span><span class="kw">for </span>(idx, part) <span class="kw">in </span>decorations
+            .parts()
+            .filter(|(idx, <span class="kw">_</span>)| <span class="kw-2">*</span>idx == DecorationParts::HEADER || draw_borders)
+        {
+            <span class="kw">let </span>scale = <span class="self">self</span>.scale_factor;
 
-        <span class="kw">let </span>new_tiled = states.contains(<span class="kw-2">&amp;</span>State::TiledLeft)
-            || states.contains(<span class="kw-2">&amp;</span>State::TiledRight)
-            || states.contains(<span class="kw-2">&amp;</span>State::TiledTop)
-            || states.contains(<span class="kw-2">&amp;</span>State::TiledBottom);
-        need_redraw |= new_tiled != inner.tiled;
-        inner.tiled = new_tiled;
+            <span class="kw">let </span><span class="kw-2">mut </span>rect = part.surface_rect;
+            <span class="comment">// XXX to perfectly align the visible borders we draw them with
+            // the header, otherwise rounded corners won&#39;t look &#39;smooth&#39; at the
+            // start. To achieve that, we enlargen the width of the header by
+            // 2 * `VISIBLE_BORDER_SIZE`, and move `x` by `VISIBLE_BORDER_SIZE`
+            // to the left.
+            </span><span class="kw">if </span>idx == DecorationParts::HEADER &amp;&amp; draw_borders {
+                rect.width += <span class="number">2 </span>* VISIBLE_BORDER_SIZE;
+                rect.x -= VISIBLE_BORDER_SIZE <span class="kw">as </span>i32;
+            }
 
-        need_redraw
+            rect.width <span class="kw-2">*</span>= scale;
+            rect.height <span class="kw-2">*</span>= scale;
+
+            <span class="kw">let </span>(buffer, canvas) = <span class="kw">match </span><span class="self">self</span>.pool.create_buffer(
+                rect.width <span class="kw">as </span>i32,
+                rect.height <span class="kw">as </span>i32,
+                rect.width <span class="kw">as </span>i32 * <span class="number">4</span>,
+                wl_shm::Format::Argb8888,
+            ) {
+                <span class="prelude-val">Ok</span>((buffer, canvas)) =&gt; (buffer, canvas),
+                <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">continue</span>,
+            };
+
+            <span class="comment">// Create the pixmap and fill with transparent color.
+            </span><span class="kw">let </span><span class="kw-2">mut </span>pixmap = PixmapMut::from_bytes(canvas, rect.width, rect.height)<span class="question-mark">?</span>;
+
+            <span class="comment">// Fill everything with transparent background, since we draw rounded corners and
+            // do invisible borders to enlarge the input zone.
+            </span>pixmap.fill(Color::TRANSPARENT);
+
+            <span class="kw">if </span>!<span class="self">self</span>.state.intersects(WindowState::TILED) {
+                <span class="self">self</span>.shadow.draw(
+                    <span class="kw-2">&amp;mut </span>pixmap,
+                    scale,
+                    <span class="self">self</span>.state.contains(WindowState::ACTIVATED),
+                    idx,
+                );
+            }
+
+            <span class="kw">match </span>idx {
+                DecorationParts::HEADER =&gt; {
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(title_text) = <span class="self">self</span>.title_text.as_mut() {
+                        title_text.update_scale(scale);
+                        title_text.update_color(colors.font_color);
+                    }
+
+                    draw_headerbar(
+                        <span class="kw-2">&amp;mut </span>pixmap,
+                        <span class="self">self</span>.title_text.as_ref().map(|t| t.pixmap()).unwrap_or(<span class="prelude-val">None</span>),
+                        scale <span class="kw">as </span>f32,
+                        <span class="self">self</span>.resizable,
+                        <span class="kw-2">&amp;</span><span class="self">self</span>.state,
+                        <span class="kw-2">&amp;</span><span class="self">self</span>.theme,
+                        <span class="kw-2">&amp;</span><span class="self">self</span>.buttons,
+                        <span class="self">self</span>.mouse.location,
+                    );
+                }
+                border =&gt; {
+                    <span class="comment">// The visible border is one pt.
+                    </span><span class="kw">let </span>visible_border_size = VISIBLE_BORDER_SIZE * scale;
+
+                    <span class="comment">// XXX we do all the match using integral types and then convert to f32 in the
+                    // end to ensure that result is finite.
+                    </span><span class="kw">let </span>border_rect = <span class="kw">match </span>border {
+                        DecorationParts::LEFT =&gt; {
+                            <span class="kw">let </span>x = (rect.x.unsigned_abs() * scale) - visible_border_size;
+                            <span class="kw">let </span>y = rect.y.unsigned_abs() * scale;
+                            Rect::from_xywh(
+                                x <span class="kw">as </span>f32,
+                                y <span class="kw">as </span>f32,
+                                visible_border_size <span class="kw">as </span>f32,
+                                (rect.height - y) <span class="kw">as </span>f32,
+                            )
+                        }
+                        DecorationParts::RIGHT =&gt; {
+                            <span class="kw">let </span>y = rect.y.unsigned_abs() * scale;
+                            Rect::from_xywh(
+                                <span class="number">0.</span>,
+                                y <span class="kw">as </span>f32,
+                                visible_border_size <span class="kw">as </span>f32,
+                                (rect.height - y) <span class="kw">as </span>f32,
+                            )
+                        }
+                        <span class="comment">// We draw small visible border only bellow the window surface, no need to
+                        // handle `TOP`.
+                        </span>DecorationParts::BOTTOM =&gt; {
+                            <span class="kw">let </span>x = (rect.x.unsigned_abs() * scale) - visible_border_size;
+                            Rect::from_xywh(
+                                x <span class="kw">as </span>f32,
+                                <span class="number">0.</span>,
+                                (rect.width - <span class="number">2 </span>* x) <span class="kw">as </span>f32,
+                                visible_border_size <span class="kw">as </span>f32,
+                            )
+                        }
+                        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+                    };
+
+                    <span class="comment">// Fill the visible border, if present.
+                    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(border_rect) = border_rect {
+                        pixmap.fill_rect(border_rect, <span class="kw-2">&amp;</span>border_paint, Transform::identity(), <span class="prelude-val">None</span>);
+                    }
+                }
+            };
+
+            <span class="kw">if </span>should_sync {
+                part.subsurface.set_sync();
+            } <span class="kw">else </span>{
+                part.subsurface.set_desync();
+            }
+
+            part.surface.set_buffer_scale(scale <span class="kw">as </span>i32);
+
+            part.subsurface.set_position(rect.x, rect.y);
+            buffer.attach_to(<span class="kw-2">&amp;</span>part.surface).ok()<span class="question-mark">?</span>;
+
+            <span class="kw">if </span>part.surface.version() &gt;= <span class="number">4 </span>{
+                part.surface.damage_buffer(<span class="number">0</span>, <span class="number">0</span>, i32::MAX, i32::MAX);
+            } <span class="kw">else </span>{
+                part.surface.damage(<span class="number">0</span>, <span class="number">0</span>, i32::MAX, i32::MAX);
+            }
+
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(input_rect) = part.input_rect {
+                <span class="kw">let </span>input_region = Region::new(<span class="kw-2">&amp;*</span><span class="self">self</span>.compositor).ok()<span class="question-mark">?</span>;
+                input_region.add(
+                    input_rect.x,
+                    input_rect.y,
+                    input_rect.width <span class="kw">as </span>i32,
+                    input_rect.height <span class="kw">as </span>i32,
+                );
+
+                part.surface
+                    .set_input_region(<span class="prelude-val">Some</span>(input_region.wl_region()));
+            }
+
+            part.surface.commit();
+        }
+
+        <span class="prelude-val">Some</span>(should_sync)
+    }
+}
+
+<span class="kw">impl</span>&lt;State&gt; DecorationsFrame <span class="kw">for </span>AdwaitaFrame&lt;State&gt;
+<span class="kw">where
+    </span>State: Dispatch&lt;WlSurface, SurfaceData&gt; + Dispatch&lt;WlSubsurface, SubsurfaceData&gt; + <span class="lifetime">&#39;static</span>,
+{
+    <span class="kw">fn </span>update_state(<span class="kw-2">&amp;mut </span><span class="self">self</span>, state: WindowState) {
+        <span class="kw">let </span>difference = <span class="self">self</span>.state.symmetric_difference(state);
+        <span class="self">self</span>.state = state;
+        <span class="self">self</span>.dirty |= difference.intersects(
+            WindowState::ACTIVATED
+                | WindowState::FULLSCREEN
+                | WindowState::MAXIMIZED
+                | WindowState::TILED,
+        );
+    }
+
+    <span class="kw">fn </span>update_wm_capabilities(<span class="kw-2">&amp;mut </span><span class="self">self</span>, wm_capabilities: WindowManagerCapabilities) {
+        <span class="self">self</span>.dirty |= <span class="self">self</span>.wm_capabilities != wm_capabilities;
+        <span class="self">self</span>.wm_capabilities = wm_capabilities;
+        <span class="self">self</span>.buttons.update_wm_capabilities(wm_capabilities);
     }
 
     <span class="kw">fn </span>set_hidden(<span class="kw-2">&amp;mut </span><span class="self">self</span>, hidden: bool) {
-        <span class="self">self</span>.hidden = hidden;
-        <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="self">self</span>.inner.borrow_mut();
-        <span class="kw">if </span>!<span class="self">self</span>.hidden {
-            inner.parts.add_decorations(
+        <span class="kw">if </span>hidden {
+            <span class="self">self</span>.dirty = <span class="bool-val">false</span>;
+            <span class="kw">let _ </span>= <span class="self">self</span>.pool.resize(<span class="number">1</span>);
+            <span class="self">self</span>.decorations = <span class="prelude-val">None</span>;
+        } <span class="kw">else if </span><span class="self">self</span>.decorations.is_none() {
+            <span class="self">self</span>.decorations = <span class="prelude-val">Some</span>(DecorationParts::new(
                 <span class="kw-2">&amp;</span><span class="self">self</span>.base_surface,
-                <span class="kw-2">&amp;</span><span class="self">self</span>.compositor,
                 <span class="kw-2">&amp;</span><span class="self">self</span>.subcompositor,
-                <span class="self">self</span>.inner.clone(),
-            );
-        } <span class="kw">else </span>{
-            inner.parts.remove_decorations();
+                <span class="kw-2">&amp;</span><span class="self">self</span>.queue_handle,
+            ));
+            <span class="self">self</span>.dirty = <span class="bool-val">true</span>;
+            <span class="self">self</span>.should_sync = <span class="bool-val">true</span>;
         }
     }
 
     <span class="kw">fn </span>set_resizable(<span class="kw-2">&amp;mut </span><span class="self">self</span>, resizable: bool) {
-        <span class="self">self</span>.inner.borrow_mut().resizable = resizable;
+        <span class="self">self</span>.dirty |= <span class="self">self</span>.resizable != resizable;
+        <span class="self">self</span>.resizable = resizable;
     }
 
-    <span class="kw">fn </span>resize(<span class="kw-2">&amp;mut </span><span class="self">self</span>, newsize: (u32, u32)) {
-        <span class="self">self</span>.inner.borrow_mut().size = newsize;
+    <span class="kw">fn </span>resize(<span class="kw-2">&amp;mut </span><span class="self">self</span>, width: NonZeroU32, height: NonZeroU32) {
+        <span class="kw">let </span><span class="prelude-val">Some</span>(decorations) = <span class="self">self</span>.decorations.as_mut() <span class="kw">else </span>{
+            <span class="macro">log::error!</span>(<span class="string">&quot;trying to resize the hidden frame.&quot;</span>);
+            <span class="kw">return</span>;
+        };
+
+        decorations.resize(width.get(), height.get());
         <span class="self">self</span>.buttons
-            .borrow_mut()
-            .arrange(newsize.<span class="number">0 </span>+ BORDER_SIZE * <span class="number">2</span>);
+            .arrange(width.get(), get_margin_h_lp(<span class="kw-2">&amp;</span><span class="self">self</span>.state));
+        <span class="self">self</span>.dirty = <span class="bool-val">true</span>;
+        <span class="self">self</span>.should_sync = <span class="bool-val">true</span>;
     }
 
-    <span class="kw">fn </span>redraw(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="self">self</span>.redraw_inner();
+    <span class="kw">fn </span>draw(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.redraw_inner().unwrap_or(<span class="bool-val">true</span>)
     }
 
-    <span class="kw">fn </span>subtract_borders(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32, height: i32) -&gt; (i32, i32) {
-        <span class="kw">if </span><span class="self">self</span>.hidden || <span class="self">self</span>.inner.borrow().fullscreened {
-            (width, height)
+    <span class="kw">fn </span>subtract_borders(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        width: NonZeroU32,
+        height: NonZeroU32,
+    ) -&gt; (<span class="prelude-ty">Option</span>&lt;NonZeroU32&gt;, <span class="prelude-ty">Option</span>&lt;NonZeroU32&gt;) {
+        <span class="kw">if </span><span class="self">self</span>.decorations.is_none() || <span class="self">self</span>.state.contains(WindowState::FULLSCREEN) {
+            (<span class="prelude-val">Some</span>(width), <span class="prelude-val">Some</span>(height))
         } <span class="kw">else </span>{
-            (width, height - HEADER_SIZE <span class="kw">as </span>i32)
+            (
+                <span class="prelude-val">Some</span>(width),
+                NonZeroU32::new(height.get().saturating_sub(HEADER_SIZE)),
+            )
         }
     }
 
-    <span class="kw">fn </span>add_borders(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32, height: i32) -&gt; (i32, i32) {
-        <span class="kw">if </span><span class="self">self</span>.hidden || <span class="self">self</span>.inner.borrow().fullscreened {
+    <span class="kw">fn </span>add_borders(<span class="kw-2">&amp;</span><span class="self">self</span>, width: u32, height: u32) -&gt; (u32, u32) {
+        <span class="kw">if </span><span class="self">self</span>.decorations.is_none() || <span class="self">self</span>.state.contains(WindowState::FULLSCREEN) {
             (width, height)
         } <span class="kw">else </span>{
-            (width, height + HEADER_SIZE <span class="kw">as </span>i32)
+            (width, height + HEADER_SIZE)
         }
     }
 
     <span class="kw">fn </span>location(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
-        <span class="kw">if </span><span class="self">self</span>.hidden || <span class="self">self</span>.inner.borrow().fullscreened {
+        <span class="kw">if </span><span class="self">self</span>.decorations.is_none() || <span class="self">self</span>.state.contains(WindowState::FULLSCREEN) {
             (<span class="number">0</span>, <span class="number">0</span>)
         } <span class="kw">else </span>{
             (<span class="number">0</span>, -(HEADER_SIZE <span class="kw">as </span>i32))
         }
     }
 
-    <span class="kw">fn </span>set_config(<span class="kw-2">&amp;mut </span><span class="self">self</span>, config: FrameConfig) {
-        <span class="self">self</span>.colors = config.theme;
-    }
-
-    <span class="kw">fn </span>set_title(<span class="kw-2">&amp;mut </span><span class="self">self</span>, title: String) {
+    <span class="kw">fn </span>set_title(<span class="kw-2">&amp;mut </span><span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;String&gt;) {
+        <span class="kw">let </span>new_title = title.into();
         <span class="kw">if let </span><span class="prelude-val">Some</span>(title_text) = <span class="self">self</span>.title_text.as_mut() {
-            title_text.update_title(<span class="kw-2">&amp;</span>title);
+            title_text.update_title(new_title.clone());
         }
 
-        <span class="self">self</span>.title = <span class="prelude-val">Some</span>(title);
+        <span class="self">self</span>.title = <span class="prelude-val">Some</span>(new_title);
+        <span class="self">self</span>.dirty = <span class="bool-val">true</span>;
+    }
+
+    <span class="kw">fn </span>on_click(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        timestamp: Duration,
+        click: FrameClick,
+        pressed: bool,
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;FrameAction&gt; {
+        <span class="kw">match </span>click {
+            FrameClick::Normal =&gt; <span class="self">self</span>.mouse.click(
+                timestamp,
+                pressed,
+                <span class="self">self</span>.resizable,
+                <span class="kw-2">&amp;</span><span class="self">self</span>.state,
+                <span class="kw-2">&amp;</span><span class="self">self</span>.wm_capabilities,
+            ),
+            FrameClick::Alternate =&gt; <span class="self">self</span>.mouse.alternate_click(pressed, <span class="kw-2">&amp;</span><span class="self">self</span>.wm_capabilities),
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+        }
+    }
+
+    <span class="kw">fn </span>set_scaling_factor(<span class="kw-2">&amp;mut </span><span class="self">self</span>, scale_factor: f64) {
+        <span class="comment">// NOTE: Clamp it just in case to some ok-ish range.
+        </span><span class="self">self</span>.scale_factor = scale_factor.clamp(<span class="number">0.1</span>, <span class="number">64.</span>).ceil() <span class="kw">as </span>u32;
+        <span class="self">self</span>.dirty = <span class="bool-val">true</span>;
+        <span class="self">self</span>.should_sync = <span class="bool-val">true</span>;
+    }
+
+    <span class="kw">fn </span>click_point_moved(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        _timestamp: Duration,
+        surface: <span class="kw-2">&amp;</span>ObjectId,
+        x: f64,
+        y: f64,
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;CursorIcon&gt; {
+        <span class="kw">let </span>decorations = <span class="self">self</span>.decorations.as_ref()<span class="question-mark">?</span>;
+        <span class="kw">let </span>location = decorations.find_surface(surface);
+        <span class="kw">if </span>location == Location::None {
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        }
+
+        <span class="kw">let </span>old_location = <span class="self">self</span>.mouse.location;
+
+        <span class="kw">let </span>location = <span class="self">self</span>.precise_location(location, decorations, x, y);
+        <span class="kw">let </span>new_cursor = <span class="self">self</span>.mouse.moved(location, x, y, <span class="self">self</span>.resizable);
+
+        <span class="comment">// Set dirty if we moved the cursor between the buttons.
+        </span><span class="self">self</span>.dirty |= (<span class="macro">matches!</span>(old_location, Location::Button(<span class="kw">_</span>))
+            || <span class="macro">matches!</span>(<span class="self">self</span>.mouse.location, Location::Button(<span class="kw">_</span>)))
+            &amp;&amp; old_location != <span class="self">self</span>.mouse.location;
+
+        <span class="prelude-val">Some</span>(new_cursor)
+    }
+
+    <span class="kw">fn </span>click_point_left(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="self">self</span>.mouse.left()
+    }
+
+    <span class="kw">fn </span>is_dirty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.dirty
+    }
+
+    <span class="kw">fn </span>is_hidden(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.decorations.is_none()
     }
 }
 
-<span class="kw">impl </span>AdwaitaFrame {
-    <span class="kw">fn </span>redraw_inner(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; SkiaResult {
-        <span class="kw">let </span>inner = <span class="self">self</span>.inner.borrow_mut();
-
-        <span class="comment">// Don&#39;t draw borders if the frame explicitly hidden or fullscreened.
-        </span><span class="kw">if </span><span class="self">self</span>.hidden || inner.fullscreened {
-            inner.parts.hide_decorations();
-            <span class="kw">return </span><span class="prelude-val">Some</span>(());
-        }
-
-        <span class="comment">// `parts` can&#39;t be empty here, since the initial state for `self.hidden` is true, and
-        // they will be created once `self.hidden` will become `false`.
-        </span><span class="kw">let </span>parts = <span class="kw-2">&amp;</span>inner.parts;
-
-        <span class="kw">let </span>(width, height) = inner.size;
-
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(decoration) = parts.decoration() {
-            <span class="comment">// Use header scale for all the thing.
-            </span><span class="kw">let </span>header_scale = decoration.header.scale();
-            <span class="self">self</span>.buttons.borrow_mut().update_scale(header_scale);
-
-            <span class="kw">let </span>left_scale = decoration.left.scale();
-            <span class="kw">let </span>right_scale = decoration.right.scale();
-            <span class="kw">let </span>bottom_scale = decoration.bottom.scale();
-
-            <span class="kw">let </span>(header_width, header_height) = <span class="self">self</span>.buttons.borrow().scaled_size();
-            <span class="kw">let </span>header_height = header_height + BORDER_SIZE * header_scale;
-
-            {
-                <span class="comment">// Create the buffers and draw
-
-                </span><span class="kw">let </span>colors = <span class="kw">if </span><span class="self">self</span>.active == WindowState::Active {
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.colors.active
-                } <span class="kw">else </span>{
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.colors.inactive
-                };
-
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(title_text) = <span class="self">self</span>.title_text.as_mut() {
-                    title_text.update_color(colors.font_color);
-                }
-
-                <span class="kw">let </span>border_paint = colors.border_paint();
-
-                <span class="comment">// -&gt; head-subsurface
-                </span><span class="kw">if let </span><span class="prelude-val">Ok</span>((canvas, buffer)) = <span class="self">self</span>.pool.buffer(
-                    header_width <span class="kw">as </span>i32,
-                    header_height <span class="kw">as </span>i32,
-                    <span class="number">4 </span>* header_width <span class="kw">as </span>i32,
-                    wl_shm::Format::Argb8888,
-                ) {
-                    <span class="kw">let </span><span class="kw-2">mut </span>pixmap = PixmapMut::from_bytes(canvas, header_width, header_height)<span class="question-mark">?</span>;
-                    pixmap.fill(Color::TRANSPARENT);
-
-                    <span class="kw">if let </span><span class="prelude-val">Some</span>(title_text) = <span class="self">self</span>.title_text.as_mut() {
-                        title_text.update_scale(header_scale);
-                    }
-
-                    draw_headerbar(
-                        <span class="kw-2">&amp;mut </span>pixmap,
-                        <span class="self">self</span>.title_text.as_ref().map(|t| t.pixmap()).unwrap_or(<span class="prelude-val">None</span>),
-                        header_scale <span class="kw">as </span>f32,
-                        inner.resizable,
-                        inner.maximized,
-                        inner.tiled,
-                        <span class="self">self</span>.active,
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.colors,
-                        <span class="kw-2">&amp;</span><span class="self">self</span>.buttons.borrow(),
-                        <span class="kw-2">&amp;</span><span class="self">self
-                            </span>.pointers
-                            .iter()
-                            .flat_map(|p| {
-                                <span class="kw">if </span>p.as_ref().is_alive() {
-                                    <span class="kw">let </span>data: <span class="kw-2">&amp;</span>RefCell&lt;PointerUserData&gt; =
-                                        p.as_ref().user_data().get()<span class="question-mark">?</span>;
-                                    <span class="prelude-val">Some</span>(data.borrow().location)
-                                } <span class="kw">else </span>{
-                                    <span class="prelude-val">None
-                                </span>}
-                            })
-                            .collect::&lt;Vec&lt;Location&gt;&gt;(),
-                    );
-
-                    decoration.header.subsurface.set_position(
-                        -(BORDER_SIZE <span class="kw">as </span>i32),
-                        -(HEADER_SIZE <span class="kw">as </span>i32 + BORDER_SIZE <span class="kw">as </span>i32),
-                    );
-                    decoration.header.surface.attach(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>buffer), <span class="number">0</span>, <span class="number">0</span>);
-                    <span class="kw">if </span><span class="self">self</span>.surface_version &gt;= <span class="number">4 </span>{
-                        decoration.header.surface.damage_buffer(
-                            <span class="number">0</span>,
-                            <span class="number">0</span>,
-                            header_width <span class="kw">as </span>i32,
-                            header_height <span class="kw">as </span>i32,
-                        );
-                    } <span class="kw">else </span>{
-                        <span class="comment">// surface is old and does not support damage_buffer, so we damage
-                        // in surface coordinates and hope it is not rescaled
-                        </span>decoration
-                            .header
-                            .surface
-                            .damage(<span class="number">0</span>, <span class="number">0</span>, width <span class="kw">as </span>i32, HEADER_SIZE <span class="kw">as </span>i32);
-                    }
-                    decoration.header.surface.commit();
-                }
-
-                <span class="kw">if </span>inner.maximized {
-                    <span class="comment">// Don&#39;t draw the borders.
-                    </span>decoration.hide_borders();
-                    <span class="kw">return </span><span class="prelude-val">Some</span>(());
-                }
-
-                <span class="kw">let </span>w = ((width + <span class="number">2 </span>* BORDER_SIZE) * bottom_scale) <span class="kw">as </span>i32;
-                <span class="kw">let </span>h = (BORDER_SIZE * bottom_scale) <span class="kw">as </span>i32;
-                <span class="comment">// -&gt; bottom-subsurface
-                </span><span class="kw">if let </span><span class="prelude-val">Ok</span>((canvas, buffer)) = <span class="self">self</span>.pool.buffer(
-                    w,
-                    h,
-                    (<span class="number">4 </span>* bottom_scale * (width + <span class="number">2 </span>* BORDER_SIZE)) <span class="kw">as </span>i32,
-                    wl_shm::Format::Argb8888,
-                ) {
-                    <span class="kw">let </span><span class="kw-2">mut </span>pixmap = PixmapMut::from_bytes(canvas, w <span class="kw">as </span>u32, h <span class="kw">as </span>u32)<span class="question-mark">?</span>;
-                    pixmap.fill(Color::TRANSPARENT);
-
-                    <span class="kw">let </span>size = <span class="number">1.0</span>;
-                    <span class="kw">let </span>x = BORDER_SIZE <span class="kw">as </span>f32 * bottom_scale <span class="kw">as </span>f32 - <span class="number">1.0</span>;
-                    pixmap.fill_rect(
-                        Rect::from_xywh(
-                            x,
-                            <span class="number">0.0</span>,
-                            w <span class="kw">as </span>f32 - BORDER_SIZE <span class="kw">as </span>f32 * <span class="number">2.0 </span>* bottom_scale <span class="kw">as </span>f32 + <span class="number">2.0</span>,
-                            size,
-                        )<span class="question-mark">?</span>,
-                        <span class="kw-2">&amp;</span>border_paint,
-                        Transform::identity(),
-                        <span class="prelude-val">None</span>,
-                    );
-
-                    decoration
-                        .bottom
-                        .subsurface
-                        .set_position(-(BORDER_SIZE <span class="kw">as </span>i32), height <span class="kw">as </span>i32);
-                    decoration.bottom.surface.attach(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>buffer), <span class="number">0</span>, <span class="number">0</span>);
-                    <span class="kw">if </span><span class="self">self</span>.surface_version &gt;= <span class="number">4 </span>{
-                        decoration.bottom.surface.damage_buffer(
-                            <span class="number">0</span>,
-                            <span class="number">0</span>,
-                            ((width + <span class="number">2 </span>* BORDER_SIZE) * bottom_scale) <span class="kw">as </span>i32,
-                            (BORDER_SIZE * bottom_scale) <span class="kw">as </span>i32,
-                        );
-                    } <span class="kw">else </span>{
-                        <span class="comment">// surface is old and does not support damage_buffer, so we damage
-                        // in surface coordinates and hope it is not rescaled
-                        </span>decoration.bottom.surface.damage(
-                            <span class="number">0</span>,
-                            <span class="number">0</span>,
-                            (width + <span class="number">2 </span>* BORDER_SIZE) <span class="kw">as </span>i32,
-                            BORDER_SIZE <span class="kw">as </span>i32,
-                        );
-                    }
-                    decoration.bottom.surface.commit();
-                }
-
-                <span class="kw">let </span>w = (BORDER_SIZE * left_scale) <span class="kw">as </span>i32;
-                <span class="kw">let </span>h = (height * left_scale) <span class="kw">as </span>i32;
-                <span class="comment">// -&gt; left-subsurface
-                </span><span class="kw">if let </span><span class="prelude-val">Ok</span>((canvas, buffer)) = <span class="self">self</span>.pool.buffer(
-                    w,
-                    h,
-                    <span class="number">4 </span>* (BORDER_SIZE * left_scale) <span class="kw">as </span>i32,
-                    wl_shm::Format::Argb8888,
-                ) {
-                    <span class="kw">let </span><span class="kw-2">mut </span>bg = Paint::default();
-                    bg.set_color_rgba8(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);
-
-                    <span class="kw">let </span><span class="kw-2">mut </span>pixmap = PixmapMut::from_bytes(canvas, w <span class="kw">as </span>u32, h <span class="kw">as </span>u32)<span class="question-mark">?</span>;
-                    pixmap.fill(Color::TRANSPARENT);
-
-                    <span class="kw">let </span>size = <span class="number">1.0</span>;
-                    pixmap.fill_rect(
-                        Rect::from_xywh(w <span class="kw">as </span>f32 - size, <span class="number">0.0</span>, w <span class="kw">as </span>f32, h <span class="kw">as </span>f32)<span class="question-mark">?</span>,
-                        <span class="kw-2">&amp;</span>border_paint,
-                        Transform::identity(),
-                        <span class="prelude-val">None</span>,
-                    );
-
-                    decoration
-                        .left
-                        .subsurface
-                        .set_position(-(BORDER_SIZE <span class="kw">as </span>i32), <span class="number">0</span>);
-                    decoration.left.surface.attach(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>buffer), <span class="number">0</span>, <span class="number">0</span>);
-                    <span class="kw">if </span><span class="self">self</span>.surface_version &gt;= <span class="number">4 </span>{
-                        decoration.left.surface.damage_buffer(<span class="number">0</span>, <span class="number">0</span>, w, h);
-                    } <span class="kw">else </span>{
-                        <span class="comment">// surface is old and does not support damage_buffer, so we damage
-                        // in surface coordinates and hope it is not rescaled
-                        </span>decoration.left.surface.damage(
-                            <span class="number">0</span>,
-                            <span class="number">0</span>,
-                            BORDER_SIZE <span class="kw">as </span>i32,
-                            (height + HEADER_SIZE) <span class="kw">as </span>i32,
-                        );
-                    }
-                    decoration.left.surface.commit();
-                }
-
-                <span class="kw">let </span>w = (BORDER_SIZE * right_scale) <span class="kw">as </span>i32;
-                <span class="kw">let </span>h = (height * right_scale) <span class="kw">as </span>i32;
-                <span class="comment">// -&gt; right-subsurface
-                </span><span class="kw">if let </span><span class="prelude-val">Ok</span>((canvas, buffer)) = <span class="self">self</span>.pool.buffer(
-                    w,
-                    h,
-                    <span class="number">4 </span>* (BORDER_SIZE * right_scale) <span class="kw">as </span>i32,
-                    wl_shm::Format::Argb8888,
-                ) {
-                    <span class="kw">let </span><span class="kw-2">mut </span>bg = Paint::default();
-                    bg.set_color_rgba8(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);
-
-                    <span class="kw">let </span><span class="kw-2">mut </span>pixmap = PixmapMut::from_bytes(canvas, w <span class="kw">as </span>u32, h <span class="kw">as </span>u32)<span class="question-mark">?</span>;
-                    pixmap.fill(Color::TRANSPARENT);
-
-                    <span class="kw">let </span>size = <span class="number">1.0</span>;
-                    pixmap.fill_rect(
-                        Rect::from_xywh(<span class="number">0.0</span>, <span class="number">0.0</span>, size, h <span class="kw">as </span>f32)<span class="question-mark">?</span>,
-                        <span class="kw-2">&amp;</span>border_paint,
-                        Transform::identity(),
-                        <span class="prelude-val">None</span>,
-                    );
-
-                    decoration.right.subsurface.set_position(width <span class="kw">as </span>i32, <span class="number">0</span>);
-                    decoration.right.surface.attach(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>buffer), <span class="number">0</span>, <span class="number">0</span>);
-                    <span class="kw">if </span><span class="self">self</span>.surface_version &gt;= <span class="number">4 </span>{
-                        decoration.right.surface.damage_buffer(<span class="number">0</span>, <span class="number">0</span>, w, h);
-                    } <span class="kw">else </span>{
-                        <span class="comment">// surface is old and does not support damage_buffer, so we damage
-                        // in surface coordinates and hope it is not rescaled
-                        </span>decoration
-                            .right
-                            .surface
-                            .damage(<span class="number">0</span>, <span class="number">0</span>, BORDER_SIZE <span class="kw">as </span>i32, height <span class="kw">as </span>i32);
-                    }
-                    decoration.right.surface.commit();
-                }
-            }
-        }
-
-        <span class="prelude-val">Some</span>(())
-    }
+<span class="doccomment">/// The configuration for the [`AdwaitaFrame`] frame.
+</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>FrameConfig {
+    <span class="kw">pub </span>theme: ColorTheme,
 }
 
-<span class="kw">impl </span>Drop <span class="kw">for </span>AdwaitaFrame {
-    <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-        <span class="kw">for </span>ptr <span class="kw">in </span><span class="self">self</span>.pointers.drain(..) {
-            <span class="kw">if </span>ptr.as_ref().version() &gt;= <span class="number">3 </span>{
-                ptr.release();
-            }
+<span class="kw">impl </span>FrameConfig {
+    <span class="doccomment">/// Create the new configuration with the given `theme`.
+    </span><span class="kw">pub fn </span>new(theme: ColorTheme) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ theme }
+    }
+
+    <span class="doccomment">/// This is equivalent of calling `FrameConfig::new(ColorTheme::auto())`.
+    ///
+    /// For details see [`ColorTheme::auto`].
+    </span><span class="kw">pub fn </span>auto() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            theme: ColorTheme::auto(),
+        }
+    }
+
+    <span class="doccomment">/// This is equivalent of calling `FrameConfig::new(ColorTheme::light())`.
+    ///
+    /// For details see [`ColorTheme::light`].
+    </span><span class="kw">pub fn </span>light() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            theme: ColorTheme::light(),
+        }
+    }
+
+    <span class="doccomment">/// This is equivalent of calling `FrameConfig::new(ColorTheme::dark())`.
+    ///
+    /// For details see [`ColorTheme::dark`].
+    </span><span class="kw">pub fn </span>dark() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            theme: ColorTheme::dark(),
         }
     }
 }
 
-<span class="kw">fn </span>draw_headerbar(
+<span class="attr">#[allow(clippy::too_many_arguments)]
+</span><span class="kw">fn </span>draw_headerbar(
     pixmap: <span class="kw-2">&amp;mut </span>PixmapMut,
     text_pixmap: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Pixmap&gt;,
     scale: f32,
-    maximizable: bool,
-    is_maximized: bool,
-    tiled: bool,
-    state: WindowState,
-    colors: <span class="kw-2">&amp;</span>ColorTheme,
+    resizable: bool,
+    state: <span class="kw-2">&amp;</span>WindowState,
+    theme: <span class="kw-2">&amp;</span>ColorTheme,
     buttons: <span class="kw-2">&amp;</span>Buttons,
-    mouses: <span class="kw-2">&amp;</span>[Location],
+    mouse: Location,
 ) {
-    <span class="kw">let </span>border_size = BORDER_SIZE <span class="kw">as </span>f32 * scale;
+    <span class="kw">let </span>colors = theme.for_state(state.contains(WindowState::ACTIVATED));
 
-    <span class="kw">let </span>margin_h = border_size;
-    <span class="kw">let </span>margin_v = border_size;
+    <span class="kw">let _ </span>= draw_headerbar_bg(pixmap, scale, colors, state);
 
-    <span class="kw">let </span>colors = colors.for_state(state);
+    <span class="comment">// Horizontal margin.
+    </span><span class="kw">let </span>margin_h = get_margin_h_lp(state) * <span class="number">2.0</span>;
 
-    draw_headerbar_bg(
-        pixmap,
-        scale,
-        margin_h,
-        margin_v,
-        colors,
-        is_maximized,
-        tiled,
-    );
+    <span class="kw">let </span>canvas_w = pixmap.width() <span class="kw">as </span>f32;
+    <span class="kw">let </span>canvas_h = pixmap.height() <span class="kw">as </span>f32;
+
+    <span class="kw">let </span>header_w = canvas_w - margin_h * <span class="number">2.0</span>;
+    <span class="kw">let </span>header_h = canvas_h;
 
     <span class="kw">if let </span><span class="prelude-val">Some</span>(text_pixmap) = text_pixmap {
-        <span class="kw">let </span>canvas_w = pixmap.width() <span class="kw">as </span>f32;
-        <span class="kw">let </span>canvas_h = pixmap.height() <span class="kw">as </span>f32;
-
-        <span class="kw">let </span>header_w = canvas_w - margin_h * <span class="number">2.0</span>;
-        <span class="kw">let </span>header_h = canvas_h - margin_v;
+        <span class="kw">const </span>TEXT_OFFSET: f32 = <span class="number">10.</span>;
+        <span class="kw">let </span>offset_x = TEXT_OFFSET * scale;
 
         <span class="kw">let </span>text_w = text_pixmap.width() <span class="kw">as </span>f32;
         <span class="kw">let </span>text_h = text_pixmap.height() <span class="kw">as </span>f32;
 
-        <span class="kw">let </span>x = header_w / <span class="number">2.0 </span>- text_w / <span class="number">2.0</span>;
-        <span class="kw">let </span>y = header_h / <span class="number">2.0 </span>- text_h / <span class="number">2.0</span>;
+        <span class="kw">let </span>x = margin_h + header_w / <span class="number">2. </span>- text_w / <span class="number">2.</span>;
+        <span class="kw">let </span>y = header_h / <span class="number">2. </span>- text_h / <span class="number">2.</span>;
 
-        <span class="kw">let </span>x = margin_h + x;
-        <span class="kw">let </span>y = margin_v + y;
+        <span class="kw">let </span>left_buttons_end_x = buttons.left_buttons_end_x().unwrap_or(<span class="number">0.0</span>) * scale;
+        <span class="kw">let </span>right_buttons_start_x =
+            buttons.right_buttons_start_x().unwrap_or(header_w / scale) * scale;
 
-        <span class="kw">let </span>(x, y) = <span class="kw">if </span>x + text_w &lt; buttons.minimize.x() - <span class="number">10.0 </span>{
-            (x, y)
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>y = header_h / <span class="number">2.0 </span>- text_h / <span class="number">2.0</span>;
+        {
+            <span class="comment">// We have enough space to center text
+            </span><span class="kw">let </span>(x, y, text_canvas_start_x) = <span class="kw">if </span>(x + text_w &lt; right_buttons_start_x - offset_x)
+                &amp;&amp; (x &gt; left_buttons_end_x + offset_x)
+            {
+                <span class="kw">let </span>text_canvas_start_x = x;
 
-            <span class="kw">let </span>x = buttons.minimize.x() - text_w - <span class="number">10.0</span>;
-            <span class="kw">let </span>y = margin_v + y;
-            (x, y)
-        };
+                (x, y, text_canvas_start_x)
+            } <span class="kw">else </span>{
+                <span class="kw">let </span>x = left_buttons_end_x + offset_x;
+                <span class="kw">let </span>text_canvas_start_x = left_buttons_end_x + offset_x;
 
-        <span class="kw">let </span>x = x.max(margin_h + <span class="number">5.0</span>);
+                (x, y, text_canvas_start_x)
+            };
 
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(clip) = Rect::from_xywh(<span class="number">0.0</span>, <span class="number">0.0</span>, buttons.minimize.x() - <span class="number">10.0</span>, canvas_h) {
-            <span class="kw">let </span><span class="kw-2">mut </span>mask = ClipMask::new();
-            mask.set_path(
-                canvas_w <span class="kw">as </span>u32,
-                canvas_h <span class="kw">as </span>u32,
-                <span class="kw-2">&amp;</span>PathBuilder::from_rect(clip),
-                FillRule::Winding,
-                <span class="bool-val">false</span>,
-            );
-            pixmap.draw_pixmap(
-                x <span class="kw">as </span>i32,
-                y <span class="kw">as </span>i32,
-                text_pixmap.as_ref(),
-                <span class="kw-2">&amp;</span>PixmapPaint::default(),
-                Transform::identity(),
-                <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>mask),
-            );
+            <span class="kw">let </span>text_canvas_end_x = right_buttons_start_x - x - offset_x;
+            <span class="comment">// Ensure that text start within the bounds.
+            </span><span class="kw">let </span>x = x.max(margin_h + offset_x);
+
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(clip) =
+                Rect::from_xywh(text_canvas_start_x, <span class="number">0.</span>, text_canvas_end_x, canvas_h)
+            {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>mask) = Mask::new(canvas_w <span class="kw">as </span>u32, canvas_h <span class="kw">as </span>u32) {
+                    mask.fill_path(
+                        <span class="kw-2">&amp;</span>PathBuilder::from_rect(clip),
+                        FillRule::Winding,
+                        <span class="bool-val">false</span>,
+                        Transform::identity(),
+                    );
+                    pixmap.draw_pixmap(
+                        x.round() <span class="kw">as </span>i32,
+                        y <span class="kw">as </span>i32,
+                        text_pixmap.as_ref(),
+                        <span class="kw-2">&amp;</span>PixmapPaint::default(),
+                        Transform::identity(),
+                        <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>mask),
+                    );
+                } <span class="kw">else </span>{
+                    <span class="macro">log::error!</span>(
+                        <span class="string">&quot;Invalid mask width and height: w: {}, h: {}&quot;</span>,
+                        canvas_w <span class="kw">as </span>u32,
+                        canvas_h <span class="kw">as </span>u32
+                    );
+                }
+            }
         }
     }
 
-    <span class="kw">if </span>buttons.close.x() &gt; margin_h {
-        buttons.close.draw_close(scale, colors, mouses, pixmap);
-    }
-
-    <span class="kw">if </span>buttons.maximize.x() &gt; margin_h {
-        buttons
-            .maximize
-            .draw_maximize(scale, colors, mouses, maximizable, is_maximized, pixmap);
-    }
-
-    <span class="kw">if </span>buttons.minimize.x() &gt; margin_h {
-        buttons
-            .minimize
-            .draw_minimize(scale, colors, mouses, pixmap);
-    }
+    <span class="comment">// Draw the buttons.
+    </span>buttons.draw(
+        margin_h, header_w, scale, colors, mouse, pixmap, resizable, state,
+    );
 }
 
-<span class="kw">fn </span>draw_headerbar_bg(
+<span class="attr">#[must_use]
+</span><span class="kw">fn </span>draw_headerbar_bg(
     pixmap: <span class="kw-2">&amp;mut </span>PixmapMut,
     scale: f32,
-    margin_h: f32,
-    margin_v: f32,
     colors: <span class="kw-2">&amp;</span>ColorMap,
-    is_maximized: bool,
-    tiled: bool,
+    state: <span class="kw-2">&amp;</span>WindowState,
 ) -&gt; SkiaResult {
     <span class="kw">let </span>w = pixmap.width() <span class="kw">as </span>f32;
     <span class="kw">let </span>h = pixmap.height() <span class="kw">as </span>f32;
 
-    <span class="kw">let </span>radius = <span class="kw">if </span>is_maximized || tiled {
-        <span class="number">0.0
+    <span class="kw">let </span>radius = <span class="kw">if </span>state.intersects(WindowState::MAXIMIZED | WindowState::TILED) {
+        <span class="number">0.
     </span>} <span class="kw">else </span>{
-        <span class="number">10.0 </span>* scale
+        CORNER_RADIUS <span class="kw">as </span>f32 * scale
     };
 
-    <span class="kw">let </span>margin_h = margin_h - <span class="number">1.0</span>;
-    <span class="kw">let </span>w = w - margin_h * <span class="number">2.0</span>;
-
-    <span class="kw">let </span>bg = rounded_headerbar_shape(margin_h, margin_v, w, h, radius)<span class="question-mark">?</span>;
+    <span class="kw">let </span>bg = rounded_headerbar_shape(<span class="number">0.</span>, <span class="number">0.</span>, w, h, radius)<span class="question-mark">?</span>;
 
     pixmap.fill_path(
         <span class="kw-2">&amp;</span>bg,
@@ -1576,7 +1480,7 @@
     );
 
     pixmap.fill_rect(
-        Rect::from_xywh(margin_h, h - <span class="number">1.0</span>, w, h)<span class="question-mark">?</span>,
+        Rect::from_xywh(<span class="number">0.</span>, h - <span class="number">1.</span>, w, h)<span class="question-mark">?</span>,
         <span class="kw-2">&amp;</span>colors.border_paint(),
         Transform::identity(),
         <span class="prelude-val">None</span>,
@@ -1586,7 +1490,8 @@
 }
 
 <span class="kw">fn </span>rounded_headerbar_shape(x: f32, y: f32, width: f32, height: f32, radius: f32) -&gt; <span class="prelude-ty">Option</span>&lt;Path&gt; {
-    <span class="kw">use </span>std::f32::consts::FRAC_1_SQRT_2;
+    <span class="comment">// https://stackoverflow.com/a/27863181
+    </span><span class="kw">let </span>cubic_bezier_circle = <span class="number">0.552_284_8 </span>* radius;
 
     <span class="kw">let </span><span class="kw-2">mut </span>pb = PathBuilder::new();
     <span class="kw">let </span><span class="kw-2">mut </span>cursor = Point::from_xy(x, y);
@@ -1601,20 +1506,16 @@
     pb.move_to(cursor.x, cursor.y);
 
     <span class="comment">// Drawing the outline
-    </span>pb.cubic_to(
+    </span><span class="kw">let </span>next = Point::from_xy(cursor.x + radius, cursor.y - radius);
+    pb.cubic_to(
         cursor.x,
-        cursor.y,
-        cursor.x,
-        cursor.y - FRAC_1_SQRT_2 * radius,
-        {
-            cursor.x += radius;
-            cursor.x
-        },
-        {
-            cursor.y -= radius;
-            cursor.y
-        },
+        cursor.y - cubic_bezier_circle,
+        next.x - cubic_bezier_circle,
+        next.y,
+        next.x,
+        next.y,
     );
+    cursor = next;
     pb.line_to(
         {
             cursor.x = x + width - radius;
@@ -1622,20 +1523,16 @@
         },
         cursor.y,
     );
+    <span class="kw">let </span>next = Point::from_xy(cursor.x + radius, cursor.y + radius);
     pb.cubic_to(
-        cursor.x,
+        cursor.x + cubic_bezier_circle,
         cursor.y,
-        cursor.x + FRAC_1_SQRT_2 * radius,
-        cursor.y,
-        {
-            cursor.x += radius;
-            cursor.x
-        },
-        {
-            cursor.y += radius;
-            cursor.y
-        },
+        next.x,
+        next.y - cubic_bezier_circle,
+        next.x,
+        next.y,
     );
+    cursor = next;
     pb.line_to(cursor.x, {
         cursor.y = y + height;
         cursor.y
@@ -1651,5 +1548,14 @@
     pb.close();
 
     pb.finish()
+}
+
+<span class="comment">// returns horizontal margin, logical points
+</span><span class="kw">fn </span>get_margin_h_lp(state: <span class="kw-2">&amp;</span>WindowState) -&gt; f32 {
+    <span class="kw">if </span>state.intersects(WindowState::MAXIMIZED | WindowState::TILED) {
+        <span class="number">0.
+    </span>} <span class="kw">else </span>{
+        VISIBLE_BORDER_SIZE <span class="kw">as </span>f32
+    }
 }
 </code></pre></div></section></main></body></html>

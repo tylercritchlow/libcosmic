@@ -215,6 +215,7 @@
 <a href="#215" id="215">215</a>
 <a href="#216" id="216">216</a>
 <a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
 </pre></div><pre class="rust"><code><span class="comment">// From iced_aw, license MIT
 
 </span><span class="kw">use </span>iced_core::widget::Tree;
@@ -275,15 +276,15 @@
     tree: <span class="kw-2">&amp;mut </span>[<span class="kw-2">&amp;mut </span>Tree],
 ) -&gt; Node
 <span class="kw">where
-    </span>E: std::borrow::Borrow&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;&gt;,
+    </span>E: std::borrow::Borrow&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
     Renderer: renderer::Renderer,
 {
-    <span class="kw">let </span>limits = limits.pad(padding);
+    <span class="kw">let </span>limits = limits.shrink(padding);
     <span class="kw">let </span>total_spacing = spacing * items.len().saturating_sub(<span class="number">1</span>) <span class="kw">as </span>f32;
     <span class="kw">let </span>max_cross = axis.cross(limits.max());
 
     <span class="kw">let </span><span class="kw-2">mut </span>fill_sum = <span class="number">0</span>;
-    <span class="kw">let </span><span class="kw-2">mut </span>cross = axis.cross(limits.min()).max(axis.cross(limits.fill()));
+    <span class="kw">let </span><span class="kw-2">mut </span>cross = axis.cross(limits.min()).max(axis.cross(Size::INFINITY));
     <span class="kw">let </span><span class="kw-2">mut </span>available = axis.main(limits.max()) - total_spacing;
 
     <span class="kw">let </span><span class="kw-2">mut </span>nodes: Vec&lt;Node&gt; = Vec::with_capacity(items.len());
@@ -294,9 +295,10 @@
 
         <span class="kw">for </span>(child, tree) <span class="kw">in </span>items.iter().zip(tree.iter_mut()) {
             <span class="kw">let </span>child = child.borrow();
+            <span class="kw">let </span>c_size = child.as_widget().size();
             <span class="kw">let </span>cross_fill_factor = <span class="kw">match </span>axis {
-                Axis::Horizontal =&gt; child.as_widget().height(),
-                Axis::Vertical =&gt; child.as_widget().width(),
+                Axis::Horizontal =&gt; c_size.height,
+                Axis::Vertical =&gt; c_size.width,
             }
             .fill_factor();
 
@@ -317,9 +319,10 @@
 
     <span class="kw">for </span>(i, (child, tree)) <span class="kw">in </span>items.iter().zip(tree.iter_mut()).enumerate() {
         <span class="kw">let </span>child = child.borrow();
+        <span class="kw">let </span>c_size = child.as_widget().size();
         <span class="kw">let </span>fill_factor = <span class="kw">match </span>axis {
-            Axis::Horizontal =&gt; child.as_widget().width(),
-            Axis::Vertical =&gt; child.as_widget().height(),
+            Axis::Horizontal =&gt; c_size.width,
+            Axis::Vertical =&gt; c_size.height,
         }
         .fill_factor();
 
@@ -360,9 +363,10 @@
 
     <span class="kw">for </span>(i, (child, tree)) <span class="kw">in </span>items.iter().zip(tree.iter_mut()).enumerate() {
         <span class="kw">let </span>child = child.borrow();
+        <span class="kw">let </span>c_size = child.as_widget().size();
         <span class="kw">let </span>fill_factor = <span class="kw">match </span>axis {
-            Axis::Horizontal =&gt; child.as_widget().width(),
-            Axis::Vertical =&gt; child.as_widget().height(),
+            Axis::Horizontal =&gt; c_size.width,
+            Axis::Vertical =&gt; c_size.height,
         }
         .fill_factor();
 
@@ -411,25 +415,23 @@
 
         <span class="kw">let </span>(x, y) = axis.pack(main, pad.<span class="number">1</span>);
 
-        node.move_to(Point::new(x, y));
+        <span class="kw">let </span>node_ = node.clone().move_to(Point::new(x, y));
 
-        <span class="kw">match </span>axis {
-            Axis::Horizontal =&gt; {
-                node.align(Alignment::Start, align_items, Size::new(<span class="number">0.0</span>, cross));
-            }
-            Axis::Vertical =&gt; {
-                node.align(align_items, Alignment::Start, Size::new(cross, <span class="number">0.0</span>));
-            }
-        }
+        <span class="kw">let </span>node_ = <span class="kw">match </span>axis {
+            Axis::Horizontal =&gt; node_.align(Alignment::Start, align_items, Size::new(<span class="number">0.0</span>, cross)),
+            Axis::Vertical =&gt; node_.align(align_items, Alignment::Start, Size::new(cross, <span class="number">0.0</span>)),
+        };
 
-        <span class="kw">let </span>size = node.size();
+        <span class="kw">let </span>size = node_.bounds().size();
+
+        <span class="kw-2">*</span>node = node_;
 
         main += axis.main(size);
     }
 
     <span class="kw">let </span>(width, height) = axis.pack(main - pad.<span class="number">0</span>, cross);
-    <span class="kw">let </span>size = limits.resolve(Size::new(width, height));
+    <span class="kw">let </span>size = limits.resolve(width, height, Size::new(width, height));
 
-    Node::with_children(size.pad(padding), nodes)
+    Node::with_children(size.expand(padding), nodes)
 }
 </code></pre></div></section></main></body></html>

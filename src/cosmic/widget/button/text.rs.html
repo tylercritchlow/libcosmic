@@ -141,6 +141,7 @@
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
 <a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -252,23 +253,24 @@
                 .into()
         });
 
-        <span class="kw">let </span>button: <span class="kw">super</span>::Button&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Renderer&gt; = row::with_capacity(<span class="number">3</span>)
-            <span class="comment">// Optional icon to place before label.
-            </span>.push_maybe(leading_icon)
-            <span class="comment">// Optional label between icons.
-            </span>.push_maybe(label)
-            <span class="comment">// Optional icon to place behind the label.
-            </span>.push_maybe(trailing_icon)
-            .padding(builder.padding)
-            .width(builder.width)
-            .height(builder.height)
-            .spacing(builder.spacing)
-            .align_items(Alignment::Center)
-            .apply(button)
-            .padding(<span class="number">0</span>)
-            .id(builder.id)
-            .on_press_maybe(builder.on_press.take())
-            .style(builder.style);
+        <span class="kw">let </span>button: <span class="kw">super</span>::Button&lt;<span class="lifetime">&#39;a</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt; =
+            row::with_capacity(<span class="number">3</span>)
+                <span class="comment">// Optional icon to place before label.
+                </span>.push_maybe(leading_icon)
+                <span class="comment">// Optional label between icons.
+                </span>.push_maybe(label)
+                <span class="comment">// Optional icon to place behind the label.
+                </span>.push_maybe(trailing_icon)
+                .padding(builder.padding)
+                .width(builder.width)
+                .height(builder.height)
+                .spacing(builder.spacing)
+                .align_items(Alignment::Center)
+                .apply(button)
+                .padding(<span class="number">0</span>)
+                .id(builder.id)
+                .on_press_maybe(builder.on_press.take())
+                .style(builder.style);
 
         <span class="kw">if </span>builder.tooltip.is_empty() {
             button.into()

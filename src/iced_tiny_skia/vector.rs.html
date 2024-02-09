@@ -301,7 +301,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(svg) = <span class="kw-2">&amp;mut </span>svg {
                 <span class="kw">if </span>svg.has_text_nodes() {
                     <span class="kw">let </span><span class="kw-2">mut </span>font_system =
-                        text::font_system().write().expect(<span class="string">&quot;Read font system&quot;</span>);
+                        text::font_system().write().expect(<span class="string">&quot;Write font system&quot;</span>);
 
                     svg.convert_text(font_system.raw().db_mut());
                 }

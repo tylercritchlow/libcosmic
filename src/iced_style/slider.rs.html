@@ -81,7 +81,7 @@
 <a href="#81" id="81">81</a>
 <a href="#82" id="82">82</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Change the apperance of a slider.
-</span><span class="kw">use </span>iced_core::{gradient::Linear, BorderRadius, Color};
+</span><span class="kw">use </span>iced_core::{border, gradient::Linear, Color};
 
 <span class="doccomment">/// The appearance of a slider.
 </span><span class="attr">#[derive(Debug, Clone, Copy)]
@@ -100,7 +100,7 @@
     <span class="doccomment">/// The width of the stroke of a slider rail.
     </span><span class="kw">pub </span>width: f32,
     <span class="doccomment">/// The border radius of the corners of the rail.
-    </span><span class="kw">pub </span>border_radius: BorderRadius,
+    </span><span class="kw">pub </span>border_radius: border::Radius,
 }
 
 <span class="doccomment">/// The background color of the rail
@@ -144,7 +144,7 @@
         <span class="doccomment">/// The width of the rectangle.
         </span>width: u16,
         <span class="doccomment">/// The border radius of the corners of the rectangle.
-        </span>border_radius: BorderRadius,
+        </span>border_radius: border::Radius,
     },
 }
 

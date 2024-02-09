@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/softbuffer-b53d51e2579e9817/6f0371c/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="softbuffer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/softbuffer-b53d51e2579e9817/0bb8598/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="softbuffer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -526,6 +526,21 @@
 <a href="#526" id="526">526</a>
 <a href="#527" id="527">527</a>
 <a href="#528" id="528">528</a>
+<a href="#529" id="529">529</a>
+<a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
 </pre></div><pre class="rust"><code><span class="attr">#![doc = <span class="macro">include_str!</span>(<span class="string">&quot;../README.md&quot;</span>)]
 #![deny(unsafe_op_in_unsafe_fn)]
 #![warn(missing_docs)]
@@ -560,39 +575,41 @@
 <span class="attr">#[cfg(any(wayland_platform, x11_platform, kms_platform))]
 </span><span class="kw">use </span>std::rc::Rc;
 
+<span class="kw">use </span>error::InitError;
 <span class="kw">pub use </span>error::SoftBufferError;
 
-<span class="kw">use </span>raw_window_handle::{
-    HasRawDisplayHandle, HasRawWindowHandle, RawDisplayHandle, RawWindowHandle,
-};
+<span class="kw">use </span>raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle};
 
 <span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
 </span><span class="kw">pub use </span><span class="self">self</span>::web::SurfaceExtWeb;
 
 <span class="doccomment">/// An instance of this struct contains the platform-specific data that must be managed in order to
 /// write to a window on that platform.
-</span><span class="kw">pub struct </span>Context {
-    <span class="doccomment">/// The inner static dispatch object.
-    </span>context_impl: ContextDispatch,
+</span><span class="kw">pub struct </span>Context&lt;D&gt; {
     _marker: PhantomData&lt;<span class="kw-2">*mut </span>()&gt;,
+
+    <span class="doccomment">/// The inner static dispatch object.
+    </span>context_impl: ContextDispatch&lt;D&gt;,
 }
 
 <span class="doccomment">/// A macro for creating the enum used to statically dispatch to the platform-specific implementation.
 </span><span class="macro">macro_rules! </span>make_dispatch {
     (
+        &lt;<span class="macro-nonterminal">$dgen</span>: ident, <span class="macro-nonterminal">$wgen</span>: ident&gt; =&gt;
         $(
             $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)*
-            <span class="macro-nonterminal">$name</span>: ident (<span class="macro-nonterminal">$context_inner</span>: ty, <span class="macro-nonterminal">$surface_inner</span>: ty, <span class="macro-nonterminal">$buffer_inner</span>: ty),
+            <span class="macro-nonterminal">$name</span>: ident
+            (<span class="macro-nonterminal">$context_inner</span>: ty, <span class="macro-nonterminal">$surface_inner</span>: ty, <span class="macro-nonterminal">$buffer_inner</span>: ty),
         )*
     ) =&gt; {
-        <span class="kw">enum </span>ContextDispatch {
+        <span class="kw">enum </span>ContextDispatch&lt;<span class="macro-nonterminal">$dgen</span>&gt; {
             $(
                 $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
                 <span class="macro-nonterminal">$name</span>(<span class="macro-nonterminal">$context_inner</span>),
             )*
         }
 
-        <span class="kw">impl </span>ContextDispatch {
+        <span class="kw">impl</span>&lt;D: HasDisplayHandle&gt; ContextDispatch&lt;D&gt; {
             <span class="kw">fn </span>variant_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
                 <span class="kw">match </span><span class="self">self </span>{
                     $(
@@ -604,14 +621,23 @@
         }
 
         <span class="attr">#[allow(clippy::large_enum_variant)] </span><span class="comment">// it&#39;s boxed anyways
-        </span><span class="kw">enum </span>SurfaceDispatch {
+        </span><span class="kw">enum </span>SurfaceDispatch&lt;<span class="macro-nonterminal">$dgen</span>, <span class="macro-nonterminal">$wgen</span>&gt; {
             $(
                 $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
                 <span class="macro-nonterminal">$name</span>(<span class="macro-nonterminal">$surface_inner</span>),
             )*
         }
 
-        <span class="kw">impl </span>SurfaceDispatch {
+        <span class="kw">impl</span>&lt;D: HasDisplayHandle, W: HasWindowHandle&gt; SurfaceDispatch&lt;D, W&gt; {
+            <span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>W {
+                <span class="kw">match </span><span class="self">self </span>{
+                    $(
+                        $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
+                        <span class="self">Self</span>::<span class="macro-nonterminal">$name</span>(inner) =&gt; inner.window(),
+                    )*
+                }
+            }
+
             <span class="kw">pub fn </span>resize(<span class="kw-2">&amp;mut </span><span class="self">self</span>, width: NonZeroU32, height: NonZeroU32) -&gt; <span class="prelude-ty">Result</span>&lt;(), SoftBufferError&gt; {
                 <span class="kw">match </span><span class="self">self </span>{
                     $(
@@ -621,7 +647,7 @@
                 }
             }
 
-            <span class="kw">pub fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;BufferDispatch, SoftBufferError&gt; {
+            <span class="kw">pub fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;BufferDispatch&lt;<span class="lifetime">&#39;_</span>, D, W&gt;, SoftBufferError&gt; {
                 <span class="kw">match </span><span class="self">self </span>{
                     $(
                         $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
@@ -640,14 +666,14 @@
             }
         }
 
-        <span class="kw">enum </span>BufferDispatch&lt;<span class="lifetime">&#39;a</span>&gt; {
+        <span class="kw">enum </span>BufferDispatch&lt;<span class="lifetime">&#39;a</span>, <span class="macro-nonterminal">$dgen</span>, <span class="macro-nonterminal">$wgen</span>&gt; {
             $(
                 $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>]</span>)*
                 <span class="macro-nonterminal">$name</span>(<span class="macro-nonterminal">$buffer_inner</span>),
             )*
         }
 
-        <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; BufferDispatch&lt;<span class="lifetime">&#39;a</span>&gt; {
+        <span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, D: HasDisplayHandle, W: HasWindowHandle&gt; BufferDispatch&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
             <span class="attr">#[inline]
             </span><span class="kw">pub fn </span>pixels(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u32] {
                 <span class="kw">match </span><span class="self">self </span>{
@@ -701,76 +727,61 @@
 <span class="comment">// XXX empty enum with generic bound is invalid?
 
 </span><span class="macro">make_dispatch! </span>{
+    &lt;D, W&gt; =&gt;
     <span class="attr">#[cfg(x11_platform)]
-    </span>X11(Rc&lt;x11::X11DisplayImpl&gt;, x11::X11Impl, x11::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>X11(Rc&lt;x11::X11DisplayImpl&lt;D&gt;&gt;, x11::X11Impl&lt;D, W&gt;, x11::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
     <span class="attr">#[cfg(wayland_platform)]
-    </span>Wayland(Rc&lt;wayland::WaylandDisplayImpl&gt;, wayland::WaylandImpl, wayland::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>Wayland(Rc&lt;wayland::WaylandDisplayImpl&lt;D&gt;&gt;, wayland::WaylandImpl&lt;D, W&gt;, wayland::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
     <span class="attr">#[cfg(kms_platform)]
-    </span>Kms(Rc&lt;kms::KmsDisplayImpl&gt;, kms::KmsImpl, kms::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>Kms(Rc&lt;kms::KmsDisplayImpl&lt;D&gt;&gt;, kms::KmsImpl&lt;D, W&gt;, kms::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
     <span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
-    </span>Win32((), win32::Win32Impl, win32::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>Win32(D, win32::Win32Impl&lt;D, W&gt;, win32::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
     <span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-    </span>CG((), cg::CGImpl, cg::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>CG(D, cg::CGImpl&lt;D, W&gt;, cg::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
     <span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
-    </span>Web(web::WebDisplayImpl, web::WebImpl, web::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>Web(web::WebDisplayImpl&lt;D&gt;, web::WebImpl&lt;D, W&gt;, web::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
     <span class="attr">#[cfg(target_os = <span class="string">&quot;redox&quot;</span>)]
-    </span>Orbital((), orbital::OrbitalImpl, orbital::BufferImpl&lt;<span class="lifetime">&#39;a</span>&gt;),
+    </span>Orbital(D, orbital::OrbitalImpl&lt;D, W&gt;, orbital::BufferImpl&lt;<span class="lifetime">&#39;a</span>, D, W&gt;),
 }
 
-<span class="kw">impl </span>Context {
+<span class="kw">impl</span>&lt;D: HasDisplayHandle&gt; Context&lt;D&gt; {
     <span class="doccomment">/// Creates a new instance of this struct, using the provided display.
-    ///
-    /// # Safety
-    ///
-    ///  - Ensure that the provided object is valid for the lifetime of the Context
-    </span><span class="kw">pub unsafe fn </span>new&lt;D: HasRawDisplayHandle&gt;(display: <span class="kw-2">&amp;</span>D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="kw">unsafe </span>{ <span class="self">Self</span>::from_raw(display.raw_display_handle()) }
-    }
+    </span><span class="kw">pub fn </span>new(<span class="kw-2">mut </span>dpy: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
+        <span class="macro">macro_rules! </span>try_init {
+            (<span class="macro-nonterminal">$imp</span>:ident, <span class="macro-nonterminal">$x</span>:ident =&gt; <span class="macro-nonterminal">$make_it</span>:expr) =&gt; {{
+                <span class="kw">let </span><span class="macro-nonterminal">$x </span>= dpy;
+                <span class="kw">match </span>{ <span class="macro-nonterminal">$make_it </span>} {
+                    <span class="prelude-val">Ok</span>(x) =&gt; {
+                        <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+                            context_impl: ContextDispatch::<span class="macro-nonterminal">$imp</span>(x),
+                            _marker: PhantomData,
+                        })
+                    }
+                    <span class="prelude-val">Err</span>(InitError::Unsupported(d)) =&gt; dpy = d,
+                    <span class="prelude-val">Err</span>(InitError::Failure(f)) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(f),
+                }
+            }};
+        }
 
-    <span class="doccomment">/// Creates a new instance of this struct, using the provided display handles
-    ///
-    /// # Safety
-    ///
-    ///  - Ensure that the provided handle is valid for the lifetime of the Context
-    </span><span class="kw">pub unsafe fn </span>from_raw(raw_display_handle: RawDisplayHandle) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="kw">let </span>imple: ContextDispatch = <span class="kw">match </span>raw_display_handle {
-            <span class="attr">#[cfg(x11_platform)]
-            </span>RawDisplayHandle::Xlib(xlib_handle) =&gt; <span class="kw">unsafe </span>{
-                ContextDispatch::X11(Rc::new(x11::X11DisplayImpl::from_xlib(xlib_handle)<span class="question-mark">?</span>))
-            },
-            <span class="attr">#[cfg(x11_platform)]
-            </span>RawDisplayHandle::Xcb(xcb_handle) =&gt; <span class="kw">unsafe </span>{
-                ContextDispatch::X11(Rc::new(x11::X11DisplayImpl::from_xcb(xcb_handle)<span class="question-mark">?</span>))
-            },
-            <span class="attr">#[cfg(wayland_platform)]
-            </span>RawDisplayHandle::Wayland(wayland_handle) =&gt; <span class="kw">unsafe </span>{
-                ContextDispatch::Wayland(Rc::new(wayland::WaylandDisplayImpl::new(wayland_handle)<span class="question-mark">?</span>))
-            },
-            <span class="attr">#[cfg(kms_platform)]
-            </span>RawDisplayHandle::Drm(drm_handle) =&gt; <span class="kw">unsafe </span>{
-                ContextDispatch::Kms(Rc::new(kms::KmsDisplayImpl::new(drm_handle)<span class="question-mark">?</span>))
-            },
-            <span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
-            </span>RawDisplayHandle::Windows(<span class="kw">_</span>) =&gt; ContextDispatch::Win32(()),
-            <span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-            </span>RawDisplayHandle::AppKit(<span class="kw">_</span>) =&gt; ContextDispatch::CG(()),
-            <span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
-            </span>RawDisplayHandle::Web(<span class="kw">_</span>) =&gt; ContextDispatch::Web(web::WebDisplayImpl::new()<span class="question-mark">?</span>),
-            <span class="attr">#[cfg(target_os = <span class="string">&quot;redox&quot;</span>)]
-            </span>RawDisplayHandle::Orbital(<span class="kw">_</span>) =&gt; ContextDispatch::Orbital(()),
-            unimplemented_display_handle =&gt; {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::UnsupportedDisplayPlatform {
-                    human_readable_display_platform_name: display_handle_type_name(
-                        <span class="kw-2">&amp;</span>unimplemented_display_handle,
-                    ),
-                    display_handle: unimplemented_display_handle,
-                })
-            }
-        };
+        <span class="attr">#[cfg(x11_platform)]
+        </span><span class="macro">try_init!</span>(X11, display =&gt; x11::X11DisplayImpl::new(display).map(Rc::new));
+        <span class="attr">#[cfg(wayland_platform)]
+        </span><span class="macro">try_init!</span>(Wayland, display =&gt; wayland::WaylandDisplayImpl::new(display).map(Rc::new));
+        <span class="attr">#[cfg(kms_platform)]
+        </span><span class="macro">try_init!</span>(Kms, display =&gt; kms::KmsDisplayImpl::new(display).map(Rc::new));
+        <span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
+        </span><span class="macro">try_init!</span>(Win32, display =&gt; <span class="prelude-val">Ok</span>(display));
+        <span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
+        </span><span class="macro">try_init!</span>(CG, display =&gt; <span class="prelude-val">Ok</span>(display));
+        <span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
+        </span><span class="macro">try_init!</span>(Web, display =&gt; web::WebDisplayImpl::new(display));
+        <span class="attr">#[cfg(target_os = <span class="string">&quot;redox&quot;</span>)]
+        </span><span class="macro">try_init!</span>(Orbital, display =&gt; <span class="prelude-val">Ok</span>(display));
 
-        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-            context_impl: imple,
-            _marker: PhantomData,
+        <span class="kw">let </span>raw = dpy.display_handle()<span class="question-mark">?</span>.as_raw();
+        <span class="prelude-val">Err</span>(SoftBufferError::UnsupportedDisplayPlatform {
+            human_readable_display_platform_name: display_handle_type_name(<span class="kw-2">&amp;</span>raw),
+            display_handle: raw,
         })
     }
 }
@@ -789,87 +800,60 @@
 }
 
 <span class="doccomment">/// A surface for drawing to a window with software buffers.
-</span><span class="kw">pub struct </span>Surface {
+</span><span class="kw">pub struct </span>Surface&lt;D, W&gt; {
     <span class="doccomment">/// This is boxed so that `Surface` is the same size on every platform.
-    </span>surface_impl: Box&lt;SurfaceDispatch&gt;,
+    </span>surface_impl: Box&lt;SurfaceDispatch&lt;D, W&gt;&gt;,
     _marker: PhantomData&lt;<span class="kw-2">*mut </span>()&gt;,
 }
 
-<span class="kw">impl </span>Surface {
+<span class="kw">impl</span>&lt;D: HasDisplayHandle, W: HasWindowHandle&gt; Surface&lt;D, W&gt; {
     <span class="doccomment">/// Creates a new surface for the context for the provided window.
-    ///
-    /// # Safety
-    ///
-    ///  - Ensure that the provided objects are valid to draw a 2D buffer to, and are valid for the
-    ///    lifetime of the Context
-    </span><span class="kw">pub unsafe fn </span>new&lt;W: HasRawWindowHandle&gt;(
-        context: <span class="kw-2">&amp;</span>Context,
-        window: <span class="kw-2">&amp;</span>W,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="kw">unsafe </span>{ <span class="self">Self</span>::from_raw(context, window.raw_window_handle()) }
-    }
+    </span><span class="kw">pub fn </span>new(context: <span class="kw-2">&amp;</span>Context&lt;D&gt;, window: W) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
+        <span class="macro">macro_rules! </span>leap {
+            (<span class="macro-nonterminal">$e</span>:expr) =&gt; {{
+                <span class="kw">match </span>(<span class="macro-nonterminal">$e</span>) {
+                    <span class="prelude-val">Ok</span>(x) =&gt; x,
+                    <span class="prelude-val">Err</span>(InitError::Unsupported(window)) =&gt; {
+                        <span class="kw">let </span>raw = window.window_handle()<span class="question-mark">?</span>.as_raw();
+                        <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::UnsupportedWindowPlatform {
+                            human_readable_window_platform_name: window_handle_type_name(<span class="kw-2">&amp;</span>raw),
+                            human_readable_display_platform_name: context
+                                .context_impl
+                                .variant_name(),
+                            window_handle: raw,
+                        });
+                    }
+                    <span class="prelude-val">Err</span>(InitError::Failure(f)) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(f),
+                }
+            }};
+        }
 
-    <span class="doccomment">/// Creates a new surface for the context for the provided raw window handle.
-    ///
-    /// # Safety
-    ///
-    ///  - Ensure that the provided handles are valid to draw a 2D buffer to, and are valid for the
-    ///    lifetime of the Context
-    </span><span class="kw">pub unsafe fn </span>from_raw(
-        context: <span class="kw-2">&amp;</span>Context,
-        raw_window_handle: RawWindowHandle,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SoftBufferError&gt; {
-        <span class="kw">let </span>imple: SurfaceDispatch = <span class="kw">match </span>(<span class="kw-2">&amp;</span>context.context_impl, raw_window_handle) {
+        <span class="kw">let </span>imple = <span class="kw">match </span><span class="kw-2">&amp;</span>context.context_impl {
             <span class="attr">#[cfg(x11_platform)]
-            </span>(
-                ContextDispatch::X11(xcb_display_handle),
-                RawWindowHandle::Xlib(xlib_window_handle),
-            ) =&gt; SurfaceDispatch::X11(<span class="kw">unsafe </span>{
-                x11::X11Impl::from_xlib(xlib_window_handle, xcb_display_handle.clone())<span class="question-mark">?
-            </span>}),
-            <span class="attr">#[cfg(x11_platform)]
-            </span>(ContextDispatch::X11(xcb_display_handle), RawWindowHandle::Xcb(xcb_window_handle)) =&gt; {
-                SurfaceDispatch::X11(<span class="kw">unsafe </span>{
-                    x11::X11Impl::from_xcb(xcb_window_handle, xcb_display_handle.clone())<span class="question-mark">?
-                </span>})
+            </span>ContextDispatch::X11(xcb_display_handle) =&gt; {
+                SurfaceDispatch::X11(<span class="macro">leap!</span>(x11::X11Impl::new(window, xcb_display_handle.clone())))
             }
             <span class="attr">#[cfg(wayland_platform)]
-            </span>(
-                ContextDispatch::Wayland(wayland_display_impl),
-                RawWindowHandle::Wayland(wayland_window_handle),
-            ) =&gt; SurfaceDispatch::Wayland(<span class="kw">unsafe </span>{
-                wayland::WaylandImpl::new(wayland_window_handle, wayland_display_impl.clone())<span class="question-mark">?
-            </span>}),
+            </span>ContextDispatch::Wayland(wayland_display_impl) =&gt; SurfaceDispatch::Wayland(<span class="macro">leap!</span>(
+                wayland::WaylandImpl::new(window, wayland_display_impl.clone())
+            )),
             <span class="attr">#[cfg(kms_platform)]
-            </span>(ContextDispatch::Kms(kms_display_impl), RawWindowHandle::Drm(drm_window_handle)) =&gt; {
-                SurfaceDispatch::Kms(<span class="kw">unsafe </span>{
-                    kms::KmsImpl::new(drm_window_handle, kms_display_impl.clone())<span class="question-mark">?
-                </span>})
+            </span>ContextDispatch::Kms(kms_display_impl) =&gt; {
+                SurfaceDispatch::Kms(<span class="macro">leap!</span>(kms::KmsImpl::new(window, kms_display_impl.clone())))
             }
             <span class="attr">#[cfg(target_os = <span class="string">&quot;windows&quot;</span>)]
-            </span>(ContextDispatch::Win32(()), RawWindowHandle::Win32(win32_handle)) =&gt; {
-                SurfaceDispatch::Win32(<span class="kw">unsafe </span>{ win32::Win32Impl::new(<span class="kw-2">&amp;</span>win32_handle)<span class="question-mark">? </span>})
+            </span>ContextDispatch::Win32(<span class="kw">_</span>) =&gt; {
+                SurfaceDispatch::Win32(<span class="macro">leap!</span>(win32::Win32Impl::new(window)))
             }
             <span class="attr">#[cfg(target_os = <span class="string">&quot;macos&quot;</span>)]
-            </span>(ContextDispatch::CG(()), RawWindowHandle::AppKit(appkit_handle)) =&gt; {
-                SurfaceDispatch::CG(<span class="kw">unsafe </span>{ cg::CGImpl::new(appkit_handle)<span class="question-mark">? </span>})
-            }
+            </span>ContextDispatch::CG(<span class="kw">_</span>) =&gt; SurfaceDispatch::CG(<span class="macro">leap!</span>(cg::CGImpl::new(window))),
             <span class="attr">#[cfg(target_arch = <span class="string">&quot;wasm32&quot;</span>)]
-            </span>(ContextDispatch::Web(context), RawWindowHandle::Web(web_handle)) =&gt; {
-                SurfaceDispatch::Web(web::WebImpl::new(context, web_handle)<span class="question-mark">?</span>)
+            </span>ContextDispatch::Web(web_display_impl) =&gt; {
+                SurfaceDispatch::Web(<span class="macro">leap!</span>(web::WebImpl::new(web_display_impl, window)))
             }
             <span class="attr">#[cfg(target_os = <span class="string">&quot;redox&quot;</span>)]
-            </span>(ContextDispatch::Orbital(()), RawWindowHandle::Orbital(orbital_handle)) =&gt; {
-                SurfaceDispatch::Orbital(orbital::OrbitalImpl::new(orbital_handle)<span class="question-mark">?</span>)
-            }
-            (unsupported_display_impl, unimplemented_window_handle) =&gt; {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(SoftBufferError::UnsupportedWindowPlatform {
-                    human_readable_window_platform_name: window_handle_type_name(
-                        <span class="kw-2">&amp;</span>unimplemented_window_handle,
-                    ),
-                    human_readable_display_platform_name: unsupported_display_impl.variant_name(),
-                    window_handle: unimplemented_window_handle,
-                })
+            </span>ContextDispatch::Orbital(<span class="kw">_</span>) =&gt; {
+                SurfaceDispatch::Orbital(<span class="macro">leap!</span>(orbital::OrbitalImpl::new(window)))
             }
         };
 
@@ -877,6 +861,11 @@
             surface_impl: Box::new(imple),
             _marker: PhantomData,
         })
+    }
+
+    <span class="doccomment">/// Get a reference to the underlying window handle.
+    </span><span class="kw">pub fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>W {
+        <span class="self">self</span>.surface_impl.window()
     }
 
     <span class="doccomment">/// Set the size of the buffer that will be returned by [`Surface::buffer_mut`].
@@ -910,11 +899,27 @@
     /// - On DRM/KMS, there is no reliable and sound way to wait for the page flip to happen from within
     ///   `softbuffer`. Therefore it is the responsibility of the user to wait for the page flip before
     ///   sending another frame.
-    </span><span class="kw">pub fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Buffer, SoftBufferError&gt; {
+    </span><span class="kw">pub fn </span>buffer_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Buffer&lt;<span class="lifetime">&#39;_</span>, D, W&gt;, SoftBufferError&gt; {
         <span class="prelude-val">Ok</span>(Buffer {
             buffer_impl: <span class="self">self</span>.surface_impl.buffer_mut()<span class="question-mark">?</span>,
             _marker: PhantomData,
         })
+    }
+}
+
+<span class="kw">impl</span>&lt;D: HasDisplayHandle, W: HasWindowHandle&gt; AsRef&lt;W&gt; <span class="kw">for </span>Surface&lt;D, W&gt; {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>W {
+        <span class="self">self</span>.window()
+    }
+}
+
+<span class="kw">impl</span>&lt;D: HasDisplayHandle, W: HasWindowHandle&gt; HasWindowHandle <span class="kw">for </span>Surface&lt;D, W&gt; {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>window_handle(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;raw_window_handle::WindowHandle&lt;<span class="lifetime">&#39;_</span>&gt;, raw_window_handle::HandleError&gt; {
+        <span class="self">self</span>.window().window_handle()
     }
 }
 
@@ -951,15 +956,16 @@
 /// - X, when XShm is available
 /// - Win32
 /// - Orbital, when buffer size matches window size
+///
 /// Currently [`Buffer::present`] must block copying image data on:
 /// - Web
 /// - macOS
-</span><span class="kw">pub struct </span>Buffer&lt;<span class="lifetime">&#39;a</span>&gt; {
-    buffer_impl: BufferDispatch&lt;<span class="lifetime">&#39;a</span>&gt;,
+</span><span class="kw">pub struct </span>Buffer&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
+    buffer_impl: BufferDispatch&lt;<span class="lifetime">&#39;a</span>, D, W&gt;,
     _marker: PhantomData&lt;<span class="kw-2">*mut </span>()&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Buffer&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, D: HasDisplayHandle, W: HasWindowHandle&gt; Buffer&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
     <span class="doccomment">/// Is age is the number of frames ago this buffer was last presented. So if the value is
     /// `1`, it is the same as the last frame, and if it is `2`, it is the same as the frame
     /// before that (for backends using double buffering). If the value is `0`, it is a new
@@ -1002,7 +1008,7 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ops::Deref <span class="kw">for </span>Buffer&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, D: HasDisplayHandle, W: HasWindowHandle&gt; ops::Deref <span class="kw">for </span>Buffer&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
     <span class="kw">type </span>Target = [u32];
 
     <span class="attr">#[inline]
@@ -1011,10 +1017,34 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ops::DerefMut <span class="kw">for </span>Buffer&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, D: HasDisplayHandle, W: HasWindowHandle&gt; ops::DerefMut <span class="kw">for </span>Buffer&lt;<span class="lifetime">&#39;a</span>, D, W&gt; {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>deref_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>[u32] {
         <span class="self">self</span>.buffer_impl.pixels_mut()
+    }
+}
+
+<span class="doccomment">/// There is no display handle.
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>NoDisplayHandle(core::convert::Infallible);
+
+<span class="kw">impl </span>HasDisplayHandle <span class="kw">for </span>NoDisplayHandle {
+    <span class="kw">fn </span>display_handle(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;raw_window_handle::DisplayHandle&lt;<span class="lifetime">&#39;_</span>&gt;, raw_window_handle::HandleError&gt; {
+        <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{}
+    }
+}
+
+<span class="doccomment">/// There is no window handle.
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>NoWindowHandle(());
+
+<span class="kw">impl </span>HasWindowHandle <span class="kw">for </span>NoWindowHandle {
+    <span class="kw">fn </span>window_handle(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;raw_window_handle::WindowHandle&lt;<span class="lifetime">&#39;_</span>&gt;, raw_window_handle::HandleError&gt; {
+        <span class="prelude-val">Err</span>(raw_window_handle::HandleError::NotSupported)
     }
 }
 

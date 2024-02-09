@@ -337,6 +337,9 @@
 <a href="#337" id="337">337</a>
 <a href="#338" id="338">338</a>
 <a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Store internal widget state in a state tree to ensure continuity.
 </span><span class="kw">use </span><span class="kw">crate</span>::id::{Id, Internal};
 <span class="kw">use </span><span class="kw">crate</span>::Widget;
@@ -376,8 +379,8 @@
     }
 
     <span class="doccomment">/// Creates a new [`Tree`] for the provided [`Widget`].
-    </span><span class="kw">pub fn </span>new&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
-        widget: <span class="kw">impl </span>Borrow&lt;<span class="kw">dyn </span>Widget&lt;Message, Renderer&gt; + <span class="lifetime">&#39;a</span>&gt;,
+    </span><span class="kw">pub fn </span>new&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
+        widget: <span class="kw">impl </span>Borrow&lt;<span class="kw">dyn </span>Widget&lt;Message, Theme, Renderer&gt; + <span class="lifetime">&#39;a</span>&gt;,
     ) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>Renderer: <span class="kw">crate</span>::Renderer,
@@ -400,13 +403,14 @@
     /// Otherwise, the whole [`Tree`] is recreated.
     ///
     /// [`Widget::diff`]: crate::Widget::diff
-    </span><span class="kw">pub fn </span>diff&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
+    </span><span class="kw">pub fn </span>diff&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        <span class="kw-2">mut </span>new: <span class="kw">impl </span>BorrowMut&lt;<span class="kw">dyn </span>Widget&lt;Message, Renderer&gt; + <span class="lifetime">&#39;a</span>&gt;,
+        <span class="kw-2">mut </span>new: <span class="kw">impl </span>BorrowMut&lt;<span class="kw">dyn </span>Widget&lt;Message, Theme, Renderer&gt; + <span class="lifetime">&#39;a</span>&gt;,
     ) <span class="kw">where
         </span>Renderer: <span class="kw">crate</span>::Renderer,
     {
-        <span class="kw">let </span>borrowed: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;Message, Renderer&gt; = new.borrow_mut();
+        <span class="kw">let </span>borrowed: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;Message, Theme, Renderer&gt; =
+            new.borrow_mut();
         <span class="kw">if </span><span class="self">self</span>.tag == borrowed.tag() {
             <span class="comment">// TODO can we take here?
             </span><span class="kw">if let </span><span class="prelude-val">Some</span>(id) = <span class="self">self</span>.id.clone() {
@@ -429,9 +433,11 @@
     }
 
     <span class="doccomment">/// Reconciles the children of the tree with the provided list of widgets.
-    </span><span class="kw">pub fn </span>diff_children&lt;<span class="lifetime">&#39;a</span>, Message, Renderer&gt;(
+    </span><span class="kw">pub fn </span>diff_children&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
-        new_children: <span class="kw-2">&amp;mut </span>[<span class="kw">impl </span>BorrowMut&lt;<span class="kw">dyn </span>Widget&lt;Message, Renderer&gt; + <span class="lifetime">&#39;a</span>&gt;],
+        new_children: <span class="kw-2">&amp;mut </span>[<span class="kw">impl </span>BorrowMut&lt;
+            <span class="kw">dyn </span>Widget&lt;Message, Theme, Renderer&gt; + <span class="lifetime">&#39;a</span>,
+        &gt;],
     ) <span class="kw">where
         </span>Renderer: <span class="kw">crate</span>::Renderer,
     {
@@ -439,11 +445,11 @@
             new_children,
             new_children.iter().map(|c| c.borrow().id()).collect(),
             |tree, widget| {
-                <span class="kw">let </span>borrowed: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt; = widget.borrow_mut();
+                <span class="kw">let </span>borrowed: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>&gt; = widget.borrow_mut();
                 tree.diff(borrowed)
             },
             |widget| {
-                <span class="kw">let </span>borrowed: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt; = widget.borrow();
+                <span class="kw">let </span>borrowed: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Widget&lt;<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>&gt; = widget.borrow();
                 <span class="self">Self</span>::new(borrowed)
             },
         )

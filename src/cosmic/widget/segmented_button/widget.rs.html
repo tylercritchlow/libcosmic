@@ -1159,6 +1159,10 @@
 <a href="#1159" id="1159">1159</a>
 <a href="#1160" id="1160">1160</a>
 <a href="#1161" id="1161">1161</a>
+<a href="#1162" id="1162">1162</a>
+<a href="#1163" id="1163">1163</a>
+<a href="#1164" id="1164">1164</a>
+<a href="#1165" id="1165">1165</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1175,7 +1179,7 @@
 <span class="kw">use </span>iced_core::text::{LineHeight, Paragraph, Renderer <span class="kw">as </span>TextRenderer, Shaping};
 <span class="kw">use </span>iced_core::widget::{<span class="self">self</span>, operation, tree};
 <span class="kw">use </span>iced_core::{layout, renderer, widget::Tree, Clipboard, Layout, Shell, Widget};
-<span class="kw">use </span>iced_core::{Point, Renderer <span class="kw">as </span>IcedRenderer, Text};
+<span class="kw">use </span>iced_core::{Border, Point, Renderer <span class="kw">as </span>IcedRenderer, Shadow, Text};
 <span class="kw">use </span>slotmap::{Key, SecondaryMap};
 <span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>std::time::{Duration, Instant};
@@ -1535,7 +1539,7 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Variant, SelectionMode, Message&gt; Widget&lt;Message, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Variant, SelectionMode, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, Renderer&gt;
     <span class="kw">for </span>SegmentedButton&lt;<span class="lifetime">&#39;a</span>, Variant, SelectionMode, Message&gt;
 <span class="kw">where
     </span><span class="self">Self</span>: SegmentedVariant,
@@ -1584,12 +1588,8 @@
         }
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.width
-    }
-
-    <span class="kw">fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Length {
-        <span class="self">self</span>.height
+    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
+        Size::new(<span class="self">self</span>.width, <span class="self">self</span>.height)
     }
 
     <span class="kw">fn </span>layout(
@@ -1762,7 +1762,7 @@
 
         <span class="kw">if </span>state.focused {
             <span class="kw">if let </span>Event::Keyboard(keyboard::Event::KeyPressed {
-                key_code: keyboard::KeyCode::Tab,
+                key: keyboard::Key::Named(keyboard::key::Named::Tab),
                 modifiers,
                 ..
             }) = event
@@ -1776,7 +1776,7 @@
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(on_activate) = <span class="self">self</span>.on_activate.as_ref() {
                 <span class="kw">if let </span>Event::Keyboard(keyboard::Event::KeyReleased {
-                    key_code: keyboard::KeyCode::Enter,
+                    key: keyboard::Key::Named(keyboard::key::Named::Enter),
                     ..
                 }) = event
                 {
@@ -1880,7 +1880,6 @@
         cursor: mouse::Cursor,
         viewport: <span class="kw-2">&amp;</span>iced::Rectangle,
     ) {
-        <span class="kw">let </span>cosmic_theme = theme.cosmic();
         <span class="kw">let </span>state = tree.state.downcast_ref::&lt;LocalState&gt;();
         <span class="kw">let </span>appearance = <span class="self">Self</span>::variant_appearance(theme, <span class="kw-2">&amp;</span><span class="self">self</span>.style);
         <span class="kw">let </span>bounds = layout.bounds();
@@ -1891,9 +1890,11 @@
             renderer.fill_quad(
                 renderer::Quad {
                     bounds,
-                    border_radius: appearance.border_radius,
-                    border_width: <span class="number">0.0</span>,
-                    border_color: Color::TRANSPARENT,
+                    border: Border {
+                        radius: appearance.border_radius,
+                        ..Default::default()
+                    },
+                    shadow: Shadow::default(),
                 },
                 background,
             );
@@ -1919,9 +1920,11 @@
                             width: f32::from(<span class="self">self</span>.button_height),
                             height: bounds.height,
                         },
-                        border_radius: cosmic_theme.radius_s().into(),
-                        border_width: <span class="number">0.0</span>,
-                        border_color: Color::TRANSPARENT,
+                        border: Border {
+                            radius: theme.cosmic().radius_s().into(),
+                            ..Default::default()
+                        },
+                        shadow: Shadow::default(),
                     },
                     background_appearance
                         .background
@@ -1969,9 +1972,11 @@
                             width: f32::from(<span class="self">self</span>.button_height),
                             height: bounds.height,
                         },
-                        border_radius: cosmic_theme.radius_s().into(),
-                        border_width: <span class="number">0.0</span>,
-                        border_color: Color::TRANSPARENT,
+                        border: Border {
+                            radius: theme.cosmic().radius_s().into(),
+                            ..Default::default()
+                        },
+                        shadow: Shadow::default(),
                     },
                     background_appearance
                         .background
@@ -2032,9 +2037,11 @@
                 renderer.fill_quad(
                     renderer::Quad {
                         bounds,
-                        border_radius: button_appearance.border_radius,
-                        border_width: <span class="number">0.0</span>,
-                        border_color: Color::TRANSPARENT,
+                        border: Border {
+                            radius: button_appearance.border_radius,
+                            ..Default::default()
+                        },
+                        shadow: Shadow::default(),
                     },
                     status_appearance
                         .background
@@ -2052,9 +2059,11 @@
                 renderer.fill_quad(
                     renderer::Quad {
                         bounds,
-                        border_radius: rad_0.into(),
-                        border_width: <span class="number">0.0</span>,
-                        border_color: Color::TRANSPARENT,
+                        border: Border {
+                            radius: rad_0.into(),
+                            ..Default::default()
+                        },
+                        shadow: Shadow::default(),
                     },
                     background,
                 );
@@ -2173,7 +2182,7 @@
         _tree: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>Tree,
         _layout: iced_core::Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
         _renderer: <span class="kw-2">&amp;</span>Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;iced_core::overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;iced_core::overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt; {
         <span class="prelude-val">None
     </span>}
 }
@@ -2295,18 +2304,17 @@
     bounds: Rectangle,
     icon: Icon,
 ) {
-    <span class="kw">let </span><span class="kw-2">mut </span>layout_node = layout::Node::new(Size {
+    <span class="kw">let </span>layout_node = layout::Node::new(Size {
         width: bounds.width,
         height: bounds.width,
-    });
-
-    layout_node.move_to(Point {
+    })
+    .move_to(Point {
         x: bounds.x,
         y: bounds.y,
     });
 
-    Widget::&lt;Message, Renderer&gt;::draw(
-        Element::&lt;Message&gt;::from(icon).as_widget(),
+    Widget::&lt;Message, <span class="kw">crate</span>::Theme, Renderer&gt;::draw(
+        Element::&lt;Message&gt;::from(icon.clone()).as_widget(),
         <span class="kw-2">&amp;</span>Tree::empty(),
         renderer,
         theme,
