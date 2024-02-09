@@ -2479,6 +2479,11 @@
 <a href="#2479" id="2479">2479</a>
 <a href="#2480" id="2480">2480</a>
 <a href="#2481" id="2481">2481</a>
+<a href="#2482" id="2482">2482</a>
+<a href="#2483" id="2483">2483</a>
+<a href="#2484" id="2484">2484</a>
+<a href="#2485" id="2485">2485</a>
+<a href="#2486" id="2486">2486</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2019 H�ctor Ram�n, Iced contributors
 // Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MIT
@@ -3780,7 +3785,7 @@
                 <span class="kw">return </span>event::Status::Captured;
             }
         }
-        Event::Keyboard(keyboard::Event::KeyPressed { key, .. }) =&gt; {
+        Event::Keyboard(keyboard::Event::KeyPressed { key, text, .. }) =&gt; {
             <span class="kw">let </span>state = state();
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(focus) = <span class="kw-2">&amp;mut </span>state.is_focused {
@@ -3970,19 +3975,24 @@
 
                         state.keyboard_modifiers = keyboard::Modifiers::default();
                     }
-                    keyboard::Key::Named(keyboard::key::Named::Tab)
-                    | keyboard::Key::Named(keyboard::key::Named::ArrowUp)
-                    | keyboard::Key::Named(keyboard::key::Named::ArrowDown) =&gt; {
+                    keyboard::Key::Named(
+                        keyboard::key::Named::Tab
+                        | keyboard::key::Named::ArrowUp
+                        | keyboard::key::Named::ArrowDown,
+                    ) =&gt; {
                         <span class="kw">return </span>event::Status::Ignored;
                     }
-                    keyboard::Key::Character(c) =&gt; {
+                    keyboard::Key::Character(<span class="kw">_</span>)
+                    | keyboard::Key::Named(keyboard::key::Named::Space) =&gt; {
                         <span class="kw">if </span>state.is_pasting.is_none()
                             &amp;&amp; !state.keyboard_modifiers.command()
                             &amp;&amp; !modifiers.control()
                         {
                             <span class="kw">let </span><span class="kw-2">mut </span>editor = Editor::new(unsecured_value, <span class="kw-2">&amp;mut </span>state.cursor);
 
-                            editor.insert(c.chars().next().unwrap_or_default());
+                            editor.insert(
+                                text.unwrap_or_default().chars().next().unwrap_or_default(),
+                            );
                             <span class="kw">let </span>contents = editor.contents();
                             <span class="kw">let </span>unsecured_value = Value::new(<span class="kw-2">&amp;</span>contents);
                             <span class="kw">let </span>message = (on_input)(contents);
