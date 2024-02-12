@@ -113,8 +113,6 @@
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
 <a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -159,16 +157,16 @@
     iced_runtime::window::drag(id.unwrap_or(window::Id::MAIN))
 }
 
-<span class="doccomment">/// Fullscreens the window.
+<span class="doccomment">/// Maximizes the window.
 </span><span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
-</span><span class="kw">pub fn </span>fullscreen&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; Command&lt;M&gt; {
-    iced_sctk::commands::window::set_mode_window(id.unwrap_or(window::Id::MAIN), Mode::Fullscreen)
+</span><span class="kw">pub fn </span>maximize&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;, maximized: bool) -&gt; Command&lt;M&gt; {
+    iced_sctk::commands::window::maximize(id.unwrap_or(window::Id::MAIN), maximized)
 }
 
-<span class="doccomment">/// Fullscreens the window.
+<span class="doccomment">/// Maximizes the window.
 </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
-</span><span class="kw">pub fn </span>fullscreen&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; Command&lt;M&gt; {
-    iced_runtime::window::change_mode(id.unwrap_or(window::Id::MAIN), Mode::Fullscreen)
+</span><span class="kw">pub fn </span>maximize&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;, maximized: bool) -&gt; Command&lt;M&gt; {
+    iced_runtime::window::maximize(id.unwrap_or(window::Id::MAIN), maximized)
 }
 
 <span class="doccomment">/// Minimizes the window.
@@ -211,17 +209,15 @@
     iced_runtime::window::change_mode(id.unwrap_or(window::Id::MAIN), Mode::Windowed)
 }
 
-<span class="doccomment">/// Toggles the windows&#39; maximization state.
+<span class="doccomment">/// Toggles the windows&#39; maximize state.
 </span><span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
-</span><span class="kw">pub fn </span>toggle_fullscreen&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; Command&lt;M&gt; {
-    window_action(WindowAction::ToggleFullscreen {
-        id: id.unwrap_or(window::Id::MAIN),
-    })
+</span><span class="kw">pub fn </span>toggle_maximize&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; Command&lt;M&gt; {
+    iced_sctk::commands::window::toggle_maximize(id.unwrap_or(window::Id::MAIN))
 }
 
-<span class="doccomment">/// Toggles the windows&#39; maximization state.
+<span class="doccomment">/// Toggles the windows&#39; maximize state.
 </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
-</span><span class="kw">pub fn </span>toggle_fullscreen&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; Command&lt;M&gt; {
+</span><span class="kw">pub fn </span>toggle_maximize&lt;M&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; Command&lt;M&gt; {
     iced_runtime::window::toggle_maximize(id.unwrap_or(window::Id::MAIN))
 }
 

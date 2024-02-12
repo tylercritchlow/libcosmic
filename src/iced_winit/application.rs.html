@@ -1106,6 +1106,14 @@
 <a href="#1106" id="1106">1106</a>
 <a href="#1107" id="1107">1107</a>
 <a href="#1108" id="1108">1108</a>
+<a href="#1109" id="1109">1109</a>
+<a href="#1110" id="1110">1110</a>
+<a href="#1111" id="1111">1111</a>
+<a href="#1112" id="1112">1112</a>
+<a href="#1113" id="1113">1113</a>
+<a href="#1114" id="1114">1114</a>
+<a href="#1115" id="1115">1115</a>
+<a href="#1116" id="1116">1116</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Create interactive, native cross-platform applications.
 </span><span class="kw">mod </span>drag_resize;
 <span class="kw">mod </span>state;
@@ -2110,6 +2118,14 @@
                 }
                 window::Action::ChangeLevel(_id, level) =&gt; {
                     window.set_window_level(conversion::window_level(level));
+                }
+                window::Action::ShowWindowMenu(_id) =&gt; {
+                    <span class="kw">if let </span>mouse::Cursor::Available(point) = state.cursor() {
+                        window.show_window_menu(winit::dpi::LogicalPosition {
+                            x: point.x,
+                            y: point.y,
+                        });
+                    }
                 }
                 window::Action::FetchId(_id, tag) =&gt; {
                     proxy

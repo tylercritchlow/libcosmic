@@ -63,6 +63,9 @@
 <a href="#63" id="63">63</a>
 <a href="#64" id="64">64</a>
 <a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -98,8 +101,11 @@
     <span class="kw">crate</span>::command::drag(id).map(Message::Cosmic)
 }
 
-<span class="kw">pub fn </span>fullscreen&lt;M: Send + <span class="lifetime">&#39;static</span>&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; iced::Command&lt;Message&lt;M&gt;&gt; {
-    <span class="kw">crate</span>::command::fullscreen(id).map(Message::Cosmic)
+<span class="kw">pub fn </span>maximize&lt;M: Send + <span class="lifetime">&#39;static</span>&gt;(
+    id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;,
+    maximized: bool,
+) -&gt; iced::Command&lt;Message&lt;M&gt;&gt; {
+    <span class="kw">crate</span>::command::maximize(id, maximized).map(Message::Cosmic)
 }
 
 <span class="kw">pub fn </span>minimize&lt;M: Send + <span class="lifetime">&#39;static</span>&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; iced::Command&lt;Message&lt;M&gt;&gt; {
@@ -125,7 +131,7 @@
     <span class="kw">crate</span>::command::set_windowed(id).map(Message::Cosmic)
 }
 
-<span class="kw">pub fn </span>toggle_fullscreen&lt;M: Send + <span class="lifetime">&#39;static</span>&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; iced::Command&lt;Message&lt;M&gt;&gt; {
-    <span class="kw">crate</span>::command::toggle_fullscreen(id).map(Message::Cosmic)
+<span class="kw">pub fn </span>toggle_maximize&lt;M: Send + <span class="lifetime">&#39;static</span>&gt;(id: <span class="prelude-ty">Option</span>&lt;window::Id&gt;) -&gt; iced::Command&lt;Message&lt;M&gt;&gt; {
+    <span class="kw">crate</span>::command::toggle_maximize(id).map(Message::Cosmic)
 }
 </code></pre></div></section></main></body></html>

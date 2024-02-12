@@ -201,6 +201,15 @@
 <a href="#201" id="201">201</a>
 <a href="#202" id="202">202</a>
 <a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::core::window::{Icon, Id, Level, Mode, Settings, UserAttention};
 <span class="kw">use </span><span class="kw">crate</span>::core::{Point, Size};
 <span class="kw">use </span><span class="kw">crate</span>::futures::MaybeSend;
@@ -282,6 +291,11 @@
     </span>GainFocus(Id),
     <span class="doccomment">/// Change the window [`Level`].
     </span>ChangeLevel(Id, Level),
+    <span class="doccomment">/// Show window menu at cursor position.
+    ///
+    /// ## Platform-specific
+    /// Android / iOS / macOS / Orbital / Wayland / Web / X11: Unsupported.
+    </span>ShowWindowMenu(Id),
     <span class="doccomment">/// Fetch the raw identifier unique to the window.
     </span>FetchId(Id, Box&lt;<span class="kw">dyn </span>FnOnce(u64) -&gt; T + <span class="lifetime">&#39;static</span>&gt;),
     <span class="doccomment">/// Change the window [`Icon`].
@@ -340,6 +354,7 @@
             }
             <span class="self">Self</span>::GainFocus(id) =&gt; Action::GainFocus(id),
             <span class="self">Self</span>::ChangeLevel(id, level) =&gt; Action::ChangeLevel(id, level),
+            <span class="self">Self</span>::ShowWindowMenu(id) =&gt; Action::ShowWindowMenu(id),
             <span class="self">Self</span>::FetchId(id, o) =&gt; {
                 Action::FetchId(id, Box::new(<span class="kw">move </span>|s| f(o(s))))
             }
@@ -395,6 +410,9 @@
             <span class="self">Self</span>::GainFocus(id) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Action::GainFocus({id:?})&quot;</span>),
             <span class="self">Self</span>::ChangeLevel(id, level) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">&quot;Action::ChangeLevel({id:?}, {level:?})&quot;</span>)
+            }
+            <span class="self">Self</span>::ShowWindowMenu(id) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">&quot;Action::ShowWindowMenu({id:?})&quot;</span>)
             }
             <span class="self">Self</span>::FetchId(id, <span class="kw">_</span>) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;Action::FetchId({id:?})&quot;</span>),
             <span class="self">Self</span>::ChangeIcon(id, _icon) =&gt; {

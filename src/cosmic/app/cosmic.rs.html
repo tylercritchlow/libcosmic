@@ -419,6 +419,10 @@
 <a href="#419" id="419">419</a>
 <a href="#420" id="420">420</a>
 <a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -477,6 +481,8 @@
     </span>SystemThemeChange(Theme),
     <span class="doccomment">/// Notification of system theme mode changes.
     </span>SystemThemeModeChange(ThemeMode),
+    <span class="doccomment">/// Updates the window maximized state
+    </span>WindowMaximized(window::Id, bool),
     <span class="doccomment">/// Updates the tracked window geometry.
     </span>WindowResize(window::Id, u32, u32),
     <span class="doccomment">/// Tracks updates to window state.
@@ -678,6 +684,12 @@
     <span class="attr">#[allow(clippy::too_many_lines)]
     </span><span class="kw">fn </span>cosmic_update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, message: Message) -&gt; iced::Command&lt;<span class="kw">super</span>::Message&lt;T::Message&gt;&gt; {
         <span class="kw">match </span>message {
+            Message::WindowMaximized(id, maximized) =&gt; {
+                <span class="kw">if </span>window::Id::MAIN == id {
+                    <span class="self">self</span>.app.core_mut().window.sharp_corners = maximized;
+                }
+            }
+
             Message::WindowResize(id, width, height) =&gt; {
                 <span class="kw">if </span>window::Id::MAIN == id {
                     <span class="self">self</span>.app.core_mut().set_window_width(width);
@@ -685,6 +697,12 @@
                 }
 
                 <span class="self">self</span>.app.on_window_resize(id, width, height);
+
+                <span class="comment">//TODO: more efficient test of maximized (winit has no event for maximize if set by the OS)
+                </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
+                </span><span class="kw">return </span>iced::window::fetch_maximized(id, <span class="kw">move </span>|maximized| {
+                    <span class="kw">super</span>::Message::Cosmic(Message::WindowMaximized(id, maximized))
+                });
             }
 
             <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
@@ -705,8 +723,6 @@
             <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
             </span>Message::WmCapabilities(id, capabilities) =&gt; {
                 <span class="kw">if </span>window::Id::MAIN == id {
-                    <span class="self">self</span>.app.core_mut().window.can_fullscreen =
-                        capabilities.contains(WindowManagerCapabilities::FULLSCREEN);
                     <span class="self">self</span>.app.core_mut().window.show_maximize =
                         capabilities.contains(WindowManagerCapabilities::MAXIMIZE);
                     <span class="self">self</span>.app.core_mut().window.show_minimize =
@@ -729,7 +745,7 @@
                 keyboard_nav::Message::Escape =&gt; <span class="kw">return </span><span class="self">self</span>.app.on_escape(),
                 keyboard_nav::Message::Search =&gt; <span class="kw">return </span><span class="self">self</span>.app.on_search(),
 
-                keyboard_nav::Message::Fullscreen =&gt; <span class="kw">return </span>command::toggle_fullscreen(<span class="prelude-val">None</span>),
+                keyboard_nav::Message::Fullscreen =&gt; <span class="kw">return </span>command::toggle_maximize(<span class="prelude-val">None</span>),
             },
 
             Message::ContextDrawer(show) =&gt; {
@@ -741,15 +757,7 @@
 
             Message::Minimize =&gt; <span class="kw">return </span>command::minimize(<span class="prelude-val">None</span>),
 
-            Message::Maximize =&gt; {
-                <span class="kw">if </span><span class="self">self</span>.app.core().window.sharp_corners {
-                    <span class="self">self</span>.app.core_mut().window.sharp_corners = <span class="bool-val">false</span>;
-                    <span class="kw">return </span>command::set_windowed(<span class="prelude-val">None</span>);
-                }
-
-                <span class="self">self</span>.app.core_mut().window.sharp_corners = <span class="bool-val">true</span>;
-                <span class="kw">return </span>command::fullscreen(<span class="prelude-val">None</span>);
-            }
+            Message::Maximize =&gt; <span class="kw">return </span>command::toggle_maximize(<span class="prelude-val">None</span>),
 
             Message::NavBar(key) =&gt; {
                 <span class="self">self</span>.app.core_mut().nav_bar_set_toggled_condensed(<span class="bool-val">false</span>);

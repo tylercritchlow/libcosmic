@@ -203,6 +203,11 @@
 <a href="#203" id="203">203</a>
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Build window-based GUI applications.
 </span><span class="kw">mod </span>action;
 
@@ -382,6 +387,11 @@
 <span class="doccomment">/// Changes the window [`Level`].
 </span><span class="kw">pub fn </span>change_level&lt;Message&gt;(id: Id, level: Level) -&gt; Command&lt;Message&gt; {
     Command::single(command::Action::Window(Action::ChangeLevel(id, level)))
+}
+
+<span class="doccomment">/// Show window menu at cursor position.
+</span><span class="kw">pub fn </span>show_window_menu&lt;Message&gt;(id: Id) -&gt; Command&lt;Message&gt; {
+    Command::single(command::Action::Window(Action::ShowWindowMenu(id)))
 }
 
 <span class="doccomment">/// Fetches an identifier unique to the window, provided by the underlying windowing system. This is
