@@ -234,7 +234,7 @@ visual artifacts.</p>
 <p>The default value follows the <a href="struct.WindowBuilder.html#method.with_transparent" title="method winit::window::WindowBuilder::with_transparent"><code>WindowBuilder::with_transparent</code></a>.</p>
 <h6 id="platform-specific-16"><a href="#platform-specific-16">Platform-specific</a></h6>
 <ul>
-<li><strong>Web / iOS / Android / Orbital:</strong> Unsupported.</li>
+<li><strong>Web / iOS / Android:</strong> Unsupported.</li>
 <li><strong>X11:</strong> Can only be set while building the window, with <a href="struct.WindowBuilder.html#method.with_transparent" title="method winit::window::WindowBuilder::with_transparent"><code>WindowBuilder::with_transparent</code></a>.</li>
 </ul>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.set_blur" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#927-929">source</a><h4 class="code-header">pub fn <a href="#method.set_blur" class="fn">set_blur</a>(&amp;self, blur: <a class="primitive" href="https://doc.rust-lang.org/1.75.0/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Change the window blur state.</p>
@@ -306,12 +306,12 @@ window could still be resized by calling <a href="struct.Window.html#method.requ
 </div></details><details class="toggle method-toggle" open><summary><section id="method.set_maximized" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#1045-1048">source</a><h4 class="code-header">pub fn <a href="#method.set_maximized" class="fn">set_maximized</a>(&amp;self, maximized: <a class="primitive" href="https://doc.rust-lang.org/1.75.0/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets the window to maximized or back.</p>
 <h6 id="platform-specific-26"><a href="#platform-specific-26">Platform-specific</a></h6>
 <ul>
-<li><strong>iOS / Android / Web / Orbital:</strong> Unsupported.</li>
+<li><strong>iOS / Android / Web:</strong> Unsupported.</li>
 </ul>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.is_maximized" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#1056-1058">source</a><h4 class="code-header">pub fn <a href="#method.is_maximized" class="fn">is_maximized</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.75.0/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets the window’s current maximized state.</p>
 <h6 id="platform-specific-27"><a href="#platform-specific-27">Platform-specific</a></h6>
 <ul>
-<li><strong>iOS / Android / Web / Orbital:</strong> Unsupported.</li>
+<li><strong>iOS / Android / Web:</strong> Unsupported.</li>
 </ul>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.set_fullscreen" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#1085-1088">source</a><h4 class="code-header">pub fn <a href="#method.set_fullscreen" class="fn">set_fullscreen</a>(&amp;self, fullscreen: <a class="enum" href="https://doc.rust-lang.org/1.75.0/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="enum.Fullscreen.html" title="enum winit::window::Fullscreen">Fullscreen</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the window to fullscreen or back.</p>
 <h6 id="platform-specific-28"><a href="#platform-specific-28">Platform-specific</a></h6>
@@ -517,7 +517,7 @@ prevent all apps from reading the window content, for instance, QuickTime.</li>
 <li><strong>Wayland:</strong> The cursor is only hidden within the confines of the window.</li>
 <li><strong>macOS:</strong> The cursor is hidden as long as the window has input focus, even if the cursor is
 outside of the window.</li>
-<li><strong>iOS / Android / Orbital:</strong> Unsupported.</li>
+<li><strong>iOS / Android:</strong> Unsupported.</li>
 </ul>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.drag_window" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#1424-1426">source</a><h4 class="code-header">pub fn <a href="#method.drag_window" class="fn">drag_window</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.75.0/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.75.0/std/primitive.unit.html">()</a>, <a class="enum" href="../error/enum.ExternalError.html" title="enum winit::error::ExternalError">ExternalError</a>&gt;</h4></section></summary><div class="docblock"><p>Moves the window with the left mouse button until the button is released.</p>
 <p>There’s no guarantee that this will work unless the left mouse button was pressed
@@ -527,7 +527,7 @@ immediately before this function is called.</p>
 <li><strong>X11:</strong> Un-grabs the cursor.</li>
 <li><strong>Wayland:</strong> Requires the cursor to be inside the window to be dragged.</li>
 <li><strong>macOS:</strong> May prevent the button release event to be triggered.</li>
-<li><strong>iOS / Android / Web / Orbital:</strong> Always returns an <a href="../error/enum.ExternalError.html#variant.NotSupported" title="variant winit::error::ExternalError::NotSupported"><code>ExternalError::NotSupported</code></a>.</li>
+<li><strong>iOS / Android / Web:</strong> Always returns an <a href="../error/enum.ExternalError.html#variant.NotSupported" title="variant winit::error::ExternalError::NotSupported"><code>ExternalError::NotSupported</code></a>.</li>
 </ul>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.drag_resize_window" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#1438-1441">source</a><h4 class="code-header">pub fn <a href="#method.drag_resize_window" class="fn">drag_resize_window</a>(
     &amp;self,
@@ -538,7 +538,7 @@ immediately before this function is called.</p>
 <h6 id="platform-specific-46"><a href="#platform-specific-46">Platform-specific</a></h6>
 <ul>
 <li><strong>macOS:</strong> Always returns an <a href="../error/enum.ExternalError.html#variant.NotSupported" title="variant winit::error::ExternalError::NotSupported"><code>ExternalError::NotSupported</code></a></li>
-<li><strong>iOS / Android / Web / Orbital:</strong> Always returns an <a href="../error/enum.ExternalError.html#variant.NotSupported" title="variant winit::error::ExternalError::NotSupported"><code>ExternalError::NotSupported</code></a>.</li>
+<li><strong>iOS / Android / Web:</strong> Always returns an <a href="../error/enum.ExternalError.html#variant.NotSupported" title="variant winit::error::ExternalError::NotSupported"><code>ExternalError::NotSupported</code></a>.</li>
 </ul>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.show_window_menu" class="method"><a class="src rightside" href="../../src/winit/window.rs.html#1452-1456">source</a><h4 class="code-header">pub fn <a href="#method.show_window_menu" class="fn">show_window_menu</a>(&amp;self, position: impl <a class="trait" href="https://doc.rust-lang.org/1.75.0/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../dpi/enum.Position.html" title="enum winit::dpi::Position">Position</a>&gt;)</h4></section></summary><div class="docblock"><p>Show <a href="https://en.wikipedia.org/wiki/Common_menus_in_Microsoft_Windows#System_menu">window menu</a> at a specified position .</p>
 <p>This is the context menu that is normally shown when interacting with

@@ -1163,6 +1163,36 @@
 <a href="#1163" id="1163">1163</a>
 <a href="#1164" id="1164">1164</a>
 <a href="#1165" id="1165">1165</a>
+<a href="#1166" id="1166">1166</a>
+<a href="#1167" id="1167">1167</a>
+<a href="#1168" id="1168">1168</a>
+<a href="#1169" id="1169">1169</a>
+<a href="#1170" id="1170">1170</a>
+<a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
+<a href="#1173" id="1173">1173</a>
+<a href="#1174" id="1174">1174</a>
+<a href="#1175" id="1175">1175</a>
+<a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a>
+<a href="#1185" id="1185">1185</a>
+<a href="#1186" id="1186">1186</a>
+<a href="#1187" id="1187">1187</a>
+<a href="#1188" id="1188">1188</a>
+<a href="#1189" id="1189">1189</a>
+<a href="#1190" id="1190">1190</a>
+<a href="#1191" id="1191">1191</a>
+<a href="#1192" id="1192">1192</a>
+<a href="#1193" id="1193">1193</a>
+<a href="#1194" id="1194">1194</a>
+<a href="#1195" id="1195">1195</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1179,7 +1209,7 @@
 <span class="kw">use </span>iced_core::text::{LineHeight, Paragraph, Renderer <span class="kw">as </span>TextRenderer, Shaping};
 <span class="kw">use </span>iced_core::widget::{<span class="self">self</span>, operation, tree};
 <span class="kw">use </span>iced_core::{layout, renderer, widget::Tree, Clipboard, Layout, Shell, Widget};
-<span class="kw">use </span>iced_core::{Border, Point, Renderer <span class="kw">as </span>IcedRenderer, Shadow, Text};
+<span class="kw">use </span>iced_core::{Border, Gradient, Point, Renderer <span class="kw">as </span>IcedRenderer, Shadow, Text};
 <span class="kw">use </span>slotmap::{Key, SecondaryMap};
 <span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>std::time::{Duration, Instant};
@@ -1851,6 +1881,9 @@
         _viewport: <span class="kw-2">&amp;</span>iced::Rectangle,
         _renderer: <span class="kw-2">&amp;</span>Renderer,
     ) -&gt; iced_core::mouse::Interaction {
+        <span class="kw">if </span><span class="self">self</span>.on_activate.is_none() {
+            <span class="kw">return </span>iced_core::mouse::Interaction::default();
+        }
         <span class="kw">let </span>state = tree.state.downcast_ref::&lt;LocalState&gt;();
         <span class="kw">let </span>bounds = layout.bounds();
 
@@ -1884,7 +1917,31 @@
         <span class="kw">let </span>appearance = <span class="self">Self</span>::variant_appearance(theme, <span class="kw-2">&amp;</span><span class="self">self</span>.style);
         <span class="kw">let </span>bounds = layout.bounds();
         <span class="kw">let </span>button_amount = <span class="self">self</span>.model.items.len();
-
+        <span class="kw">let </span>apply_alpha = |<span class="kw-2">mut </span>c: Color| {
+            <span class="kw">if </span><span class="self">self</span>.on_activate.is_some() {
+                c
+            } <span class="kw">else </span>{
+                c.a /= <span class="number">2.0</span>;
+                c
+            }
+        };
+        <span class="kw">let </span>bg_with_alpha = |<span class="kw-2">mut </span>b| {
+            <span class="kw">match </span><span class="kw-2">&amp;mut </span>b {
+                Background::Color(c) =&gt; {
+                    <span class="kw-2">*</span>c = apply_alpha(<span class="kw-2">*</span>c);
+                }
+                Background::Gradient(g) =&gt; {
+                    <span class="kw">let </span>Gradient::Linear(<span class="kw-2">mut </span>l) = g;
+                    <span class="kw">for </span>c <span class="kw">in </span><span class="kw-2">&amp;mut </span>l.stops {
+                        <span class="kw">let </span><span class="prelude-val">Some</span>(stop) = c <span class="kw">else </span>{
+                            <span class="kw">continue</span>;
+                        };
+                        stop.color = apply_alpha(stop.color);
+                    }
+                }
+            }
+            b
+        };
         <span class="comment">// Draw the background, if a background was defined.
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(background) = appearance.background {
             renderer.fill_quad(
@@ -1896,20 +1953,21 @@
                     },
                     shadow: Shadow::default(),
                 },
-                background,
+                bg_with_alpha(background),
             );
         }
 
         <span class="comment">// Draw previous and next tab buttons if there is a need to paginate tabs.
         </span><span class="kw">if </span>state.collapsed {
             <span class="comment">// Previous tab button
-            </span><span class="kw">let </span><span class="kw-2">mut </span>background_appearance = <span class="kw">if </span>Item::PrevButton == state.focused_item {
-                <span class="prelude-val">Some</span>(appearance.focus)
-            } <span class="kw">else if </span>Item::PrevButton == state.hovered {
-                <span class="prelude-val">Some</span>(appearance.hover)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>};
+            </span><span class="kw">let </span><span class="kw-2">mut </span>background_appearance =
+                <span class="kw">if </span><span class="self">self</span>.on_activate.is_some() &amp;&amp; Item::PrevButton == state.focused_item {
+                    <span class="prelude-val">Some</span>(appearance.focus)
+                } <span class="kw">else if </span><span class="self">self</span>.on_activate.is_some() &amp;&amp; Item::PrevButton == state.hovered {
+                    <span class="prelude-val">Some</span>(appearance.hover)
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">None
+                </span>};
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(background_appearance) = background_appearance.take() {
                 renderer.fill_quad(
@@ -1928,7 +1986,7 @@
                     },
                     background_appearance
                         .background
-                        .unwrap_or(Background::Color(Color::TRANSPARENT)),
+                        .map_or(Background::Color(Color::TRANSPARENT), bg_with_alpha),
                 );
             }
 
@@ -1938,13 +1996,13 @@
                 style,
                 cursor,
                 viewport,
-                <span class="kw">if </span>state.buttons_offset == <span class="number">0 </span>{
+                apply_alpha(<span class="kw">if </span>state.buttons_offset == <span class="number">0 </span>{
                     appearance.inactive.text_color
                 } <span class="kw">else if let </span>Item::PrevButton = state.focused_item {
                     appearance.focus.text_color
                 } <span class="kw">else </span>{
                     appearance.active.text_color
-                },
+                }),
                 Rectangle {
                     x: bounds.x + f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0</span>,
                     y: bounds.y + f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0</span>,
@@ -1955,13 +2013,14 @@
             );
 
             <span class="comment">// Next tab button
-            </span>background_appearance = <span class="kw">if </span>Item::NextButton == state.focused_item {
-                <span class="prelude-val">Some</span>(appearance.focus)
-            } <span class="kw">else if </span>Item::NextButton == state.hovered {
-                <span class="prelude-val">Some</span>(appearance.hover)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>};
+            </span>background_appearance =
+                <span class="kw">if </span><span class="self">self</span>.on_activate.is_some() &amp;&amp; Item::NextButton == state.focused_item {
+                    <span class="prelude-val">Some</span>(appearance.focus)
+                } <span class="kw">else if </span><span class="self">self</span>.on_activate.is_some() &amp;&amp; Item::NextButton == state.hovered {
+                    <span class="prelude-val">Some</span>(appearance.hover)
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">None
+                </span>};
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(background_appearance) = background_appearance {
                 renderer.fill_quad(
@@ -1990,13 +2049,13 @@
                 style,
                 cursor,
                 viewport,
-                <span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
+                apply_alpha(<span class="kw">if </span><span class="self">self</span>.next_tab_sensitive(state) {
                     appearance.active.text_color
                 } <span class="kw">else if let </span>Item::NextButton = state.focused_item {
                     appearance.focus.text_color
                 } <span class="kw">else </span>{
                     appearance.inactive.text_color
-                },
+                }),
                 Rectangle {
                     x: bounds.x + bounds.width - f32::from(<span class="self">self</span>.button_height)
                         + f32::from(<span class="self">self</span>.button_height) / <span class="number">4.0</span>,
@@ -2011,17 +2070,18 @@
         <span class="comment">// Draw each of the items in the widget.
         </span><span class="kw">for </span>(nth, (key, <span class="kw-2">mut </span>bounds)) <span class="kw">in </span><span class="self">self</span>.variant_button_bounds(state, bounds).enumerate() {
             <span class="kw">let </span>key_is_active = <span class="self">self</span>.model.is_active(key);
-            <span class="kw">let </span>key_is_hovered = state.hovered == Item::Tab(key);
+            <span class="kw">let </span>key_is_hovered = <span class="self">self</span>.on_activate.is_some() &amp;&amp; state.hovered == Item::Tab(key);
 
-            <span class="kw">let </span>(status_appearance, font) = <span class="kw">if </span>Item::Tab(key) == state.focused_item {
-                (appearance.focus, <span class="kw-2">&amp;</span><span class="self">self</span>.font_active)
-            } <span class="kw">else if </span>key_is_active {
-                (appearance.active, <span class="kw-2">&amp;</span><span class="self">self</span>.font_active)
-            } <span class="kw">else if </span>key_is_hovered {
-                (appearance.hover, <span class="kw-2">&amp;</span><span class="self">self</span>.font_hovered)
-            } <span class="kw">else </span>{
-                (appearance.inactive, <span class="kw-2">&amp;</span><span class="self">self</span>.font_inactive)
-            };
+            <span class="kw">let </span>(status_appearance, font) =
+                <span class="kw">if </span><span class="self">self</span>.on_activate.is_some() &amp;&amp; Item::Tab(key) == state.focused_item {
+                    (appearance.focus, <span class="kw-2">&amp;</span><span class="self">self</span>.font_active)
+                } <span class="kw">else if </span>key_is_active {
+                    (appearance.active, <span class="kw-2">&amp;</span><span class="self">self</span>.font_active)
+                } <span class="kw">else if </span>key_is_hovered {
+                    (appearance.hover, <span class="kw-2">&amp;</span><span class="self">self</span>.font_hovered)
+                } <span class="kw">else </span>{
+                    (appearance.inactive, <span class="kw-2">&amp;</span><span class="self">self</span>.font_inactive)
+                };
             <span class="kw">let </span>font = font.unwrap_or_else(|| renderer.default_font());
 
             <span class="kw">let </span>button_appearance = <span class="kw">if </span>nth == <span class="number">0 </span>{
@@ -2045,7 +2105,7 @@
                     },
                     status_appearance
                         .background
-                        .unwrap_or(Background::Color(Color::TRANSPARENT)),
+                        .map_or(Background::Color(Color::TRANSPARENT), bg_with_alpha),
                 );
             }
 
@@ -2065,7 +2125,7 @@
                         },
                         shadow: Shadow::default(),
                     },
-                    background,
+                    bg_with_alpha(background.into()),
                 );
             }
 
@@ -2096,7 +2156,7 @@
                     style,
                     cursor,
                     viewport,
-                    status_appearance.text_color,
+                    apply_alpha(status_appearance.text_color),
                     Rectangle {
                         width,
                         height: width,
@@ -2142,7 +2202,7 @@
                         line_height: <span class="self">self</span>.line_height,
                     },
                     bounds.position(),
-                    status_appearance.text_color,
+                    apply_alpha(status_appearance.text_color),
                     Rectangle {
                         width: {
                             <span class="kw">let </span>width = bounds.width - close_icon_width;
@@ -2169,7 +2229,7 @@
                     style,
                     cursor,
                     viewport,
-                    status_appearance.text_color,
+                    apply_alpha(status_appearance.text_color),
                     close_button_bounds,
                     <span class="self">self</span>.close_icon.clone(),
                 );
