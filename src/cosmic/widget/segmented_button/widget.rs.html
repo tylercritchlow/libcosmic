@@ -1193,6 +1193,11 @@
 <a href="#1193" id="1193">1193</a>
 <a href="#1194" id="1194">1194</a>
 <a href="#1195" id="1195">1195</a>
+<a href="#1196" id="1196">1196</a>
+<a href="#1197" id="1197">1197</a>
+<a href="#1198" id="1198">1198</a>
+<a href="#1199" id="1199">1199</a>
+<a href="#1200" id="1200">1200</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1258,6 +1263,8 @@
     </span><span class="kw">pub</span>(<span class="kw">super</span>) id: <span class="prelude-ty">Option</span>&lt;Id&gt;,
     <span class="doccomment">/// The icon used for the close button.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) close_icon: Icon,
+    <span class="doccomment">/// Scrolling switches focus between tabs.
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) scrollable_focus: bool,
     <span class="doccomment">/// Show the close icon only when item is hovered.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) show_close_icon_on_hover: bool,
     <span class="doccomment">/// Padding around a button.
@@ -1310,6 +1317,7 @@
             model,
             id: <span class="prelude-val">None</span>,
             close_icon: icon::from_name(<span class="string">&quot;window-close-symbolic&quot;</span>).size(<span class="number">16</span>).icon(),
+            scrollable_focus: <span class="bool-val">false</span>,
             show_close_icon_on_hover: <span class="bool-val">false</span>,
             button_padding: [<span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>],
             button_height: <span class="number">32</span>,
@@ -1736,58 +1744,60 @@
                 }
             }
 
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(on_activate) = <span class="self">self</span>.on_activate.as_ref() {
-                <span class="kw">if let </span>Event::Mouse(mouse::Event::WheelScrolled { delta }) = event {
-                    <span class="kw">let </span>current = Instant::now();
+            <span class="kw">if </span><span class="self">self</span>.scrollable_focus {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(on_activate) = <span class="self">self</span>.on_activate.as_ref() {
+                    <span class="kw">if let </span>Event::Mouse(mouse::Event::WheelScrolled { delta }) = event {
+                        <span class="kw">let </span>current = Instant::now();
 
-                    <span class="comment">// Permit successive scroll wheel events only after a given delay.
-                    </span><span class="kw">if </span>state.wheel_timestamp.map_or(<span class="bool-val">true</span>, |previous| {
-                        current.duration_since(previous) &gt; Duration::from_millis(<span class="number">250</span>)
-                    }) {
-                        state.wheel_timestamp = <span class="prelude-val">Some</span>(current);
+                        <span class="comment">// Permit successive scroll wheel events only after a given delay.
+                        </span><span class="kw">if </span>state.wheel_timestamp.map_or(<span class="bool-val">true</span>, |previous| {
+                            current.duration_since(previous) &gt; Duration::from_millis(<span class="number">250</span>)
+                        }) {
+                            state.wheel_timestamp = <span class="prelude-val">Some</span>(current);
 
-                        <span class="kw">match </span>delta {
-                            ScrollDelta::Lines { y, .. } | ScrollDelta::Pixels { y, .. } =&gt; {
-                                <span class="kw">let </span><span class="kw-2">mut </span>activate_key = <span class="prelude-val">None</span>;
+                            <span class="kw">match </span>delta {
+                                ScrollDelta::Lines { y, .. } | ScrollDelta::Pixels { y, .. } =&gt; {
+                                    <span class="kw">let </span><span class="kw-2">mut </span>activate_key = <span class="prelude-val">None</span>;
 
-                                <span class="kw">if </span>y &lt; <span class="number">0.0 </span>{
-                                    <span class="kw">let </span><span class="kw-2">mut </span>prev_key = Entity::null();
+                                    <span class="kw">if </span>y &lt; <span class="number">0.0 </span>{
+                                        <span class="kw">let </span><span class="kw-2">mut </span>prev_key = Entity::null();
 
-                                    <span class="kw">for </span>key <span class="kw">in </span><span class="self">self</span>.model.order.iter().copied() {
-                                        <span class="kw">if </span><span class="self">self</span>.model.is_active(key) &amp;&amp; !prev_key.is_null() {
-                                            activate_key = <span class="prelude-val">Some</span>(prev_key);
-                                        }
-
-                                        <span class="kw">if </span><span class="self">self</span>.model.is_enabled(key) {
-                                            prev_key = key;
-                                        }
-                                    }
-                                } <span class="kw">else if </span>y &gt; <span class="number">0.0 </span>{
-                                    <span class="kw">let </span><span class="kw-2">mut </span>buttons = <span class="self">self</span>.model.order.iter().copied();
-                                    <span class="kw">while let </span><span class="prelude-val">Some</span>(key) = buttons.next() {
-                                        <span class="kw">if </span><span class="self">self</span>.model.is_active(key) {
-                                            <span class="kw">for </span>key <span class="kw">in </span>buttons {
-                                                <span class="kw">if </span><span class="self">self</span>.model.is_enabled(key) {
-                                                    activate_key = <span class="prelude-val">Some</span>(key);
-                                                    <span class="kw">break</span>;
-                                                }
+                                        <span class="kw">for </span>key <span class="kw">in </span><span class="self">self</span>.model.order.iter().copied() {
+                                            <span class="kw">if </span><span class="self">self</span>.model.is_active(key) &amp;&amp; !prev_key.is_null() {
+                                                activate_key = <span class="prelude-val">Some</span>(prev_key);
                                             }
-                                            <span class="kw">break</span>;
+
+                                            <span class="kw">if </span><span class="self">self</span>.model.is_enabled(key) {
+                                                prev_key = key;
+                                            }
+                                        }
+                                    } <span class="kw">else if </span>y &gt; <span class="number">0.0 </span>{
+                                        <span class="kw">let </span><span class="kw-2">mut </span>buttons = <span class="self">self</span>.model.order.iter().copied();
+                                        <span class="kw">while let </span><span class="prelude-val">Some</span>(key) = buttons.next() {
+                                            <span class="kw">if </span><span class="self">self</span>.model.is_active(key) {
+                                                <span class="kw">for </span>key <span class="kw">in </span>buttons {
+                                                    <span class="kw">if </span><span class="self">self</span>.model.is_enabled(key) {
+                                                        activate_key = <span class="prelude-val">Some</span>(key);
+                                                        <span class="kw">break</span>;
+                                                    }
+                                                }
+                                                <span class="kw">break</span>;
+                                            }
                                         }
                                     }
-                                }
 
-                                <span class="kw">if let </span><span class="prelude-val">Some</span>(key) = activate_key {
-                                    shell.publish(on_activate(key));
-                                    <span class="kw">return </span>event::Status::Captured;
+                                    <span class="kw">if let </span><span class="prelude-val">Some</span>(key) = activate_key {
+                                        shell.publish(on_activate(key));
+                                        <span class="kw">return </span>event::Status::Captured;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            } <span class="kw">else </span>{
+                state.hovered = Item::None;
             }
-        } <span class="kw">else </span>{
-            state.hovered = Item::None;
         }
 
         <span class="kw">if </span>state.focused {
