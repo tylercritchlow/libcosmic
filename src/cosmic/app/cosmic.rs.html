@@ -429,6 +429,10 @@
 <a href="#428" id="428">428</a>
 <a href="#429" id="429">429</a>
 <a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -506,8 +510,8 @@
 }
 
 <span class="attr">#[derive(Default)]
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Cosmic&lt;App&gt; {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) app: App,
+</span><span class="kw">pub struct </span>Cosmic&lt;App&gt; {
+    <span class="kw">pub </span>app: App,
 }
 
 <span class="kw">impl</span>&lt;T: Application&gt; IcedApplication <span class="kw">for </span>Cosmic&lt;T&gt;
@@ -659,7 +663,7 @@
 
     <span class="attr">#[cfg(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>))]
     </span><span class="kw">fn </span>view(<span class="kw-2">&amp;</span><span class="self">self</span>, id: window::Id) -&gt; Element&lt;<span class="self">Self</span>::Message&gt; {
-        <span class="kw">if </span>id != window::Id::MAIN {
+        <span class="kw">if </span>id != <span class="self">self</span>.app.main_window_id() {
             <span class="kw">return </span><span class="self">self</span>.app.view_window(id).map(<span class="kw">super</span>::Message::App);
         }
 
@@ -679,26 +683,28 @@
 <span class="kw">impl</span>&lt;T: Application&gt; Cosmic&lt;T&gt; {
     <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
     </span><span class="kw">pub fn </span>close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; iced::Command&lt;<span class="kw">super</span>::Message&lt;T::Message&gt;&gt; {
-        iced_sctk::commands::window::close_window(window::Id::MAIN)
+        iced_sctk::commands::window::close_window(<span class="self">self</span>.app.main_window_id())
     }
 
     <span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
     #[allow(clippy::unused_self)]
     </span><span class="kw">pub fn </span>close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; iced::Command&lt;<span class="kw">super</span>::Message&lt;T::Message&gt;&gt; {
-        iced::Command::single(Action::Window(WindowAction::Close(window::Id::MAIN)))
+        iced::Command::single(Action::Window(WindowAction::Close(
+            <span class="self">self</span>.app.main_window_id(),
+        )))
     }
 
     <span class="attr">#[allow(clippy::too_many_lines)]
     </span><span class="kw">fn </span>cosmic_update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, message: Message) -&gt; iced::Command&lt;<span class="kw">super</span>::Message&lt;T::Message&gt;&gt; {
         <span class="kw">match </span>message {
             Message::WindowMaximized(id, maximized) =&gt; {
-                <span class="kw">if </span>window::Id::MAIN == id {
+                <span class="kw">if </span><span class="self">self</span>.app.main_window_id() == id {
                     <span class="self">self</span>.app.core_mut().window.sharp_corners = maximized;
                 }
             }
 
             Message::WindowResize(id, width, height) =&gt; {
-                <span class="kw">if </span>window::Id::MAIN == id {
+                <span class="kw">if </span><span class="self">self</span>.app.main_window_id() == id {
                     <span class="self">self</span>.app.core_mut().set_window_width(width);
                     <span class="self">self</span>.app.core_mut().set_window_height(height);
                 }
@@ -714,7 +720,7 @@
 
             <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
             </span>Message::WindowState(id, state) =&gt; {
-                <span class="kw">if </span>window::Id::MAIN == id {
+                <span class="kw">if </span><span class="self">self</span>.app.main_window_id() == id {
                     <span class="self">self</span>.app.core_mut().window.sharp_corners = state.intersects(
                         WindowState::MAXIMIZED
                             | WindowState::FULLSCREEN
@@ -729,7 +735,7 @@
 
             <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
             </span>Message::WmCapabilities(id, capabilities) =&gt; {
-                <span class="kw">if </span>window::Id::MAIN == id {
+                <span class="kw">if </span><span class="self">self</span>.app.main_window_id() == id {
                     <span class="self">self</span>.app.core_mut().window.show_maximize =
                         capabilities.contains(WindowManagerCapabilities::MAXIMIZE);
                     <span class="self">self</span>.app.core_mut().window.show_minimize =
@@ -752,7 +758,9 @@
                 keyboard_nav::Message::Escape =&gt; <span class="kw">return </span><span class="self">self</span>.app.on_escape(),
                 keyboard_nav::Message::Search =&gt; <span class="kw">return </span><span class="self">self</span>.app.on_search(),
 
-                keyboard_nav::Message::Fullscreen =&gt; <span class="kw">return </span>command::toggle_maximize(<span class="prelude-val">None</span>),
+                keyboard_nav::Message::Fullscreen =&gt; {
+                    <span class="kw">return </span>command::toggle_maximize(<span class="prelude-val">Some</span>(<span class="self">self</span>.app.main_window_id()))
+                }
             },
 
             Message::ContextDrawer(show) =&gt; {
@@ -760,11 +768,11 @@
                 <span class="kw">return </span><span class="self">self</span>.app.on_context_drawer();
             }
 
-            Message::Drag =&gt; <span class="kw">return </span>command::drag(<span class="prelude-val">None</span>),
+            Message::Drag =&gt; <span class="kw">return </span>command::drag(<span class="prelude-val">Some</span>(<span class="self">self</span>.app.main_window_id())),
 
-            Message::Minimize =&gt; <span class="kw">return </span>command::minimize(<span class="prelude-val">None</span>),
+            Message::Minimize =&gt; <span class="kw">return </span>command::minimize(<span class="prelude-val">Some</span>(<span class="self">self</span>.app.main_window_id())),
 
-            Message::Maximize =&gt; <span class="kw">return </span>command::toggle_maximize(<span class="prelude-val">None</span>),
+            Message::Maximize =&gt; <span class="kw">return </span>command::toggle_maximize(<span class="prelude-val">Some</span>(<span class="self">self</span>.app.main_window_id())),
 
             Message::NavBar(key) =&gt; {
                 <span class="self">self</span>.app.core_mut().nav_bar_set_toggled_condensed(<span class="bool-val">false</span>);
@@ -834,7 +842,7 @@
             Message::Activate(_token) =&gt; {
                 <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
                 </span><span class="kw">return </span>iced_sctk::commands::activation::activate(
-                    iced::window::Id::MAIN,
+                    <span class="self">self</span>.app.main_window_id(),
                     <span class="attr">#[allow(clippy::used_underscore_binding)]
                     </span>_token,
                 );
