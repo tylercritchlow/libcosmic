@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cosmic-config/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cosmic_config" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cosmic-config/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cosmic_config" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -354,17 +355,17 @@
     sync::Mutex,
 };
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;subscription&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"subscription"</span>)]
 </span><span class="kw">mod </span>subscription;
 <span class="kw">pub use </span>subscription::<span class="kw-2">*</span>;
 
-<span class="attr">#[cfg(all(feature = <span class="string">&quot;dbus&quot;</span>, feature = <span class="string">&quot;subscription&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">"dbus"</span>, feature = <span class="string">"subscription"</span>))]
 </span><span class="kw">pub mod </span>dbus;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;macro&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"macro"</span>)]
 </span><span class="kw">pub use </span>cosmic_config_derive;
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;calloop&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"calloop"</span>)]
 </span><span class="kw">pub mod </span>calloop;
 
 <span class="attr">#[derive(Debug)]
@@ -383,13 +384,13 @@
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::AtomicWrites(err) =&gt; err.fmt(f),
-            <span class="self">Self</span>::InvalidName(name) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;invalid config name &#39;{}&#39;&quot;</span>, name),
+            <span class="self">Self</span>::InvalidName(name) =&gt; <span class="macro">write!</span>(f, <span class="string">"invalid config name '{}'"</span>, name),
             <span class="self">Self</span>::Io(err) =&gt; err.fmt(f),
-            <span class="self">Self</span>::NoConfigDirectory =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;cosmic config directory not found&quot;</span>),
+            <span class="self">Self</span>::NoConfigDirectory =&gt; <span class="macro">write!</span>(f, <span class="string">"cosmic config directory not found"</span>),
             <span class="self">Self</span>::Notify(err) =&gt; err.fmt(f),
             <span class="self">Self</span>::Ron(err) =&gt; err.fmt(f),
             <span class="self">Self</span>::RonSpanned(err) =&gt; err.fmt(f),
-            <span class="self">Self</span>::GetKey(key, err) =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;failed to get key &#39;{}&#39;: {}&quot;</span>, key, err),
+            <span class="self">Self</span>::GetKey(key, err) =&gt; <span class="macro">write!</span>(f, <span class="string">"failed to get key '{}': {}"</span>, key, err),
         }
     }
 }
@@ -442,7 +443,7 @@
     user_path: PathBuf,
 }
 
-<span class="doccomment">/// Check that the name is relative and doesn&#39;t contain . or ..
+<span class="doccomment">/// Check that the name is relative and doesn't contain . or ..
 </span><span class="kw">fn </span>sanitize_name(name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw-2">&amp;</span>Path, Error&gt; {
     <span class="kw">let </span>path = Path::new(name);
     <span class="kw">if </span>path
@@ -458,7 +459,7 @@
 <span class="kw">impl </span>Config {
     <span class="doccomment">/// Get the config for the libcosmic toolkit
     </span><span class="kw">pub fn </span>libcosmic() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
-        <span class="self">Self</span>::new(<span class="string">&quot;com.system76.libcosmic&quot;</span>, <span class="number">1</span>)
+        <span class="self">Self</span>::new(<span class="string">"com.system76.libcosmic"</span>, <span class="number">1</span>)
     }
 
     <span class="doccomment">/// Get config for the given application name and config version
@@ -466,23 +467,23 @@
     //TODO: fallbacks for flatpak (HOST_XDG_CONFIG_HOME, xdg-desktop settings proxy)
     </span><span class="kw">pub fn </span>new(name: <span class="kw-2">&amp;</span>str, version: u64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
         <span class="comment">// Look for [name]/v[version]
-        </span><span class="kw">let </span>path = sanitize_name(name)<span class="question-mark">?</span>.join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
+        </span><span class="kw">let </span>path = sanitize_name(name)<span class="question-mark">?</span>.join(<span class="macro">format!</span>(<span class="string">"v{}"</span>, version));
 
         <span class="comment">// Search data file, which provides default (e.g. /usr/share)
         </span><span class="attr">#[cfg(unix)]
-        </span><span class="kw">let </span>system_path = xdg::BaseDirectories::with_prefix(<span class="string">&quot;cosmic&quot;</span>)
+        </span><span class="kw">let </span>system_path = xdg::BaseDirectories::with_prefix(<span class="string">"cosmic"</span>)
             .map_err(std::io::Error::from)<span class="question-mark">?
             </span>.find_data_file(<span class="kw-2">&amp;</span>path);
 
         <span class="attr">#[cfg(windows)]
         </span><span class="kw">let </span>system_path =
             known_folders::get_known_folder_path(known_folders::KnownFolder::ProgramFilesCommon)
-                .map(|x| x.join(<span class="string">&quot;COSMIC&quot;</span>).join(<span class="kw-2">&amp;</span>path));
+                .map(|x| x.join(<span class="string">"COSMIC"</span>).join(<span class="kw-2">&amp;</span>path));
 
         <span class="comment">// Get libcosmic user configuration directory
         </span><span class="kw">let </span>cosmic_user_path = dirs::config_dir()
             .ok_or(Error::NoConfigDirectory)<span class="question-mark">?
-            </span>.join(<span class="string">&quot;cosmic&quot;</span>);
+            </span>.join(<span class="string">"cosmic"</span>);
 
         <span class="kw">let </span>user_path = cosmic_user_path.join(path);
         <span class="comment">// Create new configuration directory if not found.
@@ -502,12 +503,12 @@
     //TODO: fallbacks for flatpak (HOST_XDG_CONFIG_HOME, xdg-desktop settings proxy)
     </span><span class="kw">pub fn </span>new_state(name: <span class="kw-2">&amp;</span>str, version: u64) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, Error&gt; {
         <span class="comment">// Look for [name]/v[version]
-        </span><span class="kw">let </span>path = sanitize_name(name)<span class="question-mark">?</span>.join(<span class="macro">format!</span>(<span class="string">&quot;v{}&quot;</span>, version));
+        </span><span class="kw">let </span>path = sanitize_name(name)<span class="question-mark">?</span>.join(<span class="macro">format!</span>(<span class="string">"v{}"</span>, version));
 
         <span class="comment">// Get libcosmic user state directory
         </span><span class="kw">let </span>cosmic_user_path = dirs::state_dir()
             .ok_or(Error::NoConfigDirectory)<span class="question-mark">?
-            </span>.join(<span class="string">&quot;cosmic&quot;</span>);
+            </span>.join(<span class="string">"cosmic"</span>);
 
         <span class="kw">let </span>user_path = cosmic_user_path.join(path);
         <span class="comment">// Create new state directory if not found.
@@ -520,7 +521,7 @@
     }
 
     <span class="comment">// Start a transaction (to set multiple configs at the same time)
-    </span><span class="kw">pub fn </span>transaction&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; ConfigTransaction&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>transaction&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>) -&gt; ConfigTransaction&lt;<span class="lifetime">'a</span>&gt; {
         ConfigTransaction {
             config: <span class="self">self</span>,
             updates: Mutex::new(Vec::new()),
@@ -535,12 +536,12 @@
     <span class="comment">// Argument is an array of all keys that changed in that specific transaction
     //TODO: simplify F requirements
     </span><span class="kw">where
-        </span>F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>[String]) + Send + Sync + <span class="lifetime">&#39;static</span>,
+        </span>F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>[String]) + Send + Sync + <span class="lifetime">'static</span>,
     {
         <span class="kw">let </span>watch_config = <span class="self">self</span>.clone();
         <span class="kw">let </span><span class="kw-2">mut </span>watcher =
             notify::recommended_watcher(<span class="kw">move </span>|event_res: <span class="prelude-ty">Result</span>&lt;notify::Event, notify::Error&gt;| {
-                <span class="comment">// println!(&quot;{:#?}&quot;, event_res);
+                <span class="comment">// println!("{:#?}", event_res);
                 </span><span class="kw">match </span><span class="kw-2">&amp;</span>event_res {
                     <span class="prelude-val">Ok</span>(event) =&gt; {
                         <span class="kw">match </span><span class="kw-2">&amp;</span>event.kind {
@@ -557,7 +558,7 @@
                                 <span class="prelude-val">Ok</span>(key_path) =&gt; <span class="kw">match </span>key_path.to_str() {
                                     <span class="prelude-val">Some</span>(key) =&gt; {
                                         <span class="comment">// Skip any .atomicwrite temporary files
-                                        </span><span class="kw">if </span>key.starts_with(<span class="string">&quot;.atomicwrite&quot;</span>) {
+                                        </span><span class="kw">if </span>key.starts_with(<span class="string">".atomicwrite"</span>) {
                                             <span class="kw">continue</span>;
                                         }
                                         keys.push(key.to_string());
@@ -626,14 +627,14 @@
     }
 }
 
-<span class="attr">#[must_use = <span class="string">&quot;Config transaction must be committed&quot;</span>]
-</span><span class="kw">pub struct </span>ConfigTransaction&lt;<span class="lifetime">&#39;a</span>&gt; {
-    config: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>Config,
+<span class="attr">#[must_use = <span class="string">"Config transaction must be committed"</span>]
+</span><span class="kw">pub struct </span>ConfigTransaction&lt;<span class="lifetime">'a</span>&gt; {
+    config: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Config,
     <span class="comment">//TODO: use map?
     </span>updates: Mutex&lt;Vec&lt;(PathBuf, String)&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ConfigTransaction&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; ConfigTransaction&lt;<span class="lifetime">'a</span>&gt; {
     <span class="doccomment">/// Apply all pending changes from ConfigTransaction
     </span><span class="comment">//TODO: apply all changes at once
     </span><span class="kw">pub fn </span>commit(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
@@ -651,7 +652,7 @@
 
 <span class="comment">// Setting any setting in this way will do one transaction for all settings
 // when commit finishes that transaction
-</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ConfigSet <span class="kw">for </span>ConfigTransaction&lt;<span class="lifetime">&#39;a</span>&gt; {
+</span><span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; ConfigSet <span class="kw">for </span>ConfigTransaction&lt;<span class="lifetime">'a</span>&gt; {
     <span class="kw">fn </span>set&lt;T: Serialize&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: T) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
         <span class="comment">//TODO: sanitize key (no slashes, cannot be . or ..)
         </span><span class="kw">let </span>key_path = <span class="self">self</span>.config.key_path(key)<span class="question-mark">?</span>;
@@ -678,12 +679,12 @@
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         config: <span class="kw-2">&amp;</span>Config,
         changed_keys: <span class="kw-2">&amp;</span>[T],
-    ) -&gt; (Vec&lt;<span class="kw">crate</span>::Error&gt;, Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;);
+    ) -&gt; (Vec&lt;<span class="kw">crate</span>::Error&gt;, Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str&gt;);
 }
 
 <span class="kw">pub struct </span>Update&lt;T&gt; {
     <span class="kw">pub </span>errors: Vec&lt;<span class="kw">crate</span>::Error&gt;,
-    <span class="kw">pub </span>keys: Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str&gt;,
+    <span class="kw">pub </span>keys: Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str&gt;,
     <span class="kw">pub </span>config: T,
 }
 </code></pre></div></section></main></body></html>

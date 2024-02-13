@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/widget/header_bar.rs`."><title>header_bar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cosmic" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/widget/header_bar.rs`."><title>header_bar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cosmic" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -434,6 +435,15 @@
 <a href="#434" id="434">434</a>
 <a href="#435" id="435">435</a>
 <a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -445,13 +455,14 @@
 <span class="kw">use </span>std::borrow::Cow;
 
 <span class="attr">#[must_use]
-</span><span class="kw">pub fn </span>header_bar&lt;<span class="lifetime">&#39;a</span>, Message&gt;() -&gt; HeaderBar&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+</span><span class="kw">pub fn </span>header_bar&lt;<span class="lifetime">'a</span>, Message&gt;() -&gt; HeaderBar&lt;<span class="lifetime">'a</span>, Message&gt; {
     HeaderBar {
-        title: Cow::Borrowed(<span class="string">&quot;&quot;</span>),
+        title: Cow::Borrowed(<span class="string">""</span>),
         on_close: <span class="prelude-val">None</span>,
         on_drag: <span class="prelude-val">None</span>,
         on_maximize: <span class="prelude-val">None</span>,
         on_minimize: <span class="prelude-val">None</span>,
+        on_right_click: <span class="prelude-val">None</span>,
         start: Vec::new(),
         center: Vec::new(),
         end: Vec::new(),
@@ -460,10 +471,10 @@
 }
 
 <span class="attr">#[derive(Setters)]
-</span><span class="kw">pub struct </span>HeaderBar&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+</span><span class="kw">pub struct </span>HeaderBar&lt;<span class="lifetime">'a</span>, Message&gt; {
     <span class="doccomment">/// Defines the title of the window
     </span><span class="attr">#[setters(skip)]
-    </span>title: Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;,
+    </span>title: Cow&lt;<span class="lifetime">'a</span>, str&gt;,
 
     <span class="doccomment">/// A message emitted when the close button is pressed.
     </span><span class="attr">#[setters(strip_option)]
@@ -481,55 +492,59 @@
     </span><span class="attr">#[setters(strip_option)]
     </span>on_minimize: <span class="prelude-ty">Option</span>&lt;Message&gt;,
 
+    <span class="doccomment">/// A message emitted when the header is right clicked.
+    </span><span class="attr">#[setters(strip_option)]
+    </span>on_right_click: <span class="prelude-ty">Option</span>&lt;Message&gt;,
+
     <span class="doccomment">/// The window id for the headerbar.
     </span><span class="attr">#[setters(strip_option)]
     </span>window_id: <span class="prelude-ty">Option</span>&lt;iced::window::Id&gt;,
 
     <span class="doccomment">/// Elements packed at the start of the headerbar.
     </span><span class="attr">#[setters(skip)]
-    </span>start: Vec&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt;,
+    </span>start: Vec&lt;Element&lt;<span class="lifetime">'a</span>, Message&gt;&gt;,
 
     <span class="doccomment">/// Elements packed in the center of the headerbar.
     </span><span class="attr">#[setters(skip)]
-    </span>center: Vec&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt;,
+    </span>center: Vec&lt;Element&lt;<span class="lifetime">'a</span>, Message&gt;&gt;,
 
     <span class="doccomment">/// Elements packed at the end of the headerbar.
     </span><span class="attr">#[setters(skip)]
-    </span>end: Vec&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt;,
+    </span>end: Vec&lt;Element&lt;<span class="lifetime">'a</span>, Message&gt;&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message: Clone + <span class="lifetime">&#39;static</span>&gt; HeaderBar&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message: Clone + <span class="lifetime">'static</span>&gt; HeaderBar&lt;<span class="lifetime">'a</span>, Message&gt; {
     <span class="doccomment">/// Defines the title of the window
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>title(<span class="kw-2">mut </span><span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>title(<span class="kw-2">mut </span><span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">'a</span>, str&gt;&gt; + <span class="lifetime">'a</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.title = title.into();
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Pushes an element to the start region.
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>start(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>start(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message&gt;&gt; + <span class="lifetime">'a</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.start.push(widget.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Pushes an element to the center region.
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>center(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>center(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message&gt;&gt; + <span class="lifetime">'a</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.center.push(widget.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Pushes an element to the end region.
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>end(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt; + <span class="lifetime">&#39;a</span>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>end(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message&gt;&gt; + <span class="lifetime">'a</span>) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.end.push(widget.into());
         <span class="self">self
     </span>}
 
     <span class="doccomment">/// Build the widget
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; HeaderBarWidget&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; HeaderBarWidget&lt;<span class="lifetime">'a</span>, Message&gt; {
         HeaderBarWidget {
             window_id: <span class="self">self</span>.window_id,
             header_bar_inner: <span class="self">self</span>.into_element(),
@@ -537,13 +552,13 @@
     }
 }
 
-<span class="kw">pub struct </span>HeaderBarWidget&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
-    header_bar_inner: Element&lt;<span class="lifetime">&#39;a</span>, Message&gt;,
+<span class="kw">pub struct </span>HeaderBarWidget&lt;<span class="lifetime">'a</span>, Message&gt; {
+    header_bar_inner: Element&lt;<span class="lifetime">'a</span>, Message&gt;,
     window_id: <span class="prelude-ty">Option</span>&lt;iced::window::Id&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message: Clone + <span class="lifetime">&#39;static</span>&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
-    <span class="kw">for </span>HeaderBarWidget&lt;<span class="lifetime">&#39;a</span>, Message&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message: Clone + <span class="lifetime">'static</span>&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
+    <span class="kw">for </span>HeaderBarWidget&lt;<span class="lifetime">'a</span>, Message&gt;
 {
     <span class="kw">fn </span>children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;tree::Tree&gt; {
         <span class="macro">vec!</span>[tree::Tree::new(<span class="kw-2">&amp;</span><span class="self">self</span>.header_bar_inner)]
@@ -590,7 +605,7 @@
         renderer: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::Renderer,
         theme: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Theme,
         style: <span class="kw-2">&amp;</span>iced_core::renderer::Style,
-        layout: iced_core::Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: iced_core::Layout&lt;<span class="lifetime">'_</span>&gt;,
         cursor: iced_core::mouse::Cursor,
         viewport: <span class="kw-2">&amp;</span>iced_core::Rectangle,
     ) {
@@ -633,11 +648,11 @@
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         state: <span class="kw-2">&amp;mut </span>tree::Tree,
         event: iced_core::Event,
-        layout: iced_core::Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: iced_core::Layout&lt;<span class="lifetime">'_</span>&gt;,
         cursor: iced_core::mouse::Cursor,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
         clipboard: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>iced_core::Clipboard,
-        shell: <span class="kw-2">&amp;mut </span>iced_core::Shell&lt;<span class="lifetime">&#39;_</span>, Message&gt;,
+        shell: <span class="kw-2">&amp;mut </span>iced_core::Shell&lt;<span class="lifetime">'_</span>, Message&gt;,
         viewport: <span class="kw-2">&amp;</span>iced_core::Rectangle,
     ) -&gt; iced_core::event::Status {
         <span class="kw">if let </span>iced_core::Event::Window(id, iced_core::window::Event::Focused) = event {
@@ -665,7 +680,7 @@
     <span class="kw">fn </span>mouse_interaction(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         state: <span class="kw-2">&amp;</span>tree::Tree,
-        layout: iced_core::Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: iced_core::Layout&lt;<span class="lifetime">'_</span>&gt;,
         cursor: iced_core::mouse::Cursor,
         viewport: <span class="kw-2">&amp;</span>iced_core::Rectangle,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
@@ -684,7 +699,7 @@
     <span class="kw">fn </span>operate(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         state: <span class="kw-2">&amp;mut </span>tree::Tree,
-        layout: iced_core::Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: iced_core::Layout&lt;<span class="lifetime">'_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
         operation: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>iced_core::widget::Operation&lt;
             iced_core::widget::OperationOutputWrapper&lt;Message&gt;,
@@ -697,12 +712,12 @@
             .operate(child_tree, child_layout, renderer, operation);
     }
 
-    <span class="kw">fn </span>overlay&lt;<span class="lifetime">&#39;b</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span><span class="self">self</span>,
-        state: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span><span class="kw-2">mut </span>tree::Tree,
-        layout: iced_core::Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+    <span class="kw">fn </span>overlay&lt;<span class="lifetime">'b</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">'b </span><span class="kw-2">mut </span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;</span><span class="lifetime">'b </span><span class="kw-2">mut </span>tree::Tree,
+        layout: iced_core::Layout&lt;<span class="lifetime">'_</span>&gt;,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;iced_core::overlay::Element&lt;<span class="lifetime">&#39;b</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;iced_core::overlay::Element&lt;<span class="lifetime">'b</span>, Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;&gt; {
         <span class="kw">let </span>child_tree = <span class="kw-2">&amp;mut </span>state.children[<span class="number">0</span>];
         <span class="kw">let </span>child_layout = layout.children().next().unwrap();
         <span class="self">self</span>.header_bar_inner
@@ -711,9 +726,9 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message: Clone + <span class="lifetime">&#39;static</span>&gt; HeaderBar&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message: Clone + <span class="lifetime">'static</span>&gt; HeaderBar&lt;<span class="lifetime">'a</span>, Message&gt; {
     <span class="doccomment">/// Converts the headerbar builder into an Iced element.
-    </span><span class="kw">pub fn </span>into_element(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+    </span><span class="kw">pub fn </span>into_element(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; Element&lt;<span class="lifetime">'a</span>, Message&gt; {
         <span class="comment">// Take ownership of the regions to be packed.
         </span><span class="kw">let </span>start = std::mem::take(<span class="kw-2">&amp;mut </span><span class="self">self</span>.start);
         <span class="kw">let </span>center = std::mem::take(<span class="kw-2">&amp;mut </span><span class="self">self</span>.center);
@@ -773,10 +788,14 @@
             widget = widget.on_release(message);
         }
 
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(message) = <span class="self">self</span>.on_right_click.clone() {
+            widget = widget.on_right_press(message);
+        }
+
         widget.into()
     }
 
-    <span class="kw">fn </span>title_widget(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+    <span class="kw">fn </span>title_widget(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Element&lt;<span class="lifetime">'a</span>, Message&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>title = Cow::default();
         std::mem::swap(<span class="kw-2">&amp;mut </span>title, <span class="kw-2">&amp;mut </span><span class="self">self</span>.title);
 
@@ -792,7 +811,7 @@
     }
 
     <span class="doccomment">/// Creates the widget for window controls.
-    </span><span class="kw">fn </span>window_controls(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
+    </span><span class="kw">fn </span>window_controls(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Element&lt;<span class="lifetime">'a</span>, Message&gt; {
         <span class="kw">let </span>icon = |icon_bytes, size, on_press| {
             widget::icon::from_svg_bytes(icon_bytes)
                 .symbolic(<span class="bool-val">true</span>)
@@ -804,21 +823,21 @@
         widget::row::with_capacity(<span class="number">3</span>)
             .push_maybe(<span class="self">self</span>.on_minimize.take().map(|m| {
                 icon(
-                    <span class="kw-2">&amp;</span><span class="macro">include_bytes!</span>(<span class="string">&quot;../../res/icons/window-minimize-symbolic.svg&quot;</span>)[..],
+                    <span class="kw-2">&amp;</span><span class="macro">include_bytes!</span>(<span class="string">"../../res/icons/window-minimize-symbolic.svg"</span>)[..],
                     <span class="number">16</span>,
                     m,
                 )
             }))
             .push_maybe(<span class="self">self</span>.on_maximize.take().map(|m| {
                 icon(
-                    <span class="kw-2">&amp;</span><span class="macro">include_bytes!</span>(<span class="string">&quot;../../res/icons/window-maximize-symbolic.svg&quot;</span>)[..],
+                    <span class="kw-2">&amp;</span><span class="macro">include_bytes!</span>(<span class="string">"../../res/icons/window-maximize-symbolic.svg"</span>)[..],
                     <span class="number">16</span>,
                     m,
                 )
             }))
             .push_maybe(<span class="self">self</span>.on_close.take().map(|m| {
                 icon(
-                    <span class="kw-2">&amp;</span><span class="macro">include_bytes!</span>(<span class="string">&quot;../../res/icons/window-close-symbolic.svg&quot;</span>)[..],
+                    <span class="kw-2">&amp;</span><span class="macro">include_bytes!</span>(<span class="string">"../../res/icons/window-close-symbolic.svg"</span>)[..],
                     <span class="number">16</span>,
                     m,
                 )
@@ -831,14 +850,14 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message: Clone + <span class="lifetime">&#39;static</span>&gt; From&lt;HeaderBar&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
-    <span class="kw">fn </span>from(headerbar: HeaderBar&lt;<span class="lifetime">&#39;a</span>, Message&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message: Clone + <span class="lifetime">'static</span>&gt; From&lt;HeaderBar&lt;<span class="lifetime">'a</span>, Message&gt;&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">'a</span>, Message&gt; {
+    <span class="kw">fn </span>from(headerbar: HeaderBar&lt;<span class="lifetime">'a</span>, Message&gt;) -&gt; <span class="self">Self </span>{
         Element::new(headerbar.build())
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, Message: Clone + <span class="lifetime">&#39;static</span>&gt; From&lt;HeaderBarWidget&lt;<span class="lifetime">&#39;a</span>, Message&gt;&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message&gt; {
-    <span class="kw">fn </span>from(headerbar: HeaderBarWidget&lt;<span class="lifetime">&#39;a</span>, Message&gt;) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message: Clone + <span class="lifetime">'static</span>&gt; From&lt;HeaderBarWidget&lt;<span class="lifetime">'a</span>, Message&gt;&gt; <span class="kw">for </span>Element&lt;<span class="lifetime">'a</span>, Message&gt; {
+    <span class="kw">fn </span>from(headerbar: HeaderBarWidget&lt;<span class="lifetime">'a</span>, Message&gt;) -&gt; <span class="self">Self </span>{
         Element::new(headerbar)
     }
 }

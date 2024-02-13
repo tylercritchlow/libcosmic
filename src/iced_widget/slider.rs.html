@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `iced/widget/src/slider.rs`."><title>slider.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="iced_widget" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../iced_widget/index.html"><img src="https://raw.githubusercontent.com/iced-rs/iced/9ab6923e943f784985e9ef9ca28b10278297225d/docs/logo.svg" alt="iced_widget"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `iced/widget/src/slider.rs`."><title>slider.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="iced_widget" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><a class="sub-logo-container" href="../../iced_widget/index.html"><img src="https://raw.githubusercontent.com/iced-rs/iced/9ab6923e943f784985e9ef9ca28b10278297225d/docs/logo.svg" alt="iced_widget"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -666,7 +667,7 @@
     Appearance, Handle, HandleShape, Rail, StyleSheet,
 };
 
-<span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
 </span><span class="kw">use </span>std::borrow::Cow;
 
 <span class="doccomment">/// An horizontal bar and a handle that selects a single value from a range of
@@ -679,8 +680,8 @@
 ///
 /// # Example
 /// ```no_run
-/// # type Slider&lt;&#39;a, T, Message&gt; =
-/// #     iced_widget::Slider&lt;&#39;a, Message, T, iced_widget::style::Theme&gt;;
+/// # type Slider&lt;'a, T, Message&gt; =
+/// #     iced_widget::Slider&lt;'a, Message, T, iced_widget::style::Theme&gt;;
 /// #
 /// #[derive(Clone)]
 /// pub enum Message {
@@ -692,30 +693,30 @@
 /// Slider::new(0.0..=100.0, value, Message::SliderChanged);
 /// ```
 ///
-/// ![Slider drawn by Coffee&#39;s renderer](https://github.com/hecrj/coffee/blob/bda9818f823dfcb8a7ad0ff4940b4d4b387b5208/images/ui/slider.png?raw=true)
+/// ![Slider drawn by Coffee's renderer](https://github.com/hecrj/coffee/blob/bda9818f823dfcb8a7ad0ff4940b4d4b387b5208/images/ui/slider.png?raw=true)
 </span><span class="attr">#[allow(missing_debug_implementations)]
-</span><span class="kw">pub struct </span>Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme = <span class="kw">crate</span>::Theme&gt;
+</span><span class="kw">pub struct </span>Slider&lt;<span class="lifetime">'a</span>, T, Message, Theme = <span class="kw">crate</span>::Theme&gt;
 <span class="kw">where
     </span>Theme: StyleSheet,
 {
     id: Id,
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
-    </span>name: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt;,
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
-    </span>description: <span class="prelude-ty">Option</span>&lt;iced_accessibility::Description&lt;<span class="lifetime">&#39;a</span>&gt;&gt;,
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
+    </span>name: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">'a</span>, str&gt;&gt;,
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
+    </span>description: <span class="prelude-ty">Option</span>&lt;iced_accessibility::Description&lt;<span class="lifetime">'a</span>&gt;&gt;,
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
     </span>label: <span class="prelude-ty">Option</span>&lt;Vec&lt;iced_accessibility::accesskit::NodeId&gt;&gt;,
     range: RangeInclusive&lt;T&gt;,
     step: T,
     value: T,
-    on_change: Box&lt;<span class="kw">dyn </span>Fn(T) -&gt; Message + <span class="lifetime">&#39;a</span>&gt;,
+    on_change: Box&lt;<span class="kw">dyn </span>Fn(T) -&gt; Message + <span class="lifetime">'a</span>&gt;,
     on_release: <span class="prelude-ty">Option</span>&lt;Message&gt;,
     width: Length,
     height: f32,
     style: Theme::Style,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt; Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, T, Message, Theme&gt; Slider&lt;<span class="lifetime">'a</span>, T, Message, Theme&gt;
 <span class="kw">where
     </span>T: Copy + From&lt;u8&gt; + std::cmp::PartialOrd,
     Message: Clone,
@@ -734,7 +735,7 @@
     ///   `Message`.
     </span><span class="kw">pub fn </span>new&lt;F&gt;(range: RangeInclusive&lt;T&gt;, value: T, on_change: F) -&gt; <span class="self">Self
     </span><span class="kw">where
-        </span>F: <span class="lifetime">&#39;a </span>+ Fn(T) -&gt; Message,
+        </span>F: <span class="lifetime">'a </span>+ Fn(T) -&gt; Message,
     {
         <span class="kw">let </span>value = <span class="kw">if </span>value &gt;= <span class="kw-2">*</span>range.start() {
             value
@@ -750,11 +751,11 @@
 
         Slider {
             id: Id::unique(),
-            <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
             </span>name: <span class="prelude-val">None</span>,
-            <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
             </span>description: <span class="prelude-val">None</span>,
-            <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
             </span>label: <span class="prelude-val">None</span>,
             value,
             range,
@@ -770,8 +771,8 @@
     <span class="doccomment">/// Sets the release message of the [`Slider`].
     /// This is called when the mouse is released from the slider.
     ///
-    /// Typically, the user&#39;s interaction with the slider is finished when this message is produced.
-    /// This is useful if you need to spawn a long-running task from the slider&#39;s result, where
+    /// Typically, the user's interaction with the slider is finished when this message is produced.
+    /// This is useful if you need to spawn a long-running task from the slider's result, where
     /// the default on_change message could create too many events.
     </span><span class="kw">pub fn </span>on_release(<span class="kw-2">mut </span><span class="self">self</span>, on_release: Message) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.on_release = <span class="prelude-val">Some</span>(on_release);
@@ -802,14 +803,14 @@
         <span class="self">self
     </span>}
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
     </span><span class="doccomment">/// Sets the name of the [`Button`].
-    </span><span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">'a</span>, str&gt;&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.name = <span class="prelude-val">Some</span>(name.into());
         <span class="self">self
     </span>}
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
     </span><span class="doccomment">/// Sets the description of the [`Button`].
     </span><span class="kw">pub fn </span>description_widget(
         <span class="kw-2">mut </span><span class="self">self</span>,
@@ -821,15 +822,15 @@
         <span class="self">self
     </span>}
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
     </span><span class="doccomment">/// Sets the description of the [`Button`].
-    </span><span class="kw">pub fn </span>description(<span class="kw-2">mut </span><span class="self">self</span>, description: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">&#39;a</span>, str&gt;&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>description(<span class="kw-2">mut </span><span class="self">self</span>, description: <span class="kw">impl </span>Into&lt;Cow&lt;<span class="lifetime">'a</span>, str&gt;&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.description =
             <span class="prelude-val">Some</span>(iced_accessibility::Description::Text(description.into()));
         <span class="self">self
     </span>}
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
     </span><span class="doccomment">/// Sets the label of the [`Button`].
     </span><span class="kw">pub fn </span>label(<span class="kw-2">mut </span><span class="self">self</span>, label: <span class="kw-2">&amp;</span><span class="kw">dyn </span>iced_accessibility::Labels) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.label =
@@ -838,8 +839,8 @@
     </span>}
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
-    <span class="kw">for </span>Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, T, Message, Theme, Renderer&gt; Widget&lt;Message, Theme, Renderer&gt;
+    <span class="kw">for </span>Slider&lt;<span class="lifetime">'a</span>, T, Message, Theme&gt;
 <span class="kw">where
     </span>T: Copy + Into&lt;f64&gt; + num_traits::FromPrimitive,
     Message: Clone,
@@ -874,11 +875,11 @@
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;mut </span>Tree,
         event: Event,
-        layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
         cursor: mouse::Cursor,
         _renderer: <span class="kw-2">&amp;</span>Renderer,
         _clipboard: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Clipboard,
-        shell: <span class="kw-2">&amp;mut </span>Shell&lt;<span class="lifetime">&#39;_</span>, Message&gt;,
+        shell: <span class="kw-2">&amp;mut </span>Shell&lt;<span class="lifetime">'_</span>, Message&gt;,
         _viewport: <span class="kw-2">&amp;</span>Rectangle,
     ) -&gt; event::Status {
         update(
@@ -901,7 +902,7 @@
         renderer: <span class="kw-2">&amp;mut </span>Renderer,
         theme: <span class="kw-2">&amp;</span>Theme,
         _style: <span class="kw-2">&amp;</span>renderer::Style,
-        layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
         cursor: mouse::Cursor,
         _viewport: <span class="kw-2">&amp;</span>Rectangle,
     ) {
@@ -920,7 +921,7 @@
     <span class="kw">fn </span>mouse_interaction(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span>Tree,
-        layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
         cursor: mouse::Cursor,
         _viewport: <span class="kw-2">&amp;</span>Rectangle,
         _renderer: <span class="kw-2">&amp;</span>Renderer,
@@ -928,10 +929,10 @@
         mouse_interaction(layout, cursor, tree.state.downcast_ref::&lt;State&gt;())
     }
 
-    <span class="attr">#[cfg(feature = <span class="string">&quot;a11y&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"a11y"</span>)]
     </span><span class="kw">fn </span>a11y_nodes(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+        layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
         _state: <span class="kw-2">&amp;</span>Tree,
         cursor: mouse::Cursor,
     ) -&gt; iced_accessibility::A11yTree {
@@ -1010,17 +1011,17 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme, Renderer&gt; From&lt;Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;&gt;
-    <span class="kw">for </span>Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt;
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, T, Message, Theme, Renderer&gt; From&lt;Slider&lt;<span class="lifetime">'a</span>, T, Message, Theme&gt;&gt;
+    <span class="kw">for </span>Element&lt;<span class="lifetime">'a</span>, Message, Theme, Renderer&gt;
 <span class="kw">where
-    </span>T: Copy + Into&lt;f64&gt; + num_traits::FromPrimitive + <span class="lifetime">&#39;a</span>,
-    Message: Clone + <span class="lifetime">&#39;a</span>,
-    Theme: StyleSheet + <span class="lifetime">&#39;a</span>,
-    Renderer: <span class="kw">crate</span>::core::Renderer + <span class="lifetime">&#39;a</span>,
+    </span>T: Copy + Into&lt;f64&gt; + num_traits::FromPrimitive + <span class="lifetime">'a</span>,
+    Message: Clone + <span class="lifetime">'a</span>,
+    Theme: StyleSheet + <span class="lifetime">'a</span>,
+    Renderer: <span class="kw">crate</span>::core::Renderer + <span class="lifetime">'a</span>,
 {
     <span class="kw">fn </span>from(
-        slider: Slider&lt;<span class="lifetime">&#39;a</span>, T, Message, Theme&gt;,
-    ) -&gt; Element&lt;<span class="lifetime">&#39;a</span>, Message, Theme, Renderer&gt; {
+        slider: Slider&lt;<span class="lifetime">'a</span>, T, Message, Theme&gt;,
+    ) -&gt; Element&lt;<span class="lifetime">'a</span>, Message, Theme, Renderer&gt; {
         Element::new(slider)
     }
 }
@@ -1029,9 +1030,9 @@
 /// accordingly.
 </span><span class="kw">pub fn </span>update&lt;Message, T&gt;(
     event: Event,
-    layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+    layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
     cursor: mouse::Cursor,
-    shell: <span class="kw-2">&amp;mut </span>Shell&lt;<span class="lifetime">&#39;_</span>, Message&gt;,
+    shell: <span class="kw-2">&amp;mut </span>Shell&lt;<span class="lifetime">'_</span>, Message&gt;,
     state: <span class="kw-2">&amp;mut </span>State,
     value: <span class="kw-2">&amp;mut </span>T,
     range: <span class="kw-2">&amp;</span>RangeInclusive&lt;T&gt;,
@@ -1116,7 +1117,7 @@
 <span class="doccomment">/// Draws a [`Slider`].
 </span><span class="kw">pub fn </span>draw&lt;T, Theme, Renderer&gt;(
     renderer: <span class="kw-2">&amp;mut </span>Renderer,
-    layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+    layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
     cursor: mouse::Cursor,
     state: <span class="kw-2">&amp;</span>State,
     value: T,
@@ -1262,7 +1263,7 @@
 
 <span class="doccomment">/// Computes the current [`mouse::Interaction`] of a [`Slider`].
 </span><span class="kw">pub fn </span>mouse_interaction(
-    layout: Layout&lt;<span class="lifetime">&#39;_</span>&gt;,
+    layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
     cursor: mouse::Cursor,
     state: <span class="kw-2">&amp;</span>State,
 ) -&gt; mouse::Interaction {

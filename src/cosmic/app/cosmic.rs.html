@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/app/cosmic.rs`."><title>cosmic.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cosmic" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0 (82e1608df 2023-12-21)" data-channel="1.75.0" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/app/cosmic.rs`."><title>cosmic.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cosmic" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -423,6 +424,11 @@
 <a href="#423" id="423">423</a>
 <a href="#424" id="424">424</a>
 <a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -432,24 +438,24 @@
 <span class="kw">use </span><span class="kw">crate</span>::theme::{<span class="self">self</span>, Theme, ThemeType, THEME};
 <span class="kw">use </span><span class="kw">crate</span>::widget::nav_bar;
 <span class="kw">use crate</span>::{keyboard_nav, Element};
-<span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
 </span><span class="kw">use </span>cctk::sctk::reexports::csd_frame::{WindowManagerCapabilities, WindowState};
 <span class="kw">use </span>cosmic_theme::ThemeMode;
-<span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
 </span><span class="kw">use </span>iced::event::wayland::{<span class="self">self</span>, WindowEvent};
-<span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
 </span><span class="kw">use </span>iced::event::PlatformSpecific;
-<span class="attr">#[cfg(all(feature = <span class="string">&quot;winit&quot;</span>, feature = <span class="string">&quot;multi-window&quot;</span>))]
+<span class="attr">#[cfg(all(feature = <span class="string">"winit"</span>, feature = <span class="string">"multi-window"</span>))]
 </span><span class="kw">use </span>iced::multi_window::Application <span class="kw">as </span>IcedApplication;
-<span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+<span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
 </span><span class="kw">use </span>iced::wayland::Application <span class="kw">as </span>IcedApplication;
 <span class="kw">use </span>iced::window;
-<span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
+<span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
 </span><span class="kw">use </span>iced::Application <span class="kw">as </span>IcedApplication;
 <span class="kw">use </span>iced_futures::event::{listen_raw, listen_with};
-<span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
 </span><span class="kw">use </span>iced_runtime::command::Action;
-<span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
+<span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
 </span><span class="kw">use </span>iced_runtime::window::Action <span class="kw">as </span>WindowAction;
 
 <span class="doccomment">/// A message managed internally by COSMIC.
@@ -486,16 +492,17 @@
     <span class="doccomment">/// Updates the tracked window geometry.
     </span>WindowResize(window::Id, u32, u32),
     <span class="doccomment">/// Tracks updates to window state.
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
     </span>WindowState(window::Id, WindowState),
     <span class="doccomment">/// Capabilities the window manager supports
-    </span><span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+    </span><span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
     </span>WmCapabilities(window::Id, WindowManagerCapabilities),
     <span class="doccomment">/// Notifies that a surface was closed.
     /// Any data relating to the surface should be cleaned up.
     </span>SurfaceClosed(window::Id),
     <span class="doccomment">/// Activate the application
     </span>Activate(String),
+    ShowWindowMenu,
 }
 
 <span class="attr">#[derive(Default)]
@@ -505,7 +512,7 @@
 
 <span class="kw">impl</span>&lt;T: Application&gt; IcedApplication <span class="kw">for </span>Cosmic&lt;T&gt;
 <span class="kw">where
-    </span>T::Message: Send + <span class="lifetime">&#39;static</span>,
+    </span>T::Message: Send + <span class="lifetime">'static</span>,
 {
     <span class="kw">type </span>Executor = T::Executor;
     <span class="kw">type </span>Flags = (Core, T::Flags);
@@ -513,7 +520,7 @@
     <span class="kw">type </span>Theme = Theme;
 
     <span class="kw">fn </span>new((<span class="kw-2">mut </span>core, flags): <span class="self">Self</span>::Flags) -&gt; (<span class="self">Self</span>, iced::Command&lt;<span class="self">Self</span>::Message&gt;) {
-        <span class="attr">#[cfg(feature = <span class="string">&quot;dbus-config&quot;</span>)]
+        <span class="attr">#[cfg(feature = <span class="string">"dbus-config"</span>)]
         </span>{
             <span class="kw">use </span>iced_futures::futures::executor::block_on;
             core.settings_daemon = block_on(cosmic_config::dbus::settings_daemon_proxy()).ok();
@@ -524,12 +531,12 @@
         (<span class="self">Self</span>::new(model), command)
     }
 
-    <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
     </span><span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.app.title().to_string()
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>))]
     </span><span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>, id: window::Id) -&gt; String {
         <span class="self">self</span>.app.title(id).to_string()
     }
@@ -539,17 +546,17 @@
             <span class="kw">super</span>::Message::App(message) =&gt; <span class="self">self</span>.app.update(message),
             <span class="kw">super</span>::Message::Cosmic(message) =&gt; <span class="self">self</span>.cosmic_update(message),
             <span class="kw">super</span>::Message::None =&gt; iced::Command::none(),
-            <span class="attr">#[cfg(feature = <span class="string">&quot;single-instance&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"single-instance"</span>)]
             </span><span class="kw">super</span>::Message::DbusActivation(message) =&gt; <span class="self">self</span>.app.dbus_activation(message),
         }
     }
 
-    <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
     </span><span class="kw">fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
         f64::from(<span class="self">self</span>.app.core().scale_factor())
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>))]
     </span><span class="kw">fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>, _id: window::Id) -&gt; f64 {
         f64::from(<span class="self">self</span>.app.core().scale_factor())
     }
@@ -577,7 +584,7 @@
                 iced::Event::Window(id, window::Event::Closed) =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Some</span>(Message::SurfaceClosed(id))
                 }
-                <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
                 </span>iced::Event::PlatformSpecific(PlatformSpecific::Wayland(event)) =&gt; <span class="kw">match </span>event {
                     wayland::Event::Window(WindowEvent::State(state), _surface, id) =&gt; {
                         <span class="kw">return </span><span class="prelude-val">Some</span>(Message::WindowState(id, state));
@@ -615,7 +622,7 @@
                 })
                 .map(|update| {
                     <span class="kw">for </span>e <span class="kw">in </span>update.errors {
-                        <span class="macro">tracing::error!</span>(<span class="string">&quot;{e}&quot;</span>);
+                        <span class="macro">tracing::error!</span>(<span class="string">"{e}"</span>);
                     }
                     Message::SystemThemeChange(<span class="kw">crate</span>::theme::Theme::system(Arc::new(update.config)))
                 })
@@ -625,13 +632,13 @@
                 .watch_config::&lt;ThemeMode&gt;(cosmic_theme::THEME_MODE_ID)
                 .map(|update| {
                     <span class="kw">for </span>e <span class="kw">in </span>update.errors {
-                        <span class="macro">tracing::error!</span>(<span class="string">&quot;{e}&quot;</span>);
+                        <span class="macro">tracing::error!</span>(<span class="string">"{e}"</span>);
                     }
                     Message::SystemThemeModeChange(update.config)
                 })
                 .map(<span class="kw">super</span>::Message::Cosmic),
             window_events.map(<span class="kw">super</span>::Message::Cosmic),
-            <span class="attr">#[cfg(feature = <span class="string">&quot;single-instance&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"single-instance"</span>)]
             </span><span class="self">self</span>.app
                 .core()
                 .single_instance
@@ -640,17 +647,17 @@
         ])
     }
 
-    <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
     </span><span class="kw">fn </span>theme(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Theme {
         <span class="kw">crate</span>::theme::active()
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>))]
     </span><span class="kw">fn </span>theme(<span class="kw-2">&amp;</span><span class="self">self</span>, _id: window::Id) -&gt; <span class="self">Self</span>::Theme {
         <span class="kw">crate</span>::theme::active()
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>))]
     </span><span class="kw">fn </span>view(<span class="kw-2">&amp;</span><span class="self">self</span>, id: window::Id) -&gt; Element&lt;<span class="self">Self</span>::Message&gt; {
         <span class="kw">if </span>id != window::Id::MAIN {
             <span class="kw">return </span><span class="self">self</span>.app.view_window(id).map(<span class="kw">super</span>::Message::App);
@@ -663,19 +670,19 @@
         }
     }
 
-    <span class="attr">#[cfg(not(any(feature = <span class="string">&quot;multi-window&quot;</span>, feature = <span class="string">&quot;wayland&quot;</span>)))]
+    <span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
     </span><span class="kw">fn </span>view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Element&lt;<span class="self">Self</span>::Message&gt; {
         <span class="self">self</span>.app.view_main()
     }
 }
 
 <span class="kw">impl</span>&lt;T: Application&gt; Cosmic&lt;T&gt; {
-    <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+    <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
     </span><span class="kw">pub fn </span>close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; iced::Command&lt;<span class="kw">super</span>::Message&lt;T::Message&gt;&gt; {
         iced_sctk::commands::window::close_window(window::Id::MAIN)
     }
 
-    <span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
+    <span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
     #[allow(clippy::unused_self)]
     </span><span class="kw">pub fn </span>close(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; iced::Command&lt;<span class="kw">super</span>::Message&lt;T::Message&gt;&gt; {
         iced::Command::single(Action::Window(WindowAction::Close(window::Id::MAIN)))
@@ -699,13 +706,13 @@
                 <span class="self">self</span>.app.on_window_resize(id, width, height);
 
                 <span class="comment">//TODO: more efficient test of maximized (winit has no event for maximize if set by the OS)
-                </span><span class="attr">#[cfg(not(feature = <span class="string">&quot;wayland&quot;</span>))]
+                </span><span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
                 </span><span class="kw">return </span>iced::window::fetch_maximized(id, <span class="kw">move </span>|maximized| {
                     <span class="kw">super</span>::Message::Cosmic(Message::WindowMaximized(id, maximized))
                 });
             }
 
-            <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
             </span>Message::WindowState(id, state) =&gt; {
                 <span class="kw">if </span>window::Id::MAIN == id {
                     <span class="self">self</span>.app.core_mut().window.sharp_corners = state.intersects(
@@ -720,7 +727,7 @@
                 }
             }
 
-            <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+            <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
             </span>Message::WmCapabilities(id, capabilities) =&gt; {
                 <span class="kw">if </span>window::Id::MAIN == id {
                     <span class="self">self</span>.app.core_mut().window.show_maximize =
@@ -825,7 +832,7 @@
                 }
             }
             Message::Activate(_token) =&gt; {
-                <span class="attr">#[cfg(feature = <span class="string">&quot;wayland&quot;</span>)]
+                <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
                 </span><span class="kw">return </span>iced_sctk::commands::activation::activate(
                     iced::window::Id::MAIN,
                     <span class="attr">#[allow(clippy::used_underscore_binding)]
@@ -836,6 +843,10 @@
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(msg) = <span class="self">self</span>.app.on_close_requested(id) {
                     <span class="kw">return </span><span class="self">self</span>.app.update(msg);
                 }
+            }
+            Message::ShowWindowMenu =&gt; {
+                <span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
+                </span><span class="kw">return </span>window::show_window_menu(window::Id::MAIN);
             }
         }
 
