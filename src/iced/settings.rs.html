@@ -194,6 +194,7 @@
 <a href="#193" id="193">193</a>
 <a href="#194" id="194">194</a>
 <a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Configure your application
 
 </span><span class="attr">#[cfg(feature = <span class="string">"winit"</span>)]
@@ -386,6 +387,7 @@
             flags: settings.flags,
             exit_on_close_request: settings.exit_on_close_request,
             ptr_theme: <span class="prelude-val">None</span>,
+            control_flow_timeout: <span class="prelude-val">Some</span>(std::time::Duration::from_millis(<span class="number">250</span>)),
         }
     }
 }

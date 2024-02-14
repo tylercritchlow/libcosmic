@@ -456,7 +456,7 @@
 <span class="kw">use </span>iced::window;
 <span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
 </span><span class="kw">use </span>iced::Application <span class="kw">as </span>IcedApplication;
-<span class="kw">use </span>iced_futures::event::{listen_raw, listen_with};
+<span class="kw">use </span>iced_futures::event::listen_with;
 <span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
 </span><span class="kw">use </span>iced_runtime::command::Action;
 <span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]

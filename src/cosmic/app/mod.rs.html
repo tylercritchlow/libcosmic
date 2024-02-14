@@ -1394,9 +1394,9 @@
 
     <span class="attr">#[cfg(not(any(feature = <span class="string">"multi-window"</span>, feature = <span class="string">"wayland"</span>)))]
     </span><span class="kw">fn </span>set_window_title(<span class="kw-2">&amp;mut </span><span class="self">self</span>, title: String) -&gt; iced::Command&lt;Message&lt;<span class="self">Self</span>::Message&gt;&gt; {
-        <span class="self">self</span>.core_mut()
-            .title
-            .insert(<span class="self">self</span>.main_window_id(), title.clone());
+        <span class="kw">let </span>id = <span class="self">self</span>.main_window_id();
+
+        <span class="self">self</span>.core_mut().title.insert(id, title.clone());
         iced::Command::none()
     }
 
