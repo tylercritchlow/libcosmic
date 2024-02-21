@@ -1186,7 +1186,7 @@
             .style(Slider::Custom {
                 active: Rc::new(|t| {
                     <span class="kw">let </span>cosmic = t.cosmic();
-                    <span class="kw">let </span><span class="kw-2">mut </span>a = iced_style::slider::StyleSheet::active(t, <span class="kw-2">&amp;</span>Slider::default());
+                    <span class="kw">let </span><span class="kw-2">mut </span>a = slider::StyleSheet::active(t, <span class="kw-2">&amp;</span>Slider::default());
                     a.rail.colors = RailBackground::Gradient {
                         gradient: Linear::new(Radians(<span class="number">0.0</span>)).add_stops(HSV_RAINBOW.clone()),
                         auto_angle: <span class="bool-val">true</span>,
@@ -1200,7 +1200,7 @@
                 }),
                 hovered: Rc::new(|t| {
                     <span class="kw">let </span>cosmic = t.cosmic();
-                    <span class="kw">let </span><span class="kw-2">mut </span>a = iced_style::slider::StyleSheet::active(t, <span class="kw-2">&amp;</span>Slider::default());
+                    <span class="kw">let </span><span class="kw-2">mut </span>a = slider::StyleSheet::active(t, <span class="kw-2">&amp;</span>Slider::default());
                     a.rail.colors = RailBackground::Gradient {
                         gradient: Linear::new(Radians(<span class="number">0.0</span>)).add_stops(HSV_RAINBOW.clone()),
                         auto_angle: <span class="bool-val">true</span>,
@@ -1214,7 +1214,7 @@
                 }),
                 dragging: Rc::new(|t| {
                     <span class="kw">let </span>cosmic = t.cosmic();
-                    <span class="kw">let </span><span class="kw-2">mut </span>a = iced_style::slider::StyleSheet::active(t, <span class="kw-2">&amp;</span>Slider::default());
+                    <span class="kw">let </span><span class="kw-2">mut </span>a = slider::StyleSheet::active(t, <span class="kw-2">&amp;</span>Slider::default());
                     a.rail.colors = RailBackground::Gradient {
                         gradient: Linear::new(Radians(<span class="number">0.0</span>)).add_stops(HSV_RAINBOW.clone()),
                         auto_angle: <span class="bool-val">true</span>,

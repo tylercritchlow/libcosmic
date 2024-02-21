@@ -147,7 +147,7 @@ var srcIndex = new Map(JSON.parse('[\
 ["pico_args",["",[],["lib.rs"]]],\
 ["pin_project_lite",["",[],["lib.rs"]]],\
 ["pin_utils",["",[],["lib.rs","projection.rs","stack_pin.rs"]]],\
-["png",["",[["decoder",[],["mod.rs","stream.rs","zlib.rs"]]],["chunk.rs","common.rs","encoder.rs","filter.rs","lib.rs","srgb.rs","text_metadata.rs","traits.rs","utils.rs"]]],\
+["png",["",[["decoder",[["transform",[],["palette.rs"]]],["mod.rs","stream.rs","transform.rs","zlib.rs"]]],["adam7.rs","chunk.rs","common.rs","encoder.rs","filter.rs","lib.rs","srgb.rs","text_metadata.rs","traits.rs"]]],\
 ["polling",["",[],["epoll.rs","lib.rs","os.rs"]]],\
 ["proc_macro2",["",[],["detection.rs","extra.rs","fallback.rs","lib.rs","marker.rs","parse.rs","rcvec.rs","wrapper.rs"]]],\
 ["proc_macro_error",["",[["imp",[],["fallback.rs"]]],["diagnostic.rs","dummy.rs","lib.rs","macros.rs","sealed.rs"]]],\

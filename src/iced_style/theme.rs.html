@@ -1352,6 +1352,9 @@
 <a href="#1351" id="1351">1351</a>
 <a href="#1352" id="1352">1352</a>
 <a href="#1353" id="1353">1353</a>
+<a href="#1354" id="1354">1354</a>
+<a href="#1355" id="1355">1355</a>
+<a href="#1356" id="1356">1356</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Use the built-in theme and styles.
 </span><span class="kw">pub mod </span>palette;
 
@@ -1854,6 +1857,9 @@
                         color: palette.background.base.color,
                         border_color: palette.primary.base.color,
                         ..handle
+                    },
+                    breakpoint: slider::Breakpoint {
+                        color: palette.background.weak.text,
                     },
                 }
             }

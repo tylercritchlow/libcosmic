@@ -1251,6 +1251,9 @@
 <a href="#1250" id="1250">1250</a>
 <a href="#1251" id="1251">1251</a>
 <a href="#1252" id="1252">1252</a>
+<a href="#1253" id="1253">1253</a>
+<a href="#1254" id="1254">1254</a>
+<a href="#1255" id="1255">1255</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1813,8 +1816,7 @@
                     rail: Rail {
                         colors: slider::RailBackground::Pair(
                             cosmic.accent.base.into(),
-                            <span class="comment">//TODO: no way to set color before/after slider
-                            </span>Color::TRANSPARENT,
+                            cosmic.palette.neutral_6.into(),
                         ),
                         width: <span class="number">4.0</span>,
                         border_radius: cosmic.corner_radii.radius_xs.into(),
@@ -1825,6 +1827,10 @@
                         color: cosmic.accent.base.into(),
                         border_color: Color::TRANSPARENT,
                         border_width: <span class="number">0.0</span>,
+                    },
+
+                    breakpoint: slider::Breakpoint {
+                        color: cosmic.on_bg_color().into(),
                     },
                 }
             }
