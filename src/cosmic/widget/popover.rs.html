@@ -316,6 +316,9 @@
 <a href="#315" id="315">315</a>
 <a href="#316" id="316">316</a>
 <a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -494,7 +497,10 @@
             <span class="prelude-val">None </span>=&gt; {
                 <span class="comment">// Set position to center
                 </span>(
-                    Point::new(bounds.x + bounds.width / <span class="number">2.0</span>, bounds.y + bounds.height / <span class="number">2.0</span>),
+                    Point::new(
+                        bounds.x + bounds.width / <span class="number">2.0</span>,
+                        bounds.y + bounds.height / <span class="number">2.0</span>,
+                    ),
                     <span class="bool-val">true</span>,
                 )
             }
