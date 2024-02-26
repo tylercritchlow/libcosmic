@@ -314,6 +314,8 @@
 <a href="#313" id="313">313</a>
 <a href="#314" id="314">314</a>
 <a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -490,9 +492,9 @@
                 <span class="bool-val">false</span>,
             ),
             <span class="prelude-val">None </span>=&gt; {
-                <span class="comment">// Set position to center of bottom edge
+                <span class="comment">// Set position to center
                 </span>(
-                    Point::new(bounds.x + bounds.width / <span class="number">2.0</span>, bounds.y + bounds.height),
+                    Point::new(bounds.x + bounds.width / <span class="number">2.0</span>, bounds.y + bounds.height / <span class="number">2.0</span>),
                     <span class="bool-val">true</span>,
                 )
             }
@@ -548,7 +550,9 @@
         <span class="kw">if </span><span class="self">self</span>.centered {
             <span class="comment">// Position is set to the center bottom of the lower widget
             </span><span class="kw">let </span>width = node.size().width;
+            <span class="kw">let </span>height = node.size().height;
             position.x = (position.x - width / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.width - width);
+            position.y = (position.y - height / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.height - height);
         } <span class="kw">else </span>{
             <span class="comment">// Position is using context menu logic
             </span><span class="kw">let </span>size = node.size();
