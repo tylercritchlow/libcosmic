@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.8/src/codecs/webp/vp8.rs`."><title>vp8.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/image-0.24.9/src/codecs/webp/vp8.rs`."><title>vp8.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -2915,22 +2915,6 @@
 <a href="#2914" id="2914">2914</a>
 <a href="#2915" id="2915">2915</a>
 <a href="#2916" id="2916">2916</a>
-<a href="#2917" id="2917">2917</a>
-<a href="#2918" id="2918">2918</a>
-<a href="#2919" id="2919">2919</a>
-<a href="#2920" id="2920">2920</a>
-<a href="#2921" id="2921">2921</a>
-<a href="#2922" id="2922">2922</a>
-<a href="#2923" id="2923">2923</a>
-<a href="#2924" id="2924">2924</a>
-<a href="#2925" id="2925">2925</a>
-<a href="#2926" id="2926">2926</a>
-<a href="#2927" id="2927">2927</a>
-<a href="#2928" id="2928">2928</a>
-<a href="#2929" id="2929">2929</a>
-<a href="#2930" id="2930">2930</a>
-<a href="#2931" id="2931">2931</a>
-<a href="#2932" id="2932">2932</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! An implementation of the VP8 Video Codec
 //!
 //! This module contains a partial implementation of the
@@ -2946,7 +2930,6 @@
 //!
 
 </span><span class="kw">use </span>byteorder::{LittleEndian, ReadBytesExt};
-<span class="kw">use </span>std::convert::TryInto;
 <span class="kw">use </span>std::default::Default;
 <span class="kw">use </span>std::io::Read;
 <span class="kw">use </span>std::{cmp, error, fmt};
@@ -2983,9 +2966,10 @@
 
 <span class="comment">// Prediction mode enum
 </span><span class="attr">#[repr(i8)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 </span><span class="kw">enum </span>LumaMode {
     <span class="doccomment">/// Predict DC using row above and column to the left.
+    </span><span class="attr">#[default]
     </span>DC = DC_PRED,
 
     <span class="doccomment">/// Predict rows using row above.
@@ -3002,9 +2986,10 @@
 }
 
 <span class="attr">#[repr(i8)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 </span><span class="kw">enum </span>ChromaMode {
     <span class="doccomment">/// Predict DC using row above and column to the left.
+    </span><span class="attr">#[default]
     </span>DC = DC_PRED,
 
     <span class="doccomment">/// Predict rows using row above.
@@ -3018,9 +3003,10 @@
 }
 
 <span class="attr">#[repr(i8)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 </span><span class="kw">enum </span>IntraMode {
-    DC = B_DC_PRED,
+    <span class="attr">#[default]
+    </span>DC = B_DC_PRED,
     TM = B_TM_PRED,
     VE = B_VE_PRED,
     HE = B_HE_PRED,
@@ -5059,12 +5045,6 @@
     }
 }
 
-<span class="kw">impl </span>Default <span class="kw">for </span>LumaMode {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        LumaMode::DC
-    }
-}
-
 <span class="kw">impl </span>ChromaMode {
     <span class="kw">fn </span>from_i8(val: i8) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Some</span>(<span class="kw">match </span>val {
@@ -5074,12 +5054,6 @@
             TM_PRED =&gt; ChromaMode::TM,
             <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
         })
-    }
-}
-
-<span class="kw">impl </span>Default <span class="kw">for </span>ChromaMode {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        ChromaMode::DC
     }
 }
 
@@ -5098,12 +5072,6 @@
             B_HU_PRED =&gt; IntraMode::HU,
             <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
         })
-    }
-}
-
-<span class="kw">impl </span>Default <span class="kw">for </span>IntraMode {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        IntraMode::DC
     }
 }
 

@@ -97,6 +97,15 @@
 <a href="#96" id="96">96</a>
 <a href="#97" id="97">97</a>
 <a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -104,9 +113,9 @@
 
 </span><span class="kw">use </span><span class="kw">super</span>::model::{Entity, Model, Selectable};
 <span class="kw">use </span><span class="kw">super</span>::style::StyleSheet;
-<span class="kw">use </span><span class="kw">super</span>::widget::{LocalState, SegmentedButton, SegmentedVariant};
+<span class="kw">use </span><span class="kw">super</span>::widget::{ItemBounds, LocalState, SegmentedButton, SegmentedVariant};
 
-<span class="kw">use </span>iced::{Length, Rectangle, Size};
+<span class="kw">use </span>iced::{Alignment, Length, Rectangle, Size};
 <span class="kw">use </span>iced_core::layout;
 
 <span class="doccomment">/// A type marker defining the vertical variant of a [`SegmentedButton`].
@@ -144,11 +153,11 @@
     }
 
     <span class="attr">#[allow(clippy::cast_precision_loss)]
-    </span><span class="kw">fn </span>variant_button_bounds&lt;<span class="lifetime">'b</span>&gt;(
+    </span><span class="kw">fn </span>variant_bounds&lt;<span class="lifetime">'b</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">'b </span><span class="self">self</span>,
         state: <span class="kw-2">&amp;</span><span class="lifetime">'b </span>LocalState,
         <span class="kw-2">mut </span>bounds: Rectangle,
-    ) -&gt; Box&lt;<span class="kw">dyn </span>Iterator&lt;Item = (Entity, Rectangle)&gt; + <span class="lifetime">'b</span>&gt; {
+    ) -&gt; Box&lt;<span class="kw">dyn </span>Iterator&lt;Item = ItemBounds&gt; + <span class="lifetime">'b</span>&gt; {
         <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
 
         Box::new(
@@ -157,11 +166,16 @@
                 .iter()
                 .copied()
                 .enumerate()
-                .map(<span class="kw">move </span>|(_nth, key)| {
-                    <span class="kw">let </span><span class="kw-2">mut </span>this_bounds = bounds;
-                    this_bounds.height = state.internal_layout[<span class="number">0</span>].height;
-                    bounds.y += this_bounds.height + spacing;
-                    (key, this_bounds)
+                .map(<span class="kw">move </span>|(nth, key)| {
+                    <span class="kw">let </span><span class="kw-2">mut </span>layout_bounds = bounds;
+
+                    <span class="kw">let </span>layout_size = state.internal_layout[nth].<span class="number">0</span>;
+
+                    layout_bounds.height = layout_size.height;
+
+                    bounds.y += layout_bounds.height + spacing;
+
+                    ItemBounds::Button(key, layout_bounds)
                 }),
         )
     }
@@ -174,11 +188,16 @@
         state: <span class="kw-2">&amp;mut </span>LocalState,
         renderer: <span class="kw-2">&amp;</span><span class="kw">crate</span>::Renderer,
         limits: <span class="kw-2">&amp;</span>layout::Limits,
-    ) -&gt; layout::Node {
+    ) -&gt; Size {
         state.internal_layout.clear();
         <span class="kw">let </span>limits = limits.width(<span class="self">self</span>.width);
-        <span class="kw">let </span>(width, <span class="kw-2">mut </span>height) = <span class="self">self</span>.max_button_dimensions(state, renderer, limits.max());
-        state.internal_layout.push(Size::new(width, height));
+
+        <span class="kw">let </span>(width, <span class="kw-2">mut </span>height) = <span class="self">self</span>.max_button_dimensions(state, renderer);
+
+        <span class="kw">for </span>(size, actual) <span class="kw">in </span><span class="kw-2">&amp;mut </span>state.internal_layout {
+            size.width = width;
+            actual.width = height;
+        }
 
         <span class="kw">let </span>num = <span class="self">self</span>.model.items.len();
         <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
@@ -186,13 +205,12 @@
         <span class="kw">if </span>num != <span class="number">0 </span>{
             height = (num <span class="kw">as </span>f32 * height) + (num <span class="kw">as </span>f32 * spacing) - spacing;
         }
-        <span class="kw">let </span>size = limits.height(Length::Fixed(height)).resolve(
+
+        limits.height(Length::Fixed(height)).resolve(
             <span class="self">self</span>.width,
             <span class="self">self</span>.height,
             Size::new(width, height),
-        );
-
-        layout::Node::new(size)
+        )
     }
 }
 </code></pre></div></section></main></body></html>

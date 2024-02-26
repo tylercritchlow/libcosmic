@@ -723,27 +723,10 @@
 <a href="#722" id="722">722</a>
 <a href="#723" id="723">723</a>
 <a href="#724" id="724">724</a>
-<a href="#725" id="725">725</a>
-<a href="#726" id="726">726</a>
-<a href="#727" id="727">727</a>
-<a href="#728" id="728">728</a>
-<a href="#729" id="729">729</a>
-<a href="#730" id="730">730</a>
-<a href="#731" id="731">731</a>
-<a href="#732" id="732">732</a>
-<a href="#733" id="733">733</a>
-<a href="#734" id="734">734</a>
-<a href="#735" id="735">735</a>
-<a href="#736" id="736">736</a>
-<a href="#737" id="737">737</a>
-<a href="#738" id="738">738</a>
-<a href="#739" id="739">739</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Model;
 <span class="kw">pub use </span><span class="kw">crate</span>::widget::dropdown::menu::{Appearance, StyleSheet};
 
-<span class="kw">use </span>std::ffi::OsStr;
-
-<span class="kw">use </span><span class="kw">crate</span>::widget::{icon, Container};
+<span class="kw">use </span><span class="kw">crate</span>::widget::Container;
 <span class="kw">use </span>iced_core::event::{<span class="self">self</span>, Event};
 <span class="kw">use </span>iced_core::layout::{<span class="self">self</span>, Layout};
 <span class="kw">use </span>iced_core::text::{<span class="self">self</span>, Text};
@@ -892,25 +875,15 @@
             style,
         } = menu;
 
-        <span class="kw">let </span>selected_icon = icon::from_name(<span class="string">"object-select-symbolic"</span>).size(<span class="number">16</span>).handle();
-
         <span class="kw">let </span><span class="kw-2">mut </span>container = Container::new(Scrollable::new(InnerList {
             options,
             hovered_option,
             selected_option,
             on_selected,
             on_option_hovered,
+            padding,
             text_size,
             text_line_height,
-            padding,
-            selected_icon: <span class="kw">match </span>selected_icon.data {
-                icon::Data::Name(named) =&gt; named
-                    .path()
-                    .filter(|path| path.extension().is_some_and(|ext| ext == OsStr::new(<span class="string">"svg"</span>)))
-                    .map(iced_core::svg::Handle::from_path),
-                icon::Data::Svg(handle) =&gt; <span class="prelude-val">Some</span>(handle),
-                icon::Data::Image(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
-            },
         }));
 
         container = container
@@ -1031,7 +1004,6 @@
     padding: Padding,
     text_size: <span class="prelude-ty">Option</span>&lt;f32&gt;,
     text_line_height: text::LineHeight,
-    selected_icon: <span class="prelude-ty">Option</span>&lt;svg::Handle&gt;,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, S, Item, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
@@ -1290,19 +1262,17 @@
                             appearance.selected_background,
                         );
 
-                        <span class="kw">if let </span><span class="prelude-val">Some</span>(handle) = <span class="self">self</span>.selected_icon.clone() {
-                            svg::Renderer::draw(
-                                renderer,
-                                handle,
-                                <span class="prelude-val">Some</span>(appearance.selected_text_color),
-                                Rectangle {
-                                    x: item_x + item_width - <span class="number">16.0 </span>- <span class="number">8.0</span>,
-                                    y: bounds.y + (bounds.height / <span class="number">2.0 </span>- <span class="number">8.0</span>),
-                                    width: <span class="number">16.0</span>,
-                                    height: <span class="number">16.0</span>,
-                                },
-                            );
-                        }
+                        svg::Renderer::draw(
+                            renderer,
+                            <span class="kw">crate</span>::widget::common::object_select().clone(),
+                            <span class="prelude-val">Some</span>(appearance.selected_text_color),
+                            Rectangle {
+                                x: item_x + item_width - <span class="number">16.0 </span>- <span class="number">8.0</span>,
+                                y: bounds.y + (bounds.height / <span class="number">2.0 </span>- <span class="number">8.0</span>),
+                                width: <span class="number">16.0</span>,
+                                height: <span class="number">16.0</span>,
+                            },
+                        );
 
                         (appearance.selected_text_color, <span class="kw">crate</span>::font::FONT_SEMIBOLD)
                     } <span class="kw">else if </span><span class="self">self</span>.hovered_option.as_ref() == <span class="prelude-val">Some</span>(item) {

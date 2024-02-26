@@ -519,21 +519,6 @@
 <a href="#518" id="518">518</a>
 <a href="#519" id="519">519</a>
 <a href="#520" id="520">520</a>
-<a href="#521" id="521">521</a>
-<a href="#522" id="522">522</a>
-<a href="#523" id="523">523</a>
-<a href="#524" id="524">524</a>
-<a href="#525" id="525">525</a>
-<a href="#526" id="526">526</a>
-<a href="#527" id="527">527</a>
-<a href="#528" id="528">528</a>
-<a href="#529" id="529">529</a>
-<a href="#530" id="530">530</a>
-<a href="#531" id="531">531</a>
-<a href="#532" id="532">532</a>
-<a href="#533" id="533">533</a>
-<a href="#534" id="534">534</a>
-<a href="#535" id="535">535</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // Copyright 2019 Héctor Ramón, Iced contributors
 // SPDX-License-Identifier: MPL-2.0 AND MIT
@@ -541,9 +526,7 @@
 </span><span class="kw">mod </span>appearance;
 <span class="kw">pub use </span>appearance::{Appearance, StyleSheet};
 
-<span class="kw">use </span>std::ffi::OsStr;
-
-<span class="kw">use </span><span class="kw">crate</span>::widget::{icon, Container};
+<span class="kw">use </span><span class="kw">crate</span>::widget::Container;
 <span class="kw">use </span>iced_core::event::{<span class="self">self</span>, Event};
 <span class="kw">use </span>iced_core::layout::{<span class="self">self</span>, Layout};
 <span class="kw">use </span>iced_core::text::{<span class="self">self</span>, Text};
@@ -685,8 +668,6 @@
             style,
         } = menu;
 
-        <span class="kw">let </span>selected_icon = icon::from_name(<span class="string">"object-select-symbolic"</span>).size(<span class="number">16</span>).handle();
-
         <span class="kw">let </span><span class="kw-2">mut </span>container = Container::new(Scrollable::new(List {
             options,
             hovered_option,
@@ -696,14 +677,6 @@
             text_size,
             text_line_height,
             padding,
-            selected_icon: <span class="kw">match </span>selected_icon.data {
-                icon::Data::Name(named) =&gt; named
-                    .path()
-                    .filter(|path| path.extension().is_some_and(|ext| ext == OsStr::new(<span class="string">"svg"</span>)))
-                    .map(iced_core::svg::Handle::from_path),
-                icon::Data::Svg(handle) =&gt; <span class="prelude-val">Some</span>(handle),
-                icon::Data::Image(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
-            },
         }));
 
         container = container
@@ -822,7 +795,6 @@
     padding: Padding,
     text_size: <span class="prelude-ty">Option</span>&lt;f32&gt;,
     text_line_height: text::LineHeight,
-    selected_icon: <span class="prelude-ty">Option</span>&lt;svg::Handle&gt;,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, S: AsRef&lt;str&gt;, Message&gt; Widget&lt;Message, <span class="kw">crate</span>::Theme, <span class="kw">crate</span>::Renderer&gt;
@@ -996,19 +968,17 @@
                     appearance.selected_background,
                 );
 
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(handle) = <span class="self">self</span>.selected_icon.clone() {
-                    svg::Renderer::draw(
-                        renderer,
-                        handle,
-                        <span class="prelude-val">Some</span>(appearance.selected_text_color),
-                        Rectangle {
-                            x: item_x + item_width - <span class="number">16.0 </span>- <span class="number">8.0</span>,
-                            y: bounds.y + (bounds.height / <span class="number">2.0 </span>- <span class="number">8.0</span>),
-                            width: <span class="number">16.0</span>,
-                            height: <span class="number">16.0</span>,
-                        },
-                    );
-                }
+                svg::Renderer::draw(
+                    renderer,
+                    <span class="kw">crate</span>::widget::common::object_select().clone(),
+                    <span class="prelude-val">Some</span>(appearance.selected_text_color),
+                    Rectangle {
+                        x: item_x + item_width - <span class="number">16.0 </span>- <span class="number">8.0</span>,
+                        y: bounds.y + (bounds.height / <span class="number">2.0 </span>- <span class="number">8.0</span>),
+                        width: <span class="number">16.0</span>,
+                        height: <span class="number">16.0</span>,
+                    },
+                );
 
                 (appearance.selected_text_color, <span class="kw">crate</span>::font::FONT_SEMIBOLD)
             } <span class="kw">else if </span><span class="kw-2">*</span><span class="self">self</span>.hovered_option == <span class="prelude-val">Some</span>(i) {

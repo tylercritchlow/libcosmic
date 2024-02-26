@@ -913,7 +913,7 @@
 <span class="kw">use </span><span class="kw">super</span>::divider::horizontal;
 <span class="kw">use </span><span class="kw">super</span>::icon::{<span class="self">self</span>, from_name};
 <span class="kw">use </span><span class="kw">super</span>::segmented_button::{<span class="self">self</span>, Model, SingleSelect};
-<span class="kw">use super</span>::{button, segmented_selection, text, text_input, tooltip, Icon};
+<span class="kw">use super</span>::{button, segmented_control, text, text_input, tooltip, Icon};
 
 <span class="comment">// TODO is this going to look correct enough?
 </span><span class="macro">lazy_static! </span>{
@@ -1164,7 +1164,7 @@
         <span class="kw">let </span>spacing = THEME.with(|t| t.borrow().cosmic().spacing);
         <span class="kw">let </span><span class="kw-2">mut </span>inner = <span class="macro">column!</span>[
             <span class="comment">// segmented buttons
-            </span>segmented_selection::horizontal(<span class="self">self</span>.model)
+            </span>segmented_control::horizontal(<span class="self">self</span>.model)
                 .on_activate(Box::new(<span class="kw">move </span>|e| on_update(
                     ColorPickerUpdate::ActivateSegmented(e)
                 )))

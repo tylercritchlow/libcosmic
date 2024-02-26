@@ -58,6 +58,11 @@
 <a href="#57" id="57">57</a>
 <a href="#58" id="58">58</a>
 <a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -87,18 +92,23 @@
 <span class="kw">where
     </span>Message: Clone + <span class="lifetime">'static</span>,
 {
+    <span class="kw">let </span>theme = <span class="kw">crate</span>::theme::active();
+    <span class="kw">let </span>space_s = theme.cosmic().space_s();
+    <span class="kw">let </span>space_xs = theme.cosmic().space_xs();
+    <span class="kw">let </span>space_xxs = theme.cosmic().space_xxs();
+
     segmented_button::vertical(model)
         .button_height(<span class="number">32</span>)
-        .button_padding([<span class="number">16</span>, <span class="number">10</span>, <span class="number">16</span>, <span class="number">10</span>])
-        .button_spacing(<span class="number">8</span>)
+        .button_padding([space_s, space_xs, space_s, space_xs])
+        .button_spacing(space_xxs)
+        .spacing(space_xxs)
         .on_activate(on_activate)
-        .spacing(<span class="number">8</span>)
-        .style(<span class="kw">crate</span>::theme::SegmentedButton::ViewSwitcher)
+        .style(<span class="kw">crate</span>::theme::SegmentedButton::TabBar)
         .apply(scrollable)
         .height(Length::Fill)
         .apply(container)
+        .padding(space_xxs)
         .height(Length::Fill)
-        .padding(<span class="number">11</span>)
         .style(theme::Container::custom(nav_bar_style))
 }
 

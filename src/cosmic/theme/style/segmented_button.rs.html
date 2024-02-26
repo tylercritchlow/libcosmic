@@ -281,9 +281,9 @@
 </span><span class="kw">pub enum </span>SegmentedButton {
     <span class="doccomment">/// A tabbed widget for switching between views in an interface.
     </span><span class="attr">#[default]
-    </span>ViewSwitcher,
+    </span>TabBar,
     <span class="doccomment">/// A widget for multiple choice selection.
-    </span>Selection,
+    </span>Control,
     <span class="doccomment">/// Or implement any custom theme of your liking.
     </span>Custom(Box&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>Theme) -&gt; Appearance&gt;),
 }
@@ -294,9 +294,9 @@
     <span class="attr">#[allow(clippy::too_many_lines)]
     </span><span class="kw">fn </span>horizontal(<span class="kw-2">&amp;</span><span class="self">self</span>, style: <span class="kw-2">&amp;</span><span class="self">Self</span>::Style) -&gt; Appearance {
         <span class="kw">match </span>style {
-            SegmentedButton::ViewSwitcher =&gt; {
+            SegmentedButton::TabBar =&gt; {
                 <span class="kw">let </span>cosmic = <span class="self">self</span>.cosmic();
-                <span class="kw">let </span>active = horizontal::view_switcher_active(cosmic);
+                <span class="kw">let </span>active = horizontal::tab_bar_active(cosmic);
                 Appearance {
                     border_radius: cosmic.corner_radii.radius_0.into(),
                     inactive: ItemStatusAppearance {
@@ -324,7 +324,7 @@
                     ..Default::default()
                 }
             }
-            SegmentedButton::Selection =&gt; {
+            SegmentedButton::Control =&gt; {
                 <span class="kw">let </span>cosmic = <span class="self">self</span>.cosmic();
                 <span class="kw">let </span>active = horizontal::selection_active(cosmic);
                 <span class="kw">let </span><span class="kw-2">mut </span>neutral_5 = cosmic.palette.neutral_5;
@@ -334,7 +334,7 @@
                 Appearance {
                     border_radius: cosmic.corner_radii.radius_0.into(),
                     inactive: ItemStatusAppearance {
-                        background: <span class="prelude-val">Some</span>(Background::Color(neutral_5.into())),
+                        background: <span class="prelude-val">Some</span>(Background::Color(cosmic.small_container_widget().into())),
                         first: ItemAppearance {
                             border_radius: Radius::from([rad_m[<span class="number">0</span>], rad_0[<span class="number">1</span>], rad_0[<span class="number">2</span>], rad_m[<span class="number">3</span>]]),
                             ..Default::default()
@@ -365,8 +365,8 @@
         <span class="kw">let </span>rad_m = cosmic.corner_radii.radius_m;
         <span class="kw">let </span>rad_0 = cosmic.corner_radii.radius_0;
         <span class="kw">match </span>style {
-            SegmentedButton::ViewSwitcher =&gt; {
-                <span class="kw">let </span>active = vertical::view_switcher_active(cosmic);
+            SegmentedButton::TabBar =&gt; {
+                <span class="kw">let </span>active = vertical::tab_bar_active(cosmic);
                 Appearance {
                     border_radius: cosmic.corner_radii.radius_0.into(),
                     inactive: ItemStatusAppearance {
@@ -380,7 +380,7 @@
                     ..Default::default()
                 }
             }
-            SegmentedButton::Selection =&gt; {
+            SegmentedButton::Control =&gt; {
                 <span class="kw">let </span>active = vertical::selection_active(cosmic);
                 <span class="kw">let </span><span class="kw-2">mut </span>neutral_5 = cosmic.palette.neutral_5;
                 neutral_5.alpha = <span class="number">0.2</span>;
@@ -440,7 +440,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>view_switcher_active(cosmic: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; ItemStatusAppearance {
+    <span class="kw">pub fn </span>tab_bar_active(cosmic: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; ItemStatusAppearance {
         <span class="kw">let </span><span class="kw-2">mut </span>neutral_5 = cosmic.palette.neutral_5;
         neutral_5.alpha = <span class="number">0.2</span>;
         <span class="kw">let </span>rad_s = cosmic.corner_radii.radius_s;
@@ -516,7 +516,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>view_switcher_active(cosmic: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; ItemStatusAppearance {
+    <span class="kw">pub fn </span>tab_bar_active(cosmic: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; ItemStatusAppearance {
         <span class="kw">let </span><span class="kw-2">mut </span>neutral_5 = cosmic.palette.neutral_5;
         neutral_5.alpha = <span class="number">0.2</span>;
         ItemStatusAppearance {
