@@ -321,6 +321,10 @@
 <a href="#320" id="320">320</a>
 <a href="#321" id="321">321</a>
 <a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -486,7 +490,7 @@
         <span class="kw-2">&amp;</span><span class="lifetime">'b </span><span class="kw-2">mut </span><span class="self">self</span>,
         tree: <span class="kw-2">&amp;</span><span class="lifetime">'b </span><span class="kw-2">mut </span>Tree,
         layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
-        _renderer: <span class="kw-2">&amp;</span>Renderer,
+        renderer: <span class="kw-2">&amp;</span>Renderer,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">'b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(popup) = <span class="kw-2">&amp;</span><span class="self">self</span>.popup {
             <span class="kw">let </span>bounds = layout.bounds();
@@ -517,8 +521,12 @@
                 }),
             ))
         } <span class="kw">else </span>{
-            <span class="prelude-val">None
-        </span>}
+            <span class="self">self</span>.content.as_widget_mut().overlay(
+                <span class="kw-2">&amp;mut </span>tree.children[<span class="number">0</span>],
+                layout,
+                renderer
+            )
+        }
     }
 }
 
