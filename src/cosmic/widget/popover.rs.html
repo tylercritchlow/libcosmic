@@ -325,6 +325,24 @@
 <a href="#324" id="324">324</a>
 <a href="#325" id="325">325</a>
 <a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -349,11 +367,19 @@
     Popover::new(content)
 }
 
+<span class="attr">#[derive(Clone, Copy, Debug, Default)]
+</span><span class="kw">pub enum </span>Position {
+    <span class="attr">#[default]
+    </span>Center,
+    Bottom,
+    Point(Point),
+}
+
 <span class="kw">pub struct </span>Popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; {
     content: Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;,
     <span class="comment">// XXX Avoid refcell; improve iced overlay API?
     </span>popup: <span class="prelude-ty">Option</span>&lt;RefCell&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;&gt;,
-    position: <span class="prelude-ty">Option</span>&lt;Point&gt;,
+    position: Position,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; Popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; {
@@ -361,7 +387,7 @@
         <span class="self">Self </span>{
             content: content.into(),
             popup: <span class="prelude-val">None</span>,
-            position: <span class="prelude-val">None</span>,
+            position: Position::Center,
         }
     }
 
@@ -370,8 +396,8 @@
         <span class="self">self
     </span>}
 
-    <span class="kw">pub fn </span>position(<span class="kw-2">mut </span><span class="self">self</span>, position: Point) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.position = <span class="prelude-val">Some</span>(position);
+    <span class="kw">pub fn </span>position(<span class="kw-2">mut </span><span class="self">self</span>, position: Position) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.position = position;
         <span class="self">self
     </span>}
 
@@ -494,38 +520,35 @@
     ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">'b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(popup) = <span class="kw-2">&amp;</span><span class="self">self</span>.popup {
             <span class="kw">let </span>bounds = layout.bounds();
-            <span class="kw">let </span>(position, centered) = <span class="kw">match </span><span class="self">self</span>.position {
-                <span class="prelude-val">Some</span>(relative) =&gt; (
-                    bounds.position() + Vector::new(relative.x, relative.y),
-                    <span class="bool-val">false</span>,
+
+            <span class="comment">// Calculate overlay position from relative position
+            </span><span class="kw">let </span><span class="kw-2">mut </span>overlay_position = <span class="kw">match </span><span class="self">self</span>.position {
+                Position::Center | Position::Bottom =&gt; Point::new(
+                    bounds.x + bounds.width / <span class="number">2.0</span>,
+                    bounds.y + bounds.height / <span class="number">2.0</span>,
                 ),
-                <span class="prelude-val">None </span>=&gt; {
-                    <span class="comment">// Set position to center
-                    </span>(
-                        Point::new(
-                            bounds.x + bounds.width / <span class="number">2.0</span>,
-                            bounds.y + bounds.height / <span class="number">2.0</span>,
-                        ),
-                        <span class="bool-val">true</span>,
-                    )
+                Position::Point(relative) =&gt; {
+                    bounds.position() + Vector::new(relative.x, relative.y)
                 }
             };
 
+            <span class="comment">// Round position to prevent rendering issues
+            </span>overlay_position.x = overlay_position.x.round();
+            overlay_position.y = overlay_position.y.round();
+
             <span class="comment">// XXX needed to use RefCell to get &amp;mut for popup element
             </span><span class="prelude-val">Some</span>(overlay::Element::new(
-                position,
+                overlay_position,
                 Box::new(Overlay {
                     tree: <span class="kw-2">&amp;mut </span>tree.children[<span class="number">1</span>],
                     content: popup,
-                    centered,
+                    position: <span class="self">self</span>.position,
                 }),
             ))
         } <span class="kw">else </span>{
-            <span class="self">self</span>.content.as_widget_mut().overlay(
-                <span class="kw-2">&amp;mut </span>tree.children[<span class="number">0</span>],
-                layout,
-                renderer
-            )
+            <span class="self">self</span>.content
+                .as_widget_mut()
+                .overlay(<span class="kw-2">&amp;mut </span>tree.children[<span class="number">0</span>], layout, renderer)
         }
     }
 }
@@ -544,7 +567,7 @@
 <span class="kw">pub struct </span>Overlay&lt;<span class="lifetime">'a</span>, <span class="lifetime">'b</span>, Message, Renderer&gt; {
     tree: <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span>Tree,
     content: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>RefCell&lt;Element&lt;<span class="lifetime">'b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
-    centered: bool,
+    position: Position,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, <span class="lifetime">'b</span>, Message, Renderer&gt; overlay::Overlay&lt;Message, <span class="kw">crate</span>::Theme, Renderer&gt;
@@ -565,20 +588,33 @@
             .borrow()
             .as_widget()
             .layout(<span class="self">self</span>.tree, renderer, <span class="kw-2">&amp;</span>limits);
-        <span class="kw">if </span><span class="self">self</span>.centered {
-            <span class="comment">// Position is set to the center bottom of the lower widget
-            </span><span class="kw">let </span>width = node.size().width;
-            <span class="kw">let </span>height = node.size().height;
-            position.x = (position.x - width / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.width - width);
-            position.y = (position.y - height / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.height - height);
-        } <span class="kw">else </span>{
-            <span class="comment">// Position is using context menu logic
-            </span><span class="kw">let </span>size = node.size();
-            position.x = position.x.clamp(<span class="number">0.0</span>, bounds.width - size.width);
-            <span class="kw">if </span>position.y + size.height &gt; bounds.height {
-                position.y = (position.y - size.height).clamp(<span class="number">0.0</span>, bounds.height - size.height);
+        <span class="kw">match </span><span class="self">self</span>.position {
+            Position::Center =&gt; {
+                <span class="comment">// Position is set to the center of the widget
+                </span><span class="kw">let </span>width = node.size().width;
+                <span class="kw">let </span>height = node.size().height;
+                position.x = (position.x - width / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.width - width);
+                position.y = (position.y - height / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.height - height);
+            }
+            Position::Bottom =&gt; {
+                <span class="comment">// Position is set to the center bottom of the widget
+                </span><span class="kw">let </span>width = node.size().width;
+                position.x = (position.x - width / <span class="number">2.0</span>).clamp(<span class="number">0.0</span>, bounds.width - width);
+            }
+            Position::Point(<span class="kw">_</span>) =&gt; {
+                <span class="comment">// Position is using context menu logic
+                </span><span class="kw">let </span>size = node.size();
+                position.x = position.x.clamp(<span class="number">0.0</span>, bounds.width - size.width);
+                <span class="kw">if </span>position.y + size.height &gt; bounds.height {
+                    position.y = (position.y - size.height).clamp(<span class="number">0.0</span>, bounds.height - size.height);
+                }
             }
         }
+
+        <span class="comment">// Round position to prevent rendering issues
+        </span>position.x = position.x.round();
+        position.y = position.y.round();
+
         node.move_to(position)
     }
 
