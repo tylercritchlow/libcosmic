@@ -1270,8 +1270,6 @@
 <a href="#1269" id="1269">1269</a>
 <a href="#1270" id="1270">1270</a>
 <a href="#1271" id="1271">1271</a>
-<a href="#1272" id="1272">1272</a>
-<a href="#1273" id="1273">1273</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1804,11 +1802,9 @@
             }
 
             Container::Dialog =&gt; container::Appearance {
-                icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.primary.component.on)),
-                text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.primary.component.on)),
-                background: <span class="prelude-val">Some</span>(iced::Background::Color(
-                    cosmic.primary.component.base.into(),
-                )),
+                icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.primary.on)),
+                text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.primary.on)),
+                background: <span class="prelude-val">Some</span>(iced::Background::Color(cosmic.primary.base.into())),
                 border: Border {
                     color: cosmic.primary.divider.into(),
                     width: <span class="number">1.0</span>,

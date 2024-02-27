@@ -211,6 +211,9 @@
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
 <a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -270,6 +273,9 @@
 
 <span class="kw">pub mod </span>cosmic_container;
 <span class="kw">pub use </span>cosmic_container::LayerContainer;
+
+<span class="kw">pub mod </span>dialog;
+<span class="kw">pub use </span>dialog::{dialog, Dialog};
 
 <span class="doccomment">/// An element to distinguish a boundary between two elements.
 </span><span class="kw">pub mod </span>divider {

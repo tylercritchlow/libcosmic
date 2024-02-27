@@ -783,6 +783,19 @@
 <a href="#782" id="782">782</a>
 <a href="#783" id="783">783</a>
 <a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
+<a href="#791" id="791">791</a>
+<a href="#792" id="792">792</a>
+<a href="#793" id="793">793</a>
+<a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -829,7 +842,7 @@
 <span class="kw">pub use </span><span class="self">self</span>::settings::Settings;
 <span class="kw">use </span><span class="kw">crate</span>::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::theme::THEME;
-<span class="kw">use </span><span class="kw">crate</span>::widget::{context_drawer, nav_bar};
+<span class="kw">use </span><span class="kw">crate</span>::widget::{context_drawer, nav_bar, popover};
 <span class="kw">use </span>apply::Apply;
 <span class="kw">use </span>iced::Subscription;
 <span class="attr">#[cfg(all(feature = <span class="string">"winit"</span>, feature = <span class="string">"multi-window"</span>))]
@@ -1203,6 +1216,11 @@
         <span class="prelude-val">None
     </span>}
 
+    <span class="doccomment">/// Displays a dialog in the center of the application window when `Some`.
+    </span><span class="kw">fn </span>dialog(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Element&lt;<span class="self">Self</span>::Message&gt;&gt; {
+        <span class="prelude-val">None
+    </span>}
+
     <span class="doccomment">/// Attaches elements to the start section of the header.
     </span><span class="kw">fn </span>header_start(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Element&lt;<span class="self">Self</span>::Message&gt;&gt; {
         Vec::new()
@@ -1444,7 +1462,7 @@
             content_row.into()
         };
 
-        <span class="kw">let </span>view_element: Element&lt;<span class="kw">_</span>&gt; = <span class="kw">crate</span>::widget::column::with_capacity(<span class="number">2</span>)
+        <span class="kw">let </span>view_column = <span class="kw">crate</span>::widget::column::with_capacity(<span class="number">2</span>)
             .push_maybe(<span class="kw">if </span>core.window.show_headerbar {
                 <span class="prelude-val">Some</span>({
                     <span class="kw">let </span><span class="kw-2">mut </span>header = <span class="kw">crate</span>::widget::header_bar()
@@ -1492,8 +1510,16 @@
                 <span class="prelude-val">None
             </span>})
             <span class="comment">// The content element contains every element beneath the header.
-            </span>.push(content)
-            .into();
+            </span>.push(content);
+
+        <span class="comment">// Show any current dialog on top and centered over the view content
+        // We have to use a popover even without a dialog to keep the tree from changing
+        </span><span class="kw">let </span><span class="kw-2">mut </span>popover = popover(view_column);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(dialog) = <span class="self">self</span>.dialog() {
+            popover = popover.popup(dialog.map(Message::App));
+        }
+
+        <span class="kw">let </span>view_element: Element&lt;<span class="kw">_</span>&gt; = popover.into();
         view_element.debug(core.debug)
     }
 }

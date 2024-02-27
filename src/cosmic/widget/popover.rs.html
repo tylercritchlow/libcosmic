@@ -319,6 +319,8 @@
 <a href="#318" id="318">318</a>
 <a href="#319" id="319">319</a>
 <a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -339,39 +341,33 @@
 
 <span class="kw">pub fn </span>popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt;(
     content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
-    popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
 ) -&gt; Popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; {
-    Popover::new(content, popup)
+    Popover::new(content)
 }
 
 <span class="kw">pub struct </span>Popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; {
     content: Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;,
     <span class="comment">// XXX Avoid refcell; improve iced overlay API?
-    </span>popup: RefCell&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
+    </span>popup: <span class="prelude-ty">Option</span>&lt;RefCell&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;&gt;,
     position: <span class="prelude-ty">Option</span>&lt;Point&gt;,
-    show_popup: bool,
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; Popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; {
-    <span class="kw">pub fn </span>new(
-        content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
-        popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;,
-    ) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>new(content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             content: content.into(),
-            popup: RefCell::new(popup.into()),
+            popup: <span class="prelude-val">None</span>,
             position: <span class="prelude-val">None</span>,
-            show_popup: <span class="bool-val">true</span>,
         }
     }
 
-    <span class="kw">pub fn </span>position(<span class="kw-2">mut </span><span class="self">self</span>, position: Point) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.position = <span class="prelude-val">Some</span>(position);
+    <span class="kw">pub fn </span>popup(<span class="kw-2">mut </span><span class="self">self</span>, popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.popup = <span class="prelude-val">Some</span>(RefCell::new(popup.into()));
         <span class="self">self
     </span>}
 
-    <span class="kw">pub fn </span>show_popup(<span class="kw-2">mut </span><span class="self">self</span>, show_popup: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.show_popup = show_popup;
+    <span class="kw">pub fn </span>position(<span class="kw-2">mut </span><span class="self">self</span>, position: Point) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.position = <span class="prelude-val">Some</span>(position);
         <span class="self">self
     </span>}
 
@@ -384,11 +380,19 @@
     </span>Renderer: iced_core::Renderer,
 {
     <span class="kw">fn </span>children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Tree&gt; {
-        <span class="macro">vec!</span>[Tree::new(<span class="kw-2">&amp;</span><span class="self">self</span>.content), Tree::new(<span class="kw-2">&amp;*</span><span class="self">self</span>.popup.borrow())]
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(popup) = <span class="kw-2">&amp;</span><span class="self">self</span>.popup {
+            <span class="macro">vec!</span>[Tree::new(<span class="kw-2">&amp;</span><span class="self">self</span>.content), Tree::new(<span class="kw-2">&amp;*</span>popup.borrow())]
+        } <span class="kw">else </span>{
+            <span class="macro">vec!</span>[Tree::new(<span class="kw-2">&amp;</span><span class="self">self</span>.content)]
+        }
     }
 
     <span class="kw">fn </span>diff(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tree: <span class="kw-2">&amp;mut </span>Tree) {
-        tree.diff_children(<span class="kw-2">&amp;mut </span>[<span class="kw-2">&amp;mut </span><span class="self">self</span>.content, <span class="kw-2">&amp;mut </span><span class="self">self</span>.popup.borrow_mut()]);
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(popup) = <span class="kw-2">&amp;mut </span><span class="self">self</span>.popup {
+            tree.diff_children(<span class="kw-2">&amp;mut </span>[<span class="kw-2">&amp;mut </span><span class="self">self</span>.content, <span class="kw-2">&amp;mut </span>popup.borrow_mut()]);
+        } <span class="kw">else </span>{
+            tree.diff_children(<span class="kw-2">&amp;mut </span>[<span class="kw-2">&amp;mut </span><span class="self">self</span>.content]);
+        }
     }
 
     <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Size&lt;Length&gt; {
@@ -484,37 +488,37 @@
         layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
         _renderer: <span class="kw-2">&amp;</span>Renderer,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">'b</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt; {
-        <span class="kw">if </span>!<span class="self">self</span>.show_popup {
-            <span class="kw">return </span><span class="prelude-val">None</span>;
-        }
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(popup) = <span class="kw-2">&amp;</span><span class="self">self</span>.popup {
+            <span class="kw">let </span>bounds = layout.bounds();
+            <span class="kw">let </span>(position, centered) = <span class="kw">match </span><span class="self">self</span>.position {
+                <span class="prelude-val">Some</span>(relative) =&gt; (
+                    bounds.position() + Vector::new(relative.x, relative.y),
+                    <span class="bool-val">false</span>,
+                ),
+                <span class="prelude-val">None </span>=&gt; {
+                    <span class="comment">// Set position to center
+                    </span>(
+                        Point::new(
+                            bounds.x + bounds.width / <span class="number">2.0</span>,
+                            bounds.y + bounds.height / <span class="number">2.0</span>,
+                        ),
+                        <span class="bool-val">true</span>,
+                    )
+                }
+            };
 
-        <span class="kw">let </span>bounds = layout.bounds();
-        <span class="kw">let </span>(position, centered) = <span class="kw">match </span><span class="self">self</span>.position {
-            <span class="prelude-val">Some</span>(relative) =&gt; (
-                bounds.position() + Vector::new(relative.x, relative.y),
-                <span class="bool-val">false</span>,
-            ),
-            <span class="prelude-val">None </span>=&gt; {
-                <span class="comment">// Set position to center
-                </span>(
-                    Point::new(
-                        bounds.x + bounds.width / <span class="number">2.0</span>,
-                        bounds.y + bounds.height / <span class="number">2.0</span>,
-                    ),
-                    <span class="bool-val">true</span>,
-                )
-            }
-        };
-
-        <span class="comment">// XXX needed to use RefCell to get &amp;mut for popup element
-        </span><span class="prelude-val">Some</span>(overlay::Element::new(
-            position,
-            Box::new(Overlay {
-                tree: <span class="kw-2">&amp;mut </span>tree.children[<span class="number">1</span>],
-                content: <span class="kw-2">&amp;</span><span class="self">self</span>.popup,
-                centered,
-            }),
-        ))
+            <span class="comment">// XXX needed to use RefCell to get &amp;mut for popup element
+            </span><span class="prelude-val">Some</span>(overlay::Element::new(
+                position,
+                Box::new(Overlay {
+                    tree: <span class="kw-2">&amp;mut </span>tree.children[<span class="number">1</span>],
+                    content: popup,
+                    centered,
+                }),
+            ))
+        } <span class="kw">else </span>{
+            <span class="prelude-val">None
+        </span>}
     }
 }
 
