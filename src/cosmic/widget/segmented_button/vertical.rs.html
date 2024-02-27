@@ -105,17 +105,16 @@
 <a href="#104" id="104">104</a>
 <a href="#105" id="105">105</a>
 <a href="#106" id="106">106</a>
-<a href="#107" id="107">107</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="doccomment">//! Implementation details for the vertical layout of a segmented button.
 
-</span><span class="kw">use </span><span class="kw">super</span>::model::{Entity, Model, Selectable};
+</span><span class="kw">use </span><span class="kw">super</span>::model::{Model, Selectable};
 <span class="kw">use </span><span class="kw">super</span>::style::StyleSheet;
 <span class="kw">use </span><span class="kw">super</span>::widget::{ItemBounds, LocalState, SegmentedButton, SegmentedVariant};
 
-<span class="kw">use </span>iced::{Alignment, Length, Rectangle, Size};
+<span class="kw">use </span>iced::{Length, Rectangle, Size};
 <span class="kw">use </span>iced_core::layout;
 
 <span class="doccomment">/// A type marker defining the vertical variant of a [`SegmentedButton`].
@@ -128,7 +127,6 @@
 <span class="doccomment">/// Vertical implementation of the [`SegmentedButton`].
 ///
 /// For details on the model, see the [`segmented_button`](super) module for more details.
-</span><span class="attr">#[must_use]
 </span><span class="kw">pub fn </span>vertical&lt;SelectionMode, Message&gt;(
     model: <span class="kw-2">&amp;</span>Model&lt;SelectionMode&gt;,
 ) -&gt; SegmentedButton&lt;Vertical, SelectionMode, Message&gt;
