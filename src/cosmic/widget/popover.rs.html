@@ -343,6 +343,10 @@
 <a href="#342" id="342">342</a>
 <a href="#343" id="343">343</a>
 <a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -523,9 +527,13 @@
 
             <span class="comment">// Calculate overlay position from relative position
             </span><span class="kw">let </span><span class="kw-2">mut </span>overlay_position = <span class="kw">match </span><span class="self">self</span>.position {
-                Position::Center | Position::Bottom =&gt; Point::new(
+                Position::Center =&gt; Point::new(
                     bounds.x + bounds.width / <span class="number">2.0</span>,
                     bounds.y + bounds.height / <span class="number">2.0</span>,
+                ),
+                Position::Bottom =&gt; Point::new(
+                    bounds.x + bounds.width / <span class="number">2.0</span>,
+                    bounds.y + bounds.height,
                 ),
                 Position::Point(relative) =&gt; {
                     bounds.position() + Vector::new(relative.x, relative.y)
