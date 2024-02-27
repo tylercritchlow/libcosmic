@@ -915,9 +915,9 @@
 
     <span class="attr">#[cfg(not(feature = <span class="string">"wayland"</span>))]
     </span>{
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(_border_size) = settings.resizable {
-            <span class="comment">// iced.window.border_size = border_size as u32;
-            </span>iced.window.resizable = <span class="bool-val">true</span>;
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(border_size) = settings.resizable {
+            iced.window.resize_border = border_size <span class="kw">as </span>u32;
+            iced.window.resizable = <span class="bool-val">true</span>;
         }
         iced.window.decorations = !settings.client_decorations;
         iced.window.size = settings.size;
