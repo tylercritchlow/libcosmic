@@ -174,16 +174,16 @@
                 .spacing(<span class="number">2</span>)
                 .push(text(<span class="self">self</span>.title))
                 .push(text(description).size(<span class="number">10</span>))
-                .width(Length::FillPortion(<span class="number">12</span>));
+                .width(Length::Fill);
 
             contents.push(column.into());
         } <span class="kw">else </span>{
-            contents.push(text(<span class="self">self</span>.title).into());
+            contents.push(text(<span class="self">self</span>.title).width(Length::Fill).into());
         }
 
         contents.push(
             container(widget.into())
-                .width(Length::FillPortion(<span class="number">4</span>))
+                .width(Length::Shrink)
                 .align_x(iced_core::alignment::Horizontal::Right)
                 .into(),
         );
