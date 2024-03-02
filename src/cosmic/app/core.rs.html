@@ -262,6 +262,23 @@
 <a href="#261" id="261">261</a>
 <a href="#262" id="262">262</a>
 <a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -270,6 +287,7 @@
 <span class="kw">use </span>cosmic_config::CosmicConfigEntry;
 <span class="kw">use </span>cosmic_theme::ThemeMode;
 <span class="kw">use </span>iced_core::window::Id;
+<span class="kw">use </span>palette::Srgba;
 
 <span class="kw">use </span><span class="kw">crate</span>::Theme;
 
@@ -323,8 +341,14 @@
     <span class="doccomment">/// Last known system theme
     </span><span class="kw">pub</span>(<span class="kw">super</span>) system_theme: Theme,
 
-    <span class="doccomment">/// Theme mode
+    <span class="doccomment">/// Configured theme mode
     </span><span class="kw">pub</span>(<span class="kw">super</span>) system_theme_mode: ThemeMode,
+
+    <span class="kw">pub</span>(<span class="kw">super</span>) portal_is_dark: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+
+    <span class="kw">pub</span>(<span class="kw">super</span>) portal_accent: <span class="prelude-ty">Option</span>&lt;Srgba&gt;,
+
+    <span class="kw">pub</span>(<span class="kw">super</span>) portal_is_high_contrast: <span class="prelude-ty">Option</span>&lt;bool&gt;,
 
     <span class="kw">pub</span>(<span class="kw">super</span>) title: HashMap&lt;Id, String&gt;,
 
@@ -385,6 +409,9 @@
             </span>single_instance: <span class="bool-val">false</span>,
             <span class="attr">#[cfg(feature = <span class="string">"dbus-config"</span>)]
             </span>settings_daemon: <span class="prelude-val">None</span>,
+            portal_is_dark: <span class="prelude-val">None</span>,
+            portal_accent: <span class="prelude-val">None</span>,
+            portal_is_high_contrast: <span class="prelude-val">None</span>,
         }
     }
 }
@@ -523,6 +550,13 @@
             std::borrow::Cow::Borrowed(state_id),
             T::VERSION,
         )
+    }
+
+    <span class="doccomment">/// Whether the application should use a dark theme, according to the system
+    </span><span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>system_is_dark(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.portal_is_dark
+            .unwrap_or(<span class="self">self</span>.system_theme_mode.is_dark)
     }
 }
 </code></pre></div></section></main></body></html>
