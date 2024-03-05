@@ -1270,6 +1270,65 @@
 <a href="#1269" id="1269">1269</a>
 <a href="#1270" id="1270">1270</a>
 <a href="#1271" id="1271">1271</a>
+<a href="#1272" id="1272">1272</a>
+<a href="#1273" id="1273">1273</a>
+<a href="#1274" id="1274">1274</a>
+<a href="#1275" id="1275">1275</a>
+<a href="#1276" id="1276">1276</a>
+<a href="#1277" id="1277">1277</a>
+<a href="#1278" id="1278">1278</a>
+<a href="#1279" id="1279">1279</a>
+<a href="#1280" id="1280">1280</a>
+<a href="#1281" id="1281">1281</a>
+<a href="#1282" id="1282">1282</a>
+<a href="#1283" id="1283">1283</a>
+<a href="#1284" id="1284">1284</a>
+<a href="#1285" id="1285">1285</a>
+<a href="#1286" id="1286">1286</a>
+<a href="#1287" id="1287">1287</a>
+<a href="#1288" id="1288">1288</a>
+<a href="#1289" id="1289">1289</a>
+<a href="#1290" id="1290">1290</a>
+<a href="#1291" id="1291">1291</a>
+<a href="#1292" id="1292">1292</a>
+<a href="#1293" id="1293">1293</a>
+<a href="#1294" id="1294">1294</a>
+<a href="#1295" id="1295">1295</a>
+<a href="#1296" id="1296">1296</a>
+<a href="#1297" id="1297">1297</a>
+<a href="#1298" id="1298">1298</a>
+<a href="#1299" id="1299">1299</a>
+<a href="#1300" id="1300">1300</a>
+<a href="#1301" id="1301">1301</a>
+<a href="#1302" id="1302">1302</a>
+<a href="#1303" id="1303">1303</a>
+<a href="#1304" id="1304">1304</a>
+<a href="#1305" id="1305">1305</a>
+<a href="#1306" id="1306">1306</a>
+<a href="#1307" id="1307">1307</a>
+<a href="#1308" id="1308">1308</a>
+<a href="#1309" id="1309">1309</a>
+<a href="#1310" id="1310">1310</a>
+<a href="#1311" id="1311">1311</a>
+<a href="#1312" id="1312">1312</a>
+<a href="#1313" id="1313">1313</a>
+<a href="#1314" id="1314">1314</a>
+<a href="#1315" id="1315">1315</a>
+<a href="#1316" id="1316">1316</a>
+<a href="#1317" id="1317">1317</a>
+<a href="#1318" id="1318">1318</a>
+<a href="#1319" id="1319">1319</a>
+<a href="#1320" id="1320">1320</a>
+<a href="#1321" id="1321">1321</a>
+<a href="#1322" id="1322">1322</a>
+<a href="#1323" id="1323">1323</a>
+<a href="#1324" id="1324">1324</a>
+<a href="#1325" id="1325">1325</a>
+<a href="#1326" id="1326">1326</a>
+<a href="#1327" id="1327">1327</a>
+<a href="#1328" id="1328">1328</a>
+<a href="#1329" id="1329">1329</a>
+<a href="#1330" id="1330">1330</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1641,10 +1700,12 @@
     WindowBackground,
     Background,
     Card,
+    ContextDrawer,
     Custom(Box&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>Theme) -&gt; container::Appearance&gt;),
     Dialog,
     Dropdown,
     HeaderBar,
+    List,
     Primary,
     Secondary,
     Tooltip,
@@ -1656,6 +1717,48 @@
     <span class="kw">pub fn </span>custom&lt;F: Fn(<span class="kw-2">&amp;</span>Theme) -&gt; container::Appearance + <span class="lifetime">'static</span>&gt;(f: F) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::Custom(Box::new(f))
     }
+
+    <span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>background(theme: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; container::Appearance {
+        container::Appearance {
+            icon_color: <span class="prelude-val">Some</span>(Color::from(theme.background.on)),
+            text_color: <span class="prelude-val">Some</span>(Color::from(theme.background.on)),
+            background: <span class="prelude-val">Some</span>(iced::Background::Color(theme.background.base.into())),
+            border: Border {
+                radius: theme.corner_radii.radius_xs.into(),
+                ..Default::default()
+            },
+            shadow: Shadow::default(),
+        }
+    }
+
+    <span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>primary(theme: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; container::Appearance {
+        container::Appearance {
+            icon_color: <span class="prelude-val">Some</span>(Color::from(theme.primary.on)),
+            text_color: <span class="prelude-val">Some</span>(Color::from(theme.primary.on)),
+            background: <span class="prelude-val">Some</span>(iced::Background::Color(theme.primary.base.into())),
+            border: Border {
+                radius: theme.corner_radii.radius_xs.into(),
+                ..Default::default()
+            },
+            shadow: Shadow::default(),
+        }
+    }
+
+    <span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>secondary(theme: <span class="kw-2">&amp;</span>cosmic_theme::Theme) -&gt; container::Appearance {
+        container::Appearance {
+            icon_color: <span class="prelude-val">Some</span>(Color::from(theme.secondary.on)),
+            text_color: <span class="prelude-val">Some</span>(Color::from(theme.secondary.on)),
+            background: <span class="prelude-val">Some</span>(iced::Background::Color(theme.secondary.base.into())),
+            border: Border {
+                radius: theme.corner_radii.radius_xs.into(),
+                ..Default::default()
+            },
+            shadow: Shadow::default(),
+        }
+    }
 }
 
 <span class="kw">impl </span>container::StyleSheet <span class="kw">for </span>Theme {
@@ -1666,7 +1769,9 @@
         <span class="kw">let </span>cosmic = <span class="self">self</span>.cosmic();
         <span class="kw">match </span>style {
             Container::Transparent =&gt; container::Appearance::default(),
+
             Container::Custom(f) =&gt; f(<span class="self">self</span>),
+
             Container::WindowBackground =&gt; container::Appearance {
                 icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.background.on)),
                 text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.background.on)),
@@ -1683,56 +1788,68 @@
                 },
                 shadow: Shadow::default(),
             },
-            Container::Background =&gt; container::Appearance {
-                icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.background.on)),
-                text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.background.on)),
-                background: <span class="prelude-val">Some</span>(iced::Background::Color(cosmic.background.base.into())),
-                border: Border {
-                    radius: cosmic.corner_radii.radius_xs.into(),
-                    ..Default::default()
-                },
-                shadow: Shadow::default(),
-            },
-            Container::HeaderBar =&gt; {
-                <span class="kw">let </span>header_top = cosmic.background.base;
+
+            Container::List =&gt; {
+                <span class="comment">// TODO: The primary component has the wrong color on the light theme.
+                </span><span class="kw">let </span>component = <span class="kw">if </span>cosmic.is_dark {
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.current_container().component
+                } <span class="kw">else </span>{
+                    <span class="kw-2">&amp;</span>cosmic.background.component
+                };
 
                 container::Appearance {
-                    icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.accent.base)),
-                    text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.background.on)),
-                    background: <span class="prelude-val">Some</span>(iced::Background::Color(header_top.into())),
-                    border: Border {
-                        radius: [
-                            cosmic.corner_radii.radius_xs[<span class="number">0</span>],
-                            cosmic.corner_radii.radius_xs[<span class="number">1</span>],
-                            cosmic.corner_radii.radius_0[<span class="number">2</span>],
-                            cosmic.corner_radii.radius_0[<span class="number">3</span>],
-                        ]
-                        .into(),
+                    icon_color: <span class="prelude-val">Some</span>(component.on.into()),
+                    text_color: <span class="prelude-val">Some</span>(component.on.into()),
+                    background: <span class="prelude-val">Some</span>(Background::Color(component.base.into())),
+                    border: iced::Border {
+                        radius: cosmic.corner_radii.radius_s.into(),
                         ..Default::default()
                     },
                     shadow: Shadow::default(),
                 }
             }
-            Container::Primary =&gt; container::Appearance {
-                icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.primary.on)),
-                text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.primary.on)),
-                background: <span class="prelude-val">Some</span>(iced::Background::Color(cosmic.primary.base.into())),
+
+            Container::HeaderBar =&gt; container::Appearance {
+                icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.accent.base)),
+                text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.background.on)),
+                background: <span class="prelude-val">Some</span>(iced::Background::Color(cosmic.background.base.into())),
                 border: Border {
-                    radius: cosmic.corner_radii.radius_xs.into(),
+                    radius: [
+                        cosmic.corner_radii.radius_xs[<span class="number">0</span>],
+                        cosmic.corner_radii.radius_xs[<span class="number">1</span>],
+                        cosmic.corner_radii.radius_0[<span class="number">2</span>],
+                        cosmic.corner_radii.radius_0[<span class="number">3</span>],
+                    ]
+                    .into(),
                     ..Default::default()
                 },
                 shadow: Shadow::default(),
             },
-            Container::Secondary =&gt; container::Appearance {
-                icon_color: <span class="prelude-val">Some</span>(Color::from(cosmic.secondary.on)),
-                text_color: <span class="prelude-val">Some</span>(Color::from(cosmic.secondary.on)),
-                background: <span class="prelude-val">Some</span>(iced::Background::Color(cosmic.secondary.base.into())),
-                border: Border {
-                    radius: cosmic.corner_radii.radius_xs.into(),
-                    ..Default::default()
-                },
-                shadow: Shadow::default(),
-            },
+
+            Container::ContextDrawer =&gt; {
+                <span class="kw">let </span><span class="kw-2">mut </span>appearance = <span class="kw">crate</span>::style::Container::primary(cosmic);
+
+                appearance.border = Border {
+                    color: cosmic.primary.divider.into(),
+                    width: <span class="number">1.0</span>,
+                    radius: cosmic.corner_radii.radius_s.into(),
+                };
+
+                appearance.shadow = Shadow {
+                    color: cosmic.shade.into(),
+                    offset: Vector::new(<span class="number">0.0</span>, <span class="number">0.0</span>),
+                    blur_radius: <span class="number">16.0</span>,
+                };
+
+                appearance
+            }
+
+            Container::Background =&gt; Container::background(cosmic),
+
+            Container::Primary =&gt; Container::primary(cosmic),
+
+            Container::Secondary =&gt; Container::secondary(cosmic),
+
             Container::Dropdown =&gt; {
                 <span class="kw">let </span>theme = <span class="self">self</span>.cosmic();
 
@@ -1747,6 +1864,7 @@
                     shadow: Shadow::default(),
                 }
             }
+
             Container::Tooltip =&gt; container::Appearance {
                 icon_color: <span class="prelude-val">None</span>,
                 text_color: <span class="prelude-val">None</span>,

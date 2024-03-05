@@ -258,7 +258,6 @@
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -499,7 +498,6 @@
 
     <span class="doccomment">/// get current container
     /// can be used in a component that is intended to be a child of a `CosmicContainer`
-    </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>current_container(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>cosmic_theme::Container {
         <span class="kw">match </span><span class="self">self</span>.layer {
             cosmic_theme::Layer::Background =&gt; <span class="kw-2">&amp;</span><span class="self">self</span>.cosmic().background,
