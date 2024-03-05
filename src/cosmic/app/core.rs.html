@@ -279,11 +279,26 @@
 <a href="#278" id="278">278</a>
 <a href="#279" id="279">279</a>
 <a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="kw">use </span>std::collections::HashMap;
 
+<span class="kw">use </span><span class="kw">crate</span>::config::CosmicTk;
 <span class="kw">use </span>cosmic_config::CosmicConfigEntry;
 <span class="kw">use </span>cosmic_theme::ThemeMode;
 <span class="kw">use </span>iced_core::window::Id;
@@ -344,6 +359,9 @@
     <span class="doccomment">/// Configured theme mode
     </span><span class="kw">pub</span>(<span class="kw">super</span>) system_theme_mode: ThemeMode,
 
+    <span class="doccomment">/// Libcosmic toolkit configuration.
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) toolkit_config: CosmicTk,
+
     <span class="kw">pub</span>(<span class="kw">super</span>) portal_is_dark: <span class="prelude-ty">Option</span>&lt;bool&gt;,
 
     <span class="kw">pub</span>(<span class="kw">super</span>) portal_accent: <span class="prelude-ty">Option</span>&lt;Srgba&gt;,
@@ -382,8 +400,18 @@
             system_theme_mode: ThemeMode::config()
                 .map(|c| {
                     ThemeMode::get_entry(<span class="kw-2">&amp;</span>c).unwrap_or_else(|(errors, mode)| {
-                        <span class="kw">for </span>e <span class="kw">in </span>errors {
-                            <span class="macro">tracing::error!</span>(<span class="string">"{e}"</span>);
+                        <span class="kw">for </span>why <span class="kw">in </span>errors {
+                            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>why, <span class="string">"ThemeMode config entry error"</span>);
+                        }
+                        mode
+                    })
+                })
+                .unwrap_or_default(),
+            toolkit_config: CosmicTk::config()
+                .map(|c| {
+                    CosmicTk::get_entry(<span class="kw-2">&amp;</span>c).unwrap_or_else(|(errors, mode)| {
+                        <span class="kw">for </span>why <span class="kw">in </span>errors {
+                            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>why, <span class="string">"CosmicTk config entry error"</span>);
                         }
                         mode
                     })

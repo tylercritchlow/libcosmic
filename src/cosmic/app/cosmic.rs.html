@@ -552,12 +552,30 @@
 <a href="#551" id="551">551</a>
 <a href="#552" id="552">552</a>
 <a href="#553" id="553">553</a>
+<a href="#554" id="554">554</a>
+<a href="#555" id="555">555</a>
+<a href="#556" id="556">556</a>
+<a href="#557" id="557">557</a>
+<a href="#558" id="558">558</a>
+<a href="#559" id="559">559</a>
+<a href="#560" id="560">560</a>
+<a href="#561" id="561">561</a>
+<a href="#562" id="562">562</a>
+<a href="#563" id="563">563</a>
+<a href="#564" id="564">564</a>
+<a href="#565" id="565">565</a>
+<a href="#566" id="566">566</a>
+<a href="#567" id="567">567</a>
+<a href="#568" id="568">568</a>
+<a href="#569" id="569">569</a>
+<a href="#570" id="570">570</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use super</span>::{command, Application, ApplicationExt, Core, Subscription};
+<span class="kw">use </span><span class="kw">crate</span>::config::CosmicTk;
 <span class="kw">use </span><span class="kw">crate</span>::theme::{<span class="self">self</span>, Theme, ThemeType, THEME};
 <span class="kw">use </span><span class="kw">crate</span>::widget::nav_bar;
 <span class="kw">use crate</span>::{keyboard_nav, Element};
@@ -603,14 +621,16 @@
     </span>NavBar(nav_bar::Id),
     <span class="doccomment">/// Set scaling factor
     </span>ScaleFactor(f32),
-    <span class="doccomment">/// Toggles visibility of the nav bar.
-    </span>ToggleNavBar,
-    <span class="doccomment">/// Toggles the condensed status of the nav bar.
-    </span>ToggleNavBarCondensed,
     <span class="doccomment">/// Notification of system theme changes.
     </span>SystemThemeChange(Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str&gt;, Theme),
     <span class="doccomment">/// Notification of system theme mode changes.
     </span>SystemThemeModeChange(Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str&gt;, ThemeMode),
+    <span class="doccomment">/// Toggles visibility of the nav bar.
+    </span>ToggleNavBar,
+    <span class="doccomment">/// Toggles the condensed status of the nav bar.
+    </span>ToggleNavBarCondensed,
+    <span class="doccomment">/// Toolkit configuration update
+    </span>ToolkitConfig(CosmicTk),
     <span class="doccomment">/// Updates the window maximized state
     </span>WindowMaximized(window::Id, bool),
     <span class="doccomment">/// Updates the tracked window geometry.
@@ -738,14 +758,24 @@
             <span class="self">self</span>.app.subscription().map(<span class="kw">super</span>::Message::App),
             <span class="self">self</span>.app
                 .core()
+                .watch_config::&lt;<span class="kw">crate</span>::config::CosmicTk&gt;(<span class="kw">crate</span>::config::toolkit::ID)
+                .map(|update| {
+                    <span class="kw">for </span>why <span class="kw">in </span>update.errors {
+                        <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>why, <span class="string">"cosmic toolkit config update error"</span>);
+                    }
+
+                    <span class="kw">super</span>::Message::Cosmic(Message::ToolkitConfig(update.config))
+                }),
+            <span class="self">self</span>.app
+                .core()
                 .watch_config::&lt;cosmic_theme::Theme&gt;(<span class="kw">if </span><span class="self">self</span>.app.core().system_theme_mode.is_dark {
                     cosmic_theme::DARK_THEME_ID
                 } <span class="kw">else </span>{
                     cosmic_theme::LIGHT_THEME_ID
                 })
                 .map(|update| {
-                    <span class="kw">for </span>e <span class="kw">in </span>update.errors {
-                        <span class="macro">tracing::error!</span>(<span class="string">"{e}"</span>);
+                    <span class="kw">for </span>why <span class="kw">in </span>update.errors {
+                        <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>why, <span class="string">"cosmic theme config update error"</span>);
                     }
                     Message::SystemThemeChange(
                         update.keys,
@@ -1094,6 +1124,10 @@
             </span>Message::DesktopSettings(<span class="kw">crate</span>::theme::portal::Desktop::Contrast(<span class="kw">_</span>)) =&gt; {
                 <span class="comment">// TODO when high contrast is integrated in settings and all custom themes
             </span>}
+
+            Message::ToolkitConfig(config) =&gt; {
+                <span class="self">self</span>.app.core_mut().toolkit_config = config;
+            }
         }
 
         iced::Command::none()

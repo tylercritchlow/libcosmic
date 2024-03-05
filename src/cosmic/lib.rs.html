@@ -72,13 +72,16 @@
 <a href="#71" id="71">71</a>
 <a href="#72" id="72">72</a>
 <a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
 </span><span class="attr">#![allow(clippy::module_name_repetitions)]
 
 #[cfg(all(feature = <span class="string">"wayland"</span>, feature = <span class="string">"winit"</span>))]
-</span><span class="macro">compile_error!</span>(<span class="string">"cannot use `wayland` feature with `winit"</span>);
+</span><span class="macro">compile_error!</span>(<span class="string">"cannot use `wayland` feature with `winit`"</span>);
 
 <span class="doccomment">/// Recommended default imports.
 </span><span class="kw">pub mod </span>prelude {
@@ -100,6 +103,9 @@
 
 <span class="kw">pub use </span>iced::Command;
 <span class="kw">pub mod </span>command;
+
+<span class="kw">pub mod </span>config;
+
 <span class="kw">pub use </span>cosmic_config;
 <span class="kw">pub use </span>cosmic_theme;
 

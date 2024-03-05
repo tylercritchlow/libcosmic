@@ -1520,11 +1520,11 @@
                         header = header.start(toggle);
                     }
 
-                    <span class="kw">if </span>core.window.show_maximize {
+                    <span class="kw">if </span>core.window.show_maximize &amp;&amp; core.toolkit_config.show_maximize {
                         header = header.on_maximize(Message::Cosmic(cosmic::Message::Maximize));
                     }
 
-                    <span class="kw">if </span>core.window.show_minimize {
+                    <span class="kw">if </span>core.window.show_minimize &amp;&amp; core.toolkit_config.show_minimize {
                         header = header.on_minimize(Message::Cosmic(cosmic::Message::Minimize));
                     }
 
