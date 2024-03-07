@@ -881,6 +881,12 @@
 <a href="#880" id="880">880</a>
 <a href="#881" id="881">881</a>
 <a href="#882" id="882">882</a>
+<a href="#883" id="883">883</a>
+<a href="#884" id="884">884</a>
+<a href="#885" id="885">885</a>
+<a href="#886" id="886">886</a>
+<a href="#887" id="887">887</a>
+<a href="#888" id="888">888</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1071,7 +1077,11 @@
             }
             ColorPickerUpdate::ActionFinished =&gt; {
                 <span class="kw">let </span>srgb = palette::Srgb::from_color(<span class="self">self</span>.active_color);
-
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(applied_color) = <span class="self">self</span>.applied_color.take() {
+                    <span class="self">self</span>.recent_colors.push(applied_color);
+                }
+                <span class="self">self</span>.applied_color = <span class="prelude-val">Some</span>(Color::from(srgb));
+                <span class="self">self</span>.active = <span class="bool-val">false</span>;
                 <span class="self">self</span>.save_next = <span class="prelude-val">Some</span>(Color::from(srgb));
             }
             ColorPickerUpdate::ToggleColorPicker =&gt; {
@@ -1168,6 +1178,7 @@
                 .on_activate(Box::new(<span class="kw">move </span>|e| on_update(
                     ColorPickerUpdate::ActivateSegmented(e)
                 )))
+                .minimum_button_width(<span class="number">0</span>)
                 .width(<span class="self">self</span>.width),
             <span class="comment">// canvas with gradient for the current color
             // still needs the canvas and the handle to be drawn on it
@@ -1299,6 +1310,7 @@
                                 })
                                 .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;(),
                         )
+                        .padding([<span class="number">0.0</span>, <span class="number">0.0</span>, f32::from(spacing.space_m), <span class="number">0.0</span>])
                         .spacing(spacing.space_xxs),
                     )
                     .width(<span class="self">self</span>.width)
