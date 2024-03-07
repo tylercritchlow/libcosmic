@@ -145,6 +145,7 @@
 <a href="#144" id="144">144</a>
 <a href="#145" id="145">145</a>
 <a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>proc_macro::TokenStream;
 <span class="kw">use </span>quote::quote;
 <span class="kw">use </span>syn::{<span class="self">self</span>};
@@ -202,6 +203,7 @@
         <span class="macro">quote! </span>{
             <span class="kw">match </span>cosmic_config::ConfigGet::get::&lt;#field_type&gt;(config, <span class="macro">stringify!</span>(#field_name)) {
                 <span class="prelude-val">Ok</span>(#field_name) =&gt; default.#field_name = #field_name,
+                <span class="prelude-val">Err</span>(why) <span class="kw">if </span><span class="macro">matches!</span>(why, cosmic_config::Error::NoConfigDirectory) =&gt; (),
                 <span class="prelude-val">Err</span>(e) =&gt; errors.push(e),
             }
         }
