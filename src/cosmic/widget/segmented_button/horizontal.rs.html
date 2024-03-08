@@ -212,25 +212,6 @@
 <a href="#211" id="211">211</a>
 <a href="#212" id="212">212</a>
 <a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -350,14 +331,14 @@
         state.internal_layout.clear();
         <span class="kw">let </span>num = <span class="self">self</span>.model.order.len();
         <span class="kw">let </span>spacing = f32::from(<span class="self">self</span>.spacing);
-        <span class="kw">let </span>limits = limits.width(<span class="self">self</span>.width);
-        <span class="kw">let </span><span class="kw-2">mut </span>size;
+        <span class="kw">let </span>size;
 
+        <span class="kw">let </span><span class="kw-2">mut </span>reduce_button_offset = <span class="bool-val">false</span>;
         <span class="kw">if </span>state.known_length != num {
             <span class="kw">if </span>state.known_length &gt; num {
                 state.buttons_offset -= state.buttons_offset.min(state.known_length - num);
             } <span class="kw">else </span>{
-                state.buttons_offset += num - state.known_length;
+                reduce_button_offset = <span class="bool-val">true</span>;
             }
 
             state.known_length = num;
@@ -374,8 +355,7 @@
                 Size::new(f32::MAX, max_height),
             );
 
-            <span class="comment">// let mut visible_width = f32::from(self.button_height) * 2.0;
-            </span><span class="kw">let </span><span class="kw-2">mut </span>visible_width = <span class="number">0.0</span>;
+            <span class="kw">let </span><span class="kw-2">mut </span>visible_width = <span class="number">0.0</span>;
             state.buttons_visible = <span class="number">0</span>;
 
             <span class="kw">for </span>(button_size, _actual_size) <span class="kw">in </span><span class="kw-2">&amp;</span>state.internal_layout {
@@ -384,6 +364,7 @@
                 <span class="kw">if </span>max_size.width &gt;= visible_width {
                     state.buttons_visible += <span class="number">1</span>;
                 } <span class="kw">else </span>{
+                    visible_width = max_size.width - max_height;
                     <span class="kw">break</span>;
                 }
 
@@ -394,25 +375,15 @@
 
             state.collapsed = num &gt; <span class="number">1 </span>&amp;&amp; state.buttons_visible != num;
 
-            <span class="comment">// If collapsed, use the maximum width available.
-            </span><span class="kw">if </span>state.collapsed {
-                visible_width = max_size.width;
-            }
-
             size = limits
-                .width(Length::Fixed(visible_width))
                 .height(Length::Fixed(max_height))
-                .resolve(
-                    visible_width,
-                    max_height,
-                    Size::new(visible_width, max_height),
-                );
+                .min_width(visible_width)
+                .min();
         } <span class="kw">else </span>{
             <span class="comment">// Buttons will be rendered with equal widths.
             </span>state.buttons_visible = <span class="self">self</span>.model.items.len();
 
             <span class="kw">let </span><span class="kw-2">mut </span>width = <span class="number">0.0f32</span>;
-            <span class="kw">let </span><span class="kw-2">mut </span>height = <span class="number">0.0f32</span>;
             <span class="kw">let </span>font = renderer.default_font();
 
             <span class="kw">for </span>key <span class="kw">in </span><span class="self">self</span>.model.order.iter().copied() {
@@ -428,29 +399,18 @@
                     ),
                 ));
 
-                height = height.max(button_height);
                 width = width.max(button_width);
             }
 
-            <span class="kw">let </span>total_width = (state.buttons_visible <span class="kw">as </span>f32) * (width + spacing);
+            <span class="kw">let </span>height = f32::from(<span class="self">self</span>.button_height);
 
-            size = limits.height(Length::Fixed(height)).resolve(
-                <span class="self">self</span>.width,
-                <span class="self">self</span>.height,
-                Size::new(total_width, height),
-            );
+            size = limits.height(Length::Fixed(height)).max();
 
             <span class="kw">let </span>actual_width = size.width <span class="kw">as </span>usize;
             <span class="kw">let </span>minimum_width = state.buttons_visible * <span class="self">self</span>.minimum_button_width <span class="kw">as </span>usize;
             state.collapsed = actual_width &lt; minimum_width;
 
             <span class="kw">if </span>state.collapsed {
-                size = limits.height(Length::Fixed(height)).resolve(
-                    Length::Fill,
-                    height,
-                    Size::new(f32::MAX, height),
-                );
-
                 state.buttons_visible =
                     (actual_width / <span class="self">self</span>.minimum_button_width <span class="kw">as </span>usize).min(state.buttons_visible);
             }
@@ -458,6 +418,8 @@
 
         <span class="kw">if </span>!state.collapsed {
             state.buttons_offset = <span class="number">0</span>;
+        } <span class="kw">else if </span>reduce_button_offset {
+            state.buttons_offset = num - state.buttons_visible;
         }
 
         size

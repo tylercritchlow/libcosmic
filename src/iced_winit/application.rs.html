@@ -1921,7 +1921,7 @@
 
 <span class="doccomment">/// Updates an [`Application`] by feeding it the provided messages, spawning any
 /// resulting [`Command`], and tracking its [`Subscription`].
-</span><span class="kw">pub fn </span>update&lt;A: Application, C, E: Executor&gt;(
+</span><span class="kw">pub fn </span>update&lt;A: Application + <span class="lifetime">'static</span>, C, E: Executor + <span class="lifetime">'static</span>&gt;(
     application: <span class="kw-2">&amp;mut </span>A,
     compositor: <span class="kw-2">&amp;mut </span>C,
     surface: <span class="kw-2">&amp;mut </span>C::Surface,

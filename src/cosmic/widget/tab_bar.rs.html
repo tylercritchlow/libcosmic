@@ -53,6 +53,10 @@
 <a href="#52" id="52">52</a>
 <a href="#53" id="53">53</a>
 <a href="#54" id="54">54</a>
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -80,6 +84,8 @@
     <span class="kw">let </span>space_xs = theme.cosmic().space_xs();
 
     segmented_button::horizontal(model)
+        .minimum_button_width(<span class="number">76</span>)
+        .maximum_button_width(<span class="number">250</span>)
         .button_height(<span class="number">44</span>)
         .button_padding([space_s, space_xs, space_s, space_xs])
         .style(<span class="kw">crate</span>::theme::SegmentedButton::TabBar)
@@ -102,6 +108,8 @@
     <span class="kw">let </span>space_xs = theme.cosmic().space_xs();
 
     SegmentedButton::new(model)
+        .minimum_button_width(<span class="number">76</span>)
+        .maximum_button_width(<span class="number">250</span>)
         .button_height(<span class="number">44</span>)
         .button_padding([space_s, space_xs, space_s, space_xs])
         .style(<span class="kw">crate</span>::theme::SegmentedButton::TabBar)
