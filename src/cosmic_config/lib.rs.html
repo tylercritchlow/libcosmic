@@ -365,6 +365,10 @@
 <a href="#364" id="364">364</a>
 <a href="#365" id="365">365</a>
 <a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>notify::{
     event::{EventKind, ModifyKind},
     Watcher,
@@ -647,15 +651,19 @@
     <span class="comment">//TODO: check for transaction
     </span><span class="kw">fn </span>get&lt;T: DeserializeOwned&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;T, Error&gt; {
         <span class="comment">// If key path exists
-        </span><span class="kw">let </span>key_path = <span class="self">self</span>.key_path(key)<span class="question-mark">?</span>;
-        <span class="kw">let </span>data = <span class="kw">if </span>key_path.is_file() {
-            <span class="comment">// Load user override
-            </span>fs::read_to_string(key_path).map_err(|err| Error::GetKey(key.to_string(), err))<span class="question-mark">?
-        </span>} <span class="kw">else </span>{
-            <span class="comment">// Load system default
-            </span><span class="kw">let </span>default_path = <span class="self">self</span>.default_path(key)<span class="question-mark">?</span>;
-            fs::read_to_string(default_path).map_err(|err| Error::GetKey(key.to_string(), err))<span class="question-mark">?
-        </span>};
+        </span><span class="kw">let </span>key_path = <span class="self">self</span>.key_path(key);
+        <span class="kw">let </span>data = <span class="kw">match </span>key_path {
+            <span class="prelude-val">Ok</span>(key_path) <span class="kw">if </span>key_path.is_file() =&gt; {
+                <span class="comment">// Load user override
+                </span>fs::read_to_string(key_path).map_err(|err| Error::GetKey(key.to_string(), err))<span class="question-mark">?
+            </span>}
+            <span class="kw">_ </span>=&gt; {
+                <span class="comment">// Load system default
+                </span><span class="kw">let </span>default_path = <span class="self">self</span>.default_path(key)<span class="question-mark">?</span>;
+                fs::read_to_string(default_path)
+                    .map_err(|err| Error::GetKey(key.to_string(), err))<span class="question-mark">?
+            </span>}
+        };
         <span class="kw">let </span>t = ron::from_str(<span class="kw-2">&amp;</span>data)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(t)
     }
