@@ -14,7 +14,7 @@ bounds, i.e. the type must be <code>Sized + Copy + 'static</code>):</p>
 </ul>
 <p>If applied to an enum:</p>
 <ul>
-<li>The enum must be explicit <code>#[repr(Int)]</code></li>
+<li>The enum must be explicit <code>#[repr(Int)]</code>, <code>#[repr(C)]</code>, or both</li>
 <li>All variants must be fieldless</li>
 <li>The enum must contain no generic parameters</li>
 </ul>
