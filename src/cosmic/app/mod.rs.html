@@ -814,6 +814,10 @@
 <a href="#813" id="813">813</a>
 <a href="#814" id="814">814</a>
 <a href="#815" id="815">815</a>
+<a href="#816" id="816">816</a>
+<a href="#817" id="817">817</a>
+<a href="#818" id="818">818</a>
+<a href="#819" id="819">819</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1458,6 +1462,10 @@
     </span><span class="kw">fn </span>view_main(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Element&lt;Message&lt;<span class="self">Self</span>::Message&gt;&gt; {
         <span class="kw">let </span>core = <span class="self">self</span>.core();
         <span class="kw">let </span>is_condensed = core.is_condensed();
+        <span class="kw">let </span>focused = core
+            .focused_window()
+            .map(|i| i == <span class="self">self</span>.main_window_id())
+            .unwrap_or_default();
 
         <span class="kw">let </span>content_row = <span class="kw">crate</span>::widget::row::with_children({
             <span class="kw">let </span><span class="kw-2">mut </span>widgets = Vec::with_capacity(<span class="number">2</span>);
@@ -1502,7 +1510,7 @@
             .push_maybe(<span class="kw">if </span>core.window.show_headerbar {
                 <span class="prelude-val">Some</span>({
                     <span class="kw">let </span><span class="kw-2">mut </span>header = <span class="kw">crate</span>::widget::header_bar()
-                        .window_id(<span class="self">self</span>.main_window_id())
+                        .focused(focused)
                         .title(<span class="kw-2">&amp;</span>core.window.header_title)
                         .on_drag(Message::Cosmic(cosmic::Message::Drag))
                         .on_close(Message::Cosmic(cosmic::Message::Close))

@@ -1383,10 +1383,10 @@
         }
 
         <span class="kw">if </span><span class="self">self</span>.on_press.is_none() {
-            node.set_disabled()
+            node.set_disabled();
         }
         <span class="kw">if </span>is_hovered {
-            node.set_hovered()
+            node.set_hovered();
         }
         node.set_default_action_verb(DefaultActionVerb::Click);
 
@@ -1551,12 +1551,12 @@
         style_sheet.disabled(style)
     } <span class="kw">else if </span>is_mouse_over {
         <span class="kw">if </span>state.is_pressed {
-            style_sheet.pressed(state.is_focused || is_selected, style)
+            style_sheet.pressed(state.is_focused, is_selected, style)
         } <span class="kw">else </span>{
-            style_sheet.hovered(state.is_focused || is_selected, style)
+            style_sheet.hovered(state.is_focused, is_selected, style)
         }
     } <span class="kw">else </span>{
-        style_sheet.active(state.is_focused || is_selected, style)
+        style_sheet.active(state.is_focused, is_selected, style)
     };
 
     <span class="kw">let </span>doubled_border_width = styling.border_width * <span class="number">2.0</span>;

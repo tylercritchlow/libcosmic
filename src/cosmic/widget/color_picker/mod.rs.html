@@ -1688,7 +1688,7 @@
             } <span class="kw">else </span>{
                 (<span class="number">0.0</span>, Color::TRANSPARENT)
             };
-            <span class="kw">let </span>standard = theme.active(focused, <span class="kw-2">&amp;</span>Button::Standard);
+            <span class="kw">let </span>standard = theme.active(focused, <span class="bool-val">false</span>, <span class="kw-2">&amp;</span>Button::Standard);
             button::Appearance {
                 shadow_offset: Vector::default(),
                 background: color.map(Background::from).or(standard.background),
@@ -1726,7 +1726,7 @@
                 (<span class="number">0.0</span>, Color::TRANSPARENT)
             };
 
-            <span class="kw">let </span>standard = theme.hovered(focused, <span class="kw-2">&amp;</span>Button::Standard);
+            <span class="kw">let </span>standard = theme.hovered(focused, <span class="bool-val">false</span>, <span class="kw-2">&amp;</span>Button::Standard);
             button::Appearance {
                 shadow_offset: Vector::default(),
                 background: color.map(Background::from).or(standard.background),
@@ -1748,7 +1748,7 @@
                 (<span class="number">0.0</span>, Color::TRANSPARENT)
             };
 
-            <span class="kw">let </span>standard = theme.pressed(focused, <span class="kw-2">&amp;</span>Button::Standard);
+            <span class="kw">let </span>standard = theme.pressed(focused, <span class="bool-val">false</span>, <span class="kw-2">&amp;</span>Button::Standard);
             button::Appearance {
                 shadow_offset: Vector::default(),
                 background: color.map(Background::from).or(standard.background),

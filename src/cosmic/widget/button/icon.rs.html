@@ -196,6 +196,14 @@
 <a href="#195" id="195">195</a>
 <a href="#196" id="196">196</a>
 <a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -214,12 +222,14 @@
 <span class="kw">pub struct </span>Icon {
     handle: Handle,
     vertical: bool,
+    selected: bool,
 }
 
 <span class="kw">pub fn </span>icon&lt;<span class="lifetime">'a</span>, Message&gt;(handle: <span class="kw">impl </span>Into&lt;Handle&gt;) -&gt; Button&lt;<span class="lifetime">'a</span>, Message&gt; {
     Button::new(Icon {
         handle: handle.into(),
         vertical: <span class="bool-val">false</span>,
+        selected: <span class="bool-val">false</span>,
     })
 }
 
@@ -322,6 +332,11 @@
         <span class="self">self
     </span>}
 
+    <span class="kw">pub fn </span>selected(<span class="kw-2">mut </span><span class="self">self</span>, selected: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.variant.selected = selected;
+        <span class="self">self
+    </span>}
+
     <span class="kw">pub fn </span>vertical(<span class="kw-2">mut </span><span class="self">self</span>, vertical: bool) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.variant.vertical = vertical;
         <span class="self">self</span>.style = Style::IconVertical;
@@ -377,6 +392,7 @@
             .padding(<span class="number">0</span>)
             .id(builder.id)
             .on_press_maybe(builder.on_press)
+            .selected(builder.variant.selected)
             .style(builder.style);
 
         <span class="kw">if </span>builder.tooltip.is_empty() {

@@ -569,6 +569,30 @@
 <a href="#568" id="568">568</a>
 <a href="#569" id="569">569</a>
 <a href="#570" id="570">570</a>
+<a href="#571" id="571">571</a>
+<a href="#572" id="572">572</a>
+<a href="#573" id="573">573</a>
+<a href="#574" id="574">574</a>
+<a href="#575" id="575">575</a>
+<a href="#576" id="576">576</a>
+<a href="#577" id="577">577</a>
+<a href="#578" id="578">578</a>
+<a href="#579" id="579">579</a>
+<a href="#580" id="580">580</a>
+<a href="#581" id="581">581</a>
+<a href="#582" id="582">582</a>
+<a href="#583" id="583">583</a>
+<a href="#584" id="584">584</a>
+<a href="#585" id="585">585</a>
+<a href="#586" id="586">586</a>
+<a href="#587" id="587">587</a>
+<a href="#588" id="588">588</a>
+<a href="#589" id="589">589</a>
+<a href="#590" id="590">590</a>
+<a href="#591" id="591">591</a>
+<a href="#592" id="592">592</a>
+<a href="#593" id="593">593</a>
+<a href="#594" id="594">594</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -649,6 +673,10 @@
     ShowWindowMenu,
     <span class="attr">#[cfg(feature = <span class="string">"xdg-portal"</span>)]
     </span>DesktopSettings(<span class="kw">crate</span>::theme::portal::Desktop),
+    <span class="doccomment">/// Window focus changed
+    </span>Focus(window::Id),
+    <span class="doccomment">/// Window focus lost
+    </span>Unfocus(window::Id),
 }
 
 <span class="attr">#[derive(Default)]
@@ -729,6 +757,10 @@
                 }
                 iced::Event::Window(id, window::Event::Closed) =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Some</span>(Message::SurfaceClosed(id))
+                }
+                iced::Event::Window(id, window::Event::Focused) =&gt; <span class="kw">return </span><span class="prelude-val">Some</span>(Message::Focus(id)),
+                iced::Event::Window(id, window::Event::Unfocused) =&gt; {
+                    <span class="kw">return </span><span class="prelude-val">Some</span>(Message::Unfocus(id))
                 }
                 <span class="attr">#[cfg(feature = <span class="string">"wayland"</span>)]
                 </span>iced::Event::PlatformSpecific(PlatformSpecific::Wayland(event)) =&gt; <span class="kw">match </span>event {
@@ -1127,6 +1159,22 @@
 
             Message::ToolkitConfig(config) =&gt; {
                 <span class="self">self</span>.app.core_mut().toolkit_config = config;
+            }
+
+            Message::Focus(f) =&gt; {
+                <span class="self">self</span>.app.core_mut().focused_window = <span class="prelude-val">Some</span>(f);
+            }
+
+            Message::Unfocus(id) =&gt; {
+                <span class="kw">let </span>core = <span class="self">self</span>.app.core_mut();
+                <span class="kw">if </span>core
+                    .focused_window
+                    .as_ref()
+                    .map(|cur| <span class="kw-2">*</span>cur == id)
+                    .unwrap_or_default()
+                {
+                    core.focused_window = <span class="prelude-val">None</span>;
+                }
             }
         }
 

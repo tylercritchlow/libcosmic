@@ -293,6 +293,17 @@
 <a href="#292" id="292">292</a>
 <a href="#293" id="293">293</a>
 <a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -301,6 +312,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::config::CosmicTk;
 <span class="kw">use </span>cosmic_config::CosmicConfigEntry;
 <span class="kw">use </span>cosmic_theme::ThemeMode;
+<span class="kw">use </span>iced::window;
 <span class="kw">use </span>iced_core::window::Id;
 <span class="kw">use </span>palette::Srgba;
 
@@ -351,6 +363,9 @@
 
     <span class="doccomment">/// Scaling factor used by the application
     </span>scale_factor: f32,
+
+    <span class="doccomment">/// Window focus state
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) focused_window: <span class="prelude-ty">Option</span>&lt;window::Id&gt;,
 
     <span class="kw">pub</span>(<span class="kw">super</span>) theme_sub_counter: u64,
     <span class="doccomment">/// Last known system theme
@@ -431,6 +446,7 @@
                 height: <span class="number">0</span>,
                 width: <span class="number">0</span>,
             },
+            focused_window: <span class="prelude-val">None</span>,
             <span class="attr">#[cfg(feature = <span class="string">"applet"</span>)]
             </span>applet: <span class="kw">crate</span>::applet::Context::default(),
             <span class="attr">#[cfg(feature = <span class="string">"single-instance"</span>)]
@@ -578,6 +594,12 @@
             std::borrow::Cow::Borrowed(state_id),
             T::VERSION,
         )
+    }
+
+    <span class="doccomment">/// Get the current focused window if it exists
+    </span><span class="attr">#[must_use]
+    </span><span class="kw">pub fn </span>focused_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;window::Id&gt; {
+        <span class="self">self</span>.focused_window.clone()
     }
 
     <span class="doccomment">/// Whether the application should use a dark theme, according to the system
