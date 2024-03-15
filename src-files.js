@@ -119,6 +119,7 @@ var srcIndex = new Map(JSON.parse('[\
 ["lyon_path",["",[],["builder.rs","commands.rs","events.rs","iterator.rs","lib.rs","path.rs","path_buffer.rs","polygon.rs","private.rs"]]],\
 ["memchr",["",[["arch",[["all",[["packedpair",[],["default_rank.rs","mod.rs"]]],["memchr.rs","mod.rs","rabinkarp.rs","shiftor.rs","twoway.rs"]],["generic",[],["memchr.rs","mod.rs","packedpair.rs"]],["x86_64",[["avx2",[],["memchr.rs","mod.rs","packedpair.rs"]],["sse2",[],["memchr.rs","mod.rs","packedpair.rs"]]],["memchr.rs","mod.rs"]]],["mod.rs"]],["memmem",[],["mod.rs","searcher.rs"]]],["cow.rs","ext.rs","lib.rs","macros.rs","memchr.rs","vector.rs"]]],\
 ["memmap2",["",[],["advice.rs","lib.rs","unix.rs"]]],\
+["mime",["",[["platform",[],["linux.rs","mod.rs"]]],["lib.rs"]]],\
 ["miniz_oxide",["",[["deflate",[],["buffer.rs","core.rs","mod.rs","stream.rs"]],["inflate",[],["core.rs","mod.rs","output_buffer.rs","stream.rs"]]],["lib.rs","shared.rs"]]],\
 ["mio",["",[["event",[],["event.rs","events.rs","mod.rs","source.rs"]],["sys",[["unix",[["selector",[],["epoll.rs","mod.rs"]]],["mod.rs","pipe.rs","sourcefd.rs","waker.rs"]]],["mod.rs"]]],["interest.rs","io_source.rs","lib.rs","macros.rs","poll.rs","token.rs","waker.rs"]]],\
 ["mutate_once",["",[],["lib.rs"]]],\
@@ -184,7 +185,7 @@ var srcIndex = new Map(JSON.parse('[\
 ["slotmap",["",[],["basic.rs","dense.rs","hop.rs","lib.rs","secondary.rs","sparse_secondary.rs","util.rs"]]],\
 ["smallvec",["",[],["lib.rs"]]],\
 ["smithay_client_toolkit",["",[["data_device_manager",[],["data_device.rs","data_offer.rs","data_source.rs","mod.rs","read_pipe.rs","write_pipe.rs"]],["primary_selection",[],["device.rs","mod.rs","offer.rs","selection.rs"]],["seat",[["pointer",[],["cursor_shape.rs","mod.rs"]]],["mod.rs","pointer_constraints.rs","relative_pointer.rs","touch.rs"]],["session_lock",[],["dispatch.rs","mod.rs"]],["shell",[["wlr_layer",[],["dispatch.rs","mod.rs"]],["xdg",[["window",[],["inner.rs","mod.rs"]]],["fallback_frame.rs","mod.rs","popup.rs"]]],["mod.rs"]],["shm",[],["mod.rs","multi.rs","raw.rs","slot.rs"]]],["activation.rs","compositor.rs","dmabuf.rs","error.rs","globals.rs","lib.rs","output.rs","registry.rs","subcompositor.rs"]]],\
-["smithay_clipboard",["",[],["lib.rs","mime.rs","state.rs","worker.rs"]]],\
+["smithay_clipboard",["",[],["lib.rs","mime.rs","state.rs","text.rs","worker.rs"]]],\
 ["smol_str",["",[],["lib.rs"]]],\
 ["softbuffer",["",[["wayland",[],["buffer.rs","mod.rs"]]],["error.rs","kms.rs","lib.rs","util.rs","x11.rs"]]],\
 ["spin",["",[["mutex",[],["spin.rs"]]],["barrier.rs","lazy.rs","lib.rs","mutex.rs","once.rs","relax.rs","rwlock.rs"]]],\
