@@ -304,6 +304,11 @@
 <a href="#303" id="303">303</a>
 <a href="#304" id="304">304</a>
 <a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -525,6 +530,11 @@
 
     <span class="kw">pub fn </span>nav_bar_toggle_condensed(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.nav_bar_set_toggled_condensed(!<span class="self">self</span>.nav_bar.toggled_condensed);
+    }
+
+    <span class="kw">pub fn </span>nav_bar_set_toggled(<span class="kw-2">&amp;mut </span><span class="self">self</span>, toggled: bool) {
+        <span class="self">self</span>.nav_bar.toggled = toggled;
+        <span class="self">self</span>.nav_bar_set_toggled_condensed(<span class="self">self</span>.nav_bar.toggled);
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>nav_bar_set_toggled_condensed(<span class="kw-2">&amp;mut </span><span class="self">self</span>, toggled: bool) {
