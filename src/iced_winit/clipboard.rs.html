@@ -260,7 +260,7 @@
     Unavailable,
 }
 
-<span class="kw">impl</span>&lt;M: Send + Sync + <span class="lifetime">'static</span>&gt; Clipboard&lt;M&gt; {
+<span class="kw">impl</span>&lt;M: Send + <span class="lifetime">'static</span>&gt; Clipboard&lt;M&gt; {
     <span class="doccomment">/// Creates a new [`Clipboard`] for the given window.
     </span><span class="kw">pub fn </span>connect(
         window: <span class="kw-2">&amp;</span>winit::window::Window,
