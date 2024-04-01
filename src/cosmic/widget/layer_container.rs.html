@@ -268,6 +268,16 @@
 <a href="#266" id="266">266</a>
 <a href="#267" id="267">267</a>
 <a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>cosmic_theme::LayeredTheme;
 <span class="kw">use </span>iced::widget::Container;
 <span class="kw">use </span>iced_core::alignment;
@@ -520,6 +530,16 @@
         renderer: <span class="kw-2">&amp;</span>Renderer,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;overlay::Element&lt;<span class="lifetime">'b</span>, Message, Theme, Renderer&gt;&gt; {
         <span class="self">self</span>.container.overlay(tree, layout, renderer)
+    }
+
+    <span class="kw">fn </span>drag_destinations(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;</span>Tree,
+        layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
+        dnd_rectangles: <span class="kw-2">&amp;mut </span>iced_style::core::clipboard::DndDestinationRectangles,
+    ) {
+        <span class="self">self</span>.container
+            .drag_destinations(state, layout, dnd_rectangles);
     }
 }
 
