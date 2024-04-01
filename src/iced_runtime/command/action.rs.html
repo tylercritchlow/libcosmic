@@ -104,12 +104,21 @@
 <a href="#102" id="102">102</a>
 <a href="#103" id="103">103</a>
 <a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::clipboard;
 <span class="kw">use </span><span class="kw">crate</span>::core::widget;
 <span class="kw">use </span><span class="kw">crate</span>::font;
 <span class="kw">use </span><span class="kw">crate</span>::system;
 <span class="kw">use </span><span class="kw">crate</span>::window;
 
+<span class="kw">use </span>dnd::DndAction;
 <span class="kw">use </span>iced_futures::MaybeSend;
 
 <span class="kw">use </span>std::borrow::Cow;
@@ -140,6 +149,9 @@
 
     <span class="doccomment">/// Run a widget action.
     </span>Widget(Box&lt;<span class="kw">dyn </span>widget::Operation&lt;T&gt;&gt;),
+
+    <span class="doccomment">/// Run a Dnd action.
+    </span>Dnd(<span class="kw">crate</span>::dnd::DndAction&lt;T&gt;),
 
     <span class="doccomment">/// Load a font from its bytes.
     </span>LoadFont {
@@ -184,6 +196,9 @@
             <span class="self">Self</span>::PlatformSpecific(action) =&gt; {
                 Action::PlatformSpecific(action.map(f))
             }
+            <span class="self">Self</span>::Dnd(a) =&gt; Action::Dnd(a.map(f)),
+            Action::LoadFont { bytes, tagger } =&gt; <span class="macro">todo!</span>(),
+            Action::PlatformSpecific(<span class="kw">_</span>) =&gt; <span class="macro">todo!</span>(),
         }
     }
 }
@@ -205,6 +220,7 @@
             <span class="self">Self</span>::PlatformSpecific(action) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"Action::PlatformSpecific({:?})"</span>, action)
             }
+            <span class="self">Self</span>::Dnd(action) =&gt; <span class="macro">write!</span>(f, <span class="string">"Action::Dnd"</span>),
         }
     }
 }

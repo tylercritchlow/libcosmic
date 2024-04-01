@@ -362,6 +362,21 @@
 <a href="#360" id="360">360</a>
 <a href="#361" id="361">361</a>
 <a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! A container for capturing mouse events.
 
 </span><span class="kw">use </span>iced_renderer::core::widget::OperationOutputWrapper;
@@ -607,6 +622,21 @@
             layout,
             renderer,
         )
+    }
+
+    <span class="kw">fn </span>drag_destinations(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        state: <span class="kw-2">&amp;</span>Tree,
+        layout: Layout&lt;<span class="lifetime">'_</span>&gt;,
+        dnd_rectangles: <span class="kw-2">&amp;mut </span>iced_style::core::clipboard::DndDestinationRectangles,
+    ) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(state) = state.children.iter().next() {
+            <span class="self">self</span>.content.as_widget().drag_destinations(
+                state,
+                layout,
+                dnd_rectangles,
+            );
+        }
     }
 }
 

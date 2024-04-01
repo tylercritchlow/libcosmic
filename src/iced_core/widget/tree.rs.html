@@ -342,6 +342,21 @@
 <a href="#340" id="340">340</a>
 <a href="#341" id="341">341</a>
 <a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Store internal widget state in a state tree to ensure continuity.
 </span><span class="kw">use </span><span class="kw">crate</span>::id::{Id, Internal};
 <span class="kw">use </span><span class="kw">crate</span>::Widget;
@@ -396,6 +411,21 @@
             children: widget.children(),
         }
     }
+
+    <span class="doccomment">/// Finds a widget state in the tree by its id.
+    </span><span class="kw">pub fn </span>find&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>Id) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Tree&gt; {
+        <span class="kw">if </span><span class="self">self</span>.id == <span class="prelude-val">Some</span>(id.clone()) {
+            <span class="kw">return </span><span class="prelude-val">Some</span>(<span class="self">self</span>);
+        }
+
+        <span class="kw">for </span>child <span class="kw">in </span><span class="self">self</span>.children.iter() {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(tree) = child.find(id) {
+                <span class="kw">return </span><span class="prelude-val">Some</span>(tree);
+            }
+        }
+
+        <span class="prelude-val">None
+    </span>}
 
     <span class="doccomment">/// Reconciliates the current tree with the provided [`Widget`].
     ///
