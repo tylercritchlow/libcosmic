@@ -483,14 +483,6 @@
 <a href="#481" id="481">481</a>
 <a href="#482" id="482">482</a>
 <a href="#483" id="483">483</a>
-<a href="#484" id="484">484</a>
-<a href="#485" id="485">485</a>
-<a href="#486" id="486">486</a>
-<a href="#487" id="487">487</a>
-<a href="#488" id="488">488</a>
-<a href="#489" id="489">489</a>
-<a href="#490" id="490">490</a>
-<a href="#491" id="491">491</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Decorate content and apply alignment.
 </span><span class="kw">use </span><span class="kw">crate</span>::core::alignment::{<span class="self">self</span>, Alignment};
 <span class="kw">use </span><span class="kw">crate</span>::core::event::{<span class="self">self</span>, Event};
@@ -522,7 +514,6 @@
     </span>Theme: StyleSheet,
     Renderer: <span class="kw">crate</span>::core::Renderer,
 {
-    id: <span class="prelude-ty">Option</span>&lt;Id&gt;,
     padding: Padding,
     width: Length,
     height: Length,
@@ -548,7 +539,6 @@
         <span class="kw">let </span>size = content.as_widget().size_hint();
 
         Container {
-            id: <span class="prelude-val">None</span>,
             padding: Padding::ZERO,
             width: size.width.fluid(),
             height: size.height.fluid(),
@@ -560,12 +550,6 @@
             content,
         }
     }
-
-    <span class="doccomment">/// Sets the [`Id`] of the [`Container`].
-    </span><span class="kw">pub fn </span>id(<span class="kw-2">mut </span><span class="self">self</span>, id: Id) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.id = <span class="prelude-val">Some</span>(id);
-        <span class="self">self
-    </span>}
 
     <span class="doccomment">/// Sets the [`Padding`] of the [`Container`].
     </span><span class="kw">pub fn </span>padding&lt;P: Into&lt;Padding&gt;&gt;(<span class="kw-2">mut </span><span class="self">self</span>, padding: P) -&gt; <span class="self">Self </span>{
@@ -684,7 +668,7 @@
         operation: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Operation&lt;OperationOutputWrapper&lt;Message&gt;&gt;,
     ) {
         operation.container(
-            <span class="self">self</span>.id.as_ref(),
+            <span class="self">self</span>.content.as_widget().id().as_ref(),
             layout.bounds(),
             <span class="kw-2">&amp;mut </span>|operation| {
                 <span class="self">self</span>.content.as_widget().operate(
@@ -819,11 +803,11 @@
     }
 
     <span class="kw">fn </span>id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Id&gt; {
-        <span class="self">self</span>.id.clone()
+        <span class="self">self</span>.content.as_widget().id().clone()
     }
 
     <span class="kw">fn </span>set_id(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: Id) {
-        <span class="self">self</span>.id = <span class="prelude-val">Some</span>(id);
+        <span class="self">self</span>.content.as_widget_mut().set_id(id);
     }
 }
 
