@@ -1548,6 +1548,10 @@
 <a href="#1546" id="1546">1546</a>
 <a href="#1547" id="1547">1547</a>
 <a href="#1548" id="1548">1548</a>
+<a href="#1549" id="1549">1549</a>
+<a href="#1550" id="1550">1550</a>
+<a href="#1551" id="1551">1551</a>
+<a href="#1552" id="1552">1552</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -1922,6 +1926,7 @@
         button: Entity,
     ) -&gt; (f32, f32) {
         <span class="kw">let </span><span class="kw-2">mut </span>width = <span class="number">0.0f32</span>;
+        <span class="kw">let </span><span class="kw-2">mut </span>icon_spacing = <span class="number">0.0f32</span>;
 
         <span class="comment">// Add text to measurement if text was given.
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>((text, entry)) = <span class="self">self
@@ -1930,21 +1935,24 @@
             .get(button)
             .zip(state.paragraphs.entry(button))
         {
-            <span class="kw">let </span>paragraph = entry.or_insert_with(|| {
-                <span class="kw">crate</span>::Paragraph::with_text(Text {
-                    content: text,
-                    size: iced::Pixels(<span class="self">self</span>.font_size),
-                    bounds: Size::INFINITY,
-                    font,
-                    horizontal_alignment: alignment::Horizontal::Left,
-                    vertical_alignment: alignment::Vertical::Center,
-                    shaping: Shaping::Advanced,
-                    line_height: <span class="self">self</span>.line_height,
-                })
-            });
+            <span class="kw">if </span>!text.is_empty() {
+                icon_spacing = f32::from(<span class="self">self</span>.button_spacing);
+                <span class="kw">let </span>paragraph = entry.or_insert_with(|| {
+                    <span class="kw">crate</span>::Paragraph::with_text(Text {
+                        content: text,
+                        size: iced::Pixels(<span class="self">self</span>.font_size),
+                        bounds: Size::INFINITY,
+                        font,
+                        horizontal_alignment: alignment::Horizontal::Left,
+                        vertical_alignment: alignment::Vertical::Center,
+                        shaping: Shaping::Advanced,
+                        line_height: <span class="self">self</span>.line_height,
+                    })
+                });
 
-            <span class="kw">let </span>size = paragraph.min_bounds();
-            width += size.width;
+                <span class="kw">let </span>size = paragraph.min_bounds();
+                width += size.width;
+            }
         }
 
         <span class="comment">// Add indent to measurement if found.
@@ -1954,11 +1962,11 @@
 
         <span class="comment">// Add icon to measurement if icon was given.
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(icon) = <span class="self">self</span>.model.icon(button) {
-            width += f32::from(icon.size) + f32::from(<span class="self">self</span>.button_spacing);
+            width += f32::from(icon.size) + icon_spacing;
         } <span class="kw">else if </span><span class="self">self</span>.model.is_active(button) {
             <span class="comment">// Add selection icon measurements when widget is a selection widget.
             </span><span class="kw">if let </span><span class="kw">crate</span>::theme::SegmentedButton::Control = <span class="self">self</span>.style {
-                width += <span class="number">16.0 </span>+ f32::from(<span class="self">self</span>.button_spacing);
+                width += <span class="number">16.0 </span>+ icon_spacing;
             }
         }
 
@@ -2863,9 +2871,9 @@
                 - close_icon_width
                 - f32::from(<span class="self">self</span>.button_padding[<span class="number">2</span>]);
 
-            <span class="kw">if </span><span class="self">self</span>.model.text(key).is_some() {
-                bounds.y = center_y;
+            bounds.y = center_y;
 
+            <span class="kw">if </span><span class="self">self</span>.model.text(key).is_some_and(|text| !text.is_empty()) {
                 <span class="comment">// Draw the text for this segmented button or tab.
                 </span>renderer.fill_paragraph(
                     <span class="kw-2">&amp;</span>state.paragraphs[key],
