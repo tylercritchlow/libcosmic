@@ -136,6 +136,20 @@
 <a href="#134" id="134">134</a>
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Access the clipboard.
 </span><span class="kw">use </span>window_clipboard::mime::{AllowedMimeTypes, AsMimeTypes};
 
@@ -230,6 +244,20 @@
 <span class="doccomment">/// Write the given contents to the clipboard.
 </span><span class="kw">pub fn </span>write&lt;Message&gt;(contents: String) -&gt; Command&lt;Message&gt; {
     Command::single(command::Action::Clipboard(Action::Write(contents)))
+}
+
+<span class="doccomment">/// Read the current contents of primary.
+</span><span class="kw">pub fn </span>read_primary&lt;Message&gt;(
+    f: <span class="kw">impl </span>Fn(<span class="prelude-ty">Option</span>&lt;String&gt;) -&gt; Message + <span class="lifetime">'static</span>,
+) -&gt; Command&lt;Message&gt; {
+    Command::single(command::Action::Clipboard(Action::ReadPrimary(Box::new(
+        f,
+    ))))
+}
+
+<span class="doccomment">/// Write the given contents to primary.
+</span><span class="kw">pub fn </span>write_primary&lt;Message&gt;(contents: String) -&gt; Command&lt;Message&gt; {
+    Command::single(command::Action::Clipboard(Action::WritePrimary(contents)))
 }
 
 <span class="doccomment">/// Read the current contents of the clipboard.

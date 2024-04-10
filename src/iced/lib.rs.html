@@ -359,6 +359,8 @@
 <a href="#357" id="357">357</a>
 <a href="#358" id="358">358</a>
 <a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Iced is a cross-platform GUI library focused on simplicity and type-safety.
 //! Inspired by [Elm].
 //!
@@ -585,7 +587,9 @@
 
 <span class="kw">pub mod </span>clipboard {
     <span class="doccomment">//! Access the clipboard.
-    </span><span class="kw">pub use </span><span class="kw">crate</span>::runtime::clipboard::{read, write};
+    </span><span class="kw">pub use </span><span class="kw">crate</span>::runtime::clipboard::{
+        read, read_primary, write, write_primary,
+    };
     <span class="kw">pub use </span>dnd;
     <span class="kw">pub use </span>iced_core::clipboard::{read_data, read_primary_data};
     <span class="kw">pub use </span>mime;
