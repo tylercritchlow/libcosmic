@@ -387,6 +387,16 @@
 <a href="#385" id="385">385</a>
 <a href="#386" id="386">386</a>
 <a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -423,6 +433,7 @@
 <span class="attr">#[must_use]
 </span><span class="kw">pub struct </span>Popover&lt;<span class="lifetime">'a</span>, Message, Renderer&gt; {
     content: Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;,
+    modal: bool,
     <span class="comment">// XXX Avoid refcell; improve iced overlay API?
     </span>popup: <span class="prelude-ty">Option</span>&lt;RefCell&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;&gt;,
     position: Position,
@@ -432,10 +443,17 @@
     <span class="kw">pub fn </span>new(content: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             content: content.into(),
+            modal: <span class="bool-val">false</span>,
             popup: <span class="prelude-val">None</span>,
             position: Position::Center,
         }
     }
+
+    <span class="doccomment">/// A modal popup interrupts user inputs and demands action.
+    </span><span class="kw">pub fn </span>modal(<span class="kw-2">mut </span><span class="self">self</span>, modal: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.modal = modal;
+        <span class="self">self
+    </span>}
 
     <span class="kw">pub fn </span>popup(<span class="kw-2">mut </span><span class="self">self</span>, popup: <span class="kw">impl </span>Into&lt;Element&lt;<span class="lifetime">'a</span>, Message, <span class="kw">crate</span>::Theme, Renderer&gt;&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.popup = <span class="prelude-val">Some</span>(RefCell::new(popup.into()));
@@ -516,11 +534,13 @@
         shell: <span class="kw-2">&amp;mut </span>Shell&lt;<span class="lifetime">'_</span>, Message&gt;,
         viewport: <span class="kw-2">&amp;</span>Rectangle,
     ) -&gt; event::Status {
-        <span class="kw">if </span><span class="macro">matches!</span>(
-            event,
-            Event::Mouse(mouse::Event::ButtonPressed(<span class="kw">_</span>))
-                | Event::Touch(touch::Event::FingerPressed { .. })
-        ) {
+        <span class="kw">if </span>!<span class="self">self</span>.modal
+            &amp;&amp; <span class="macro">matches!</span>(
+                event,
+                Event::Mouse(mouse::Event::ButtonPressed(<span class="kw">_</span>))
+                    | Event::Touch(touch::Event::FingerPressed { .. })
+            )
+        {
             <span class="kw">let </span>state = tree.state.downcast_mut::&lt;State&gt;();
             state.is_open = cursor_position.is_over(layout.bounds());
         }

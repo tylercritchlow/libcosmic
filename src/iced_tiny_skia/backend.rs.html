@@ -1012,6 +1012,17 @@
 <a href="#1010" id="1010">1010</a>
 <a href="#1011" id="1011">1011</a>
 <a href="#1012" id="1012">1012</a>
+<a href="#1013" id="1013">1013</a>
+<a href="#1014" id="1014">1014</a>
+<a href="#1015" id="1015">1015</a>
+<a href="#1016" id="1016">1016</a>
+<a href="#1017" id="1017">1017</a>
+<a href="#1018" id="1018">1018</a>
+<a href="#1019" id="1019">1019</a>
+<a href="#1020" id="1020">1020</a>
+<a href="#1021" id="1021">1021</a>
+<a href="#1022" id="1022">1022</a>
+<a href="#1023" id="1023">1023</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>tiny_skia::Size;
 
 <span class="kw">use </span><span class="kw">crate</span>::core::{Background, Color, Gradient, Rectangle, Vector};
@@ -1393,26 +1404,32 @@
                             clip_mask,
                         );
                     } <span class="kw">else </span>{
+                        <span class="kw">let </span>transform = tiny_skia::Transform::from_translate(
+                            translation.x,
+                            translation.y,
+                        );
+
                         <span class="comment">// Draw corners that have too small border radii as having no border radius,
                         // but mask them with the rounded rectangle with the correct border radius.
                         </span><span class="kw">let </span><span class="kw-2">mut </span>temp_pixmap = tiny_skia::Pixmap::new(
-                            bounds.width <span class="kw">as </span>u32,
-                            bounds.height <span class="kw">as </span>u32,
+                            physical_bounds.width <span class="kw">as </span>u32,
+                            physical_bounds.height <span class="kw">as </span>u32,
                         )
                         .unwrap();
 
                         <span class="kw">let </span><span class="kw-2">mut </span>quad_mask = tiny_skia::Mask::new(
-                            bounds.width <span class="kw">as </span>u32,
-                            bounds.height <span class="kw">as </span>u32,
+                            physical_bounds.width <span class="kw">as </span>u32,
+                            physical_bounds.height <span class="kw">as </span>u32,
                         )
                         .unwrap();
 
                         <span class="kw">let </span>zero_bounds = Rectangle {
                             x: <span class="number">0.0</span>,
                             y: <span class="number">0.0</span>,
-                            width: bounds.width,
-                            height: bounds.height,
+                            width: physical_bounds.width,
+                            height: physical_bounds.height,
                         };
+
                         <span class="kw">let </span>path =
                             rounded_rectangle(zero_bounds, fill_border_radius);
 
@@ -1423,12 +1440,17 @@
                             transform,
                         );
                         <span class="kw">let </span>path_bounds = Rectangle {
-                            x: border_width / <span class="number">2.0</span>,
-                            y: border_width / <span class="number">2.0</span>,
-                            width: bounds.width - border_width,
-                            height: bounds.height - border_width,
+                            x: (border_width / <span class="number">2.0</span>) * scale_factor,
+                            y: (border_width / <span class="number">2.0</span>) * scale_factor,
+                            width: physical_bounds.width
+                                - border_width * scale_factor,
+                            height: physical_bounds.height
+                                - border_width * scale_factor,
                         };
 
+                        <span class="kw">for </span>r <span class="kw">in </span><span class="kw-2">&amp;mut </span>border_radius {
+                            <span class="kw-2">*</span>r /= scale_factor;
+                        }
                         <span class="kw">let </span>border_radius_path =
                             rounded_rectangle(path_bounds, border_radius);
 
@@ -1442,7 +1464,7 @@
                                 ..tiny_skia::Paint::default()
                             },
                             <span class="kw-2">&amp;</span>tiny_skia::Stroke {
-                                width: border_width,
+                                width: border_width * scale_factor,
                                 ..tiny_skia::Stroke::default()
                             },
                             transform,
@@ -1450,8 +1472,8 @@
                         );
 
                         pixels.draw_pixmap(
-                            bounds.x <span class="kw">as </span>i32,
-                            bounds.y <span class="kw">as </span>i32,
+                            (bounds.x / scale_factor) <span class="kw">as </span>i32,
+                            (bounds.y / scale_factor) <span class="kw">as </span>i32,
                             temp_pixmap.as_ref(),
                             <span class="kw-2">&amp;</span>tiny_skia::PixmapPaint::default(),
                             transform,
