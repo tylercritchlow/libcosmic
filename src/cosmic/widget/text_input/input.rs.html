@@ -2578,6 +2578,37 @@
 <a href="#2576" id="2576">2576</a>
 <a href="#2577" id="2577">2577</a>
 <a href="#2578" id="2578">2578</a>
+<a href="#2579" id="2579">2579</a>
+<a href="#2580" id="2580">2580</a>
+<a href="#2581" id="2581">2581</a>
+<a href="#2582" id="2582">2582</a>
+<a href="#2583" id="2583">2583</a>
+<a href="#2584" id="2584">2584</a>
+<a href="#2585" id="2585">2585</a>
+<a href="#2586" id="2586">2586</a>
+<a href="#2587" id="2587">2587</a>
+<a href="#2588" id="2588">2588</a>
+<a href="#2589" id="2589">2589</a>
+<a href="#2590" id="2590">2590</a>
+<a href="#2591" id="2591">2591</a>
+<a href="#2592" id="2592">2592</a>
+<a href="#2593" id="2593">2593</a>
+<a href="#2594" id="2594">2594</a>
+<a href="#2595" id="2595">2595</a>
+<a href="#2596" id="2596">2596</a>
+<a href="#2597" id="2597">2597</a>
+<a href="#2598" id="2598">2598</a>
+<a href="#2599" id="2599">2599</a>
+<a href="#2600" id="2600">2600</a>
+<a href="#2601" id="2601">2601</a>
+<a href="#2602" id="2602">2602</a>
+<a href="#2603" id="2603">2603</a>
+<a href="#2604" id="2604">2604</a>
+<a href="#2605" id="2605">2605</a>
+<a href="#2606" id="2606">2606</a>
+<a href="#2607" id="2607">2607</a>
+<a href="#2608" id="2608">2608</a>
+<a href="#2609" id="2609">2609</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2019 H�ctor Ram�n, Iced contributors
 // Copyright 2023 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MIT
@@ -3299,6 +3330,14 @@
         <span class="kw">let </span>line_height = <span class="self">self</span>.line_height;
 
         <span class="kw">if </span><span class="self">self</span>.is_editable {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>on_edit) = <span class="self">self</span>.on_toggle_edit {
+                <span class="kw">let </span>state = tree.state.downcast_mut::&lt;State&gt;();
+                <span class="kw">if </span>!state.is_read_only &amp;&amp; state.is_focused.is_none() {
+                    state.is_read_only = <span class="bool-val">true</span>;
+                    shell.publish((on_edit)(<span class="bool-val">false</span>));
+                }
+            }
+
             <span class="kw">let </span>index = tree.children.len() - <span class="number">1</span>;
             <span class="kw">if let </span>(<span class="prelude-val">Some</span>(trailing_icon), <span class="prelude-val">Some</span>(tree)) =
                 (<span class="self">self</span>.trailing_icon.as_mut(), tree.children.get_mut(index))
@@ -3735,7 +3774,7 @@
             <span class="kw">let </span>state = state();
             <span class="kw">let </span>is_clicked = cursor_position.is_over(text_layout.bounds()) &amp;&amp; on_input.is_some();
 
-            state.is_focused = <span class="kw">if </span>is_clicked &amp;&amp; !state.is_read_only {
+            state.is_focused = <span class="kw">if </span>is_clicked {
                 state.is_focused.or_else(|| {
                     <span class="kw">let </span>now = Instant::now();
                     <span class="prelude-val">Some</span>(Focus {
@@ -3751,6 +3790,7 @@
                 <span class="kw">let </span><span class="prelude-val">Some</span>(pos) = cursor_position.position() <span class="kw">else </span>{
                     <span class="kw">return </span>event::Status::Ignored;
                 };
+
                 <span class="kw">let </span>target = pos.x - text_layout.bounds().x;
 
                 <span class="kw">let </span>click = mouse::Click::new(pos, state.last_click);
@@ -3899,6 +3939,27 @@
                     }
                 }
 
+                <span class="comment">// Enable write mode when an editable input label is clicked
+                </span><span class="kw">if </span>is_editable
+                    &amp;&amp; state.is_read_only
+                    &amp;&amp; <span class="macro">matches!</span>(state.dragging_state, <span class="prelude-val">None </span>| <span class="prelude-val">Some</span>(DraggingState::Selection))
+                {
+                    state.is_read_only = <span class="bool-val">false</span>;
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(on_toggle_edit) = on_toggle_edit {
+                        <span class="kw">let </span>message = (on_toggle_edit)(!state.is_read_only);
+                        shell.publish(message);
+
+                        <span class="kw">let </span>now = Instant::now();
+                        state.is_focused = <span class="prelude-val">Some</span>(Focus {
+                            updated_at: now,
+                            now,
+                        });
+
+                        state.move_cursor_to_end();
+                        <span class="kw">return </span>event::Status::Captured;
+                    }
+                }
+
                 state.last_click = <span class="prelude-val">Some</span>(click);
 
                 <span class="kw">return </span>event::Status::Captured;
@@ -3934,6 +3995,7 @@
                                     });
 
                                     state.move_cursor_to_end();
+
                                     <span class="kw">return </span>event::Status::Captured;
                                 }
                             }
