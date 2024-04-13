@@ -56,7 +56,7 @@ var srcIndex = new Map(JSON.parse('[\
 ["drm_ffi",["",[],["gem.rs","ioctl.rs","lib.rs","mode.rs","syncobj.rs","utils.rs"]]],\
 ["drm_fourcc",["",[],["as_enum.rs","consts.rs","lib.rs"]]],\
 ["drm_sys",["",[],["bindings.rs","lib.rs"]]],\
-["either",["",[],["iterator.rs","lib.rs"]]],\
+["either",["",[],["into_either.rs","iterator.rs","lib.rs"]]],\
 ["euclid",["",[],["angle.rs","approxeq.rs","approxord.rs","box2d.rs","box3d.rs","homogen.rs","length.rs","lib.rs","macros.rs","num.rs","point.rs","rect.rs","rigid.rs","rotation.rs","scale.rs","side_offsets.rs","size.rs","transform2d.rs","transform3d.rs","translation.rs","trig.rs","vector.rs"]]],\
 ["exif",["",[],["doc.rs","endian.rs","error.rs","isobmff.rs","jpeg.rs","lib.rs","png.rs","reader.rs","tag.rs","tiff.rs","util.rs","value.rs","webp.rs","writer.rs"]]],\
 ["exr",["",[["block",[],["chunk.rs","lines.rs","mod.rs","reader.rs","samples.rs","writer.rs"]],["compression",[["b44",[],["mod.rs","table.rs"]],["piz",[],["huffman.rs","mod.rs","wavelet.rs"]]],["mod.rs","pxr24.rs","rle.rs","zip.rs"]],["image",[["read",[],["any_channels.rs","image.rs","layers.rs","levels.rs","mod.rs","samples.rs","specific_channels.rs"]],["write",[],["channels.rs","layers.rs","mod.rs","samples.rs"]]],["crop.rs","mod.rs","pixel_vec.rs","recursive.rs"]],["meta",[],["attribute.rs","header.rs","mod.rs"]]],["error.rs","io.rs","lib.rs","math.rs"]]],\
