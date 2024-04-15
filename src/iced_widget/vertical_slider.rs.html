@@ -493,6 +493,7 @@
 <a href="#491" id="491">491</a>
 <a href="#492" id="492">492</a>
 <a href="#493" id="493">493</a>
+<a href="#494" id="494">494</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Display an interactive selector of a single value from a range of values.
 //!
 //! A [`VerticalSlider`] has some local [`State`].
@@ -861,9 +862,10 @@
                 (radius * <span class="number">2.0</span>, radius * <span class="number">2.0</span>, radius.into())
             }
             HandleShape::Rectangle {
+                height,
                 width,
                 border_radius,
-            } =&gt; (f32::from(width), bounds.width, border_radius),
+            } =&gt; (f32::from(width), f32::from(height), border_radius),
         };
 
     <span class="kw">let </span>value = value.into() <span class="kw">as </span>f32;

@@ -1350,6 +1350,11 @@
 <a href="#1348" id="1348">1348</a>
 <a href="#1349" id="1349">1349</a>
 <a href="#1350" id="1350">1350</a>
+<a href="#1351" id="1351">1351</a>
+<a href="#1352" id="1352">1352</a>
+<a href="#1353" id="1353">1353</a>
+<a href="#1354" id="1354">1354</a>
+<a href="#1355" id="1355">1355</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Use the built-in theme and styles.
 </span><span class="kw">pub mod </span>palette;
 
@@ -1374,6 +1379,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::text_input;
 <span class="kw">use </span><span class="kw">crate</span>::toggler;
 
+<span class="kw">use </span>iced_core::border::Radius;
 <span class="kw">use </span>iced_core::{Background, Border, Color, Shadow, Vector};
 
 <span class="kw">use </span>std::fmt;
@@ -1825,6 +1831,7 @@
 
                 <span class="kw">let </span>handle = slider::Handle {
                     shape: slider::HandleShape::Rectangle {
+                        height: <span class="number">8</span>,
                         width: <span class="number">8</span>,
                         border_radius: <span class="number">4.0</span>.into(),
                     },
@@ -2086,6 +2093,9 @@
                         palette.background.base.color
                     },
                     foreground_border: <span class="prelude-val">None</span>,
+                    border_radius: Radius::from(<span class="number">8.0</span>),
+                    handle_radius: Radius::from(<span class="number">8.0</span>),
+                    handle_margin: <span class="number">2.0</span>,
                 }
             }
             Toggler::Custom(custom) =&gt; custom.active(<span class="self">self</span>, is_active),
