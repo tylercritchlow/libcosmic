@@ -1740,6 +1740,8 @@
 <a href="#1738" id="1738">1738</a>
 <a href="#1739" id="1739">1739</a>
 <a href="#1740" id="1740">1740</a>
+<a href="#1741" id="1741">1741</a>
+<a href="#1742" id="1742">1742</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright 2022 System76 &lt;info@system76.com&gt;
 // SPDX-License-Identifier: MPL-2.0
 
@@ -2625,23 +2627,25 @@
                         }
 
                         <span class="comment">// Present a context menu on a right click event.
-                        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(on_context) = <span class="self">self</span>.on_context.as_ref() {
-                            <span class="kw">if </span>right_button_released(<span class="kw-2">&amp;</span>event)
-                                || (touch_lifted(<span class="kw-2">&amp;</span>event) &amp;&amp; fingers_pressed == <span class="number">2</span>)
-                            {
-                                state.show_context = <span class="prelude-val">Some</span>(key);
-                                state.context_cursor =
-                                    cursor_position.position().unwrap_or_default();
-                                state.focused = <span class="bool-val">true</span>;
-                                state.focused_item = Item::Tab(key);
+                        </span><span class="kw">if </span><span class="self">self</span>.context_menu.is_some() {
+                            <span class="kw">if let </span><span class="prelude-val">Some</span>(on_context) = <span class="self">self</span>.on_context.as_ref() {
+                                <span class="kw">if </span>right_button_released(<span class="kw-2">&amp;</span>event)
+                                    || (touch_lifted(<span class="kw-2">&amp;</span>event) &amp;&amp; fingers_pressed == <span class="number">2</span>)
+                                {
+                                    state.show_context = <span class="prelude-val">Some</span>(key);
+                                    state.context_cursor =
+                                        cursor_position.position().unwrap_or_default();
+                                    state.focused = <span class="bool-val">true</span>;
+                                    state.focused_item = Item::Tab(key);
 
-                                <span class="kw">let </span>menu_state =
-                                    tree.children[<span class="number">0</span>].state.downcast_mut::&lt;MenuBarState&gt;();
-                                menu_state.open = <span class="bool-val">true</span>;
-                                menu_state.view_cursor = cursor_position;
+                                    <span class="kw">let </span>menu_state =
+                                        tree.children[<span class="number">0</span>].state.downcast_mut::&lt;MenuBarState&gt;();
+                                    menu_state.open = <span class="bool-val">true</span>;
+                                    menu_state.view_cursor = cursor_position;
 
-                                shell.publish(on_context(key));
-                                <span class="kw">return </span>event::Status::Captured;
+                                    shell.publish(on_context(key));
+                                    <span class="kw">return </span>event::Status::Captured;
+                                }
                             }
                         }
                     }
